@@ -47,12 +47,22 @@ It combines 7 pillars into a cohesive platform:
   - [x] `architecture.md`: System topology, database schema (ERD), REST/WebSocket APIs, directory layout.
   - [x] `memory.md`: Project state ledger, architectural invariants, roadmap tracking.
 
-- [ ] **Phase 2: Backend Core Infrastructure & Database Schema**
-  - [ ] Initialize Python virtual environment & install dependencies (`fastapi`, `uvicorn`, `sqlalchemy`, `aiosqlite`, `pydantic`, `alembic`, `reportlab` / `weasyprint`).
-  - [ ] Configure database engine (`sqlite+aiosqlite`), WAL mode, session dependency.
-  - [ ] Build models for settings, currencies, tax schemes, clients, projects, tasks, time entries.
-  - [ ] Build models for accounts, transactions, assets, ITR slabs, wealth holdings.
-  - [ ] Seed initial dynamic configuration (standard currencies, GST rates, default categories, ITR slabs).
+- [/] **Phase 2: Backend Core Infrastructure & Security Authentication**
+  - [x] Initialize Python virtual environment & install dependencies (`fastapi`, `uvicorn`, `sqlalchemy`, `aiosqlite`, `pydantic`, `argon2-cffi`, `pyjwt`, `email-validator`).
+  - [x] Configure database engine (`sqlite+aiosqlite`), WAL mode, foreign key PRAGMA, session dependency.
+  - [x] Senior software engineer security implementation:
+    - [x] Argon2id password hashing ($m=65536, t=3, p=4$) + timing-attack dummy verify mitigation.
+    - [x] Cryptographic JWT with `jti` unique session identifier tracked in SQLite for instant revocation.
+    - [x] Brute-force rate limiter: 5 failed attempts locks account for 15 minutes.
+    - [x] HttpOnly, SameSite, Secure cookie credentials + Bearer token support.
+    - [x] Security headers middleware (`nosniff`, `DENY`, `mode=block`, `Permissions-Policy`).
+    - [x] 100% passing automated test suite (`backend/tests/test_auth_security.py` & `backend/tests/test_auth_api.py`).
+  - [x] Next.js frontend scaffold & minimalist login screen:
+    - [x] Tokenized design system (`globals.css`) with light/dark theme toggle.
+    - [x] Real-time password complexity & entropy meter.
+    - [x] CapsLock indicator to prevent accidental lockouts.
+    - [x] Brute-force lockout countdown timer.
+    - [x] Dynamic admin onboarding bootstrap vs. sign-in state machine.
 
 - [ ] **Phase 3: Frontend Foundation & Design System**
   - [ ] Scaffold Next.js project with TypeScript.
