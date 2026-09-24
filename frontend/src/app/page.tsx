@@ -652,7 +652,7 @@ export default function LoginPage() {
                       id="fullName"
                       type="text"
                       required
-                      placeholder="e.g. Subhankar Sharma"
+                      placeholder="Full Name"
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
                       style={{
@@ -703,7 +703,7 @@ export default function LoginPage() {
                     type="email"
                     required
                     autoComplete="email"
-                    placeholder="name@domain.com"
+                    placeholder="Email Address"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     style={{
@@ -774,7 +774,7 @@ export default function LoginPage() {
                     type={showPassword ? "text" : "password"}
                     required
                     autoComplete={isInitialized ? "current-password" : "new-password"}
-                    placeholder="••••••••••••"
+                    placeholder=""
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     onKeyDown={handleKeyDown}
