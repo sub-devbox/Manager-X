@@ -99,6 +99,17 @@ async def get_current_user(
     return user
 
 
+async def get_optional_user(
+    request: Request,
+    db: AsyncSession = Depends(get_db),
+) -> User | None:
+    """Extract authenticated user if credentials exist, otherwise return None without throwing."""
+    try:
+        return await get_current_user(request, db)
+    except HTTPException:
+        return None
+
+
 @router.get("/status", response_model=AuthStatusOut)
 async def check_auth_status(db: AsyncSession = Depends(get_db)):
     """

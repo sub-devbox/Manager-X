@@ -171,6 +171,16 @@ erDiagram
     WEALTH_HOLDING ||--o{ WEALTH_VALUATION_LOG : "tracks"
 ```
 
+### 3.0 Core Entity Identifiers & Referential Invariants
+
+1. **All Input / Entity IDs Must Be CUID**:
+   - All entity primary keys and ID inputs across the system must use **CUID** (Collision-resistant Unique Identifier, generated via `app.core.cuid.generate_cuid`).
+   - CUIDs ensure chronological sortability, URL friendliness, and collision resistance without heavy external dependencies.
+2. **Deletion Invariant (Cannot be deleted if already used)**:
+   - Any entity, lookup item, or master record (such as Currencies, Clients, Tax Schemes, Accounts, Categories, Projects, etc.) **CANNOT be deleted if it is already in use or referenced** by any dependent records (e.g. invoices, time entries, transactions).
+   - Deletion attempts on in-use entities must be strictly blocked with an explicit error detailing that the item is currently in use.
+   - If an entity should no longer be available for future entries, toggle its status to inactive (`is_active = FALSE`) instead of deleting.
+
 ### 3.1 Zero-Hardcoding Core Tables
 
 ```sql
@@ -184,12 +194,11 @@ CREATE TABLE system_settings (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Supported currencies & FX rates
+-- Supported currencies (Exchange rate is NOT fixed here; runtime/snapshot rate used on invoices/transactions)
 CREATE TABLE currencies (
     code TEXT PRIMARY KEY,       -- 'INR', 'USD', 'EUR', 'GBP'
     symbol TEXT NOT NULL,        -- '₹', '$', '€', '£'
     name TEXT NOT NULL,
-    exchange_rate_to_base REAL NOT NULL DEFAULT 1.0,
     is_base_currency BOOLEAN NOT NULL DEFAULT 0,
     is_active BOOLEAN NOT NULL DEFAULT 1
 );

@@ -20,7 +20,10 @@ import {
   DollarSign,
   TrendingUp,
   Package,
+  Settings,
 } from "lucide-react";
+
+import SettingsModal from "../components/SettingsModal";
 
 interface AuthUser {
   id: string;
@@ -49,11 +52,22 @@ export default function App() {
   const [successMsg, setSuccessMsg] = useState("");
   const [lockoutTimer, setLockoutTimer] = useState<number | null>(null);
   const [attemptsRemaining, setAttemptsRemaining] = useState<number | null>(null);
+  const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
     const saved = (localStorage.getItem("mx_theme") as "dark" | "light") || "dark";
     setTheme(saved);
     document.documentElement.dataset.theme = saved;
+
+    // Load persisted accent color
+    fetch("/api/v1/settings/theme")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data?.accent_color) {
+          document.documentElement.style.setProperty("--accent-primary", data.accent_color);
+        }
+      })
+      .catch(() => {});
   }, []);
 
   const toggleTheme = () => {
@@ -255,6 +269,16 @@ export default function App() {
             style={{ padding: "6px 10px" }}
           >
             {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
+          </button>
+
+          <button
+            onClick={() => setShowSettings(true)}
+            className="finance-button-secondary"
+            title="Workspace Settings"
+            style={{ padding: "6px 10px", display: "inline-flex", alignItems: "center", gap: "6px" }}
+          >
+            <Settings size={14} />
+            <span>Settings</span>
           </button>
         </div>
       </header>
@@ -673,6 +697,9 @@ export default function App() {
         <span>Manager X &copy; 2026.</span>
         <span className="mono">Security Status: Enforced</span>
       </footer>
+
+      {/* Settings Modal */}
+      <SettingsModal isOpen={showSettings} onClose={() => setShowSettings(false)} />
     </div>
   );
 }

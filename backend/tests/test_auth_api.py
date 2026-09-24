@@ -1,45 +1,12 @@
 import pytest
-import pytest_asyncio
-from httpx import AsyncClient, ASGITransport
-from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
+from httpx import AsyncClient
 from sqlalchemy import select
 
-from app.main import app
-from app.core.database import Base, get_db
 from app.models.user_models import User
-
-# Use in-memory SQLite for isolated integration test execution
-TEST_DB_URL = "sqlite+aiosqlite:///:memory:"
-
-test_engine = create_async_engine(
-    TEST_DB_URL,
-    connect_args={"check_same_thread": False},
-)
-TestSessionLocal = async_sessionmaker(
-    bind=test_engine,
-    class_=AsyncSession,
-    expire_on_commit=False,
-)
-
-async def override_get_db():
-    async with TestSessionLocal() as session:
-        yield session
-
-app.dependency_overrides[get_db] = override_get_db
-
-@pytest_asyncio.fixture(autouse=True)
-async def prepare_database():
-    async with test_engine.begin() as conn:
-        await conn.run_sync(Base.metadata.drop_all)
-        await conn.run_sync(Base.metadata.create_all)
-    yield
-    async with test_engine.begin() as conn:
-        await conn.run_sync(Base.metadata.drop_all)
+from conftest import TestSessionLocal
 
 @pytest.mark.asyncio
-async def test_full_security_and_auth_lifecycle():
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as client:
+async def test_full_security_and_auth_lifecycle(client: AsyncClient):
         # 1. Verify Security Headers Middleware on all responses
         health_res = await client.get("/health")
         assert health_res.status_code == 200

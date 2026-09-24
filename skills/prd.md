@@ -16,6 +16,8 @@ Manager X provides an integrated operational and financial operating system for 
 | Invariant | Specification |
 | :--- | :--- |
 | **Zero Hardcoding** | Tax slabs, fiscal years, currencies, payment methods, transaction categories, depreciation rates, and invoice prefixes must be stored in database lookup tables or configuration registries. No magic numbers or hardcoded country codes in application logic. |
+| **All Input / IDs Must Be CUID** | All entity identifiers, primary keys, and ID inputs across the application must be CUIDs (Collision-resistant Unique Identifiers) generated via `app.core.cuid.generate_cuid` for chronological order, URL safety, and collision resistance. |
+| **Referential Deletion Protection** | Any master data, lookup item, or configuration entity (such as Currencies, Clients, Tax Schemes, Accounts, Categories, Projects, Tasks) **CANNOT be deleted if it is already in use or referenced** anywhere in the system. Deletions must be blocked with an explicit error, and records should be deactivated (`is_active = false`) instead. |
 | **Minimalist Aesthetic** | Clean, high-density yet breathable layout, dark/light theme toggle, subtle micro-interactions, monospace figures for financial data, zero visual noise. |
 | **Local-First & Resilient** | Powered by SQLite with Write-Ahead Logging (`PRAGMA journal_mode=WAL;`), automatic atomic transactions, and one-click data snapshots. |
 | **Strict Type Safety** | Pydantic v2 schemas on the FastAPI backend; TypeScript interfaces and Zod schemas on the Next.js frontend. |
@@ -141,7 +143,7 @@ Manager X provides an integrated operational and financial operating system for 
 
 All business logic variables reside in database-backed configurations:
 1. `app_settings`: Global key-value store (base currency, date format, company name, GSTIN, default payment terms).
-2. `currencies`: Currency codes, symbols, precision, and exchange rates.
+2. `currencies`: Currency codes, symbols, names, active flags, and primary base designation (exchange rates are not static; runtime/snapshot rates are logged on invoices and transactions).
 3. `tax_schemes`: Dynamic tax rates (GST rates: 0%, 5%, 12%, 18%, 28%, IGST split rules).
 4. `itr_slabs`: Financial Year, Regime Name, Lower Limit, Upper Limit, Tax Rate (%), Surcharge, Cess.
 5. `itr_deduction_limits`: Section code, maximum deduction limit, eligible regime applicability.

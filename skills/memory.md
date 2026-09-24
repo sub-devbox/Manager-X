@@ -36,6 +36,14 @@ It combines 7 pillars into a cohesive platform:
 4. **Clean Decoupled Stack**:
    - **Backend**: FastAPI (Python 3.11+), SQLAlchemy 2.0 Async, Pydantic v2.
    - **Frontend**: Next.js (App Router, TypeScript), Vanilla CSS / CSS Modules with Design Tokens, Lucide Icons, Recharts.
+5. **CUID Identifier Standard**:
+   - All entity primary keys, public references, and ID inputs across all models must use **CUID** (Collision-resistant Unique Identifier generated via `app.core.cuid.generate_cuid`).
+6. **Referential Deletion Protection (Cannot Delete if Already Used)**:
+   - Any master data, lookup item, or configuration entity (Currencies, Clients, Tax Schemes, Accounts, Categories, Projects, Tasks) **CANNOT be deleted if it is already referenced or used** by any other entity or transaction. Deletion attempts on in-use entities must be rejected with an explicit error. Entities should be marked inactive (`is_active = false`) instead of deleted.
+7. **Currencies & Dynamic FX**:
+   - Currency definitions only store metadata (`code`, `symbol`, `name`, `is_base_currency`, `is_active`). Fixed "Exchange Rate to Base" is completely removed from currency models and settings, as FX rates are dynamic and determined at invoice/transaction execution time.
+8. **Git Version Control Workflow**:
+   - Do NOT commit small incremental edits. Only commit when explicitly prompted/requested by the user.
 
 ---
 
