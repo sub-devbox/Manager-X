@@ -221,9 +221,6 @@ export default function App() {
           </div>
           <div>
             <span style={{ fontWeight: 600, fontSize: "14px", letterSpacing: "-0.2px" }}>Manager X</span>
-            <span style={{ fontSize: "12px", color: "var(--text-dim)", marginLeft: "8px" }} className="mono">
-              FINANCE OS
-            </span>
           </div>
         </div>
 
@@ -445,7 +442,7 @@ export default function App() {
               </h2>
               <p style={{ fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>
                 {isInitialized
-                  ? "Access your secure Manager X financial workspace."
+                  ? "Access your secure Manager X workspace."
                   : "Initialize root administrative credentials."}
               </p>
             </div>
@@ -531,7 +528,7 @@ export default function App() {
                   <input
                     type="text"
                     required
-                    placeholder="Chief Financial Officer"
+                    placeholder="Workspace Administrator"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     className="finance-input"
@@ -673,7 +670,7 @@ export default function App() {
           color: "var(--text-dim)",
         }}
       >
-        <span>Manager X &copy; 2026. Financial OS.</span>
+        <span>Manager X &copy; 2026.</span>
         <span className="mono">Security Status: Enforced</span>
       </footer>
     </div>
