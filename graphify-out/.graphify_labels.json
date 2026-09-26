@@ -2,7 +2,7 @@
   "0": "devDependencies",
   "1": "auth.py",
   "2": "Currency",
-  "3": "User",
+  "3": "settings.py",
   "4": "compilerOptions",
   "5": "Ponytail",
   "6": "main.py",
@@ -33,15 +33,8 @@
   "31": "eslint.config.mjs",
   "32": "next.config.ts",
   "33": "CLAUDE.md",
-  "34": "clients.py",
+  "34": "User",
   "35": "projects/page.tsx",
-  "36": "time_entries.py",
-  "37": "Base",
   "38": "InvoiceModal.tsx",
-  "39": "invoices.py",
-  "40": "ProjectTable.tsx",
-  "41": "time-tracker/page.tsx",
-  "42": "invoice_schemas.py",
-  "43": "tasks/page.tsx",
-  "44": "get_db"
+  "39": "invoices.py"
 }
