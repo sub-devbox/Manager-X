@@ -1,8 +1,8 @@
 {
   "0": "devDependencies",
   "1": "auth.py",
-  "2": "Base",
-  "3": "settings.py",
+  "2": "conftest.py",
+  "3": "User",
   "4": "compilerOptions",
   "5": "Ponytail",
   "6": "main.py",
@@ -33,6 +33,7 @@
   "31": "eslint.config.mjs",
   "32": "next.config.ts",
   "33": "CLAUDE.md",
-  "34": "User",
-  "35": "projects/page.tsx"
+  "34": "clients.py",
+  "35": "projects/page.tsx",
+  "36": "Base"
 }

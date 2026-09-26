@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { ProjectData } from "@/types/project";
+import { ProjectData, TaskData, TaskStatus } from "@/types/project";
 import {
   Building2,
   Calendar,
@@ -13,6 +13,9 @@ import {
   ArrowDown,
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
+  CheckSquare,
+  Clock,
   FolderKanban,
 } from "lucide-react";
 
@@ -21,6 +24,9 @@ interface ProjectTableProps {
   onEditProject: (project: ProjectData) => void;
   onDeleteProject: (project: ProjectData) => void;
   onAddTask: (projectId: string) => void;
+  onEditTask?: (task: TaskData) => void;
+  onDeleteTask?: (task: TaskData) => void;
+  onTaskStatusChange?: (taskId: string, newStatus: TaskStatus) => void;
 }
 
 type SortField = "name" | "client" | "completion" | "rate" | "due_date";
@@ -28,15 +34,60 @@ type SortDirection = "asc" | "desc";
 
 const PAGE_SIZE = 50;
 
+const getPriorityBadgeStyle = (priority: string) => {
+  switch (priority) {
+    case "urgent":
+      return {
+        bg: "rgba(244, 63, 94, 0.12)",
+        text: "var(--accent-rose)",
+        border: "rgba(244, 63, 94, 0.3)",
+      };
+    case "high":
+      return {
+        bg: "rgba(245, 158, 11, 0.12)",
+        text: "var(--accent-amber)",
+        border: "rgba(245, 158, 11, 0.3)",
+      };
+    case "medium":
+      return {
+        bg: "rgba(59, 130, 246, 0.12)",
+        text: "var(--accent-blue)",
+        border: "rgba(59, 130, 246, 0.3)",
+      };
+    default:
+      return {
+        bg: "rgba(148, 163, 184, 0.1)",
+        text: "var(--text-muted)",
+        border: "var(--border-subtle)",
+      };
+  }
+};
+
 export default function ProjectTable({
   projects,
   onEditProject,
   onDeleteProject,
   onAddTask,
+  onEditTask,
+  onDeleteTask,
+  onTaskStatusChange,
 }: ProjectTableProps) {
   const [sortField, setSortField] = useState<SortField>("name");
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const [currentPage, setCurrentPage] = useState(1);
+  const [expandedProjectIds, setExpandedProjectIds] = useState<Set<string>>(new Set());
+
+  const toggleExpand = (projectId: string) => {
+    setExpandedProjectIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(projectId)) {
+        next.delete(projectId);
+      } else {
+        next.add(projectId);
+      }
+      return next;
+    });
+  };
 
   // Sorting logic
   const handleSort = (field: SortField) => {
@@ -286,168 +337,446 @@ export default function ProjectTable({
                   ? Math.round((proj.completed_task_count / proj.task_count) * 100)
                   : 0;
 
+              const isExpanded = expandedProjectIds.has(proj.id);
+              const tasks = proj.tasks || [];
+
               return (
-                <tr
-                  key={proj.id}
-                  style={{
-                    borderBottom: "1px solid var(--border-subtle)",
-                    height: "38px",
-                    transition: "background 0.1s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "var(--bg-surface-subtle)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "transparent";
-                  }}
-                >
-                  {/* Project Name + Status Indicator */}
-                  <td style={{ padding: "6px 12px", fontWeight: 500, whiteSpace: "nowrap" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                      <span
-                        style={{
-                          width: "7px",
-                          height: "7px",
-                          borderRadius: "50%",
-                          background: getStatusDotColor(proj.status),
-                          flexShrink: 0,
-                        }}
-                        title={`Status: ${proj.status}`}
-                      />
-                      <span
-                        style={{
-                          fontWeight: 600,
-                          fontSize: "12.5px",
-                          maxWidth: "240px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}
-                        title={proj.name}
-                      >
-                        {proj.name}
-                      </span>
-                      <span
-                        style={{
-                          fontSize: "10px",
-                          padding: "1px 5px",
-                          borderRadius: "var(--radius-xs)",
-                          border: "1px solid var(--border-subtle)",
-                          color: "var(--text-dim)",
-                          textTransform: "uppercase",
-                        }}
-                      >
-                        {proj.billing_type}
-                      </span>
-                    </div>
-                  </td>
-
-                  {/* Client */}
-                  <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
-                    {proj.client ? (
-                      <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-                        <Building2 size={12} style={{ color: "var(--text-dim)" }} />
-                        <span style={{ color: "var(--text-main)" }}>{proj.client.company_name}</span>
-                      </div>
-                    ) : (
-                      <span style={{ color: "var(--text-dim)" }}>—</span>
-                    )}
-                  </td>
-
-                  {/* Completion % (Mini progress bar + numeric badge) */}
-                  <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                      <div
-                        style={{
-                          width: "60px",
-                          height: "4px",
-                          background: "var(--bg-surface-subtle)",
-                          border: "1px solid var(--border-subtle)",
-                          borderRadius: "2px",
-                          overflow: "hidden",
-                          flexShrink: 0,
-                        }}
-                      >
+                <React.Fragment key={proj.id}>
+                  {/* Primary Project Row */}
+                  <tr
+                    onClick={() => toggleExpand(proj.id)}
+                    style={{
+                      borderBottom: isExpanded ? "none" : "1px solid var(--border-subtle)",
+                      height: "38px",
+                      cursor: "pointer",
+                      background: isExpanded ? "var(--bg-surface-subtle)" : "transparent",
+                      transition: "background 0.1s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isExpanded) e.currentTarget.style.background = "var(--bg-surface-subtle)";
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isExpanded) e.currentTarget.style.background = "transparent";
+                    }}
+                  >
+                    {/* Project Name + Chevron + Status Indicator */}
+                    <td style={{ padding: "6px 12px", fontWeight: 500, whiteSpace: "nowrap" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                         <div
                           style={{
-                            height: "100%",
-                            width: `${percent}%`,
-                            background:
-                              percent === 100
+                            color: "var(--text-dim)",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            transition: "transform 0.15s ease",
+                            transform: isExpanded ? "rotate(0deg)" : "rotate(-90deg)",
+                          }}
+                          title={isExpanded ? "Collapse task list" : "Click to view project tasks"}
+                        >
+                          <ChevronDown size={14} />
+                        </div>
+
+                        <span
+                          style={{
+                            width: "7px",
+                            height: "7px",
+                            borderRadius: "50%",
+                            background: getStatusDotColor(proj.status),
+                            flexShrink: 0,
+                          }}
+                          title={`Status: ${proj.status}`}
+                        />
+                        <span
+                          style={{
+                            fontWeight: 600,
+                            fontSize: "12.5px",
+                            maxWidth: "230px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                          title={proj.name}
+                        >
+                          {proj.name}
+                        </span>
+                        <span
+                          style={{
+                            fontSize: "10px",
+                            padding: "1px 5px",
+                            borderRadius: "var(--radius-xs)",
+                            border: "1px solid var(--border-subtle)",
+                            color: "var(--text-dim)",
+                            textTransform: "uppercase",
+                          }}
+                        >
+                          {proj.billing_type}
+                        </span>
+                      </div>
+                    </td>
+
+                    {/* Client */}
+                    <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
+                      {proj.client ? (
+                        <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+                          <Building2 size={12} style={{ color: "var(--text-dim)" }} />
+                          <span style={{ color: "var(--text-main)" }}>{proj.client.company_name}</span>
+                        </div>
+                      ) : (
+                        <span style={{ color: "var(--text-dim)" }}>—</span>
+                      )}
+                    </td>
+
+                    {/* Completion % (Mini progress bar + numeric badge) */}
+                    <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                        <div
+                          style={{
+                            width: "60px",
+                            height: "4px",
+                            background: "var(--bg-surface-subtle)",
+                            border: "1px solid var(--border-subtle)",
+                            borderRadius: "2px",
+                            overflow: "hidden",
+                            flexShrink: 0,
+                          }}
+                        >
+                          <div
+                            style={{
+                              height: "100%",
+                              width: `${percent}%`,
+                              background:
+                                percent === 100
                                 ? "var(--accent-emerald)"
                                 : percent > 0
                                 ? "var(--accent-blue)"
                                 : "transparent",
+                            }}
+                          />
+                        </div>
+                        <span className="mono" style={{ fontSize: "11px", color: "var(--text-muted)" }}>
+                          {percent}% ({proj.completed_task_count}/{proj.task_count})
+                        </span>
+                      </div>
+                    </td>
+
+                    {/* Rate / Budget */}
+                    <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }} className="mono">
+                      {proj.billing_type === "hourly" ? (
+                        <span style={{ color: "var(--text-main)" }}>
+                          {proj.client?.currency_code || "INR"} {(proj.hourly_rate || 0).toFixed(2)}
+                          <span style={{ color: "var(--text-dim)", fontSize: "10px" }}>/hr</span>
+                        </span>
+                      ) : proj.billing_type === "fixed" ? (
+                        <span style={{ color: "var(--text-main)" }}>
+                          {proj.client?.currency_code || "INR"} {(proj.budget_amount || 0).toFixed(2)}
+                        </span>
+                      ) : (
+                        <span style={{ color: "var(--text-dim)" }}>Internal</span>
+                      )}
+                    </td>
+
+                    {/* Due Date */}
+                    <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }} className="mono">
+                      {proj.end_date ? (
+                        <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+                          <Calendar size={11} style={{ color: "var(--text-dim)" }} />
+                          <span>{proj.end_date}</span>
+                        </div>
+                      ) : (
+                        <span style={{ color: "var(--text-dim)" }}>—</span>
+                      )}
+                    </td>
+
+                    {/* Compact Actions */}
+                    <td style={{ padding: "6px 12px", textAlign: "right", whiteSpace: "nowrap" }}>
+                      <div
+                        style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <button
+                          type="button"
+                          onClick={() => onAddTask(proj.id)}
+                          className="finance-button-secondary"
+                          style={{ padding: "3px 6px", fontSize: "10px", gap: "2px" }}
+                          title="Add Task to this project"
+                        >
+                          <Plus size={10} />
+                          <span>Task</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => onEditProject(proj)}
+                          className="finance-button-secondary"
+                          style={{ padding: "3px 5px" }}
+                          title="Edit Project"
+                        >
+                          <Pencil size={11} />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => onDeleteProject(proj)}
+                          className="finance-button-secondary"
+                          style={{ padding: "3px 5px", color: "var(--accent-rose)" }}
+                          title="Delete Project"
+                        >
+                          <Trash2 size={11} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  {/* Expandable Nested Tasks View */}
+                  {isExpanded && (
+                    <tr
+                      style={{
+                        background: "var(--bg-surface-subtle)",
+                        borderBottom: "1px solid var(--border-subtle)",
+                      }}
+                    >
+                      <td colSpan={6} style={{ padding: "8px 16px 14px 28px" }}>
+                        <div
+                          style={{
+                            borderLeft: "2px solid var(--accent-primary, #ffffff)",
+                            paddingLeft: "14px",
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "8px",
                           }}
-                        />
-                      </div>
-                      <span className="mono" style={{ fontSize: "11px", color: "var(--text-muted)" }}>
-                        {percent}% ({proj.completed_task_count}/{proj.task_count})
-                      </span>
-                    </div>
-                  </td>
+                        >
+                          {/* Nested Tasks Header */}
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                              alignItems: "center",
+                            }}
+                          >
+                            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                              <CheckSquare size={13} style={{ color: "var(--accent-blue)" }} />
+                              <span style={{ fontSize: "12px", fontWeight: 600 }}>
+                                Tasks for "{proj.name}"
+                              </span>
+                              <span
+                                className="mono"
+                                style={{
+                                  fontSize: "11px",
+                                  padding: "1px 6px",
+                                  borderRadius: "var(--radius-xs)",
+                                  background: "var(--bg-surface)",
+                                  border: "1px solid var(--border-subtle)",
+                                  color: "var(--text-dim)",
+                                }}
+                              >
+                                {tasks.length} items
+                              </span>
+                            </div>
 
-                  {/* Rate / Budget */}
-                  <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }} className="mono">
-                    {proj.billing_type === "hourly" ? (
-                      <span style={{ color: "var(--text-main)" }}>
-                        {proj.client?.currency_code || "INR"} {(proj.hourly_rate || 0).toFixed(2)}
-                        <span style={{ color: "var(--text-dim)", fontSize: "10px" }}>/hr</span>
-                      </span>
-                    ) : proj.billing_type === "fixed" ? (
-                      <span style={{ color: "var(--text-main)" }}>
-                        {proj.client?.currency_code || "INR"} {(proj.budget_amount || 0).toFixed(2)}
-                      </span>
-                    ) : (
-                      <span style={{ color: "var(--text-dim)" }}>Internal</span>
-                    )}
-                  </td>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                onAddTask(proj.id);
+                              }}
+                              className="finance-button-primary"
+                              style={{ padding: "3px 8px", fontSize: "11px", width: "auto" }}
+                            >
+                              <Plus size={11} />
+                              <span>Add Task</span>
+                            </button>
+                          </div>
 
-                  {/* Due Date */}
-                  <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }} className="mono">
-                    {proj.end_date ? (
-                      <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-                        <Calendar size={11} style={{ color: "var(--text-dim)" }} />
-                        <span>{proj.end_date}</span>
-                      </div>
-                    ) : (
-                      <span style={{ color: "var(--text-dim)" }}>—</span>
-                    )}
-                  </td>
+                          {/* Nested Tasks Table */}
+                          {tasks.length === 0 ? (
+                            <div
+                              style={{
+                                padding: "12px",
+                                textAlign: "center",
+                                color: "var(--text-dim)",
+                                fontSize: "12px",
+                                background: "var(--bg-surface)",
+                                border: "1px dashed var(--border-subtle)",
+                                borderRadius: "var(--radius-xs)",
+                              }}
+                            >
+                              No tasks assigned to this project yet. Click "+ Add Task" to create one.
+                            </div>
+                          ) : (
+                            <div
+                              style={{
+                                border: "1px solid var(--border-subtle)",
+                                borderRadius: "var(--radius-xs)",
+                                overflow: "hidden",
+                                background: "var(--bg-surface)",
+                              }}
+                            >
+                              <table
+                                style={{
+                                  width: "100%",
+                                  borderCollapse: "collapse",
+                                  fontSize: "11.5px",
+                                  textAlign: "left",
+                                }}
+                              >
+                                <thead>
+                                  <tr
+                                    style={{
+                                      background: "var(--bg-surface-subtle)",
+                                      borderBottom: "1px solid var(--border-subtle)",
+                                      height: "28px",
+                                    }}
+                                  >
+                                    <th style={{ padding: "4px 10px", fontWeight: 600, color: "var(--text-dim)" }}>
+                                      Task Title
+                                    </th>
+                                    <th style={{ padding: "4px 10px", fontWeight: 600, color: "var(--text-dim)", width: "130px" }}>
+                                      Status
+                                    </th>
+                                    <th style={{ padding: "4px 10px", fontWeight: 600, color: "var(--text-dim)", width: "90px" }}>
+                                      Priority
+                                    </th>
+                                    <th style={{ padding: "4px 10px", fontWeight: 600, color: "var(--text-dim)", width: "90px" }}>
+                                      Est. Hours
+                                    </th>
+                                    <th style={{ padding: "4px 10px", fontWeight: 600, color: "var(--text-dim)", width: "100px" }}>
+                                      Due Date
+                                    </th>
+                                    <th style={{ padding: "4px 10px", fontWeight: 600, color: "var(--text-dim)", textAlign: "right", width: "80px" }}>
+                                      Actions
+                                    </th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {tasks.map((task) => {
+                                    const pStyle = getPriorityBadgeStyle(task.priority);
 
-                  {/* Compact Actions */}
-                  <td style={{ padding: "6px 12px", textAlign: "right", whiteSpace: "nowrap" }}>
-                    <div style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
-                      <button
-                        type="button"
-                        onClick={() => onAddTask(proj.id)}
-                        className="finance-button-secondary"
-                        style={{ padding: "3px 6px", fontSize: "10px", gap: "2px" }}
-                        title="Add Task"
-                      >
-                        <Plus size={10} />
-                        <span>Task</span>
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => onEditProject(proj)}
-                        className="finance-button-secondary"
-                        style={{ padding: "3px 5px" }}
-                        title="Edit Project"
-                      >
-                        <Pencil size={11} />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => onDeleteProject(proj)}
-                        className="finance-button-secondary"
-                        style={{ padding: "3px 5px", color: "var(--accent-rose)" }}
-                        title="Delete Project"
-                      >
-                        <Trash2 size={11} />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
+                                    return (
+                                      <tr
+                                        key={task.id}
+                                        style={{
+                                          borderBottom: "1px solid var(--border-subtle)",
+                                          height: "32px",
+                                        }}
+                                      >
+                                        {/* Task Title + Description */}
+                                        <td style={{ padding: "4px 10px", fontWeight: 500 }}>
+                                          <div style={{ display: "flex", flexDirection: "column" }}>
+                                            <span style={{ color: "var(--text-main)" }}>{task.title}</span>
+                                            {task.description && (
+                                              <span
+                                                style={{
+                                                  fontSize: "10.5px",
+                                                  color: "var(--text-dim)",
+                                                  maxWidth: "320px",
+                                                  overflow: "hidden",
+                                                  textOverflow: "ellipsis",
+                                                  whiteSpace: "nowrap",
+                                                }}
+                                              >
+                                                {task.description}
+                                              </span>
+                                            )}
+                                          </div>
+                                        </td>
+
+                                        {/* Status Dropdown */}
+                                        <td style={{ padding: "4px 10px" }}>
+                                          <select
+                                            value={task.status}
+                                            onClick={(e) => e.stopPropagation()}
+                                            onChange={(e) =>
+                                              onTaskStatusChange &&
+                                              onTaskStatusChange(task.id, e.target.value as TaskStatus)
+                                            }
+                                            className="finance-input"
+                                            style={{
+                                              padding: "2px 6px",
+                                              fontSize: "11px",
+                                              height: "24px",
+                                              cursor: "pointer",
+                                            }}
+                                          >
+                                            <option value="backlog">Backlog</option>
+                                            <option value="in_progress">In Progress</option>
+                                            <option value="review">Review</option>
+                                            <option value="done">Done</option>
+                                          </select>
+                                        </td>
+
+                                        {/* Priority Badge */}
+                                        <td style={{ padding: "4px 10px" }}>
+                                          <span
+                                            style={{
+                                              fontSize: "10px",
+                                              fontWeight: 600,
+                                              padding: "1px 6px",
+                                              borderRadius: "var(--radius-xs)",
+                                              background: pStyle.bg,
+                                              color: pStyle.text,
+                                              border: `1px solid ${pStyle.border}`,
+                                              textTransform: "uppercase",
+                                            }}
+                                          >
+                                            {task.priority}
+                                          </span>
+                                        </td>
+
+                                        {/* Estimated Hours */}
+                                        <td style={{ padding: "4px 10px" }} className="mono">
+                                          {task.estimated_hours > 0 ? (
+                                            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+                                              <Clock size={11} style={{ color: "var(--text-dim)" }} />
+                                              <span>{task.estimated_hours}h</span>
+                                            </div>
+                                          ) : (
+                                            <span style={{ color: "var(--text-dim)" }}>—</span>
+                                          )}
+                                        </td>
+
+                                        {/* Due Date */}
+                                        <td style={{ padding: "4px 10px" }} className="mono">
+                                          {task.due_date || <span style={{ color: "var(--text-dim)" }}>—</span>}
+                                        </td>
+
+                                        {/* Task Actions */}
+                                        <td style={{ padding: "4px 10px", textAlign: "right" }}>
+                                          <div
+                                            style={{
+                                              display: "inline-flex",
+                                              alignItems: "center",
+                                              gap: "4px",
+                                            }}
+                                            onClick={(e) => e.stopPropagation()}
+                                          >
+                                            <button
+                                              type="button"
+                                              onClick={() => onEditTask && onEditTask(task)}
+                                              className="finance-button-secondary"
+                                              style={{ padding: "2px 5px" }}
+                                              title="Edit Task"
+                                            >
+                                              <Pencil size={10} />
+                                            </button>
+                                            <button
+                                              type="button"
+                                              onClick={() => onDeleteTask && onDeleteTask(task)}
+                                              className="finance-button-secondary"
+                                              style={{ padding: "2px 5px", color: "var(--accent-rose)" }}
+                                              title="Delete Task"
+                                            >
+                                              <Trash2 size={10} />
+                                            </button>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    );
+                                  })}
+                                </tbody>
+                              </table>
+                            </div>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                </React.Fragment>
               );
             })}
           </tbody>

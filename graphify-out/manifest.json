@@ -155,8 +155,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/projects/page.tsx": {
-    "mtime": 1790410529.5191364,
-    "ast_hash": "168c8b1739b37285a0b3ef9f2cf34295",
+    "mtime": 1790411051.380496,
+    "ast_hash": "0b8f76a8b3077fc7852b3780c0eff55e",
     "semantic_hash": ""
   },
   "frontend/src/app/time-tracker/page.tsx": {
@@ -395,8 +395,8 @@
     "semantic_hash": ""
   },
   "frontend/src/components/modules/projects/ProjectTable.tsx": {
-    "mtime": 1790410500.1187606,
-    "ast_hash": "a4cf8aef73482a5a2512af5ee5366246",
+    "mtime": 1790411035.2250993,
+    "ast_hash": "501cbc19d782ac9dd1c9a2b728441fdb",
     "semantic_hash": ""
   }
 }

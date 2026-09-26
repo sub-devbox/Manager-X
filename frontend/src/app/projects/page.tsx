@@ -440,6 +440,9 @@ export default function ProjectsPage() {
             onEditProject={handleOpenEditProject}
             onDeleteProject={handleDeleteProject}
             onAddTask={(projId) => handleOpenNewTask(projId)}
+            onEditTask={handleOpenEditTask}
+            onDeleteTask={handleDeleteTask}
+            onTaskStatusChange={handleTaskStatusChange}
           />
         ) : (
           /* Kanban Board View */
