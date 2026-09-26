@@ -5,6 +5,7 @@ import Link from "next/link";
 import AppShell from "@/components/layout/AppShell";
 import TaskModal from "@/components/modules/projects/TaskModal";
 import TaskTable from "@/components/modules/projects/TaskTable";
+import SearchableClientSelect from "@/components/common/SearchableClientSelect";
 import { api } from "@/lib/api-client";
 import { TaskData, TaskStatus, ProjectData } from "@/types/project";
 import { TimeEntryData } from "@/types/time";
@@ -412,7 +413,7 @@ export default function TasksPage() {
           </div>
         </div>
 
-        {/* Filter Controls Bar */}
+        {/* Filter Controls Bar: View Switch (Left) | Client Filter (Middle) | Search Bar (Right) */}
         <div
           style={{
             display: "flex",
@@ -422,70 +423,7 @@ export default function TasksPage() {
             justifyContent: "space-between",
           }}
         >
-          {/* Left Controls: Search + Client Filter */}
-          <div
-            style={{
-              display: "flex",
-              gap: "10px",
-              alignItems: "center",
-              flex: 1,
-              minWidth: "280px",
-              flexWrap: "wrap",
-            }}
-          >
-            {/* Search Box */}
-            <div style={{ position: "relative", flex: 1, minWidth: "220px" }}>
-              <Search
-                size={14}
-                style={{
-                  position: "absolute",
-                  left: "12px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  color: "var(--text-dim)",
-                }}
-              />
-              <input
-                type="text"
-                placeholder="Search tasks, projects, clients..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="finance-input"
-                style={{ paddingLeft: "34px", width: "100%", height: "36px", fontSize: "12.5px" }}
-              />
-            </div>
-
-            {/* Client Filter */}
-            <select
-              value={clientFilter}
-              onChange={(e) => setClientFilter(e.target.value)}
-              className="finance-input"
-              style={{ width: "170px", height: "36px", fontSize: "12.5px" }}
-            >
-              <option value="all">All Clients</option>
-              {clients.map((c) => (
-                <option key={c.id} value={c.id}>
-                  {c.company_name}
-                </option>
-              ))}
-            </select>
-
-            {(searchQuery || clientFilter !== "all") && (
-              <button
-                type="button"
-                onClick={() => {
-                  setSearchQuery("");
-                  setClientFilter("all");
-                }}
-                className="finance-button-secondary"
-                style={{ padding: "8px 12px", fontSize: "12px" }}
-              >
-                Reset Filters
-              </button>
-            )}
-          </div>
-
-          {/* Right Controls: View Switcher (today | This week (defult) | This month | Custom) */}
+          {/* LEFT: View Switcher (today | This week (default) | This month | Custom) */}
           <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
             <div
               style={{
@@ -590,6 +528,65 @@ export default function TasksPage() {
                   style={{ height: "32px", fontSize: "11px", width: "130px" }}
                 />
               </div>
+            )}
+          </div>
+
+          {/* MIDDLE: Searchable Client Filter Dropdown */}
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <SearchableClientSelect
+              clients={clients}
+              value={clientFilter}
+              onChange={setClientFilter}
+              placeholder="All Clients"
+              width="210px"
+            />
+          </div>
+
+          {/* RIGHT: Search Box + Reset */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              flex: "1 1 240px",
+              maxWidth: "340px",
+              marginLeft: "auto",
+            }}
+          >
+            <div style={{ position: "relative", width: "100%" }}>
+              <Search
+                size={14}
+                style={{
+                  position: "absolute",
+                  left: "12px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  color: "var(--text-dim)",
+                }}
+              />
+              <input
+                type="text"
+                placeholder="Search tasks, projects, clients..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="finance-input"
+                style={{ paddingLeft: "34px", width: "100%", height: "36px", fontSize: "12.5px" }}
+              />
+            </div>
+
+            {(searchQuery || clientFilter !== "all") && (
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchQuery("");
+                  setClientFilter("all");
+                }}
+                className="finance-button-secondary"
+                style={{ padding: "8px 12px", fontSize: "12px", whiteSpace: "nowrap" }}
+                title="Reset search and client filter"
+              >
+                Reset
+              </button>
             )}
           </div>
         </div>

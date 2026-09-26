@@ -6,6 +6,7 @@ import AppShell from "@/components/layout/AppShell";
 import ProjectModal from "@/components/modules/projects/ProjectModal";
 import TaskModal from "@/components/modules/projects/TaskModal";
 import ProjectTable from "@/components/modules/projects/ProjectTable";
+import SearchableClientSelect from "@/components/common/SearchableClientSelect";
 import { api } from "@/lib/api-client";
 import { ProjectData, TaskData, TaskStatus } from "@/types/project";
 import {
@@ -346,6 +347,7 @@ export default function ProjectsPage() {
         </div>
 
         {/* Filter Controls Bar */}
+        {/* Filter Controls Bar: Status View (Left) | Client Filter (Middle) | Search Bar (Right) */}
         <div
           style={{
             display: "flex",
@@ -355,19 +357,46 @@ export default function ProjectsPage() {
             justifyContent: "space-between",
           }}
         >
-          {/* Left Controls: Search + Dropdowns */}
+          {/* LEFT: Status Filter */}
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="finance-input"
+              style={{ width: "150px", height: "36px", fontSize: "12.5px" }}
+            >
+              <option value="all">All Statuses</option>
+              <option value="active">Active</option>
+              <option value="in_progress">In Progress</option>
+              <option value="on_hold">On Hold</option>
+              <option value="completed">Completed</option>
+              <option value="archived">Archived</option>
+            </select>
+          </div>
+
+          {/* MIDDLE: Searchable Client Filter Dropdown */}
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <SearchableClientSelect
+              clients={clients}
+              value={clientFilter}
+              onChange={setClientFilter}
+              placeholder="All Clients"
+              width="210px"
+            />
+          </div>
+
+          {/* RIGHT: Search Box + Reset */}
           <div
             style={{
               display: "flex",
-              gap: "10px",
               alignItems: "center",
-              flex: 1,
-              minWidth: "280px",
-              flexWrap: "wrap",
+              gap: "8px",
+              flex: "1 1 240px",
+              maxWidth: "340px",
+              marginLeft: "auto",
             }}
           >
-            {/* Search Box */}
-            <div style={{ position: "relative", flex: 1, minWidth: "220px" }}>
+            <div style={{ position: "relative", width: "100%" }}>
               <Search
                 size={14}
                 style={{
@@ -388,36 +417,6 @@ export default function ProjectsPage() {
               />
             </div>
 
-            {/* Client Filter */}
-            <select
-              value={clientFilter}
-              onChange={(e) => setClientFilter(e.target.value)}
-              className="finance-input"
-              style={{ width: "170px", height: "36px", fontSize: "12.5px" }}
-            >
-              <option value="all">All Clients</option>
-              {clients.map((c) => (
-                <option key={c.id} value={c.id}>
-                  {c.company_name}
-                </option>
-              ))}
-            </select>
-
-            {/* Status Filter */}
-            <select
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-              className="finance-input"
-              style={{ width: "150px", height: "36px", fontSize: "12.5px" }}
-            >
-              <option value="all">All Statuses</option>
-              <option value="active">Active</option>
-              <option value="in_progress">In Progress</option>
-              <option value="on_hold">On Hold</option>
-              <option value="completed">Completed</option>
-              <option value="archived">Archived</option>
-            </select>
-
             {(searchQuery || clientFilter !== "all" || statusFilter !== "all") && (
               <button
                 type="button"
@@ -427,9 +426,10 @@ export default function ProjectsPage() {
                   setStatusFilter("all");
                 }}
                 className="finance-button-secondary"
-                style={{ padding: "8px 12px", fontSize: "12px" }}
+                style={{ padding: "8px 12px", fontSize: "12px", whiteSpace: "nowrap" }}
+                title="Reset search and filters"
               >
-                Reset Filters
+                Reset
               </button>
             )}
           </div>

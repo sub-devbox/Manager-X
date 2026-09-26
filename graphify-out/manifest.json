@@ -155,8 +155,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/projects/page.tsx": {
-    "mtime": 1790424585.140301,
-    "ast_hash": "29cd5a91f9a5727d20f413ad905f3f0a",
+    "mtime": 1790426627.9481356,
+    "ast_hash": "c7be16bab02ee37d4ccca62f7a889891",
     "semantic_hash": ""
   },
   "frontend/src/app/time-tracker/page.tsx": {
@@ -435,13 +435,18 @@
     "semantic_hash": ""
   },
   "frontend/src/app/tasks/page.tsx": {
-    "mtime": 1790425938.8659606,
-    "ast_hash": "9bfadf250352cd209c40fd970b0d9e06",
+    "mtime": 1790426590.9716952,
+    "ast_hash": "f6374abc3e84ae8544f38fb5d33d61c0",
     "semantic_hash": ""
   },
   "frontend/src/hooks/useResizableColumns.tsx": {
     "mtime": 1790424897.689068,
     "ast_hash": "3f5393c13a223d89cc4eb320e93fc80b",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/common/SearchableClientSelect.tsx": {
+    "mtime": 1790426656.6354387,
+    "ast_hash": "532a8df9805f1eea16d03b882598c1ba",
     "semantic_hash": ""
   }
 }
