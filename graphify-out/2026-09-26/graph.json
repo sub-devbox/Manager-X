@@ -43,8 +43,8 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_auth_get_current_user",
-      "community": 1,
-      "community_name": "auth.py",
+      "community": 9,
+      "community_name": "User",
       "norm_label": "get_current_user()"
     },
     {
@@ -65,8 +65,8 @@
       "source_location": "L102",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_auth_get_optional_user",
-      "community": 1,
-      "community_name": "auth.py",
+      "community": 9,
+      "community_name": "User",
       "norm_label": "get_optional_user()"
     },
     {
@@ -175,8 +175,8 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_auth_rationale_39",
-      "community": 1,
-      "community_name": "auth.py",
+      "community": 9,
+      "community_name": "User",
       "norm_label": "extract and validate authenticated user from either httponly cookie or..."
     },
     {
@@ -186,8 +186,8 @@
       "source_location": "L106",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_auth_rationale_106",
-      "community": 1,
-      "community_name": "auth.py",
+      "community": 9,
+      "community_name": "User",
       "norm_label": "extract authenticated user if credentials exist, otherwise return none without..."
     },
     {
@@ -253,7 +253,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "clients.py"
     },
     {
@@ -264,7 +264,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_py_get",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "get"
     },
     {
@@ -275,7 +275,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_list_clients",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "list_clients()"
     },
     {
@@ -286,7 +286,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_py_asyncsession",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "asyncsession"
     },
     {
@@ -297,7 +297,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_list_clients_summary",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "list_clients_summary()"
     },
     {
@@ -308,7 +308,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_py_post",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "post"
     },
     {
@@ -319,7 +319,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_create_client",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "create_client()"
     },
     {
@@ -330,7 +330,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_get_client",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "get_client()"
     },
     {
@@ -341,7 +341,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_py_put",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "put"
     },
     {
@@ -352,7 +352,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_update_client",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "update_client()"
     },
     {
@@ -363,7 +363,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_py_patch",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "patch"
     },
     {
@@ -374,7 +374,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_toggle_client_status",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "toggle_client_status()"
     },
     {
@@ -385,7 +385,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_py_delete",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "delete"
     },
     {
@@ -396,7 +396,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_delete_client",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "delete_client()"
     },
     {
@@ -407,7 +407,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "projects.py"
     },
     {
@@ -418,7 +418,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_format_project_response",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "_format_project_response()"
     },
     {
@@ -429,7 +429,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_py_get",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "get"
     },
     {
@@ -440,7 +440,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_list_projects",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "list_projects()"
     },
     {
@@ -451,7 +451,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_py_asyncsession",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "asyncsession"
     },
     {
@@ -462,7 +462,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_list_projects_summary",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "list_projects_summary()"
     },
     {
@@ -473,7 +473,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_py_post",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "post"
     },
     {
@@ -484,7 +484,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_create_project",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "create_project()"
     },
     {
@@ -495,7 +495,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_get_project",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "get_project()"
     },
     {
@@ -506,7 +506,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_py_put",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "put"
     },
     {
@@ -517,7 +517,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_update_project",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "update_project()"
     },
     {
@@ -528,7 +528,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_py_patch",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "patch"
     },
     {
@@ -539,7 +539,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_update_project_status",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "update_project_status()"
     },
     {
@@ -550,7 +550,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_py_delete",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "delete"
     },
     {
@@ -561,7 +561,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_delete_project",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "delete_project()"
     },
     {
@@ -880,8 +880,19 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "tasks.py"
+    },
+    {
+      "label": "_format_task_response()",
+      "file_type": "code",
+      "source_file": "backend/app/api/v1/endpoints/tasks.py",
+      "source_location": "L19",
+      "_origin": "ast",
+      "id": "backend_app_api_v1_endpoints_tasks_format_task_response",
+      "community": 9,
+      "community_name": "User",
+      "norm_label": "_format_task_response()"
     },
     {
       "label": "get",
@@ -891,18 +902,18 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_py_get",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "get"
     },
     {
       "label": "list_tasks()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L20",
+      "source_location": "L39",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_list_tasks",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "list_tasks()"
     },
     {
@@ -913,7 +924,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_py_asyncsession",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "asyncsession"
     },
     {
@@ -924,29 +935,29 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_py_post",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "post"
     },
     {
       "label": "create_task()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L50",
+      "source_location": "L70",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_create_task",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "create_task()"
     },
     {
       "label": "get_task()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L70",
+      "source_location": "L91",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_get_task",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "get_task()"
     },
     {
@@ -957,18 +968,18 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_py_put",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "put"
     },
     {
       "label": "update_task()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L85",
+      "source_location": "L106",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_update_task",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "update_task()"
     },
     {
@@ -979,18 +990,18 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_py_patch",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "patch"
     },
     {
       "label": "update_task_status()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L107",
+      "source_location": "L128",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_update_task_status",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "update_task_status()"
     },
     {
@@ -1001,18 +1012,18 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_py_delete",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "delete"
     },
     {
       "label": "delete_task()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L127",
+      "source_location": "L148",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_delete_task",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "delete_task()"
     },
     {
@@ -1165,8 +1176,8 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "backend_app_core_database_get_db",
-      "community": 9,
-      "community_name": "projects.py",
+      "community": 2,
+      "community_name": "Base",
       "norm_label": "get_db()"
     },
     {
@@ -1176,8 +1187,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_core_database_py_asyncsession",
-      "community": 9,
-      "community_name": "projects.py",
+      "community": 2,
+      "community_name": "Base",
       "norm_label": "asyncsession"
     },
     {
@@ -1473,8 +1484,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "backend_app_models_client_model_client",
-      "community": 34,
-      "community_name": "User",
+      "community": 2,
+      "community_name": "Base",
       "norm_label": "client"
     },
     {
@@ -1496,7 +1507,7 @@
       "_origin": "ast",
       "id": "backend_app_models_project_models_project",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "project"
     },
     {
@@ -1507,7 +1518,7 @@
       "_origin": "ast",
       "id": "backend_app_models_project_models_task",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "task"
     },
     {
@@ -1528,8 +1539,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "backend_app_models_settings_models_systemsetting",
-      "community": 3,
-      "community_name": "settings.py",
+      "community": 2,
+      "community_name": "Base",
       "norm_label": "systemsetting"
     },
     {
@@ -1594,7 +1605,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "backend_app_models_user_models_user",
-      "community": 34,
+      "community": 9,
       "community_name": "User",
       "norm_label": "user"
     },
@@ -1716,7 +1727,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "client_schemas.py"
     },
     {
@@ -1727,7 +1738,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_currencynested",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "currencynested"
     },
     {
@@ -1738,7 +1749,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_py_basemodel",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "basemodel"
     },
     {
@@ -1749,7 +1760,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_clientbase",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "clientbase"
     },
     {
@@ -1760,7 +1771,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_clientcreate",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "clientcreate"
     },
     {
@@ -1771,7 +1782,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_clientupdate",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "clientupdate"
     },
     {
@@ -1782,7 +1793,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_clientresponse",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "clientresponse"
     },
     {
@@ -1793,7 +1804,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_clientsummary",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "clientsummary"
     },
     {
@@ -1804,7 +1815,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "project_schemas.py"
     },
     {
@@ -1815,7 +1826,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_checklistitem",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "checklistitem"
     },
     {
@@ -1826,7 +1837,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_py_basemodel",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "basemodel"
     },
     {
@@ -1837,7 +1848,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_taskbase",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "taskbase"
     },
     {
@@ -1848,7 +1859,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_py_field_validator",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "field_validator"
     },
     {
@@ -1859,7 +1870,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_taskbase_ensure_checklist",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": ".ensure_checklist()"
     },
     {
@@ -1870,7 +1881,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_taskcreate",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "taskcreate"
     },
     {
@@ -1881,7 +1892,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_taskupdate",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "taskupdate"
     },
     {
@@ -1892,7 +1903,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_taskstatusupdate",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "taskstatusupdate"
     },
     {
@@ -1903,95 +1914,95 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_taskresponse",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "taskresponse"
     },
     {
       "label": "TaskSummary",
       "file_type": "code",
       "source_file": "backend/app/schemas/project_schemas.py",
-      "source_location": "L56",
+      "source_location": "L58",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_tasksummary",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "tasksummary"
     },
     {
       "label": "ClientNested",
       "file_type": "code",
       "source_file": "backend/app/schemas/project_schemas.py",
-      "source_location": "L72",
+      "source_location": "L74",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_clientnested",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "clientnested"
     },
     {
       "label": "ProjectBase",
       "file_type": "code",
       "source_file": "backend/app/schemas/project_schemas.py",
-      "source_location": "L81",
+      "source_location": "L83",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_projectbase",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "projectbase"
     },
     {
       "label": "ProjectCreate",
       "file_type": "code",
       "source_file": "backend/app/schemas/project_schemas.py",
-      "source_location": "L91",
+      "source_location": "L93",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_projectcreate",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "projectcreate"
     },
     {
       "label": "ProjectUpdate",
       "file_type": "code",
       "source_file": "backend/app/schemas/project_schemas.py",
-      "source_location": "L94",
+      "source_location": "L96",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_projectupdate",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "projectupdate"
     },
     {
       "label": "ProjectStatusUpdate",
       "file_type": "code",
       "source_file": "backend/app/schemas/project_schemas.py",
-      "source_location": "L105",
+      "source_location": "L107",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_projectstatusupdate",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "projectstatusupdate"
     },
     {
       "label": "ProjectResponse",
       "file_type": "code",
       "source_file": "backend/app/schemas/project_schemas.py",
-      "source_location": "L108",
+      "source_location": "L110",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_projectresponse",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "projectresponse"
     },
     {
       "label": "ProjectSummary",
       "file_type": "code",
       "source_file": "backend/app/schemas/project_schemas.py",
-      "source_location": "L121",
+      "source_location": "L123",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_projectsummary",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "projectsummary"
     },
     {
@@ -2988,7 +2999,7 @@
       "label": "ProjectsPage()",
       "file_type": "code",
       "source_file": "frontend/src/app/projects/page.tsx",
-      "source_location": "L26",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "frontend_src_app_projects_page_projectspage",
       "community": 35,
@@ -3447,6 +3458,61 @@
       "norm_label": "taskmodal()"
     },
     {
+      "label": "TaskTable.tsx",
+      "file_type": "code",
+      "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "frontend_src_components_modules_projects_tasktable",
+      "community": 35,
+      "community_name": "projects/page.tsx",
+      "norm_label": "tasktable.tsx"
+    },
+    {
+      "label": "TaskTableProps",
+      "file_type": "code",
+      "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
+      "source_location": "L19",
+      "_origin": "ast",
+      "id": "frontend_src_components_modules_projects_tasktable_tasktableprops",
+      "community": 35,
+      "community_name": "projects/page.tsx",
+      "norm_label": "tasktableprops"
+    },
+    {
+      "label": "SortField",
+      "file_type": "code",
+      "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
+      "source_location": "L26",
+      "_origin": "ast",
+      "id": "frontend_src_components_modules_projects_tasktable_sortfield",
+      "community": 35,
+      "community_name": "projects/page.tsx",
+      "norm_label": "sortfield"
+    },
+    {
+      "label": "SortDirection",
+      "file_type": "code",
+      "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
+      "source_location": "L27",
+      "_origin": "ast",
+      "id": "frontend_src_components_modules_projects_tasktable_sortdirection",
+      "community": 35,
+      "community_name": "projects/page.tsx",
+      "norm_label": "sortdirection"
+    },
+    {
+      "label": "TaskTable()",
+      "file_type": "code",
+      "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
+      "source_location": "L31",
+      "_origin": "ast",
+      "id": "frontend_src_components_modules_projects_tasktable_tasktable",
+      "community": 35,
+      "community_name": "projects/page.tsx",
+      "norm_label": "tasktable()"
+    },
+    {
       "label": "QueryProvider.tsx",
       "file_type": "code",
       "source_file": "frontend/src/components/providers/QueryProvider.tsx",
@@ -3593,7 +3659,7 @@
       "label": "ProjectBillingType",
       "file_type": "code",
       "source_file": "frontend/src/types/project.ts",
-      "source_location": "L24",
+      "source_location": "L26",
       "_origin": "ast",
       "id": "frontend_src_types_project_projectbillingtype",
       "community": 35,
@@ -3604,7 +3670,7 @@
       "label": "ProjectStatus",
       "file_type": "code",
       "source_file": "frontend/src/types/project.ts",
-      "source_location": "L25",
+      "source_location": "L27",
       "_origin": "ast",
       "id": "frontend_src_types_project_projectstatus",
       "community": 35,
@@ -3615,7 +3681,7 @@
       "label": "ProjectClientInfo",
       "file_type": "code",
       "source_file": "frontend/src/types/project.ts",
-      "source_location": "L27",
+      "source_location": "L29",
       "_origin": "ast",
       "id": "frontend_src_types_project_projectclientinfo",
       "community": 35,
@@ -3626,7 +3692,7 @@
       "label": "ProjectData",
       "file_type": "code",
       "source_file": "frontend/src/types/project.ts",
-      "source_location": "L35",
+      "source_location": "L37",
       "_origin": "ast",
       "id": "frontend_src_types_project_projectdata",
       "community": 35,
@@ -5220,8 +5286,8 @@
     },
     {
       "label": "typing",
-      "community": 2,
-      "community_name": "Base",
+      "community": 9,
+      "community_name": "User",
       "external": true,
       "file_type": "concept",
       "norm_label": "typing",
@@ -5232,8 +5298,8 @@
     },
     {
       "label": "datetime",
-      "community": 1,
-      "community_name": "auth.py",
+      "community": 2,
+      "community_name": "Base",
       "external": true,
       "file_type": "concept",
       "norm_label": "datetime",
@@ -5245,7 +5311,7 @@
     {
       "label": "pydantic",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "pydantic",
@@ -8965,7 +9031,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L50",
+      "source_location": "L70",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_tasks",
@@ -8976,7 +9042,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L127",
+      "source_location": "L148",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_tasks",
@@ -8987,7 +9053,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L70",
+      "source_location": "L19",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_tasks",
+      "target": "backend_app_api_v1_endpoints_tasks_format_task_response",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/tasks.py",
+      "source_location": "L91",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_tasks",
@@ -8998,7 +9075,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L20",
+      "source_location": "L39",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_tasks",
@@ -9009,7 +9086,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L85",
+      "source_location": "L106",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_tasks",
@@ -9020,7 +9097,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L107",
+      "source_location": "L128",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_tasks",
@@ -9172,10 +9249,94 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/tasks.py",
+      "source_location": "L88",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_tasks_create_task",
+      "target": "backend_app_api_v1_endpoints_tasks_format_task_response",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/tasks.py",
+      "source_location": "L19",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_tasks_format_task_response",
+      "target": "backend_app_models_project_models_task",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/tasks.py",
+      "source_location": "L19",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_tasks_format_task_response",
+      "target": "backend_app_schemas_project_schemas_taskresponse",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/tasks.py",
+      "source_location": "L103",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_tasks_get_task",
+      "target": "backend_app_api_v1_endpoints_tasks_format_task_response",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/tasks.py",
+      "source_location": "L67",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_tasks_list_tasks",
+      "target": "backend_app_api_v1_endpoints_tasks_format_task_response",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/tasks.py",
+      "source_location": "L125",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_tasks_update_task",
+      "target": "backend_app_api_v1_endpoints_tasks_format_task_response",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/tasks.py",
+      "source_location": "L145",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_tasks_update_task_status",
+      "target": "backend_app_api_v1_endpoints_tasks_format_task_response",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L69",
+      "source_location": "L90",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -9187,7 +9348,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L19",
+      "source_location": "L38",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -9200,7 +9361,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L20",
+      "source_location": "L39",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_tasks_list_tasks",
@@ -9212,7 +9373,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L20",
+      "source_location": "L39",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_tasks_list_tasks",
@@ -9224,7 +9385,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L50",
+      "source_location": "L70",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_tasks_create_task",
@@ -9236,7 +9397,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L127",
+      "source_location": "L148",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_tasks_delete_task",
@@ -9248,7 +9409,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L70",
+      "source_location": "L91",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_tasks_get_task",
@@ -9260,7 +9421,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L85",
+      "source_location": "L106",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_tasks_update_task",
@@ -9272,7 +9433,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L107",
+      "source_location": "L128",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_tasks_update_task_status",
@@ -9283,7 +9444,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L49",
+      "source_location": "L69",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -9295,20 +9456,20 @@
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L63",
+      "source_location": "L84",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_tasks_create_task",
-      "target": "backend_app_models_project_models_task"
+      "target": "backend_app_models_project_models_task",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L50",
+      "source_location": "L70",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_tasks_create_task",
@@ -9320,7 +9481,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L50",
+      "source_location": "L70",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_tasks_create_task",
@@ -9332,7 +9493,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L70",
+      "source_location": "L91",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_tasks_get_task",
@@ -9343,7 +9504,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L84",
+      "source_location": "L105",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -9356,7 +9517,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L85",
+      "source_location": "L106",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_tasks_update_task",
@@ -9368,7 +9529,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L85",
+      "source_location": "L106",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_tasks_update_task",
@@ -9379,7 +9540,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L106",
+      "source_location": "L127",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -9392,7 +9553,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L107",
+      "source_location": "L128",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_tasks_update_task_status",
@@ -9404,7 +9565,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L107",
+      "source_location": "L128",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_tasks_update_task_status",
@@ -9416,7 +9577,7 @@
       "context": "decorator",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L126",
+      "source_location": "L147",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_tasks_delete_task",
@@ -9428,7 +9589,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/tasks.py",
-      "source_location": "L127",
+      "source_location": "L148",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_tasks_delete_task",
@@ -11120,7 +11281,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/schemas/project_schemas.py",
-      "source_location": "L72",
+      "source_location": "L74",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_schemas_project_schemas",
@@ -11131,7 +11292,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/schemas/project_schemas.py",
-      "source_location": "L81",
+      "source_location": "L83",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_schemas_project_schemas",
@@ -11142,7 +11303,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/schemas/project_schemas.py",
-      "source_location": "L91",
+      "source_location": "L93",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_schemas_project_schemas",
@@ -11153,7 +11314,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/schemas/project_schemas.py",
-      "source_location": "L108",
+      "source_location": "L110",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_schemas_project_schemas",
@@ -11164,7 +11325,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/schemas/project_schemas.py",
-      "source_location": "L105",
+      "source_location": "L107",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_schemas_project_schemas",
@@ -11175,7 +11336,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/schemas/project_schemas.py",
-      "source_location": "L121",
+      "source_location": "L123",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_schemas_project_schemas",
@@ -11186,7 +11347,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/schemas/project_schemas.py",
-      "source_location": "L94",
+      "source_location": "L96",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_schemas_project_schemas",
@@ -11241,7 +11402,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/schemas/project_schemas.py",
-      "source_location": "L56",
+      "source_location": "L58",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_schemas_project_schemas",
@@ -11310,7 +11471,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/schemas/project_schemas.py",
-      "source_location": "L72",
+      "source_location": "L74",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_schemas_project_schemas_clientnested",
@@ -11321,7 +11482,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/schemas/project_schemas.py",
-      "source_location": "L81",
+      "source_location": "L83",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_schemas_project_schemas_projectbase",
@@ -11332,7 +11493,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/schemas/project_schemas.py",
-      "source_location": "L105",
+      "source_location": "L107",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_schemas_project_schemas_projectstatusupdate",
@@ -11343,7 +11504,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/schemas/project_schemas.py",
-      "source_location": "L121",
+      "source_location": "L123",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_schemas_project_schemas_projectsummary",
@@ -11354,7 +11515,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/schemas/project_schemas.py",
-      "source_location": "L94",
+      "source_location": "L96",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_schemas_project_schemas_projectupdate",
@@ -11387,7 +11548,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/schemas/project_schemas.py",
-      "source_location": "L56",
+      "source_location": "L58",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_schemas_project_schemas_tasksummary",
@@ -11454,7 +11615,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/schemas/project_schemas.py",
-      "source_location": "L91",
+      "source_location": "L93",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_schemas_project_schemas_projectcreate",
@@ -11465,7 +11626,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/schemas/project_schemas.py",
-      "source_location": "L108",
+      "source_location": "L110",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_schemas_project_schemas_projectresponse",
@@ -12883,7 +13044,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/projects/page.tsx",
-      "source_location": "L26",
+      "source_location": "L20",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_app_projects_page",
@@ -12991,7 +13152,31 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/projects/page.tsx",
-      "source_location": "L9",
+      "source_location": "L8",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_app_projects_page",
+      "target": "frontend_src_components_modules_projects_tasktable",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/projects/page.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_app_projects_page",
+      "target": "frontend_src_components_modules_projects_tasktable_tasktable",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/projects/page.tsx",
+      "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_app_projects_page",
@@ -13003,7 +13188,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/projects/page.tsx",
-      "source_location": "L9",
+      "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_app_projects_page",
@@ -13015,19 +13200,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/projects/page.tsx",
-      "source_location": "L9",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "frontend_src_app_projects_page",
-      "target": "frontend_src_types_project_projectstatus",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/app/projects/page.tsx",
-      "source_location": "L9",
+      "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_app_projects_page",
@@ -13039,7 +13212,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/projects/page.tsx",
-      "source_location": "L9",
+      "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_app_projects_page",
@@ -13775,6 +13948,110 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
+      "source_location": "L27",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_components_modules_projects_tasktable",
+      "target": "frontend_src_components_modules_projects_tasktable_sortdirection",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
+      "source_location": "L26",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_components_modules_projects_tasktable",
+      "target": "frontend_src_components_modules_projects_tasktable_sortfield",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
+      "source_location": "L31",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_components_modules_projects_tasktable",
+      "target": "frontend_src_components_modules_projects_tasktable_tasktable",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
+      "source_location": "L19",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_components_modules_projects_tasktable",
+      "target": "frontend_src_components_modules_projects_tasktable_tasktableprops",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_components_modules_projects_tasktable",
+      "target": "frontend_src_types_project",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_components_modules_projects_tasktable",
+      "target": "frontend_src_types_project_taskdata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_components_modules_projects_tasktable",
+      "target": "frontend_src_types_project_taskstatus",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
+      "source_location": "L20",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_components_modules_projects_tasktable_tasktableprops",
+      "target": "frontend_src_types_project_taskdata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
+      "source_location": "L23",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_components_modules_projects_tasktable_tasktableprops",
+      "target": "frontend_src_types_project_taskstatus",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/providers/QueryProvider.tsx",
       "source_location": "L7",
       "weight": 1.0,
@@ -13853,7 +14130,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/types/project.ts",
-      "source_location": "L24",
+      "source_location": "L26",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_types_project",
@@ -13864,7 +14141,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/types/project.ts",
-      "source_location": "L27",
+      "source_location": "L29",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_types_project",
@@ -13875,7 +14152,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/types/project.ts",
-      "source_location": "L35",
+      "source_location": "L37",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_types_project",
@@ -13886,7 +14163,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/types/project.ts",
-      "source_location": "L25",
+      "source_location": "L27",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_types_project",
@@ -15234,5 +15511,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "1b11648ef0587bd114c64c07e555c48c0a289a08"
+  "built_at_commit": "cf0a1b762650e42a7cc17d7dd8cb5d433d715bcf"
 }
