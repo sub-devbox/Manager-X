@@ -2383,7 +2383,7 @@
       "label": "OverviewPage()",
       "file_type": "code",
       "source_file": "frontend/src/app/page.tsx",
-      "source_location": "L21",
+      "source_location": "L22",
       "_origin": "ast",
       "id": "frontend_src_app_page_overviewpage",
       "community": 10,
@@ -10271,7 +10271,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/page.tsx",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_app_page",
@@ -10332,7 +10332,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/app/page.tsx",
-      "source_location": "L22",
+      "source_location": "L23",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_app_page_overviewpage",
@@ -12147,5 +12147,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "b8f7a057ff4173ce659e8b8fcf72a52f5af5ef8f"
+  "built_at_commit": "53bacb7d87152db33ab695b93c41507910123579"
 }

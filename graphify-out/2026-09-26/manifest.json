@@ -85,8 +85,8 @@
     "semantic_hash": ""
   },
   "skills/prd.md": {
-    "mtime": 1790407229.320634,
-    "ast_hash": "be3cd0e4d4906d716461f2f0a1b03670",
+    "mtime": 1790407812.4048576,
+    "ast_hash": "8ec510e0ce1878397e131fa0fb1fa96b",
     "semantic_hash": ""
   },
   "skills/product.md": {
@@ -245,8 +245,8 @@
     "semantic_hash": ""
   },
   ".agents/rules/manager_x.md": {
-    "mtime": 1790407200.913268,
-    "ast_hash": "081cdbb6e7ca4a34c4e384bf4ddc132d",
+    "mtime": 1790407768.503433,
+    "ast_hash": "c97eaec9297e2e32f59e7c5d832ad0aa",
     "semantic_hash": ""
   },
   ".agents/rules/ponytail.md": {
@@ -315,8 +315,8 @@
     "semantic_hash": ""
   },
   "skills/memory.md": {
-    "mtime": 1790407574.1596973,
-    "ast_hash": "aca836778c09cbdb26eac8c6a4895e6c",
+    "mtime": 1790407790.9410567,
+    "ast_hash": "f26368ace5154a6ac07e74c3f4ad9a18",
     "semantic_hash": ""
   },
   "backend/app/api/v1/endpoints/clients.py": {
@@ -345,8 +345,8 @@
     "semantic_hash": ""
   },
   "frontend/src/components/modules/clients/ClientModal.tsx": {
-    "mtime": 1790407017.0388298,
-    "ast_hash": "cb8ea2ead8266869a7cf0a8c7a4ab176",
+    "mtime": 1790407755.5786388,
+    "ast_hash": "80c56bbce1d2e02a7db59d95956a4175",
     "semantic_hash": ""
   }
 }

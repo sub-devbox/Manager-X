@@ -1,9 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import AppShell from "@/components/layout/AppShell";
 import { useAuth } from "@/context/AuthContext";
+import { api } from "@/lib/api-client";
 import {
   Building2,
   FolderKanban,
@@ -20,6 +21,29 @@ import {
 
 export default function OverviewPage() {
   const { user } = useAuth();
+  const [clientStats, setClientStats] = useState<{ total: number; active: number } | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function loadClientStats() {
+      try {
+        const data = await api.get<{ is_active: boolean }[]>("/clients");
+        if (isMounted && Array.isArray(data)) {
+          const total = data.length;
+          const active = data.filter((c) => c.is_active).length;
+          setClientStats({ total, active });
+        }
+      } catch {
+        if (isMounted) {
+          setClientStats({ total: 0, active: 0 });
+        }
+      }
+    }
+    loadClientStats();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const operationalModules = [
     {
@@ -145,10 +169,48 @@ export default function OverviewPage() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
             gap: "12px",
           }}
         >
+          {/* Total & Active Clients Card */}
+          <Link
+            href="/clients"
+            className="finance-panel"
+            style={{
+              padding: "16px",
+              background: "var(--bg-surface)",
+              textDecoration: "none",
+              color: "inherit",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              transition: "border-color 0.15s ease",
+            }}
+          >
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span style={{ fontSize: "12px", color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.4px" }}>
+                Total Clients
+              </span>
+              <Building2 size={14} style={{ color: "var(--text-dim)" }} />
+            </div>
+            <div style={{ fontSize: "24px", fontWeight: 600, marginTop: "8px", letterSpacing: "-0.5px" }} className="mono">
+              {clientStats !== null ? clientStats.total : "—"}
+            </div>
+            <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px", display: "flex", alignItems: "center", gap: "6px" }}>
+              <span
+                style={{
+                  width: "6px",
+                  height: "6px",
+                  borderRadius: "50%",
+                  background: "var(--accent-emerald)",
+                  display: "inline-block",
+                }}
+              />
+              <span>{clientStats !== null ? `${clientStats.active} Active` : "Loading..."}</span>
+            </div>
+          </Link>
+
           {[
             { label: "Active Engagements", val: "0 Projects", sub: "Operational Pipeline" },
             { label: "Billable Unbilled Time", val: "0h 00m", sub: "Ready for Invoicing" },
