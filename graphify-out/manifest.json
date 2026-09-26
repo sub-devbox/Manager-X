@@ -415,8 +415,8 @@
     "semantic_hash": ""
   },
   "frontend/src/components/modules/time/ManualTimeModal.tsx": {
-    "mtime": 1790416035.6101801,
-    "ast_hash": "74cc9b7a7d04f762599321e797de961d",
+    "mtime": 1790423047.0065422,
+    "ast_hash": "530cf946416fa3dc981d22b8963a7849",
     "semantic_hash": ""
   },
   "frontend/src/components/modules/time/TimeEntryTable.tsx": {
@@ -430,8 +430,8 @@
     "semantic_hash": ""
   },
   "frontend/src/components/modules/time/StartTimerModal.tsx": {
-    "mtime": 1790422562.0245097,
-    "ast_hash": "37eb10d4b347b04924863356931335c9",
+    "mtime": 1790423038.944847,
+    "ast_hash": "8d0f9cd88626165f6e03d26f43913470",
     "semantic_hash": ""
   }
 }

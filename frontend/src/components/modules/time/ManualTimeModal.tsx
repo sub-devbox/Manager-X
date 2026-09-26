@@ -176,9 +176,6 @@ export default function ManualTimeModal({
         zIndex: 9999,
         padding: "16px",
       }}
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
     >
       <div
         className="finance-panel"
@@ -331,8 +328,8 @@ export default function ManualTimeModal({
               </label>
               <input
                 type="number"
-                step="0.1"
-                min="0.05"
+                step="any"
+                min="0.01"
                 max="24"
                 value={durationHours}
                 onChange={(e) => handleDurationChange(e.target.value)}
@@ -376,7 +373,7 @@ export default function ManualTimeModal({
                 <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>Hourly Rate ($):</span>
                 <input
                   type="number"
-                  step="1"
+                  step="any"
                   min="0"
                   value={hourlyRate}
                   onChange={(e) => setHourlyRate(e.target.value)}

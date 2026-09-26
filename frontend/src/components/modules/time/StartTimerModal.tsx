@@ -149,9 +149,6 @@ export default function StartTimerModal({
         zIndex: 9999,
         padding: "16px",
       }}
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
     >
       <div
         className="finance-panel animate-fade-in"
