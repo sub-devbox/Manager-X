@@ -10,6 +10,7 @@ import {
   UnbilledTaskData,
   CompanyProfileData,
 } from "@/types/invoice";
+import { GatewayData } from "@/types/gateway";
 import { ClientData } from "@/types/client";
 import SearchableClientSelect from "@/components/common/SearchableClientSelect";
 import {
@@ -87,6 +88,7 @@ export default function InvoiceModal({
   });
   const [paymentGateway, setPaymentGateway] = useState("Razorpay");
   const [currencyCode, setCurrencyCode] = useState("USD");
+  const [availableGateways, setAvailableGateways] = useState<GatewayData[]>([]);
   const [receivedAmountInr, setReceivedAmountInr] = useState<number | string>("");
   const [paymentDate, setPaymentDate] = useState<string>("");
   const [isReconciled, setIsReconciled] = useState<boolean>(false);
@@ -103,7 +105,7 @@ export default function InvoiceModal({
     setMounted(true);
   }, []);
 
-  // Fetch Company Profile from Settings for "Bill From"
+  // Fetch Company Profile from Settings for "Bill From" & Active Payment Gateways
   useEffect(() => {
     if (!isOpen) return;
     async function loadCompanyProfile() {
@@ -114,8 +116,38 @@ export default function InvoiceModal({
         }
       } catch {}
     }
+
+    async function loadGateways() {
+      try {
+        const res = await api.get<GatewayData[]>("/gateways?is_active=true");
+        if (Array.isArray(res) && res.length > 0) {
+          setAvailableGateways(res);
+          // If creating new invoice, set default gateway notes from the first or matching gateway
+          if (!initialData) {
+            const matched = res.find((g) => g.name === paymentGateway) || res[0];
+            if (matched) {
+              setPaymentGateway(matched.name);
+              if (matched.gateway_note) {
+                setGatewayNotes(matched.gateway_note);
+              }
+            }
+          }
+        }
+      } catch {}
+    }
+
     loadCompanyProfile();
-  }, [isOpen]);
+    loadGateways();
+  }, [isOpen, initialData]);
+
+  // Handle gateway change & auto-reflect gateway note
+  const handleGatewayChange = (newGatewayName: string) => {
+    setPaymentGateway(newGatewayName);
+    const matched = availableGateways.find((g) => g.name === newGatewayName);
+    if (matched && matched.gateway_note) {
+      setGatewayNotes(matched.gateway_note);
+    }
+  };
 
   // Selected client details
   const selectedClient = useMemo(() => {
@@ -845,15 +877,23 @@ export default function InvoiceModal({
                   </label>
                   <select
                     value={paymentGateway}
-                    onChange={(e) => setPaymentGateway(e.target.value)}
+                    onChange={(e) => handleGatewayChange(e.target.value)}
                     className="finance-input"
                     style={{ height: "34px", fontSize: "12px" }}
                   >
-                    {GATEWAY_OPTIONS.map((g) => (
-                      <option key={g.id} value={g.id}>
-                        {g.label}
-                      </option>
-                    ))}
+                    {availableGateways.length > 0 ? (
+                      availableGateways.map((g) => (
+                        <option key={g.id || g.name} value={g.name}>
+                          {g.name} ({g.currency_code})
+                        </option>
+                      ))
+                    ) : (
+                      GATEWAY_OPTIONS.map((g) => (
+                        <option key={g.id} value={g.id}>
+                          {g.label}
+                        </option>
+                      ))
+                    )}
                   </select>
                 </div>
 

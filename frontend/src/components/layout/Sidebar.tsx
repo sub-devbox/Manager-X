@@ -17,6 +17,7 @@ import {
   Settings,
   ChevronLeft,
   ChevronRight,
+  CreditCard,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -51,6 +52,7 @@ export default function Sidebar({
       title: "Financials",
       items: [
         { name: "Accounts & P&L", href: "/finance", icon: DollarSign },
+        { name: "Payment Gateways", href: "/gateways", icon: CreditCard },
         { name: "Fixed Assets", href: "/assets", icon: Package },
         { name: "ITR Tax Helper", href: "/itr-helper", icon: Calculator },
         { name: "Wealth Portfolio", href: "/wealth", icon: TrendingUp },

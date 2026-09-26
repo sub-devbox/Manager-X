@@ -8,7 +8,7 @@
   "6": "main.py",
   "7": "FastAPI ASGI Backend",
   "8": "Finance Manager Module",
-  "9": "tasks.py",
+  "9": "projects.py",
   "10": "AppShell.tsx",
   "11": "Ponytail",
   "12": "Ponytail Help",
@@ -33,10 +33,9 @@
   "31": "eslint.config.mjs",
   "32": "next.config.ts",
   "33": "CLAUDE.md",
-  "34": "clients.py",
+  "34": "User",
   "35": "projects/page.tsx",
   "36": "time_entries.py",
-  "37": "build_invoice_pdf",
   "38": "InvoiceModal.tsx",
-  "39": "User"
+  "39": "invoices.py"
 }

@@ -5,7 +5,7 @@
   "3": "settings.py",
   "4": "compilerOptions",
   "5": "Ponytail",
-  "6": "main.py",
+  "6": "Base",
   "7": "FastAPI ASGI Backend",
   "8": "Finance Manager Module",
   "9": "projects.py",
@@ -36,6 +36,11 @@
   "34": "User",
   "35": "projects/page.tsx",
   "36": "time_entries.py",
+  "37": "GatewayModal.tsx",
   "38": "InvoiceModal.tsx",
-  "39": "invoices.py"
+  "39": "invoices.py",
+  "40": "AuthContext.tsx",
+  "41": "time-tracker/page.tsx",
+  "42": "clients/page.tsx",
+  "43": "SettingsModal.tsx"
 }
