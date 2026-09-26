@@ -21,8 +21,16 @@ import {
   TrendingUp,
 } from "lucide-react";
 
+interface CurrencySetting {
+  code: string;
+  symbol: string;
+  name: string;
+  is_base_currency?: boolean;
+}
+
 export default function ClientsPage() {
   const [clients, setClients] = useState<ClientData[]>([]);
+  const [baseCurrency, setBaseCurrency] = useState<CurrencySetting | null>(null);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<"all" | "active" | "archived">("all");
@@ -30,7 +38,9 @@ export default function ClientsPage() {
   const [editingClient, setEditingClient] = useState<ClientData | null>(null);
   const [actionMsg, setActionMsg] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
-  const totalSettledINR = clients.reduce((acc, c) => acc + (c.total_equivalent_inr || 0), 0);
+  const baseCurrCode = baseCurrency?.code || "INR";
+  const baseCurrSymbol = baseCurrency?.symbol || "₹";
+  const totalSettledRevenue = clients.reduce((acc, c) => acc + (c.total_equivalent_inr || 0), 0);
   const activeClientsCount = clients.filter((c) => c.is_active).length;
 
   const fetchClients = useCallback(async () => {
@@ -41,8 +51,18 @@ export default function ClientsPage() {
       if (statusFilter === "active") params.is_active = true;
       if (statusFilter === "archived") params.is_active = false;
 
-      const data = await api.get<ClientData[]>("/clients", { params });
-      setClients(data || []);
+      const [clientsRes, currRes] = await Promise.allSettled([
+        api.get<ClientData[]>("/clients", { params }),
+        api.get<CurrencySetting[]>("/settings/currencies"),
+      ]);
+
+      if (clientsRes.status === "fulfilled") {
+        setClients(clientsRes.value || []);
+      }
+      if (currRes.status === "fulfilled" && Array.isArray(currRes.value)) {
+        const base = currRes.value.find((c) => c.is_base_currency) || currRes.value[0];
+        if (base) setBaseCurrency(base);
+      }
     } catch (err: any) {
       setActionMsg({ type: "error", text: err.message || "Failed to load clients." });
     } finally {
@@ -197,10 +217,10 @@ export default function ClientsPage() {
             </div>
             <div>
               <div style={{ fontSize: "11px", color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.5px" }}>
-                Total Revenue Settled (INR)
+                Total Revenue Settled ({baseCurrCode})
               </div>
               <div className="mono" style={{ fontSize: "20px", fontWeight: 700, marginTop: "2px", color: "var(--accent-emerald)" }}>
-                ₹{totalSettledINR.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                {baseCurrSymbol}{totalSettledRevenue.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </div>
             </div>
           </div>
@@ -472,10 +492,10 @@ export default function ClientsPage() {
 
                     <div>
                       <div style={{ fontSize: "10px", color: "var(--text-dim)", textTransform: "uppercase" }}>
-                        Equivalent INR
+                        Equiv. {baseCurrCode}
                       </div>
                       <div className="mono" style={{ fontSize: "13px", fontWeight: 700, marginTop: "2px", color: "var(--accent-emerald)" }}>
-                        ₹{(client.total_equivalent_inr ?? 0).toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        {baseCurrSymbol}{(client.total_equivalent_inr ?? 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </div>
                     </div>
                   </div>

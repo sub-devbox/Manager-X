@@ -30,6 +30,7 @@ interface CurrencyOption {
   code: string;
   symbol: string;
   name: string;
+  is_base_currency?: boolean;
 }
 
 interface ClientModalProps {
@@ -64,7 +65,7 @@ export default function ClientModal({
     postal_code: "",
     country: "",
     hourly_rate: 0,
-    currency_code: "INR",
+    currency_code: "",
     payment_terms_days: 15,
     is_active: true,
   });
@@ -109,7 +110,7 @@ export default function ClientModal({
           postal_code: "",
           country: "",
           hourly_rate: 0,
-          currency_code: "INR",
+          currency_code: "",
           payment_terms_days: 15,
           is_active: true,
         });
@@ -127,8 +128,12 @@ export default function ClientModal({
 
       if (currRes.status === "fulfilled" && currRes.value && currRes.value.length > 0) {
         setCurrencies(currRes.value);
-        if (!initialData && !formData.currency_code) {
-          setFormData((prev) => ({ ...prev, currency_code: currRes.value[0].code }));
+        if (!initialData) {
+          const baseCurr = currRes.value.find((c) => c.is_base_currency) || currRes.value[0];
+          setFormData((prev) => ({
+            ...prev,
+            currency_code: prev.currency_code || baseCurr.code,
+          }));
         }
       }
 
@@ -139,24 +144,23 @@ export default function ClientModal({
       }
 
       if (!initialData) {
-        let defaultCountry = loadedCountries[0] || "India";
+        let defaultCountry = "";
         if (compRes.status === "fulfilled" && compRes.value?.address) {
           const parts = compRes.value.address.split(",").map((s) => s.trim());
           const candidate = parts[parts.length - 1];
           if (candidate) defaultCountry = candidate;
+        } else if (loadedCountries.length > 0) {
+          defaultCountry = loadedCountries[0];
         }
-        setFormData((prev) => ({
-          ...prev,
-          country: prev.country || defaultCountry,
-        }));
+        if (defaultCountry) {
+          setFormData((prev) => ({
+            ...prev,
+            country: prev.country || defaultCountry,
+          }));
+        }
       }
     } catch {
-      setCurrencies([
-        { code: "INR", symbol: "₹", name: "Indian Rupee" },
-        { code: "USD", symbol: "$", name: "US Dollar" },
-        { code: "EUR", symbol: "€", name: "Euro" },
-        { code: "GBP", symbol: "£", name: "British Pound" },
-      ]);
+      // Gracefully maintain empty list on error
     }
   };
 
