@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo, useEffect } from "react";
 import { ProjectData, TaskData, TaskStatus } from "@/types/project";
+import { useResizableColumns, ResizeHandle } from "@/hooks/useResizableColumns";
 import {
   Building2,
   Calendar,
@@ -34,6 +35,24 @@ type SortDirection = "asc" | "desc";
 
 const PAGE_SIZE = 50;
 
+const DEFAULT_PROJECT_WIDTHS = {
+  name: 260,
+  client: 180,
+  completion: 160,
+  rate: 150,
+  due_date: 130,
+  actions: 110,
+};
+
+const MIN_PROJECT_WIDTHS = {
+  name: 140,
+  client: 100,
+  completion: 110,
+  rate: 100,
+  due_date: 90,
+  actions: 90,
+};
+
 export default function ProjectTable({
   projects,
   onEditProject,
@@ -47,6 +66,12 @@ export default function ProjectTable({
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const [currentPage, setCurrentPage] = useState(1);
   const [expandedProjectIds, setExpandedProjectIds] = useState<Set<string>>(new Set());
+
+  const { widths, startResize, totalWidth } = useResizableColumns(
+    "mx_col_widths_projects",
+    DEFAULT_PROJECT_WIDTHS,
+    MIN_PROJECT_WIDTHS
+  );
 
   const toggleExpand = (projectId: string) => {
     setExpandedProjectIds((prev) => {
@@ -185,7 +210,9 @@ export default function ProjectTable({
       <div style={{ overflowX: "auto", width: "100%" }}>
         <table
           style={{
-            width: "100%",
+            width: totalWidth ? `${totalWidth}px` : "100%",
+            minWidth: "100%",
+            tableLayout: "fixed",
             borderCollapse: "collapse",
             fontSize: "12px",
             textAlign: "left",
@@ -203,105 +230,138 @@ export default function ProjectTable({
               <th
                 onClick={() => handleSort("name")}
                 style={{
+                  position: "relative",
+                  width: `${widths.name}px`,
+                  minWidth: `${MIN_PROJECT_WIDTHS.name}px`,
                   padding: "6px 12px",
                   fontWeight: 600,
                   color: sortField === "name" ? "var(--text-main)" : "var(--text-dim)",
                   cursor: "pointer",
                   userSelect: "none",
                   whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
                 }}
               >
                 <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
                   <span>Project Name</span>
                   {renderSortIndicator("name")}
                 </div>
+                <ResizeHandle onMouseDown={(e) => startResize("name", e)} />
               </th>
 
               {/* 2. Client */}
               <th
                 onClick={() => handleSort("client")}
                 style={{
+                  position: "relative",
+                  width: `${widths.client}px`,
+                  minWidth: `${MIN_PROJECT_WIDTHS.client}px`,
                   padding: "6px 12px",
                   fontWeight: 600,
                   color: sortField === "client" ? "var(--text-main)" : "var(--text-dim)",
                   cursor: "pointer",
                   userSelect: "none",
                   whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
                 }}
               >
                 <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
                   <span>Client</span>
                   {renderSortIndicator("client")}
                 </div>
+                <ResizeHandle onMouseDown={(e) => startResize("client", e)} />
               </th>
 
               {/* 3. Completion % */}
               <th
                 onClick={() => handleSort("completion")}
                 style={{
+                  position: "relative",
+                  width: `${widths.completion}px`,
+                  minWidth: `${MIN_PROJECT_WIDTHS.completion}px`,
                   padding: "6px 12px",
                   fontWeight: 600,
                   color: sortField === "completion" ? "var(--text-main)" : "var(--text-dim)",
                   cursor: "pointer",
                   userSelect: "none",
                   whiteSpace: "nowrap",
-                  width: "160px",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
                 }}
               >
                 <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
                   <span>Completion %</span>
                   {renderSortIndicator("completion")}
                 </div>
+                <ResizeHandle onMouseDown={(e) => startResize("completion", e)} />
               </th>
 
               {/* 4. Rate */}
               <th
                 onClick={() => handleSort("rate")}
                 style={{
+                  position: "relative",
+                  width: `${widths.rate}px`,
+                  minWidth: `${MIN_PROJECT_WIDTHS.rate}px`,
                   padding: "6px 12px",
                   fontWeight: 600,
                   color: sortField === "rate" ? "var(--text-main)" : "var(--text-dim)",
                   cursor: "pointer",
                   userSelect: "none",
                   whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
                 }}
               >
                 <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
                   <span>Rate / Budget</span>
                   {renderSortIndicator("rate")}
                 </div>
+                <ResizeHandle onMouseDown={(e) => startResize("rate", e)} />
               </th>
 
               {/* 5. Due Date */}
               <th
                 onClick={() => handleSort("due_date")}
                 style={{
+                  position: "relative",
+                  width: `${widths.due_date}px`,
+                  minWidth: `${MIN_PROJECT_WIDTHS.due_date}px`,
                   padding: "6px 12px",
                   fontWeight: 600,
                   color: sortField === "due_date" ? "var(--text-main)" : "var(--text-dim)",
                   cursor: "pointer",
                   userSelect: "none",
                   whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
                 }}
               >
                 <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
                   <span>Due Date</span>
                   {renderSortIndicator("due_date")}
                 </div>
+                <ResizeHandle onMouseDown={(e) => startResize("due_date", e)} />
               </th>
 
               {/* 6. Actions */}
               <th
                 style={{
+                  position: "relative",
+                  width: `${widths.actions}px`,
+                  minWidth: `${MIN_PROJECT_WIDTHS.actions}px`,
                   padding: "6px 12px",
                   fontWeight: 600,
                   color: "var(--text-dim)",
                   textAlign: "right",
                   whiteSpace: "nowrap",
-                  width: "110px",
+                  overflow: "hidden",
                 }}
               >
-                Actions
+                <span>Actions</span>
+                <ResizeHandle onMouseDown={(e) => startResize("actions", e)} />
               </th>
             </tr>
           </thead>

@@ -2,7 +2,7 @@
   "0": "devDependencies",
   "1": "auth.py",
   "2": "Base",
-  "3": "User",
+  "3": "settings.py",
   "4": "compilerOptions",
   "5": "Ponytail",
   "6": "main.py",
@@ -33,13 +33,7 @@
   "31": "eslint.config.mjs",
   "32": "next.config.ts",
   "33": "CLAUDE.md",
-  "34": "clients.py",
+  "34": "User",
   "35": "project.ts",
-  "36": "time_entries.py",
-  "37": "config.py",
-  "38": "time-tracker/page.tsx",
-  "39": "tasks/page.tsx",
-  "40": "AuthContext.tsx",
-  "41": "clients/page.tsx",
-  "42": "SettingsModal.tsx"
+  "36": "time_entries.py"
 }
