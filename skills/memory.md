@@ -44,6 +44,8 @@ It combines 7 pillars into a cohesive platform:
    - Currency definitions only store metadata (`code`, `symbol`, `name`, `is_base_currency`, `is_active`). Fixed "Exchange Rate to Base" is completely removed from currency models and settings, as FX rates are dynamic and determined at invoice/transaction execution time.
 8. **Automatic Git Version Control**:
    - Automatically stage (`git add .`) and git-commit every single atomic change in code upon verification. Never leave uncommitted code changes.
+9. **Modal Backdrop Dismissal Protection (Form & Data Safety)**:
+   - Creation and editing modals (`ClientModal`, `SettingsModal`, project modals, invoice forms) must NEVER dismiss on outside backdrop clicks. Form state and unsaved input must be protected against accidental dismissal. Dismissal must strictly require explicit interaction (pinned close button, cancel button, or save).
 
 ---
 
@@ -114,4 +116,5 @@ It combines 7 pillars into a cohesive platform:
 | **ADR-003** | Dynamic Settings Lookup Engine | Enforces the "zero hardcoding" constraint; tax laws and user categories evolve without requiring code modifications. | Accepted |
 | **ADR-004** | Global WebSocket for Timer | Allows a seamless live stopwatch across multi-tab browsing without timer drift or desync. | Accepted |
 | **ADR-005** | Automatic Git Version Control | Commits every single code change automatically upon verification to maintain a complete, unbroken audit trail. | Accepted |
+| **ADR-006** | Modal Backdrop Dismissal Protection | Prevents dialog dismissal on backdrop click to safeguard extensive user form inputs from accidental loss. | Accepted |
 

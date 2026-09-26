@@ -18,3 +18,8 @@
 - **Commit on every single code change**: Every time code files are created, modified, or refactored, automatically stage (`git add .`) and commit with a conventional commit message (`feat(...)`, `fix(...)`, `refactor(...)`).
 - Do not wait for the user to prompt for a commit. Automatic version control must be executed after verifying changes.
 
+## 5. Modal Backdrop Dismissal Protection (Form & Data Safety)
+- **Never dismiss on backdrop/outside click**: All creation, editing, and configuration dialogs (e.g. `ClientModal`, `SettingsModal`, project modals, invoice forms) must NEVER close when clicking on the outside overlay/backdrop.
+- Users frequently enter extensive form inputs (multi-field addresses, commercial terms, financial parameters). Outside clicks must be ignored to prevent accidental loss of unsaved input.
+- Modals must only close via explicit user actions: the pinned "X" close button, the "Cancel" button, or upon successful form submission.
+

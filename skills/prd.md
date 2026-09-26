@@ -170,6 +170,10 @@ All business logic variables reside in database-backed configurations:
 - Automated daily timestamped database snapshots in `./backups/`.
 - 1-click JSON/Zip export and import of all user records.
 
+### 5.4 Usability & Unsaved Form Protection
+- **No Backdrop Dismissal**: All creation, editing, and configuration modals (`ClientModal`, `SettingsModal`, project modals, invoice forms) must ignore backdrop/outside clicks. This prevents accidental loss of complex, multi-field inputs.
+- Modals must only dismiss when the user deliberately clicks the pinned close button ("X"), the "Cancel" button, or upon successful submission.
+
 ---
 
 ## 6. Acceptance Criteria Matrix

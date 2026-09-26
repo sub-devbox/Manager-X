@@ -204,9 +204,6 @@ export default function ClientModal({
 
   const modalContent = (
     <div
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
       style={{
         position: "fixed",
         inset: 0,
