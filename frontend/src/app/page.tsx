@@ -22,7 +22,7 @@ import {
 
 export default function OverviewPage() {
   const { user } = useAuth();
-  const [clientStats, setClientStats] = useState<{ total: number; active: number } | null>(null);
+  const [clientStats, setClientStats] = useState<{ total: number; involved: number } | null>(null);
   const [projectStats, setProjectStats] = useState<{ total: number; thisMonth: number } | null>(null);
   const [timeSpentMonth, setTimeSpentMonth] = useState<number | null>(null);
 
@@ -44,13 +44,13 @@ export default function OverviewPage() {
         ]);
 
         if (isMounted) {
-          if (clientRes.status === "fulfilled" && Array.isArray(clientRes.value)) {
-            setClientStats({
-              total: clientRes.value.length,
-              active: clientRes.value.filter((c) => c.is_active).length,
-            });
-          } else {
-            setClientStats({ total: 0, active: 0 });
+          const projectClientMap = new Map<string, string>();
+          if (projectRes.status === "fulfilled" && Array.isArray(projectRes.value)) {
+            for (const p of projectRes.value as any[]) {
+              if (p.id && p.client_id) {
+                projectClientMap.set(p.id, p.client_id);
+              }
+            }
           }
 
           const now = new Date();
@@ -59,14 +59,20 @@ export default function OverviewPage() {
 
           let monthSeconds = 0;
           const projectIdsWithTimeInMonth = new Set<string>();
+          const involvedClientIds = new Set<string>();
 
           if (timeRes.status === "fulfilled" && Array.isArray(timeRes.value)) {
-            for (const entry of timeRes.value) {
+            for (const entry of timeRes.value as any[]) {
               const entryDate = entry.start_time ? new Date(entry.start_time) : null;
               if (entryDate && entryDate >= firstOfMonth && entryDate <= lastOfMonth) {
                 monthSeconds += entry.duration_seconds || 0;
                 if (entry.project_id) {
                   projectIdsWithTimeInMonth.add(entry.project_id);
+                  const cId = projectClientMap.get(entry.project_id);
+                  if (cId) involvedClientIds.add(cId);
+                }
+                if (entry.client_id) {
+                  involvedClientIds.add(entry.client_id);
                 }
               }
             }
@@ -77,24 +83,43 @@ export default function OverviewPage() {
 
           if (projectRes.status === "fulfilled" && Array.isArray(projectRes.value)) {
             const total = projectRes.value.length;
-            const thisMonth = projectRes.value.filter((p) => {
-              if (projectIdsWithTimeInMonth.has(p.id)) return true;
-              if (p.status === "active") return true;
-              const pDateStr = p.end_date || p.created_at || "";
-              if (pDateStr) {
-                const pDate = new Date(pDateStr);
-                if (pDate >= firstOfMonth && pDate <= lastOfMonth) return true;
+            const thisMonth = projectRes.value.filter((p: any) => {
+              const isThisMonth =
+                projectIdsWithTimeInMonth.has(p.id) ||
+                p.status === "active" ||
+                (() => {
+                  const pDateStr = p.end_date || p.created_at || "";
+                  if (pDateStr) {
+                    const pDate = new Date(pDateStr);
+                    return pDate >= firstOfMonth && pDate <= lastOfMonth;
+                  }
+                  return false;
+                })();
+
+              if (isThisMonth && p.client_id) {
+                involvedClientIds.add(p.client_id);
               }
-              return false;
+              return isThisMonth;
             }).length;
             setProjectStats({ total, thisMonth });
           } else {
             setProjectStats({ total: 0, thisMonth: 0 });
           }
+
+          if (clientRes.status === "fulfilled" && Array.isArray(clientRes.value)) {
+            const total = clientRes.value.length;
+            const involved = clientRes.value.filter((c: any) => involvedClientIds.has(c.id)).length;
+            setClientStats({
+              total,
+              involved,
+            });
+          } else {
+            setClientStats({ total: 0, involved: 0 });
+          }
         }
       } catch {
         if (isMounted) {
-          setClientStats({ total: 0, active: 0 });
+          setClientStats({ total: 0, involved: 0 });
           setProjectStats({ total: 0, thisMonth: 0 });
           setTimeSpentMonth(0);
         }
@@ -248,7 +273,7 @@ export default function OverviewPage() {
             gap: "12px",
           }}
         >
-          {/* Total & Active Clients Card */}
+          {/* Involved Clients This Month Card */}
           <Link
             href="/clients"
             className="finance-panel"
@@ -265,24 +290,15 @@ export default function OverviewPage() {
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <span style={{ fontSize: "12px", color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.4px" }}>
-                Total Clients
+                Involved Clients This Month
               </span>
               <Building2 size={14} style={{ color: "var(--text-dim)" }} />
             </div>
             <div style={{ fontSize: "24px", fontWeight: 600, marginTop: "8px", letterSpacing: "-0.5px" }} className="mono">
-              {clientStats !== null ? clientStats.total : "—"}
+              {clientStats !== null ? clientStats.involved : "—"}
             </div>
-            <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px", display: "flex", alignItems: "center", gap: "6px" }}>
-              <span
-                style={{
-                  width: "6px",
-                  height: "6px",
-                  borderRadius: "50%",
-                  background: "var(--accent-emerald)",
-                  display: "inline-block",
-                }}
-              />
-              <span>{clientStats !== null ? `${clientStats.active} Active` : "Loading..."}</span>
+            <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px" }}>
+              {clientStats !== null ? `${clientStats.total} total client${clientStats.total === 1 ? "" : "s"}` : "—"}
             </div>
           </Link>
 
