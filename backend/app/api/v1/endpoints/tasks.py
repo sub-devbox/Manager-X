@@ -103,6 +103,7 @@ async def get_task(
     return _format_task_response(task)
 
 @router.put("/{task_id}", response_model=TaskResponse)
+@router.patch("/{task_id}", response_model=TaskResponse)
 async def update_task(
     task_id: str,
     payload: TaskUpdate,

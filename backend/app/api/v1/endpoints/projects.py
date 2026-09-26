@@ -144,6 +144,7 @@ async def get_project(
     return _format_project_response(project)
 
 @router.put("/{project_id}", response_model=ProjectResponse)
+@router.patch("/{project_id}", response_model=ProjectResponse)
 async def update_project(
     project_id: str,
     payload: ProjectUpdate,

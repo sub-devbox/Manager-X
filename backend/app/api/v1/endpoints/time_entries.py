@@ -159,6 +159,7 @@ async def get_time_entry(
     return _format_time_entry_response(entry)
 
 @router.patch("/{entry_id}", response_model=TimeEntryResponse)
+@router.put("/{entry_id}", response_model=TimeEntryResponse)
 async def update_time_entry(
     entry_id: str,
     payload: TimeEntryUpdate,

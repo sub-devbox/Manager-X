@@ -97,11 +97,14 @@ export default function TimeTrackerPage() {
 
     // If task is in backlog, update status to in_progress
     if (task.status === "backlog") {
-      api.patch(`/tasks/${task.id}`, { status: "in_progress" }).then(() => {
-        setTasks((prev) =>
-          prev.map((t) => (t.id === task.id ? { ...t, status: "in_progress" } : t))
-        );
-      });
+      api
+        .patch(`/tasks/${task.id}/status`, { status: "in_progress" })
+        .then(() => {
+          setTasks((prev) =>
+            prev.map((t) => (t.id === task.id ? { ...t, status: "in_progress" } : t))
+          );
+        })
+        .catch(() => {});
     }
 
     setActionMsg({
