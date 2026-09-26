@@ -5,8 +5,8 @@
     "semantic_hash": ""
   },
   "backend/app/api/v1/router.py": {
-    "mtime": 1790404655.8484995,
-    "ast_hash": "ebfaba745f0e9abf7573dc7d0fb12a6c",
+    "mtime": 1790409085.9821208,
+    "ast_hash": "f13f4dc66be6cb21b09ff3914a9bed3d",
     "semantic_hash": ""
   },
   "backend/app/core/config.py": {
@@ -25,8 +25,8 @@
     "semantic_hash": "4480e8c55a6dc4084d83173b5abf98b9"
   },
   "backend/app/main.py": {
-    "mtime": 1790405226.1694026,
-    "ast_hash": "8b89668a324f42694653e6fa751ce8df",
+    "mtime": 1790409028.7250247,
+    "ast_hash": "a6f413048534fb3f20eab2e4cce20d38",
     "semantic_hash": ""
   },
   "backend/app/models/user_models.py": {
@@ -70,8 +70,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/page.tsx": {
-    "mtime": 1790408141.4909427,
-    "ast_hash": "28032be547b58cfa25d1d3caea30a785",
+    "mtime": 1790409268.709535,
+    "ast_hash": "8ed1213222fb48701ba40f03ef95c498",
     "semantic_hash": ""
   },
   "frontend/tsconfig.json": {
@@ -155,8 +155,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/projects/page.tsx": {
-    "mtime": 1790403360.067441,
-    "ast_hash": "b4332b71944379eeca31f9374c5d575d",
+    "mtime": 1790409226.9342275,
+    "ast_hash": "570ec0acb3bbfdecda63e4e0ea3a891b",
     "semantic_hash": ""
   },
   "frontend/src/app/time-tracker/page.tsx": {
@@ -315,8 +315,8 @@
     "semantic_hash": ""
   },
   "skills/memory.md": {
-    "mtime": 1790407790.9410567,
-    "ast_hash": "f26368ace5154a6ac07e74c3f4ad9a18",
+    "mtime": 1790409310.3063262,
+    "ast_hash": "1ca347da5728bd0c46b1bea5a91ef7ec",
     "semantic_hash": ""
   },
   "backend/app/api/v1/endpoints/clients.py": {
@@ -325,8 +325,8 @@
     "semantic_hash": ""
   },
   "backend/app/models/client_model.py": {
-    "mtime": 1790404968.3711176,
-    "ast_hash": "fd3bd41a4beb6113784677db9d3fc2de",
+    "mtime": 1790409021.306112,
+    "ast_hash": "8edaa54af349f3ed9f9348108d479c28",
     "semantic_hash": ""
   },
   "backend/app/schemas/client_schemas.py": {
@@ -347,6 +347,51 @@
   "frontend/src/components/modules/clients/ClientModal.tsx": {
     "mtime": 1790407755.5786388,
     "ast_hash": "80c56bbce1d2e02a7db59d95956a4175",
+    "semantic_hash": ""
+  },
+  "backend/app/api/v1/endpoints/projects.py": {
+    "mtime": 1790409059.8262358,
+    "ast_hash": "f7f7429390d2bbda074449256b810a15",
+    "semantic_hash": ""
+  },
+  "backend/app/api/v1/endpoints/tasks.py": {
+    "mtime": 1790409073.6087663,
+    "ast_hash": "6ef151504fcf57f2923ec95c378290c9",
+    "semantic_hash": ""
+  },
+  "backend/app/models/project_models.py": {
+    "mtime": 1790409000.9704108,
+    "ast_hash": "b1e8d4b166bc2257e47de7702993bd5d",
+    "semantic_hash": ""
+  },
+  "backend/app/schemas/project_schemas.py": {
+    "mtime": 1790409049.1079118,
+    "ast_hash": "d022124231a04137460a538f605ab74b",
+    "semantic_hash": ""
+  },
+  "backend/tests/test_projects_and_tasks_api.py": {
+    "mtime": 1790409127.1353471,
+    "ast_hash": "a50bf4c6efe795d1fcbcb69b91ab4510",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/modules/projects/KanbanBoard.tsx": {
+    "mtime": 1790409200.6678913,
+    "ast_hash": "9feebd6710eef4b47f7af1b6ad40ca34",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/modules/projects/ProjectModal.tsx": {
+    "mtime": 1790409168.4599087,
+    "ast_hash": "c0e3464aaac374e25dfe386a35c3b7ba",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/modules/projects/TaskModal.tsx": {
+    "mtime": 1790409182.9080303,
+    "ast_hash": "d20c59f1a624d015fbddcab2d274f7f3",
+    "semantic_hash": ""
+  },
+  "frontend/src/types/project.ts": {
+    "mtime": 1790409154.8982475,
+    "ast_hash": "b94efae291c4a6bb6a6774b8fab7bbad",
     "semantic_hash": ""
   }
 }

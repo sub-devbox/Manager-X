@@ -5,6 +5,7 @@ import AppShell from "@/components/layout/AppShell";
 import ProjectModal from "@/components/modules/projects/ProjectModal";
 import TaskModal from "@/components/modules/projects/TaskModal";
 import KanbanBoard from "@/components/modules/projects/KanbanBoard";
+import ProjectTable from "@/components/modules/projects/ProjectTable";
 import { api } from "@/lib/api-client";
 import { ProjectData, TaskData, TaskStatus, ProjectStatus } from "@/types/project";
 import {
@@ -23,6 +24,7 @@ import {
   TrendingUp,
   LayoutGrid,
   Columns,
+  Table,
 } from "lucide-react";
 
 export default function ProjectsPage() {
@@ -248,8 +250,8 @@ export default function ProjectsPage() {
                   transition: "all 0.15s ease",
                 }}
               >
-                <LayoutGrid size={13} />
-                <span>Projects</span>
+                <Table size={13} />
+                <span>Table</span>
               </button>
               <button
                 type="button"
@@ -431,252 +433,14 @@ export default function ProjectsPage() {
           )}
         </div>
 
-        {/* View Content: Projects Grid OR Kanban Board */}
+        {/* View Content: Projects Tabular View OR Kanban Board */}
         {activeView === "projects" ? (
-          <div>
-            {filteredProjects.length === 0 ? (
-              <div
-                className="finance-panel"
-                style={{
-                  padding: "48px 24px",
-                  textAlign: "center",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "12px",
-                }}
-              >
-                <FolderKanban size={32} style={{ color: "var(--text-dim)" }} />
-                <div style={{ fontSize: "15px", fontWeight: 600 }}>No Projects Found</div>
-                <div style={{ fontSize: "13px", color: "var(--text-muted)", maxWidth: "400px" }}>
-                  {searchQuery || clientFilter !== "all" || statusFilter !== "all"
-                    ? "No projects match your active search filters."
-                    : "Create your first project to begin organizing client engagements and Kanban sprints."}
-                </div>
-                <button
-                  type="button"
-                  onClick={handleOpenNewProject}
-                  className="finance-button-primary"
-                  style={{ width: "auto", marginTop: "4px" }}
-                >
-                  <Plus size={14} />
-                  <span>Create Project</span>
-                </button>
-              </div>
-            ) : (
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-                  gap: "16px",
-                }}
-              >
-                {filteredProjects.map((proj) => {
-                  const percent =
-                    proj.task_count > 0
-                      ? Math.round((proj.completed_task_count / proj.task_count) * 100)
-                      : 0;
-
-                  return (
-                    <div
-                      key={proj.id}
-                      className="finance-panel"
-                      style={{
-                        padding: "18px",
-                        background: "var(--bg-surface)",
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "space-between",
-                        gap: "14px",
-                        border: "1px solid var(--border-subtle)",
-                        transition: "border-color 0.15s ease",
-                      }}
-                    >
-                      <div>
-                        {/* Top: Status & Client */}
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "8px" }}>
-                          <span
-                            style={{
-                              fontSize: "10px",
-                              fontWeight: 600,
-                              textTransform: "uppercase",
-                              padding: "2px 8px",
-                              borderRadius: "var(--radius-xs)",
-                              background:
-                                proj.status === "active"
-                                  ? "rgba(16, 185, 129, 0.12)"
-                                  : proj.status === "completed"
-                                  ? "rgba(59, 130, 246, 0.12)"
-                                  : "rgba(148, 163, 184, 0.12)",
-                              color:
-                                proj.status === "active"
-                                  ? "var(--accent-emerald)"
-                                  : proj.status === "completed"
-                                  ? "var(--accent-blue)"
-                                  : "var(--text-dim)",
-                              border: "1px solid",
-                              borderColor:
-                                proj.status === "active"
-                                  ? "rgba(16, 185, 129, 0.3)"
-                                  : proj.status === "completed"
-                                  ? "rgba(59, 130, 246, 0.3)"
-                                  : "var(--border-subtle)",
-                            }}
-                          >
-                            {proj.status.replace("_", " ")}
-                          </span>
-
-                          {proj.client && (
-                            <div style={{ display: "flex", alignItems: "center", gap: "4px", fontSize: "12px", color: "var(--text-dim)" }}>
-                              <Building2 size={12} />
-                              <span style={{ fontWeight: 500 }}>{proj.client.company_name}</span>
-                            </div>
-                          )}
-                        </div>
-
-                        {/* Project Name */}
-                        <h3
-                          style={{
-                            fontSize: "15px",
-                            fontWeight: 600,
-                            marginTop: "10px",
-                            marginBottom: "4px",
-                            letterSpacing: "-0.2px",
-                          }}
-                        >
-                          {proj.name}
-                        </h3>
-
-                        {proj.description && (
-                          <p
-                            style={{
-                              fontSize: "12px",
-                              color: "var(--text-muted)",
-                              lineHeight: "1.4",
-                              margin: 0,
-                              display: "-webkit-box",
-                              WebkitLineClamp: 2,
-                              WebkitBoxOrient: "vertical",
-                              overflow: "hidden",
-                            }}
-                          >
-                            {proj.description}
-                          </p>
-                        )}
-                      </div>
-
-                      {/* Commercial Details & Progress */}
-                      <div>
-                        {/* Commercials: Billing & Rate */}
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            fontSize: "12px",
-                            paddingBottom: "8px",
-                            borderBottom: "1px solid var(--border-subtle)",
-                            marginBottom: "10px",
-                          }}
-                        >
-                          <span style={{ color: "var(--text-dim)", textTransform: "capitalize" }}>
-                            {proj.billing_type} model
-                          </span>
-                          <span className="mono" style={{ fontWeight: 600 }}>
-                            {proj.billing_type === "hourly"
-                              ? `${proj.client?.currency_code || "INR"} ${proj.hourly_rate?.toFixed(2)}/hr`
-                              : proj.billing_type === "fixed"
-                              ? `${proj.client?.currency_code || "INR"} ${proj.budget_amount?.toFixed(2)} budget`
-                              : "Internal"}
-                          </span>
-                        </div>
-
-                        {/* Tasks Completion Progress */}
-                        <div style={{ marginBottom: "12px" }}>
-                          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11px", color: "var(--text-dim)", marginBottom: "4px" }}>
-                            <span>Deliverables Progress</span>
-                            <span className="mono">
-                              {proj.completed_task_count}/{proj.task_count} tasks ({percent}%)
-                            </span>
-                          </div>
-                          <div
-                            style={{
-                              height: "6px",
-                              width: "100%",
-                              background: "var(--bg-surface-subtle)",
-                              border: "1px solid var(--border-subtle)",
-                              borderRadius: "3px",
-                              overflow: "hidden",
-                            }}
-                          >
-                            <div
-                              style={{
-                                height: "100%",
-                                width: `${percent}%`,
-                                background: percent === 100 ? "var(--accent-emerald)" : "var(--accent-blue)",
-                                transition: "width 0.25s ease",
-                              }}
-                            />
-                          </div>
-                        </div>
-
-                        {/* Dates & Actions */}
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            fontSize: "11px",
-                            color: "var(--text-dim)",
-                          }}
-                        >
-                          {proj.start_date ? (
-                            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-                              <Calendar size={11} />
-                              <span className="mono">{proj.start_date}</span>
-                            </div>
-                          ) : (
-                            <div />
-                          )}
-
-                          <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                            <button
-                              type="button"
-                              onClick={() => handleOpenNewTask(proj.id)}
-                              className="finance-button-secondary"
-                              style={{ padding: "4px 8px", fontSize: "11px" }}
-                              title="Add Task to this Project"
-                            >
-                              <Plus size={11} />
-                              <span>Task</span>
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => handleOpenEditProject(proj)}
-                              className="finance-button-secondary"
-                              style={{ padding: "4px 6px" }}
-                              title="Edit Project Details"
-                            >
-                              <Pencil size={11} />
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => handleDeleteProject(proj)}
-                              className="finance-button-secondary"
-                              style={{ padding: "4px 6px", color: "var(--accent-rose)" }}
-                              title="Delete Project"
-                            >
-                              <Trash2 size={11} />
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
+          <ProjectTable
+            projects={filteredProjects}
+            onEditProject={handleOpenEditProject}
+            onDeleteProject={handleDeleteProject}
+            onAddTask={(projId) => handleOpenNewTask(projId)}
+          />
         ) : (
           /* Kanban Board View */
           <div>

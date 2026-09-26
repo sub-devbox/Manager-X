@@ -47,6 +47,8 @@ async def list_projects(
     status_filter: Optional[str] = Query(None, alias="status", description="Filter by status"),
     billing_type: Optional[str] = Query(None, description="Filter by billing type"),
     q: Optional[str] = Query(None, description="Search by name or description"),
+    limit: Optional[int] = Query(None, ge=1, le=100, description="Pagination limit"),
+    offset: Optional[int] = Query(None, ge=0, description="Pagination offset"),
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
@@ -68,6 +70,12 @@ async def list_projects(
         )
 
     stmt = stmt.order_by(Project.created_at.desc())
+
+    if offset is not None:
+        stmt = stmt.offset(offset)
+    if limit is not None:
+        stmt = stmt.limit(limit)
+
     res = await db.execute(stmt)
     projects = res.scalars().all()
     return [_format_project_response(p) for p in projects]
