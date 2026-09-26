@@ -267,7 +267,7 @@ export default function InvoiceModal({
       ...prev,
       {
         description: "",
-        hsn_sac: "998311",
+        hsn_sac: "",
         price: selectedClient?.hourly_rate || 50,
         quantity: 1,
         unit_price: selectedClient?.hourly_rate || 50,
@@ -294,7 +294,7 @@ export default function InvoiceModal({
       {
         task_id: task.id,
         description,
-        hsn_sac: "998311",
+        hsn_sac: "",
         price: rate,
         quantity: qty,
         unit_price: rate,
@@ -990,7 +990,7 @@ export default function InvoiceModal({
                               type="text"
                               value={item.hsn_sac || ""}
                               onChange={(e) => handleUpdateItem(idx, "hsn_sac", e.target.value)}
-                              placeholder="998311"
+                              placeholder=""
                               className="finance-input mono"
                               style={{ height: "28px", fontSize: "11px", width: "100%" }}
                             />
@@ -1386,7 +1386,7 @@ export default function InvoiceModal({
                               <div style={{ fontWeight: 600 }}>{item.description || "Deliverable item"}</div>
                             </td>
                             <td style={{ padding: "8px 6px", color: "#64748b" }} className="mono">
-                              {item.hsn_sac || "—"}
+                              {item.hsn_sac || ""}
                             </td>
                             <td style={{ padding: "8px 6px", textAlign: "right", color: "#0f172a" }} className="mono">
                               {item.quantity}

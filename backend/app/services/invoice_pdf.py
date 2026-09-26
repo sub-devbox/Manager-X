@@ -387,7 +387,7 @@ def build_invoice_pdf(
     else:
         for itm in raw_items:
             desc = itm.get("description", "Deliverable item")
-            hsn = itm.get("hsn_sac") or "—"
+            hsn = itm.get("hsn_sac") or ""
             qty = itm.get("quantity", 1)
             unit_price = itm.get("unit_price") or itm.get("price") or 0.0
             total_price = itm.get("total") or (qty * unit_price)

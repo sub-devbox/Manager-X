@@ -475,8 +475,8 @@
     "semantic_hash": ""
   },
   "frontend/src/components/modules/invoices/InvoiceModal.tsx": {
-    "mtime": 1790438981.8068676,
-    "ast_hash": "bd5985a90e7ae706759e8aacd5f143ce",
+    "mtime": 1790439109.4955528,
+    "ast_hash": "b6bfa00594dd0c5c920deddc96e7fc53",
     "semantic_hash": ""
   },
   "frontend/src/components/modules/invoices/InvoiceTable.tsx": {
@@ -495,8 +495,8 @@
     "semantic_hash": ""
   },
   "backend/app/services/invoice_pdf.py": {
-    "mtime": 1790438875.7761796,
-    "ast_hash": "36c3e60881164fa718d270160ccee315",
+    "mtime": 1790439120.2650535,
+    "ast_hash": "396d05dda0a2837f0fd4732825d9f001",
     "semantic_hash": ""
   }
 }
