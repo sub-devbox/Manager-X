@@ -5,8 +5,8 @@
     "semantic_hash": ""
   },
   "backend/app/api/v1/router.py": {
-    "mtime": 1790415031.6726556,
-    "ast_hash": "ac81bdc476d1d02e43adf0b764141e46",
+    "mtime": 1790437495.0188947,
+    "ast_hash": "cfe45ebe0ebe8c69483b49922b35a175",
     "semantic_hash": ""
   },
   "backend/app/core/config.py": {
@@ -25,8 +25,8 @@
     "semantic_hash": "4480e8c55a6dc4084d83173b5abf98b9"
   },
   "backend/app/main.py": {
-    "mtime": 1790411882.9061553,
-    "ast_hash": "913384879aa064326839d88c01affbf2",
+    "mtime": 1790437478.1480057,
+    "ast_hash": "3454dde2e59a32b90f6ef8754919c73f",
     "semantic_hash": ""
   },
   "backend/app/models/user_models.py": {
@@ -145,8 +145,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/invoices/page.tsx": {
-    "mtime": 1790403381.1087496,
-    "ast_hash": "0d380fcc73c68b1b252772b7501022d0",
+    "mtime": 1790437638.5660608,
+    "ast_hash": "8c288b7daba032c9accbbf82351b399a",
     "semantic_hash": ""
   },
   "frontend/src/app/itr-helper/page.tsx": {
@@ -452,6 +452,46 @@
   "frontend/src/components/modules/projects/ProjectTasksModal.tsx": {
     "mtime": 1790431652.7478888,
     "ast_hash": "ba9864a1c4604b6fb3c49054e7ee488d",
+    "semantic_hash": ""
+  },
+  "backend/app/api/v1/endpoints/invoices.py": {
+    "mtime": 1790437461.5379055,
+    "ast_hash": "15f79d66a5dbedc7942d8eeefcc4147f",
+    "semantic_hash": ""
+  },
+  "backend/app/models/invoice_model.py": {
+    "mtime": 1790437434.5771928,
+    "ast_hash": "0a924d547d163dffa175a3310cd44091",
+    "semantic_hash": ""
+  },
+  "backend/app/schemas/invoice_schemas.py": {
+    "mtime": 1790437444.0882819,
+    "ast_hash": "d3cbee6c4d4a0bdb7508208bc1349434",
+    "semantic_hash": ""
+  },
+  "backend/tests/test_invoices_api.py": {
+    "mtime": 1790437734.3090317,
+    "ast_hash": "824c6b09539657dfa087056abc5ca5d1",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/modules/invoices/InvoiceModal.tsx": {
+    "mtime": 1790437616.8618584,
+    "ast_hash": "b6ce4a4f3a608d351e473ce1da621531",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/modules/invoices/InvoiceTable.tsx": {
+    "mtime": 1790437575.4433532,
+    "ast_hash": "8ef8265efc467d832d386aa3ed374211",
+    "semantic_hash": ""
+  },
+  "frontend/src/types/client.ts": {
+    "mtime": 1790437667.4355237,
+    "ast_hash": "c2e0567ee2a6d488b35733fc0999c51b",
+    "semantic_hash": ""
+  },
+  "frontend/src/types/invoice.ts": {
+    "mtime": 1790437556.5118766,
+    "ast_hash": "11630dfd81e8938c01d06f7c25f27e9c",
     "semantic_hash": ""
   }
 }

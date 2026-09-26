@@ -70,8 +70,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/page.tsx": {
-    "mtime": 1790434309.6937664,
-    "ast_hash": "88e7eec6fa151e1aa6578d6f897f0f20",
+    "mtime": 1790435000.9044507,
+    "ast_hash": "d34fbffa61a29228e2964ed311635e92",
     "semantic_hash": ""
   },
   "frontend/tsconfig.json": {
@@ -155,8 +155,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/projects/page.tsx": {
-    "mtime": 1790431833.2967021,
-    "ast_hash": "552411b7c9d7ee3611dfd314f3eb5ba7",
+    "mtime": 1790435257.9279962,
+    "ast_hash": "c4b172d438dac8b6537738f6966b460f",
     "semantic_hash": ""
   },
   "frontend/src/app/time-tracker/page.tsx": {
@@ -375,8 +375,8 @@
     "semantic_hash": ""
   },
   "frontend/src/components/modules/projects/ProjectModal.tsx": {
-    "mtime": 1790413130.0555887,
-    "ast_hash": "ed120c6c424183b9d1ccc6930da376b3",
+    "mtime": 1790435282.7777772,
+    "ast_hash": "7453523fabf6552cee1f7bd9d853110c",
     "semantic_hash": ""
   },
   "frontend/src/components/modules/projects/TaskModal.tsx": {
@@ -390,8 +390,8 @@
     "semantic_hash": ""
   },
   "frontend/src/components/modules/projects/ProjectTable.tsx": {
-    "mtime": 1790431702.0431576,
-    "ast_hash": "571ec6cd11deee17f90401cd7c2c41cd",
+    "mtime": 1790435183.92672,
+    "ast_hash": "8aa828348faf456886f68ac9a6983d19",
     "semantic_hash": ""
   },
   "frontend/src/components/modules/projects/TaskTable.tsx": {
