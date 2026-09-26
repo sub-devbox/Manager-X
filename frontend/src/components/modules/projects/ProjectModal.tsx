@@ -48,8 +48,8 @@ export default function ProjectModal({
     client_id: "",
     description: "",
     billing_type: "hourly" as ProjectBillingType,
-    hourly_rate: 0,
-    budget_amount: 0,
+    hourly_rate: "" as string | number,
+    budget_amount: "" as string | number,
     status: "active" as ProjectStatus,
     start_date: "",
     end_date: "",
@@ -82,8 +82,8 @@ export default function ProjectModal({
           client_id: initialData.client_id,
           description: initialData.description || "",
           billing_type: initialData.billing_type,
-          hourly_rate: initialData.hourly_rate || 0,
-          budget_amount: initialData.budget_amount || 0,
+          hourly_rate: initialData.hourly_rate != null ? initialData.hourly_rate : "",
+          budget_amount: initialData.budget_amount != null ? initialData.budget_amount : "",
           status: initialData.status,
           start_date: initialData.start_date || "",
           end_date: initialData.end_date || "",
@@ -94,8 +94,8 @@ export default function ProjectModal({
           client_id: defaultClientId || "",
           description: "",
           billing_type: "hourly",
-          hourly_rate: 0,
-          budget_amount: 0,
+          hourly_rate: "",
+          budget_amount: "",
           status: "active",
           start_date: new Date().toISOString().split("T")[0],
           end_date: "",
@@ -110,13 +110,20 @@ export default function ProjectModal({
       const data = await api.get<any[]>("/clients?is_active=true");
       if (Array.isArray(data)) {
         setClients(data);
-        if (!initialData && !formData.client_id && data.length > 0) {
-          const selected = data[0];
-          setFormData((prev) => ({
-            ...prev,
-            client_id: selected.id,
-            hourly_rate: selected.hourly_rate || 0,
-          }));
+        if (!initialData) {
+          const targetId = defaultClientId || (data.length > 0 ? data[0].id : "");
+          const selected = data.find((c) => c.id === targetId) || data[0];
+          if (selected) {
+            setFormData((prev) => ({
+              ...prev,
+              client_id: selected.id,
+              // Fetch hourly rate from client profile if available
+              hourly_rate:
+                selected.hourly_rate != null && selected.hourly_rate > 0
+                  ? selected.hourly_rate
+                  : prev.hourly_rate,
+            }));
+          }
         }
       }
     } catch {
@@ -131,7 +138,11 @@ export default function ProjectModal({
     setFormData((prev) => ({
       ...prev,
       client_id: clientId,
-      hourly_rate: selected && prev.hourly_rate === 0 ? selected.hourly_rate : prev.hourly_rate,
+      // Automatically fetch hourly rate from selected client profile if available
+      hourly_rate:
+        selected && selected.hourly_rate != null && selected.hourly_rate > 0
+          ? selected.hourly_rate
+          : "",
     }));
   };
 
@@ -161,13 +172,13 @@ export default function ProjectModal({
       };
 
       if (formData.billing_type === "hourly") {
-        payload.hourly_rate = Number(formData.hourly_rate) || 0;
+        payload.hourly_rate = formData.hourly_rate !== "" ? Number(formData.hourly_rate) : null;
         payload.budget_amount = null;
       } else if (formData.billing_type === "fixed") {
-        payload.budget_amount = Number(formData.budget_amount) || 0;
+        payload.budget_amount = formData.budget_amount !== "" ? Number(formData.budget_amount) : null;
         payload.hourly_rate = null;
       } else {
-        payload.hourly_rate = 0;
+        payload.hourly_rate = null;
         payload.budget_amount = null;
       }
 
@@ -187,6 +198,8 @@ export default function ProjectModal({
   };
 
   if (!isOpen || !mounted) return null;
+
+  const selectedClient = clients.find((c) => c.id === formData.client_id);
 
   const modalContent = (
     <div
@@ -350,31 +363,99 @@ export default function ProjectModal({
 
             {formData.billing_type === "hourly" ? (
               <div>
-                <label style={{ display: "block", fontSize: "12px", color: "var(--text-muted)", marginBottom: "4px" }}>
-                  Hourly Rate
-                </label>
-                <input
-                  type="number"
-                  step="0.01"
-                  min="0"
-                  value={formData.hourly_rate}
-                  onChange={(e) => setFormData({ ...formData, hourly_rate: parseFloat(e.target.value) || 0 })}
-                  className="finance-input mono"
-                />
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginBottom: "4px",
+                  }}
+                >
+                  <label style={{ fontSize: "12px", color: "var(--text-muted)", margin: 0 }}>
+                    Hourly Rate
+                  </label>
+                  {selectedClient && selectedClient.hourly_rate > 0 && String(formData.hourly_rate) !== String(selectedClient.hourly_rate) && (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setFormData((prev) => ({ ...prev, hourly_rate: selectedClient.hourly_rate }))
+                      }
+                      style={{
+                        background: "transparent",
+                        border: "none",
+                        color: "var(--accent-blue)",
+                        cursor: "pointer",
+                        fontSize: "11px",
+                        padding: 0,
+                        textDecoration: "underline",
+                      }}
+                      title="Reset input to client's profile hourly rate"
+                    >
+                      Reset to client rate
+                    </button>
+                  )}
+                </div>
+                <div style={{ position: "relative" }}>
+                  <input
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    placeholder="0.00"
+                    value={formData.hourly_rate}
+                    onChange={(e) => setFormData({ ...formData, hourly_rate: e.target.value })}
+                    className="finance-input mono"
+                    style={{ paddingRight: "55px" }}
+                  />
+                  <span
+                    style={{
+                      position: "absolute",
+                      right: "12px",
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      fontSize: "12px",
+                      color: "var(--text-dim)",
+                      pointerEvents: "none",
+                    }}
+                  >
+                    {selectedClient?.currency_code || "INR"}/hr
+                  </span>
+                </div>
+                <div style={{ fontSize: "11px", color: "var(--text-dim)", marginTop: "4px" }}>
+                  {selectedClient && selectedClient.hourly_rate > 0
+                    ? `Auto-fetched from client profile (${selectedClient.currency_code} ${selectedClient.hourly_rate}/hr). Manual entry accepted.`
+                    : "Enter manual hourly rate (client profile has no default rate set)."}
+                </div>
               </div>
             ) : formData.billing_type === "fixed" ? (
               <div>
                 <label style={{ display: "block", fontSize: "12px", color: "var(--text-muted)", marginBottom: "4px" }}>
                   Fixed Budget Amount
                 </label>
-                <input
-                  type="number"
-                  step="0.01"
-                  min="0"
-                  value={formData.budget_amount}
-                  onChange={(e) => setFormData({ ...formData, budget_amount: parseFloat(e.target.value) || 0 })}
-                  className="finance-input mono"
-                />
+                <div style={{ position: "relative" }}>
+                  <input
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    placeholder="0.00"
+                    value={formData.budget_amount}
+                    onChange={(e) => setFormData({ ...formData, budget_amount: e.target.value })}
+                    className="finance-input mono"
+                    style={{ paddingRight: "50px" }}
+                  />
+                  <span
+                    style={{
+                      position: "absolute",
+                      right: "12px",
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      fontSize: "12px",
+                      color: "var(--text-dim)",
+                      pointerEvents: "none",
+                    }}
+                  >
+                    {selectedClient?.currency_code || "INR"}
+                  </span>
+                </div>
               </div>
             ) : (
               <div>

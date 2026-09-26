@@ -118,10 +118,9 @@ async def create_project(
         )
 
     project_data = payload.model_dump()
-    # Auto-inherit hourly rate from client if not explicitly specified
-    if project_data.get("hourly_rate") is None or project_data.get("hourly_rate") == 0.0:
-        if project_data.get("billing_type") == "hourly":
-            project_data["hourly_rate"] = client.hourly_rate
+    # Auto-inherit hourly rate from client profile if not explicitly specified
+    if project_data.get("billing_type") == "hourly" and project_data.get("hourly_rate") is None:
+        project_data["hourly_rate"] = client.hourly_rate
 
     project = Project(**project_data)
     db.add(project)

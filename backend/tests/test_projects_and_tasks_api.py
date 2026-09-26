@@ -72,6 +72,22 @@ async def test_projects_and_tasks_lifecycle(client: AsyncClient):
     assert proj_data["hourly_rate"] == 150.0
     assert proj_data["name"] == "Robotics Vision Platform"
 
+    # 3b. Create Project with Manual Hourly Rate entry (overriding client profile rate 150.0)
+    manual_proj_res = await client.post(
+        "/api/v1/projects",
+        json={
+            "client_id": client_id,
+            "name": "Custom Consulting Project",
+            "billing_type": "hourly",
+            "hourly_rate": 225.0,
+            "status": "active",
+        },
+    )
+    assert manual_proj_res.status_code == 201
+    assert manual_proj_res.json()["hourly_rate"] == 225.0
+    # Clean up test project
+    await client.delete(f"/api/v1/projects/{manual_proj_res.json()['id']}")
+
     # 4. Create Tasks under the Project (including simple checklist)
     task1_res = await client.post(
         "/api/v1/tasks",
