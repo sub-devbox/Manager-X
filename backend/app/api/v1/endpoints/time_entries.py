@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -117,15 +117,22 @@ async def create_time_entry(
             hourly_rate = task.project.client.hourly_rate
 
     duration_seconds = payload.duration_seconds
-    if duration_seconds == 0 and payload.start_time and payload.end_time:
-        duration_seconds = max(0, int((payload.end_time - payload.start_time).total_seconds()))
+    start_time = payload.start_time
+    end_time = payload.end_time
+
+    if start_time and end_time:
+        # Subtract time start from time stop to calculate logged time
+        duration_seconds = max(0, int((end_time - start_time).total_seconds()))
+    elif duration_seconds > 0 and start_time and not end_time:
+        # Manual entry of logged time: time stop = time start + manual time
+        end_time = start_time + timedelta(seconds=duration_seconds)
 
     new_entry = TimeEntry(
         task_id=task.id,
         project_id=project_id,
         description=payload.description,
-        start_time=payload.start_time,
-        end_time=payload.end_time,
+        start_time=start_time,
+        end_time=end_time,
         duration_seconds=duration_seconds,
         is_billable=payload.is_billable,
         hourly_rate=hourly_rate,
@@ -201,6 +208,15 @@ async def update_time_entry(
     for key, value in update_data.items():
         if key != "task_id":
             setattr(entry, key, value)
+
+    # Recalculate duration or stop time according to rule
+    if "end_time" in update_data and entry.end_time and entry.start_time:
+        # User updated/supplied stop time: duration = stop - start
+        entry.duration_seconds = max(0, int((entry.end_time - entry.start_time).total_seconds()))
+    elif "duration_seconds" in update_data and "end_time" not in update_data and entry.start_time:
+        # Manual entry of logged time: time stop = time start + manual time
+        if entry.duration_seconds > 0:
+            entry.end_time = entry.start_time + timedelta(seconds=entry.duration_seconds)
 
     await db.commit()
     await db.refresh(entry)

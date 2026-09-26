@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { TimeEntryData } from "@/types/time";
 import { TaskData } from "@/types/project";
-import { X, Clock, Calendar, CheckSquare, DollarSign, FileText } from "lucide-react";
+import { X, Clock, Calendar, ArrowRight, DollarSign } from "lucide-react";
 
 interface ManualTimeModalProps {
   isOpen: boolean;
@@ -12,6 +12,7 @@ interface ManualTimeModalProps {
     task_id: string;
     description: string;
     start_time: string;
+    end_time?: string;
     duration_seconds: number;
     is_billable: boolean;
     hourly_rate?: number;
@@ -19,6 +20,20 @@ interface ManualTimeModalProps {
   tasks: TaskData[];
   initialEntry?: TimeEntryData | null;
 }
+
+const timeToMinutes = (timeStr: string) => {
+  const [h, m] = timeStr.split(":").map(Number);
+  return (h || 0) * 60 + (m || 0);
+};
+
+const minutesToTime = (totalMinutes: number) => {
+  let normalized = Math.round(totalMinutes) % (24 * 60);
+  if (normalized < 0) normalized += 24 * 60;
+  const h = Math.floor(normalized / 60);
+  const m = normalized % 60;
+  const pad = (n: number) => (n < 10 ? `0${n}` : String(n));
+  return `${pad(h)}:${pad(m)}`;
+};
 
 export default function ManualTimeModal({
   isOpen,
@@ -29,6 +44,8 @@ export default function ManualTimeModal({
 }: ManualTimeModalProps) {
   const [taskId, setTaskId] = useState<string>("");
   const [dateStr, setDateStr] = useState<string>(() => new Date().toISOString().slice(0, 10));
+  const [startTime, setStartTime] = useState<string>("09:00");
+  const [stopTime, setStopTime] = useState<string>("10:00");
   const [durationHours, setDurationHours] = useState<string>("1.0");
   const [description, setDescription] = useState<string>("");
   const [isBillable, setIsBillable] = useState<boolean>(true);
@@ -40,13 +57,30 @@ export default function ManualTimeModal({
     if (initialEntry) {
       setTaskId(initialEntry.task_id);
       setDateStr(initialEntry.start_time.slice(0, 10));
+      const sTime = initialEntry.start_time.slice(11, 16);
+      setStartTime(sTime || "09:00");
+
+      if (initialEntry.end_time) {
+        setStopTime(initialEntry.end_time.slice(11, 16));
+      } else {
+        const startMin = timeToMinutes(sTime || "09:00");
+        const durMin = initialEntry.duration_seconds / 60;
+        setStopTime(minutesToTime(startMin + durMin));
+      }
+
       setDurationHours((initialEntry.duration_seconds / 3600.0).toFixed(2));
       setDescription(initialEntry.description || "");
       setIsBillable(initialEntry.is_billable);
-      setHourlyRate(initialEntry.hourly_rate !== null && initialEntry.hourly_rate !== undefined ? String(initialEntry.hourly_rate) : "");
+      setHourlyRate(
+        initialEntry.hourly_rate !== null && initialEntry.hourly_rate !== undefined
+          ? String(initialEntry.hourly_rate)
+          : ""
+      );
     } else {
       setTaskId(tasks.length > 0 ? tasks[0].id : "");
       setDateStr(new Date().toISOString().slice(0, 10));
+      setStartTime("09:00");
+      setStopTime("10:00");
       setDurationHours("1.0");
       setDescription("");
       setIsBillable(true);
@@ -56,6 +90,40 @@ export default function ManualTimeModal({
   }, [initialEntry, isOpen, tasks]);
 
   if (!isOpen) return null;
+
+  // 1. User changes Time Start: recalculate duration based on stopTime
+  const handleStartTimeChange = (newStart: string) => {
+    setStartTime(newStart);
+    const startMin = timeToMinutes(newStart);
+    const stopMin = timeToMinutes(stopTime);
+    let diff = stopMin - startMin;
+    if (diff < 0) diff += 24 * 60;
+    if (diff === 0) diff = 60; // default 1 hour if identical
+    const hours = (diff / 60).toFixed(2);
+    setDurationHours(hours);
+  };
+
+  // 2. User changes Time Stop: recalculate duration = time stop - time start
+  const handleStopTimeChange = (newStop: string) => {
+    setStopTime(newStop);
+    const startMin = timeToMinutes(startTime);
+    const stopMin = timeToMinutes(newStop);
+    let diff = stopMin - startMin;
+    if (diff < 0) diff += 24 * 60;
+    const hours = (diff / 60).toFixed(2);
+    setDurationHours(hours);
+  };
+
+  // 3. User manually enters Logged Time: time stop = time start + manual time
+  const handleDurationChange = (newHoursStr: string) => {
+    setDurationHours(newHoursStr);
+    const hours = parseFloat(newHoursStr);
+    if (!isNaN(hours) && hours > 0) {
+      const startMin = timeToMinutes(startTime);
+      const addedMin = hours * 60;
+      setStopTime(minutesToTime(startMin + addedMin));
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,7 +139,8 @@ export default function ManualTimeModal({
     }
 
     const durationSeconds = Math.round(hours * 3600);
-    const startIso = new Date(`${dateStr}T09:00:00Z`).toISOString();
+    const startIso = new Date(`${dateStr}T${startTime}:00Z`).toISOString();
+    const endIso = new Date(`${dateStr}T${stopTime}:00Z`).toISOString();
     const rateVal = hourlyRate.trim() ? parseFloat(hourlyRate) : undefined;
 
     setIsSubmitting(true);
@@ -81,6 +150,7 @@ export default function ManualTimeModal({
         task_id: taskId,
         description,
         start_time: startIso,
+        end_time: endIso,
         duration_seconds: durationSeconds,
         is_billable: isBillable,
         hourly_rate: rateVal,
@@ -114,7 +184,7 @@ export default function ManualTimeModal({
         className="finance-panel"
         style={{
           width: "100%",
-          maxWidth: "480px",
+          maxWidth: "500px",
           background: "var(--bg-surface)",
           border: "1px solid var(--border-subtle)",
           borderRadius: "var(--radius-md)",
@@ -136,7 +206,7 @@ export default function ManualTimeModal({
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             <Clock size={16} style={{ color: "var(--accent-blue)" }} />
             <h3 style={{ fontSize: "14px", fontWeight: 600 }}>
-              {initialEntry ? "Edit Time Log" : "Log Time on Task"}
+              {initialEntry ? "Edit Time Log" : "Log Task Time"}
             </h3>
           </div>
           <button
@@ -190,25 +260,74 @@ export default function ManualTimeModal({
             </select>
           </div>
 
-          {/* Date & Duration Row */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
-            <div>
-              <label style={{ fontSize: "12px", fontWeight: 500, color: "var(--text-muted)", display: "block", marginBottom: "6px" }}>
-                Date <span style={{ color: "var(--accent-rose)" }}>*</span>
-              </label>
-              <input
-                type="date"
-                value={dateStr}
-                onChange={(e) => setDateStr(e.target.value)}
-                className="finance-input"
-                style={{ width: "100%", height: "36px", fontSize: "12px" }}
-                required
-              />
+          {/* Date Picker */}
+          <div>
+            <label style={{ fontSize: "12px", fontWeight: 500, color: "var(--text-muted)", display: "block", marginBottom: "6px" }}>
+              Date <span style={{ color: "var(--accent-rose)" }}>*</span>
+            </label>
+            <input
+              type="date"
+              value={dateStr}
+              onChange={(e) => setDateStr(e.target.value)}
+              className="finance-input"
+              style={{ width: "100%", height: "36px", fontSize: "12px" }}
+              required
+            />
+          </div>
+
+          {/* Time Start, Time Stop & Logged Time (Synchronized) */}
+          <div
+            style={{
+              background: "var(--bg-surface-subtle)",
+              padding: "14px",
+              borderRadius: "var(--radius-xs)",
+              border: "1px solid var(--border-subtle)",
+              display: "flex",
+              flexDirection: "column",
+              gap: "10px",
+            }}
+          >
+            <div style={{ fontSize: "11px", fontWeight: 600, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+              Time Range & Duration (Auto-Calculated)
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "center", gap: "10px" }}>
+              <div>
+                <label style={{ fontSize: "11px", color: "var(--text-muted)", display: "block", marginBottom: "4px" }}>
+                  Time Start
+                </label>
+                <input
+                  type="time"
+                  value={startTime}
+                  onChange={(e) => handleStartTimeChange(e.target.value)}
+                  className="finance-input"
+                  style={{ width: "100%", height: "34px", fontSize: "12px" }}
+                  required
+                />
+              </div>
+
+              <div style={{ paddingTop: "16px", color: "var(--text-dim)" }}>
+                <ArrowRight size={14} />
+              </div>
+
+              <div>
+                <label style={{ fontSize: "11px", color: "var(--text-muted)", display: "block", marginBottom: "4px" }}>
+                  Time Stop
+                </label>
+                <input
+                  type="time"
+                  value={stopTime}
+                  onChange={(e) => handleStopTimeChange(e.target.value)}
+                  className="finance-input"
+                  style={{ width: "100%", height: "34px", fontSize: "12px" }}
+                  required
+                />
+              </div>
             </div>
 
             <div>
-              <label style={{ fontSize: "12px", fontWeight: 500, color: "var(--text-muted)", display: "block", marginBottom: "6px" }}>
-                Duration (Hours) <span style={{ color: "var(--accent-rose)" }}>*</span>
+              <label style={{ fontSize: "11px", color: "var(--text-muted)", display: "block", marginBottom: "4px" }}>
+                Logged Time (Hours) — <em>edit to recalculate Stop Time</em>
               </label>
               <input
                 type="number"
@@ -216,10 +335,10 @@ export default function ManualTimeModal({
                 min="0.05"
                 max="24"
                 value={durationHours}
-                onChange={(e) => setDurationHours(e.target.value)}
+                onChange={(e) => handleDurationChange(e.target.value)}
                 placeholder="e.g. 2.5"
                 className="finance-input"
-                style={{ width: "100%", height: "36px", fontSize: "12px" }}
+                style={{ width: "100%", height: "34px", fontSize: "12px" }}
                 required
               />
             </div>
@@ -235,7 +354,7 @@ export default function ManualTimeModal({
               onChange={(e) => setDescription(e.target.value)}
               placeholder="What did you work on during this time?"
               className="finance-input"
-              rows={3}
+              rows={2}
               style={{ width: "100%", padding: "8px 10px", fontSize: "12px", resize: "vertical" }}
             />
           </div>

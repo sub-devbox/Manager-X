@@ -127,6 +127,19 @@ export default function TimeEntryTable({
     }
   };
 
+  const formatTimeRange = (startIso: string, endIso?: string | null) => {
+    try {
+      const s = new Date(startIso);
+      const sStr = s.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
+      if (!endIso) return `${sStr} — ongoing`;
+      const e = new Date(endIso);
+      const eStr = e.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
+      return `${sStr} — ${eStr}`;
+    } catch {
+      return "";
+    }
+  };
+
   const renderSortIndicator = (field: SortField) => {
     if (sortField !== field) {
       return <ArrowUpDown size={11} style={{ opacity: 0.35 }} />;
@@ -410,11 +423,16 @@ export default function TimeEntryTable({
                     )}
                   </td>
 
-                  {/* Date */}
-                  <td style={{ padding: "6px 12px", whiteSpace: "nowrap", color: "var(--text-muted)" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-                      <Calendar size={11} style={{ color: "var(--text-dim)" }} />
-                      <span>{formatDate(entry.start_time)}</span>
+                  {/* Date & Time Range */}
+                  <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "5px", color: "var(--text-main)", fontSize: "12px", fontWeight: 500 }}>
+                        <Calendar size={11} style={{ color: "var(--text-dim)" }} />
+                        <span>{formatDate(entry.start_time)}</span>
+                      </div>
+                      <span className="mono" style={{ fontSize: "10.5px", color: "var(--text-dim)" }}>
+                        {formatTimeRange(entry.start_time, entry.end_time)}
+                      </span>
                     </div>
                   </td>
 

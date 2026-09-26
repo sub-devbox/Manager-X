@@ -119,6 +119,7 @@ export default function TimeTrackerPage() {
     task_id: string;
     description: string;
     start_time: string;
+    end_time?: string;
     duration_seconds: number;
     is_billable: boolean;
     hourly_rate?: number;

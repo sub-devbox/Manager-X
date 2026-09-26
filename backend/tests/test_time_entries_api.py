@@ -76,9 +76,9 @@ async def test_time_entries_lifecycle_and_task_tracking(client: AsyncClient):
     assert task_res.status_code == 201
     task_id = task_res.json()["id"]
 
-    # 5. Create Time Entry (2 hours = 7200 seconds)
-    start_time = datetime.now(timezone.utc) - timedelta(hours=2)
-    end_time = datetime.now(timezone.utc)
+    # 5. Create Time Entry with start and stop (duration calculated automatically)
+    start_time = datetime(2026, 9, 26, 9, 0, 0, tzinfo=timezone.utc)
+    end_time = datetime(2026, 9, 26, 11, 0, 0, tzinfo=timezone.utc)
 
     entry_res = await client.post(
         "/api/v1/time-entries",
@@ -87,7 +87,7 @@ async def test_time_entries_lifecycle_and_task_tracking(client: AsyncClient):
             "description": "Configured AWS-GCP peering mesh and routing tables",
             "start_time": start_time.isoformat(),
             "end_time": end_time.isoformat(),
-            "duration_seconds": 7200,
+            "duration_seconds": 0,  # Auto-calculate: 11:00 - 09:00 = 7200 seconds
             "is_billable": True,
         },
     )
@@ -98,11 +98,39 @@ async def test_time_entries_lifecycle_and_task_tracking(client: AsyncClient):
     assert entry_id.startswith("tim_")
     assert entry_data["task_id"] == task_id
     assert entry_data["project_id"] == project_id
+    assert entry_data["duration_seconds"] == 7200  # Calculated: stop - start = 2 hours
     assert entry_data["hourly_rate"] == 150.0  # Auto-inherited from project
     assert entry_data["billable_amount"] == 300.0  # 2 hrs * $150
     assert entry_data["task_title"] == "Configure VPC Peering"
     assert entry_data["project_name"] == "Cloud Migration"
     assert entry_data["client_name"] == "Apex Innovations"
+
+    # 5b. Manual Entry: time stop = time start + manual time
+    manual_start = datetime(2026, 9, 26, 14, 0, 0, tzinfo=timezone.utc)
+    manual_duration = 5400  # 1.5 hours
+    manual_res = await client.post(
+        "/api/v1/time-entries",
+        json={
+            "task_id": task_id,
+            "description": "Manual entry: documentation update",
+            "start_time": manual_start.isoformat(),
+            "duration_seconds": manual_duration,
+            "is_billable": True,
+        },
+    )
+    assert manual_res.status_code == 201
+    manual_data = manual_res.json()
+    assert manual_data["duration_seconds"] == 5400
+    expected_stop = manual_start + timedelta(seconds=manual_duration)
+    assert manual_data["end_time"] is not None
+    # Parse returned end_time and verify it matches start + manual duration
+    actual_stop = datetime.fromisoformat(manual_data["end_time"])
+    if actual_stop.tzinfo is None:
+        actual_stop = actual_stop.replace(tzinfo=timezone.utc)
+    assert actual_stop == expected_stop
+
+    # Clean up manual entry so subsequent tests continue with single entry
+    await client.delete(f"/api/v1/time-entries/{manual_data['id']}")
 
     # Verify task auto-transitioned from backlog to in_progress
     get_task_res = await client.get(f"/api/v1/tasks/{task_id}")
