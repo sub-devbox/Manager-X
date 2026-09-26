@@ -1,16 +1,16 @@
 # Graph Report - Manager-X  (2026-09-26)
 
 ## Corpus Check
-- 89 files · ~54,447 words
+- 89 files · ~54,737 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 563 nodes · 1024 edges · 37 communities (29 shown, 8 thin omitted)
+- 565 nodes · 1028 edges · 38 communities (30 shown, 8 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 16 edges (avg confidence: 0.57)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `2d4b5f5b`
+- Built from commit: `af08d0f9`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -18,7 +18,7 @@
 - devDependencies
 - auth.py
 - Base
-- settings.py
+- User
 - compilerOptions
 - Ponytail
 - main.py
@@ -48,9 +48,10 @@
 - frontend/AGENTS.md
 - eslint.config.mjs
 - next.config.ts
-- User
+- clients.py
 - project.ts
 - time_entries.py
+- config.py
 
 ## God Nodes (most connected - your core abstractions)
 1. `User` - 52 edges
@@ -79,7 +80,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (37 total, 8 thin omitted)
+## Communities (38 total, 8 thin omitted)
 
 ### Community 0 - "devDependencies"
 Cohesion: 0.06
@@ -87,15 +88,15 @@ Nodes (32): eslint, eslint-config-next, dependencies, lucide-react, next, react,
 
 ### Community 1 - "auth.py"
 Cohesion: 0.08
-Nodes (47): Any, check_auth_status(), get_client_ip(), get_me(), login(), logout(), AsyncSession, get (+39 more)
+Nodes (50): Any, check_auth_status(), get_client_ip(), get_current_user(), get_me(), get_optional_user(), login(), logout() (+42 more)
 
 ### Community 2 - "Base"
 Cohesion: 0.07
-Nodes (36): generate_cuid(), Generate a collision-resistant unique identifier (CUID). Structure: prefix (1)…, to_base36(), Base, set_sqlite_pragma(), Currency, datetime, UserSession (+28 more)
+Nodes (37): generate_cuid(), Generate a collision-resistant unique identifier (CUID). Structure: prefix (1)…, to_base36(), Base, set_sqlite_pragma(), Currency, datetime, UserSession (+29 more)
 
-### Community 3 - "settings.py"
-Cohesion: 0.09
-Nodes (44): add_country(), create_backup_snapshot(), create_currency(), delete_country(), delete_currency(), download_database(), ensure_default_currencies(), _format_size() (+36 more)
+### Community 3 - "User"
+Cohesion: 0.13
+Nodes (39): add_country(), create_backup_snapshot(), create_currency(), delete_country(), delete_currency(), download_database(), ensure_default_currencies(), _format_size() (+31 more)
 
 ### Community 4 - "compilerOptions"
 Cohesion: 0.07
@@ -119,11 +120,11 @@ Nodes (7): Asset Manager Module, Finance Manager Module, ITR Helper Module, Invo
 
 ### Community 9 - "projects.py"
 Cohesion: 0.09
-Nodes (47): create_project(), delete_project(), _format_project_response(), get_project(), list_projects(), list_projects_summary(), AsyncSession, delete (+39 more)
+Nodes (49): create_project(), delete_project(), _format_project_response(), get_project(), list_projects(), list_projects_summary(), AsyncSession, delete (+41 more)
 
 ### Community 10 - "AppShell.tsx"
 Cohesion: 0.06
-Nodes (26): frontend_src_app_globals, metadata, OverviewPage(), AppShell(), AppShellProps, GlobalTimerBar(), Header(), HeaderProps (+18 more)
+Nodes (25): frontend_src_app_globals, metadata, OverviewPage(), AppShell(), AppShellProps, Header(), HeaderProps, Sidebar() (+17 more)
 
 ### Community 11 - "Ponytail"
 Cohesion: 0.22
@@ -181,17 +182,21 @@ Nodes (3): Boundaries, Output, Scan
 Cohesion: 0.50
 Nodes (3): Deploy on Vercel, Getting Started, Learn More
 
-### Community 34 - "User"
-Cohesion: 0.14
-Nodes (27): get_current_user(), get_optional_user(), Extract authenticated user if credentials exist, otherwise return None without…, Extract and validate authenticated user from either HttpOnly cookie or…, create_client(), delete_client(), get_client(), list_clients() (+19 more)
+### Community 34 - "clients.py"
+Cohesion: 0.15
+Nodes (22): create_client(), delete_client(), get_client(), list_clients(), list_clients_summary(), AsyncSession, delete, get (+14 more)
 
 ### Community 35 - "project.ts"
 Cohesion: 0.06
-Nodes (49): PeriodFilter, PeriodFilter, ClientOption, SearchableClientSelect(), SearchableClientSelectProps, TimerState, ClientOption, ProjectModal() (+41 more)
+Nodes (52): PeriodFilter, PeriodFilter, ClientOption, SearchableClientSelect(), SearchableClientSelectProps, GlobalTimerBar(), TimerState, ClientOption (+44 more)
 
 ### Community 36 - "time_entries.py"
-Cohesion: 0.17
-Nodes (21): create_time_entry(), delete_time_entry(), _format_time_entry_response(), get_time_entry(), list_time_entries(), AsyncSession, delete, get (+13 more)
+Cohesion: 0.19
+Nodes (19): create_time_entry(), delete_time_entry(), _format_time_entry_response(), get_time_entry(), list_time_entries(), AsyncSession, delete, get (+11 more)
+
+### Community 37 - "config.py"
+Cohesion: 0.29
+Nodes (6): Settings, BaseSettings, os, pathlib, pydantic_settings, secrets
 
 ## Knowledge Gaps
 - **163 isolated node(s):** `eslintConfig`, `nextConfig`, `name`, `version`, `private` (+158 more)
@@ -201,11 +206,11 @@ Nodes (21): create_time_entry(), delete_time_entry(), _format_time_entry_respons
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `User` connect `User` to `auth.py`, `Base`, `settings.py`, `time_entries.py`, `projects.py`?**
+- **Why does `User` connect `User` to `auth.py`, `clients.py`, `Base`, `time_entries.py`, `projects.py`?**
   _High betweenness centrality (0.084) - this node is a cross-community bridge._
-- **Why does `Base` connect `Base` to `auth.py`, `User`, `settings.py`, `time_entries.py`, `main.py`, `projects.py`?**
+- **Why does `Base` connect `Base` to `auth.py`, `clients.py`, `User`, `time_entries.py`, `main.py`, `projects.py`?**
   _High betweenness centrality (0.019) - this node is a cross-community bridge._
-- **Why does `Currency` connect `Base` to `User`, `settings.py`?**
+- **Why does `Currency` connect `Base` to `clients.py`, `User`?**
   _High betweenness centrality (0.016) - this node is a cross-community bridge._
 - **Are the 10 inferred relationships involving `Base` (e.g. with `SecurityHeadersMiddleware` and `Client`) actually correct?**
   _`Base` has 10 INFERRED edges - model-reasoned connections that need verification._
@@ -214,4 +219,4 @@ _Questions this graph is uniquely positioned to answer:_
 - **Should `devDependencies` be split into smaller, more focused modules?**
   _Cohesion score 0.06060606060606061 - nodes in this community are weakly interconnected._
 - **Should `auth.py` be split into smaller, more focused modules?**
-  _Cohesion score 0.08470588235294117 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.08176100628930817 - nodes in this community are weakly interconnected._

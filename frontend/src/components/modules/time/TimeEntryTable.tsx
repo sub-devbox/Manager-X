@@ -9,7 +9,6 @@ import {
   Building2,
   Calendar,
   Pencil,
-  Trash2,
   ChevronDown,
   ChevronUp,
   ArrowUpDown,
@@ -130,7 +129,7 @@ export default function TimeEntryTable({
   const formatDate = (isoString: string) => {
     try {
       const d = new Date(isoString);
-      return d.toLocaleDateString("en-US", {
+      return d.toLocaleDateString(undefined, {
         month: "short",
         day: "numeric",
         year: "numeric",
@@ -505,20 +504,6 @@ export default function TimeEntryTable({
                         title={entry.invoiced ? "Invoiced entry cannot be modified" : "Edit time entry"}
                       >
                         <Pencil size={11} />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => onDeleteEntry && onDeleteEntry(entry)}
-                        disabled={entry.invoiced}
-                        className="finance-button-secondary"
-                        style={{
-                          padding: "3px 6px",
-                          color: entry.invoiced ? "var(--text-dim)" : "var(--accent-rose)",
-                          opacity: entry.invoiced ? 0.4 : 1,
-                        }}
-                        title={entry.invoiced ? "Invoiced entry cannot be deleted" : "Delete time entry"}
-                      >
-                        <Trash2 size={11} />
                       </button>
                     </div>
                   </td>

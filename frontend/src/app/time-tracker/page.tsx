@@ -180,46 +180,41 @@ export default function TimeTrackerPage() {
     await fetchData();
   };
 
-  // Delete entry
-  const handleDeleteEntry = async (entry: TimeEntryData) => {
-    if (entry.invoiced) {
-      setActionMsg({ type: "error", text: "Cannot delete an invoiced time entry." });
-      return;
-    }
-
-    const confirmDelete = window.confirm(
-      `Are you sure you want to delete this time entry (${(entry.duration_seconds / 3600).toFixed(1)}h on "${entry.task_title}")?`
-    );
-    if (!confirmDelete) return;
-
+  // Delete entry (called from ManualTimeModal)
+  const handleDeleteEntry = async (entryId: string) => {
     try {
-      await api.delete(`/time-entries/${entry.id}`);
+      await api.delete(`/time-entries/${entryId}`);
       setActionMsg({ type: "success", text: "Time entry deleted successfully." });
       setTimeout(() => setActionMsg(null), 4000);
       await fetchData();
     } catch (err: any) {
       setActionMsg({ type: "error", text: err.message || "Failed to delete time entry." });
+      throw err;
     }
   };
 
-  // Period filtering
+  // Period filtering in user local timezone
   const filteredEntries = useMemo(() => {
     const now = new Date();
-    const todayStr = now.toISOString().slice(0, 10);
+    const localYear = now.getFullYear();
+    const localMonth = String(now.getMonth() + 1).padStart(2, "0");
+    const localDay = String(now.getDate()).padStart(2, "0");
+    const todayStr = `${localYear}-${localMonth}-${localDay}`;
 
-    // Calculate beginning of this week (Monday)
+    // Calculate beginning of this week (Monday) in user local time
     const dayOfWeek = now.getDay() || 7; // Sunday = 7
-    const monday = new Date(now);
-    monday.setDate(now.getDate() - (dayOfWeek - 1));
-    monday.setHours(0, 0, 0, 0);
+    const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - (dayOfWeek - 1), 0, 0, 0, 0);
 
-    // Calculate beginning of this month
-    const firstOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    // Calculate beginning of this month in user local time
+    const firstOfMonth = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0, 0);
 
     return entries.filter((entry) => {
-      // Period filter
+      // Period filter evaluated in local user timezone
       const entryDate = new Date(entry.start_time);
-      const entryDateStr = entry.start_time.slice(0, 10);
+      const eYear = entryDate.getFullYear();
+      const eMonth = String(entryDate.getMonth() + 1).padStart(2, "0");
+      const eDay = String(entryDate.getDate()).padStart(2, "0");
+      const entryDateStr = `${eYear}-${eMonth}-${eDay}`;
 
       if (periodFilter === "today") {
         if (entryDateStr !== todayStr) return false;
@@ -578,7 +573,6 @@ export default function TimeTrackerPage() {
               setEditingEntry(entry);
               setIsModalOpen(true);
             }}
-            onDeleteEntry={handleDeleteEntry}
           />
         )}
 
@@ -599,6 +593,7 @@ export default function TimeTrackerPage() {
             setEditingEntry(null);
           }}
           onSubmit={handleModalSubmit}
+          onDelete={handleDeleteEntry}
           tasks={tasks}
           initialEntry={editingEntry}
         />

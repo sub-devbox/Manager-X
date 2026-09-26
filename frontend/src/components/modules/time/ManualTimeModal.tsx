@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
+import { api } from "@/lib/api-client";
 import { TimeEntryData } from "@/types/time";
 import { TaskData } from "@/types/project";
-import { X, Clock, Calendar, ArrowRight, DollarSign } from "lucide-react";
+import { X, Clock, Calendar, ArrowRight, DollarSign, Trash2 } from "lucide-react";
 
 interface ManualTimeModalProps {
   isOpen: boolean;
@@ -18,9 +19,23 @@ interface ManualTimeModalProps {
     is_billable: boolean;
     hourly_rate?: number;
   }) => Promise<void>;
+  onDelete?: (entryId: string) => Promise<void> | void;
   tasks: TaskData[];
   initialEntry?: TimeEntryData | null;
 }
+
+const toLocalDateStr = (d: Date) => {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+};
+
+const toLocalTimeStr = (d: Date) => {
+  const h = String(d.getHours()).padStart(2, "0");
+  const m = String(d.getMinutes()).padStart(2, "0");
+  return `${h}:${m}`;
+};
 
 const timeToMinutes = (timeStr: string) => {
   const [h, m] = timeStr.split(":").map(Number);
@@ -40,11 +55,12 @@ export default function ManualTimeModal({
   isOpen,
   onClose,
   onSubmit,
+  onDelete,
   tasks,
   initialEntry,
 }: ManualTimeModalProps) {
   const [taskId, setTaskId] = useState<string>("");
-  const [dateStr, setDateStr] = useState<string>(() => new Date().toISOString().slice(0, 10));
+  const [dateStr, setDateStr] = useState<string>(() => toLocalDateStr(new Date()));
   const [startTime, setStartTime] = useState<string>("09:00");
   const [stopTime, setStopTime] = useState<string>("10:00");
   const [durationHours, setDurationHours] = useState<string>("1.0");
@@ -52,19 +68,27 @@ export default function ManualTimeModal({
   const [isBillable, setIsBillable] = useState<boolean>(true);
   const [hourlyRate, setHourlyRate] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [deleting, setDeleting] = useState<boolean>(false);
+  const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   useEffect(() => {
+    setConfirmDelete(false);
+    setDeleting(false);
+    setErrorMsg(null);
+
     if (initialEntry) {
       setTaskId(initialEntry.task_id);
-      setDateStr(initialEntry.start_time.slice(0, 10));
-      const sTime = initialEntry.start_time.slice(11, 16);
-      setStartTime(sTime || "09:00");
+      const s = new Date(initialEntry.start_time);
+      setDateStr(toLocalDateStr(s));
+      const sTime = toLocalTimeStr(s);
+      setStartTime(sTime);
 
       if (initialEntry.end_time) {
-        setStopTime(initialEntry.end_time.slice(11, 16));
+        const e = new Date(initialEntry.end_time);
+        setStopTime(toLocalTimeStr(e));
       } else {
-        const startMin = timeToMinutes(sTime || "09:00");
+        const startMin = timeToMinutes(sTime);
         const durMin = initialEntry.duration_seconds / 60;
         setStopTime(minutesToTime(startMin + durMin));
       }
@@ -78,16 +102,17 @@ export default function ManualTimeModal({
           : ""
       );
     } else {
+      const now = new Date();
       setTaskId(tasks.length > 0 ? tasks[0].id : "");
-      setDateStr(new Date().toISOString().slice(0, 10));
-      setStartTime("09:00");
-      setStopTime("10:00");
+      setDateStr(toLocalDateStr(now));
+      setStartTime(toLocalTimeStr(now));
+      const startMin = now.getHours() * 60 + now.getMinutes();
+      setStopTime(minutesToTime(startMin + 60));
       setDurationHours("1.0");
       setDescription("");
       setIsBillable(true);
       setHourlyRate("");
     }
-    setErrorMsg(null);
   }, [initialEntry, isOpen, tasks]);
 
   const [mounted, setMounted] = useState<boolean>(false);
@@ -157,8 +182,14 @@ export default function ManualTimeModal({
     }
 
     const durationSeconds = Math.round(hours * 3600);
-    const startIso = new Date(`${dateStr}T${startTime}:00Z`).toISOString();
-    const endIso = new Date(`${dateStr}T${stopTime}:00Z`).toISOString();
+    // Parse in user's local timezone (no trailing Z)
+    const startDate = new Date(`${dateStr}T${startTime}:00`);
+    let endDate = new Date(`${dateStr}T${stopTime}:00`);
+    if (endDate < startDate) {
+      endDate.setDate(endDate.getDate() + 1);
+    }
+    const startIso = startDate.toISOString();
+    const endIso = endDate.toISOString();
     const rateVal = hourlyRate.trim() ? parseFloat(hourlyRate) : undefined;
 
     setIsSubmitting(true);
@@ -178,6 +209,28 @@ export default function ManualTimeModal({
       setErrorMsg(err?.message || "Failed to record time entry. Please try again.");
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!initialEntry) return;
+    if (initialEntry.invoiced) {
+      setErrorMsg("Cannot delete an invoiced time entry.");
+      return;
+    }
+    setErrorMsg(null);
+    setDeleting(true);
+    try {
+      if (onDelete) {
+        await onDelete(initialEntry.id);
+      } else {
+        await api.delete(`/time-entries/${initialEntry.id}`);
+      }
+      onClose();
+    } catch (err: any) {
+      setErrorMsg(err?.message || "Failed to delete time entry.");
+      setDeleting(false);
+      setConfirmDelete(false);
     }
   };
 
@@ -423,30 +476,89 @@ export default function ManualTimeModal({
           <div
             style={{
               display: "flex",
-              justifyContent: "flex-end",
+              justifyContent: initialEntry ? "space-between" : "flex-end",
+              alignItems: "center",
               gap: "8px",
               marginTop: "8px",
               paddingTop: "12px",
               borderTop: "1px solid var(--border-subtle)",
             }}
           >
-            <button
-              type="button"
-              onClick={onClose}
-              disabled={isSubmitting}
-              className="finance-button-secondary"
-              style={{ padding: "7px 14px" }}
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={isSubmitting || tasks.length === 0}
-              className="finance-button-primary"
-              style={{ padding: "7px 16px" }}
-            >
-              {isSubmitting ? "Saving..." : initialEntry ? "Update Entry" : "Save Time Log"}
-            </button>
+            {initialEntry && (
+              <div>
+                {!confirmDelete ? (
+                  <button
+                    type="button"
+                    onClick={() => setConfirmDelete(true)}
+                    disabled={isSubmitting || deleting || initialEntry.invoiced}
+                    className="finance-button-secondary"
+                    style={{
+                      color: initialEntry.invoiced ? "var(--text-dim)" : "var(--accent-rose)",
+                      borderColor: "rgba(244, 63, 94, 0.25)",
+                      gap: "6px",
+                      height: "34px",
+                      padding: "0 12px",
+                      fontSize: "12.5px",
+                    }}
+                    title={initialEntry.invoiced ? "Invoiced entry cannot be deleted" : "Delete time entry"}
+                  >
+                    <Trash2 size={13} />
+                    <span>Delete Entry</span>
+                  </button>
+                ) : (
+                  <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                    <button
+                      type="button"
+                      onClick={handleDelete}
+                      disabled={deleting}
+                      className="finance-button-primary"
+                      style={{
+                        background: "var(--accent-rose)",
+                        borderColor: "var(--accent-rose)",
+                        color: "#fff",
+                        height: "34px",
+                        padding: "0 12px",
+                        fontSize: "12px",
+                        gap: "6px",
+                        width: "auto",
+                      }}
+                    >
+                      <Trash2 size={12} />
+                      <span>{deleting ? "Deleting..." : "Confirm Delete?"}</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setConfirmDelete(false)}
+                      disabled={deleting}
+                      className="finance-button-secondary"
+                      style={{ height: "34px", padding: "0 10px", fontSize: "12px" }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+
+            <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+              <button
+                type="button"
+                onClick={onClose}
+                disabled={isSubmitting || deleting}
+                className="finance-button-secondary"
+                style={{ padding: "7px 14px" }}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={isSubmitting || deleting || tasks.length === 0}
+                className="finance-button-primary"
+                style={{ padding: "7px 16px" }}
+              >
+                {isSubmitting ? "Saving..." : initialEntry ? "Update Entry" : "Save Time Log"}
+              </button>
+            </div>
           </div>
         </form>
       </div>
