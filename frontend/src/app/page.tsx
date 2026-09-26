@@ -22,24 +22,44 @@ import {
 export default function OverviewPage() {
   const { user } = useAuth();
   const [clientStats, setClientStats] = useState<{ total: number; active: number } | null>(null);
+  const [projectStats, setProjectStats] = useState<{ total: number; active: number } | null>(null);
 
   useEffect(() => {
     let isMounted = true;
-    async function loadClientStats() {
+    async function loadStats() {
       try {
-        const data = await api.get<{ is_active: boolean }[]>("/clients");
-        if (isMounted && Array.isArray(data)) {
-          const total = data.length;
-          const active = data.filter((c) => c.is_active).length;
-          setClientStats({ total, active });
+        const [clientRes, projectRes] = await Promise.allSettled([
+          api.get<{ is_active: boolean }[]>("/clients"),
+          api.get<{ status: string }[]>("/projects"),
+        ]);
+
+        if (isMounted) {
+          if (clientRes.status === "fulfilled" && Array.isArray(clientRes.value)) {
+            setClientStats({
+              total: clientRes.value.length,
+              active: clientRes.value.filter((c) => c.is_active).length,
+            });
+          } else {
+            setClientStats({ total: 0, active: 0 });
+          }
+
+          if (projectRes.status === "fulfilled" && Array.isArray(projectRes.value)) {
+            setProjectStats({
+              total: projectRes.value.length,
+              active: projectRes.value.filter((p) => p.status === "active").length,
+            });
+          } else {
+            setProjectStats({ total: 0, active: 0 });
+          }
         }
       } catch {
         if (isMounted) {
           setClientStats({ total: 0, active: 0 });
+          setProjectStats({ total: 0, active: 0 });
         }
       }
     }
-    loadClientStats();
+    loadStats();
     return () => {
       isMounted = false;
     };
@@ -211,8 +231,36 @@ export default function OverviewPage() {
             </div>
           </Link>
 
+          {/* Active Engagements Card */}
+          <Link
+            href="/projects"
+            className="finance-panel"
+            style={{
+              padding: "16px",
+              background: "var(--bg-surface)",
+              textDecoration: "none",
+              color: "inherit",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              transition: "border-color 0.15s ease",
+            }}
+          >
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span style={{ fontSize: "12px", color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.4px" }}>
+                Active Engagements
+              </span>
+              <FolderKanban size={14} style={{ color: "var(--text-dim)" }} />
+            </div>
+            <div style={{ fontSize: "24px", fontWeight: 600, marginTop: "8px", letterSpacing: "-0.5px" }} className="mono">
+              {projectStats !== null ? `${projectStats.active} Projects` : "—"}
+            </div>
+            <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px" }}>
+              {projectStats !== null ? `${projectStats.total} Total Registered` : "Operational Pipeline"}
+            </div>
+          </Link>
+
           {[
-            { label: "Active Engagements", val: "0 Projects", sub: "Operational Pipeline" },
             { label: "Billable Unbilled Time", val: "0h 00m", sub: "Ready for Invoicing" },
             { label: "Outstanding Receivables", val: "₹0.00", sub: "Unpaid Invoices" },
             { label: "Cash & Liquid Balance", val: "₹0.00", sub: "Across All Accounts" },

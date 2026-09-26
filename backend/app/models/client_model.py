@@ -49,3 +49,4 @@ class Client(Base):
     )
 
     currency = relationship("Currency", lazy="selectin")
+    projects = relationship("Project", back_populates="client", lazy="selectin")

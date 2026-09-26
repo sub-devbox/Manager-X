@@ -90,7 +90,13 @@ It combines 7 pillars into a cohesive platform:
     - [x] REST API endpoints (`GET /clients`, `POST /clients`, `GET /clients/{id}`, `PUT /clients/{id}`, `PATCH /clients/{id}/toggle-status`, `DELETE /clients/{id}` with referential deletion protection).
     - [x] 100% passing automated test suite (`backend/tests/test_clients_api.py` & `backend/tests/test_settings_api.py`).
     - [x] Frontend Client Directory (`/clients`), search & status filters, and ClientModal with dynamic combobox/datalist for country selection without hardcoding.
-  - [ ] Project CRUD & Kanban Board.
+  - [x] Project CRUD & Kanban Board:
+    - [x] Database models (`Project` with CUID `prj_`, `Task` with CUID `tsk_`) with foreign keys and cascade protections.
+    - [x] Pydantic schemas (`ProjectCreate`, `ProjectUpdate`, `ProjectResponse`, `TaskCreate`, `TaskUpdate`, `TaskStatusUpdate`, `TaskResponse`).
+    - [x] REST API endpoints (`/projects` and `/tasks`) with automatic hourly rate inheritance, Kanban status transitions, and referential deletion protection.
+    - [x] 100% passing automated test suite (`backend/tests/test_projects_and_tasks_api.py`).
+    - [x] Frontend UI: `ProjectModal` and `TaskModal` with Rule 5 backdrop protection, full Projects directory view, and 4-column interactive `KanbanBoard`.
+    - [x] Overview Dashboard: Linked `Active Engagements` KPI card to live database project metrics.
   - [ ] Live Timer with WebSocket sync + Manual time logging.
   - [ ] Invoice creation wizard, tax calculation, and PDF generator.
 

@@ -1,16 +1,16 @@
 # Graph Report - Manager-X  (2026-09-26)
 
 ## Corpus Check
-- 69 files · ~30,940 words
+- 78 files · ~38,383 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 422 nodes · 649 edges · 35 communities (27 shown, 8 thin omitted)
-- Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 10 edges (avg confidence: 0.53)
+- 493 nodes · 840 edges · 36 communities (28 shown, 8 thin omitted)
+- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 12 edges (avg confidence: 0.53)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `53bacb7d`
+- Built from commit: `e89fba8c`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -24,7 +24,7 @@
 - main.py
 - FastAPI ASGI Backend
 - Finance Manager Module
-- config.py
+- projects.py
 - AppShell.tsx
 - Ponytail
 - Ponytail Help
@@ -48,18 +48,19 @@
 - frontend/AGENTS.md
 - eslint.config.mjs
 - next.config.ts
-- clients.py
+- User
+- projects/page.tsx
 
 ## God Nodes (most connected - your core abstractions)
-1. `User` - 31 edges
-2. `login()` - 16 edges
-3. `compilerOptions` - 16 edges
-4. `Base` - 14 edges
-5. `register_first_user()` - 12 edges
-6. `logout()` - 12 edges
-7. `AppShell()` - 11 edges
-8. `get_current_user()` - 10 edges
-9. `Currency` - 10 edges
+1. `User` - 46 edges
+2. `Base` - 17 edges
+3. `login()` - 16 edges
+4. `compilerOptions` - 16 edges
+5. `get_current_user()` - 12 edges
+6. `register_first_user()` - 12 edges
+7. `logout()` - 12 edges
+8. `Currency` - 12 edges
+9. `AppShell()` - 11 edges
 10. `create_access_token()` - 9 edges
 
 ## Surprising Connections (you probably didn't know these)
@@ -67,17 +68,17 @@
   backend/app/main.py → backend/app/core/database.py
 - `Client` --uses--> `Base`  [INFERRED]
   backend/app/models/client_model.py → backend/app/core/database.py
-- `Currency` --uses--> `Base`  [INFERRED]
-  backend/app/models/settings_models.py → backend/app/core/database.py
 - `SystemSetting` --uses--> `Base`  [INFERRED]
   backend/app/models/settings_models.py → backend/app/core/database.py
 - `AuditLog` --uses--> `Base`  [INFERRED]
+  backend/app/models/user_models.py → backend/app/core/database.py
+- `User` --uses--> `Base`  [INFERRED]
   backend/app/models/user_models.py → backend/app/core/database.py
 
 ## Import Cycles
 - None detected.
 
-## Communities (35 total, 8 thin omitted)
+## Communities (36 total, 8 thin omitted)
 
 ### Community 0 - "devDependencies"
 Cohesion: 0.06
@@ -85,15 +86,15 @@ Nodes (32): eslint, eslint-config-next, dependencies, lucide-react, next, react,
 
 ### Community 1 - "auth.py"
 Cohesion: 0.08
-Nodes (52): Any, check_auth_status(), get_client_ip(), get_current_user(), get_me(), get_optional_user(), login(), logout() (+44 more)
+Nodes (49): Any, check_auth_status(), get_client_ip(), get_me(), login(), logout(), AsyncSession, get (+41 more)
 
 ### Community 2 - "Base"
 Cohesion: 0.08
-Nodes (28): Base, get_db(), AsyncSession, set_sqlite_pragma(), datetime, UserSession, utc_now(), client() (+20 more)
+Nodes (30): generate_cuid(), Generate a collision-resistant unique identifier (CUID). Structure: prefix (1)…, to_base36(), Base, Project, Task, Currency, datetime (+22 more)
 
 ### Community 3 - "settings.py"
-Cohesion: 0.12
-Nodes (41): add_country(), create_backup_snapshot(), create_currency(), delete_country(), delete_currency(), download_database(), ensure_default_currencies(), _format_size() (+33 more)
+Cohesion: 0.09
+Nodes (44): add_country(), create_backup_snapshot(), create_currency(), delete_country(), delete_currency(), download_database(), ensure_default_currencies(), _format_size() (+36 more)
 
 ### Community 4 - "compilerOptions"
 Cohesion: 0.07
@@ -115,9 +116,9 @@ Nodes (7): Argon2id Password Security, Brute-Force & Lockout System, FastAPI ASG
 Cohesion: 0.29
 Nodes (7): Asset Manager Module, Finance Manager Module, ITR Helper Module, Invoice Generator Module, Project Manager Module, Time Tracker Module, Wealth Manager Module
 
-### Community 9 - "config.py"
-Cohesion: 0.20
-Nodes (9): Settings, generate_cuid(), Generate a collision-resistant unique identifier (CUID). Structure: prefix (1)…, to_base36(), BaseSettings, os, pathlib, pydantic_settings (+1 more)
+### Community 9 - "projects.py"
+Cohesion: 0.08
+Nodes (47): create_project(), delete_project(), _format_project_response(), get_project(), list_projects(), list_projects_summary(), AsyncSession, delete (+39 more)
 
 ### Community 10 - "AppShell.tsx"
 Cohesion: 0.05
@@ -179,29 +180,33 @@ Nodes (3): Boundaries, Output, Scan
 Cohesion: 0.50
 Nodes (3): Deploy on Vercel, Getting Started, Learn More
 
-### Community 34 - "clients.py"
-Cohesion: 0.15
-Nodes (22): create_client(), delete_client(), get_client(), list_clients(), list_clients_summary(), AsyncSession, delete, get (+14 more)
+### Community 34 - "User"
+Cohesion: 0.14
+Nodes (27): get_current_user(), get_optional_user(), Extract authenticated user if credentials exist, otherwise return None without…, Extract and validate authenticated user from either HttpOnly cookie or…, create_client(), delete_client(), get_client(), list_clients() (+19 more)
+
+### Community 35 - "projects/page.tsx"
+Cohesion: 0.19
+Nodes (17): COLUMNS, KanbanBoard(), KanbanBoardProps, PRIORITY_STYLES, ClientOption, ProjectModal(), ProjectModalProps, ProjectOption (+9 more)
 
 ## Knowledge Gaps
-- **140 isolated node(s):** `eslintConfig`, `nextConfig`, `name`, `version`, `private` (+135 more)
+- **145 isolated node(s):** `eslintConfig`, `nextConfig`, `name`, `version`, `private` (+140 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **8 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `User` connect `settings.py` to `auth.py`, `clients.py`, `Base`?**
-  _High betweenness centrality (0.055) - this node is a cross-community bridge._
-- **Why does `Base` connect `Base` to `auth.py`, `clients.py`, `settings.py`, `main.py`?**
-  _High betweenness centrality (0.020) - this node is a cross-community bridge._
-- **Why does `Currency` connect `settings.py` to `clients.py`, `Base`?**
-  _High betweenness centrality (0.010) - this node is a cross-community bridge._
-- **Are the 7 inferred relationships involving `Base` (e.g. with `SecurityHeadersMiddleware` and `Client`) actually correct?**
-  _`Base` has 7 INFERRED edges - model-reasoned connections that need verification._
+- **Why does `User` connect `User` to `auth.py`, `Base`, `settings.py`, `projects.py`?**
+  _High betweenness centrality (0.084) - this node is a cross-community bridge._
+- **Why does `Base` connect `Base` to `auth.py`, `User`, `settings.py`, `main.py`, `projects.py`?**
+  _High betweenness centrality (0.022) - this node is a cross-community bridge._
+- **Are the 9 inferred relationships involving `Base` (e.g. with `SecurityHeadersMiddleware` and `Client`) actually correct?**
+  _`Base` has 9 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `eslintConfig`, `nextConfig`, `name` to the rest of the system?**
-  _140 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _145 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `devDependencies` be split into smaller, more focused modules?**
   _Cohesion score 0.06060606060606061 - nodes in this community are weakly interconnected._
 - **Should `auth.py` be split into smaller, more focused modules?**
-  _Cohesion score 0.07857142857142857 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.08127721335268505 - nodes in this community are weakly interconnected._
+- **Should `Base` be split into smaller, more focused modules?**
+  _Cohesion score 0.07781649245063879 - nodes in this community are weakly interconnected._

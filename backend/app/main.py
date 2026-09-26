@@ -10,6 +10,7 @@ from app.api.v1.router import api_router
 import app.models.user_models  # noqa: F401
 import app.models.settings_models  # noqa: F401
 import app.models.client_model  # noqa: F401
+import app.models.project_models  # noqa: F401
 
 class SecurityHeadersMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
