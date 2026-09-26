@@ -271,20 +271,140 @@ export default function TasksPage() {
           </div>
         )}
 
-        {/* Header Bar */}
+        {/* Top Control Panel */}
         <div
           className="finance-panel"
           style={{
             padding: "16px 20px",
             display: "flex",
+            flexWrap: "wrap",
             justifyContent: "space-between",
             alignItems: "center",
-            flexWrap: "wrap",
-            gap: "14px",
+            gap: "16px",
           }}
         >
-          {/* Header Title with Badge */}
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <span
+              style={{
+                fontSize: "11px",
+                fontWeight: 600,
+                color: "var(--text-muted)",
+                textTransform: "uppercase",
+                letterSpacing: "0.5px",
+              }}
+            >
+              Deliverables & Tasks
+            </span>
+            <span style={{ fontSize: "14px", fontWeight: 600, color: "var(--text-main)" }}>
+              Manage Project Deliverables & Time
+            </span>
+          </div>
+
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <Link
+              href="/projects"
+              className="finance-button-secondary"
+              style={{
+                height: "36px",
+                padding: "0 14px",
+                textDecoration: "none",
+                gap: "6px",
+                fontSize: "12.5px",
+              }}
+            >
+              <FolderKanban size={14} style={{ color: "var(--accent-blue)" }} />
+              <span>Projects Sheet</span>
+            </Link>
+
+            <button
+              type="button"
+              onClick={() => handleOpenNewTask()}
+              className="finance-button-primary"
+              style={{ height: "36px", padding: "0 16px", gap: "8px", fontWeight: 600 }}
+            >
+              <Plus size={13} />
+              <span>New Task</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Stats KPI Summary Bar (matching time-tracker presentation) */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+            gap: "12px",
+          }}
+        >
+          <div
+            className="finance-panel"
+            style={{ padding: "14px 18px", display: "flex", alignItems: "center", gap: "12px" }}
+          >
+            <div
+              style={{
+                width: "36px",
+                height: "36px",
+                borderRadius: "var(--radius-xs)",
+                background: "rgba(59, 130, 246, 0.12)",
+                color: "var(--accent-blue)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <CheckSquare size={18} />
+            </div>
+            <div>
+              <div style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 500 }}>
+                Total Deliverables
+              </div>
+              <div
+                className="mono"
+                style={{ fontSize: "18px", fontWeight: 700, color: "var(--text-main)" }}
+              >
+                {totalTasks}
+              </div>
+            </div>
+          </div>
+
+          <div
+            className="finance-panel"
+            style={{ padding: "14px 18px", display: "flex", alignItems: "center", gap: "12px" }}
+          >
+            <div
+              style={{
+                width: "36px",
+                height: "36px",
+                borderRadius: "var(--radius-xs)",
+                background: "rgba(245, 158, 11, 0.12)",
+                color: "var(--accent-amber)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Clock size={18} />
+            </div>
+            <div>
+              <div style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 500 }}>
+                In Progress & Pending
+              </div>
+              <div
+                className="mono"
+                style={{ fontSize: "18px", fontWeight: 700, color: "var(--accent-amber)" }}
+              >
+                {inProgressTasks}{" "}
+                <span style={{ fontSize: "12px", fontWeight: 400, color: "var(--text-dim)" }}>
+                  ({pendingTasks} pending)
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div
+            className="finance-panel"
+            style={{ padding: "14px 18px", display: "flex", alignItems: "center", gap: "12px" }}
+          >
             <div
               style={{
                 width: "36px",
@@ -297,268 +417,126 @@ export default function TasksPage() {
                 justifyContent: "center",
               }}
             >
-              <CheckSquare size={18} />
+              <CheckCircle2 size={18} />
             </div>
             <div>
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                <h2 style={{ fontSize: "16px", fontWeight: 600, color: "var(--text-main)" }}>
-                  Tasks Sheet
-                </h2>
-                <span
-                  className="mono"
-                  style={{
-                    fontSize: "11px",
-                    padding: "2px 8px",
-                    borderRadius: "10px",
-                    background: "var(--bg-surface-subtle)",
-                    border: "1px solid var(--border-subtle)",
-                    color: "var(--text-dim)",
-                  }}
-                >
-                  {totalTasks} shown ({tasks.length} total)
-                </span>
+              <div style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 500 }}>
+                Completed Deliverables
               </div>
-              <p style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "2px" }}>
-                Manage deliverables, deadlines, statuses, and live time tracking
-              </p>
-            </div>
-          </div>
-
-          {/* Action Buttons */}
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <Link
-              href="/projects"
-              className="finance-button-secondary"
-              style={{ textDecoration: "none", gap: "6px", fontSize: "12.5px" }}
-            >
-              <FolderKanban size={14} style={{ color: "var(--accent-blue)" }} />
-              <span>Projects Sheet</span>
-            </Link>
-
-            <button
-              type="button"
-              onClick={() => handleOpenNewTask()}
-              className="finance-button-primary"
-              style={{ width: "auto" }}
-            >
-              <Plus size={14} />
-              <span>New Task</span>
-            </button>
-          </div>
-        </div>
-
-        {/* KPI Counter Cards */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-            gap: "12px",
-          }}
-        >
-          <div className="finance-panel" style={{ padding: "16px", background: "var(--bg-surface)" }}>
-            <div style={{ fontSize: "11px", color: "var(--text-dim)", textTransform: "uppercase" }}>
-              Total in View
-            </div>
-            <div style={{ fontSize: "22px", fontWeight: 600, marginTop: "6px" }} className="mono">
-              {totalTasks}
-            </div>
-            <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px" }}>
-              Matching active view filter
-            </div>
-          </div>
-
-          <div className="finance-panel" style={{ padding: "16px", background: "var(--bg-surface)" }}>
-            <div style={{ fontSize: "11px", color: "var(--text-dim)", textTransform: "uppercase" }}>
-              Pending Tasks
-            </div>
-            <div
-              style={{ fontSize: "22px", fontWeight: 600, marginTop: "6px", color: "var(--accent-amber)" }}
-              className="mono"
-            >
-              {pendingTasks}
-            </div>
-            <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px" }}>
-              Awaiting completion
-            </div>
-          </div>
-
-          <div className="finance-panel" style={{ padding: "16px", background: "var(--bg-surface)" }}>
-            <div style={{ fontSize: "11px", color: "var(--text-dim)", textTransform: "uppercase" }}>
-              In Progress
-            </div>
-            <div
-              style={{ fontSize: "22px", fontWeight: 600, marginTop: "6px", color: "var(--accent-blue)" }}
-              className="mono"
-            >
-              {inProgressTasks}
-            </div>
-            <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px" }}>
-              Actively in execution
-            </div>
-          </div>
-
-          <div className="finance-panel" style={{ padding: "16px", background: "var(--bg-surface)" }}>
-            <div style={{ fontSize: "11px", color: "var(--text-dim)", textTransform: "uppercase" }}>
-              Completed Tasks
-            </div>
-            <div
-              style={{ fontSize: "22px", fontWeight: 600, marginTop: "6px", color: "var(--accent-emerald)" }}
-              className="mono"
-            >
-              {completedTasks}
-            </div>
-            <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px" }}>
-              Successfully closed
+              <div
+                className="mono"
+                style={{ fontSize: "18px", fontWeight: 700, color: "var(--accent-emerald)" }}
+              >
+                {completedTasks}
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Filter Controls Bar: View Switch (Left) | Client Filter (Middle) | Search Bar (Right) */}
+        {/* Period Filter Tabs & Search Controls (matching time-tracker) */}
         <div
           style={{
             display: "flex",
-            gap: "12px",
+            justifyContent: "space-between",
             alignItems: "center",
             flexWrap: "wrap",
-            justifyContent: "space-between",
+            gap: "12px",
           }}
         >
-          {/* LEFT: View Switcher (today | This week (default) | This month | Custom) */}
-          <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+          {/* Quick Period Selector (Left) */}
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
             <div
               style={{
-                display: "flex",
+                display: "inline-flex",
+                alignItems: "center",
                 background: "var(--bg-surface-subtle)",
+                padding: "3px",
+                borderRadius: "var(--radius-sm)",
                 border: "1px solid var(--border-subtle)",
-                borderRadius: "var(--radius-xs)",
-                padding: "2px",
-                gap: "2px",
               }}
             >
-              <button
-                type="button"
-                onClick={() => setPeriodFilter("today")}
-                style={{
-                  padding: "5px 12px",
-                  fontSize: "12px",
-                  fontWeight: 500,
-                  borderRadius: "var(--radius-xs)",
-                  border: "none",
-                  cursor: "pointer",
-                  background: periodFilter === "today" ? "var(--bg-surface)" : "transparent",
-                  color: periodFilter === "today" ? "var(--accent-blue)" : "var(--text-muted)",
-                  boxShadow: periodFilter === "today" ? "0 1px 2px rgba(0,0,0,0.06)" : "none",
-                  transition: "all 0.15s ease",
-                }}
-              >
-                today
-              </button>
-              <button
-                type="button"
-                onClick={() => setPeriodFilter("this_week")}
-                style={{
-                  padding: "5px 12px",
-                  fontSize: "12px",
-                  fontWeight: 500,
-                  borderRadius: "var(--radius-xs)",
-                  border: "none",
-                  cursor: "pointer",
-                  background: periodFilter === "this_week" ? "var(--bg-surface)" : "transparent",
-                  color: periodFilter === "this_week" ? "var(--accent-blue)" : "var(--text-muted)",
-                  boxShadow: periodFilter === "this_week" ? "0 1px 2px rgba(0,0,0,0.06)" : "none",
-                  transition: "all 0.15s ease",
-                }}
-              >
-                This week
-              </button>
-              <button
-                type="button"
-                onClick={() => setPeriodFilter("this_month")}
-                style={{
-                  padding: "5px 12px",
-                  fontSize: "12px",
-                  fontWeight: 500,
-                  borderRadius: "var(--radius-xs)",
-                  border: "none",
-                  cursor: "pointer",
-                  background: periodFilter === "this_month" ? "var(--bg-surface)" : "transparent",
-                  color: periodFilter === "this_month" ? "var(--accent-blue)" : "var(--text-muted)",
-                  boxShadow: periodFilter === "this_month" ? "0 1px 2px rgba(0,0,0,0.06)" : "none",
-                  transition: "all 0.15s ease",
-                }}
-              >
-                This month
-              </button>
-              <button
-                type="button"
-                onClick={() => setPeriodFilter("custom")}
-                style={{
-                  padding: "5px 12px",
-                  fontSize: "12px",
-                  fontWeight: 500,
-                  borderRadius: "var(--radius-xs)",
-                  border: "none",
-                  cursor: "pointer",
-                  background: periodFilter === "custom" ? "var(--bg-surface)" : "transparent",
-                  color: periodFilter === "custom" ? "var(--accent-blue)" : "var(--text-muted)",
-                  boxShadow: periodFilter === "custom" ? "0 1px 2px rgba(0,0,0,0.06)" : "none",
-                  transition: "all 0.15s ease",
-                }}
-              >
-                Custom
-              </button>
+              {(
+                [
+                  { id: "today", label: "Today" },
+                  { id: "this_week", label: "This week" },
+                  { id: "this_month", label: "This month" },
+                  { id: "custom", label: "Custom" },
+                ] as const
+              ).map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setPeriodFilter(tab.id)}
+                  style={{
+                    padding: "5px 12px",
+                    fontSize: "12px",
+                    fontWeight: periodFilter === tab.id ? 600 : 400,
+                    color: periodFilter === tab.id ? "var(--text-main)" : "var(--text-dim)",
+                    background: periodFilter === tab.id ? "var(--bg-surface)" : "transparent",
+                    border:
+                      periodFilter === tab.id
+                        ? "1px solid var(--border-subtle)"
+                        : "1px solid transparent",
+                    borderRadius: "var(--radius-xs)",
+                    cursor: "pointer",
+                    transition: "all 0.15s ease",
+                  }}
+                >
+                  {tab.label}
+                </button>
+              ))}
             </div>
 
-            {/* Custom Date Pickers */}
+            {/* Custom Date Range Picker */}
             {periodFilter === "custom" && (
-              <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+              <div
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  background: "var(--bg-surface-subtle)",
+                  padding: "3px 8px",
+                  borderRadius: "var(--radius-sm)",
+                  border: "1px solid var(--border-subtle)",
+                  fontSize: "12px",
+                }}
+              >
                 <input
                   type="date"
                   value={customStartDate}
                   onChange={(e) => setCustomStartDate(e.target.value)}
                   className="finance-input"
-                  style={{ height: "32px", fontSize: "11px", width: "130px" }}
+                  style={{ height: "26px", fontSize: "11.5px", padding: "0 6px" }}
+                  title="Start Date"
                 />
-                <span style={{ fontSize: "11px", color: "var(--text-dim)" }}>to</span>
+                <span style={{ color: "var(--text-dim)", fontSize: "11px" }}>to</span>
                 <input
                   type="date"
                   value={customEndDate}
                   onChange={(e) => setCustomEndDate(e.target.value)}
                   className="finance-input"
-                  style={{ height: "32px", fontSize: "11px", width: "130px" }}
+                  style={{ height: "26px", fontSize: "11.5px", padding: "0 6px" }}
+                  title="End Date"
                 />
               </div>
             )}
           </div>
 
-          {/* MIDDLE: Searchable Client Filter Dropdown */}
-          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          {/* Search & Client Filter (Right) */}
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
             <SearchableClientSelect
               clients={clients}
               value={clientFilter}
               onChange={setClientFilter}
               placeholder="All Clients"
-              width="210px"
+              width="180px"
             />
-          </div>
 
-          {/* RIGHT: Search Box + Reset */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-              flex: "1 1 240px",
-              maxWidth: "340px",
-              marginLeft: "auto",
-            }}
-          >
-            <div style={{ position: "relative", width: "100%" }}>
+            <div style={{ position: "relative", width: "240px" }}>
               <Search
                 size={14}
                 style={{
                   position: "absolute",
-                  left: "12px",
+                  left: "10px",
                   top: "50%",
                   transform: "translateY(-50%)",
                   color: "var(--text-dim)",
@@ -566,11 +544,11 @@ export default function TasksPage() {
               />
               <input
                 type="text"
-                placeholder="Search tasks, projects, clients..."
+                placeholder="Search tasks, projects..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="finance-input"
-                style={{ paddingLeft: "34px", width: "100%", height: "36px", fontSize: "12.5px" }}
+                style={{ height: "36px", paddingLeft: "32px", fontSize: "12px", width: "100%" }}
               />
             </div>
 
@@ -582,7 +560,12 @@ export default function TasksPage() {
                   setClientFilter("all");
                 }}
                 className="finance-button-secondary"
-                style={{ padding: "8px 12px", fontSize: "12px", whiteSpace: "nowrap" }}
+                style={{
+                  height: "36px",
+                  padding: "0 12px",
+                  fontSize: "12px",
+                  whiteSpace: "nowrap",
+                }}
                 title="Reset search and client filter"
               >
                 Reset

@@ -23,3 +23,20 @@
 - Users frequently enter extensive form inputs (multi-field addresses, commercial terms, financial parameters). Outside clicks must be ignored to prevent accidental loss of unsaved input.
 - Modals must only close via explicit user actions: the pinned "X" close button, the "Cancel" button, or upon successful form submission.
 
+## 6. Uniform Sheet & Table Presentation
+- **Consistent Page Architecture**: All entity sheets (`Time Tracker`, `Tasks`, `Projects`, etc.) must maintain an identical, non-overengineered visual hierarchy:
+  1. **Top Control Panel**: A unified `finance-panel` header displaying uppercase section label, prominent sheet subtitle, and right-aligned primary actions.
+  2. **Summary Stats KPI Bar**: Clean 3-4 card summary grid (`padding: "14px 18px", display: "flex", alignItems: "center", gap: "12px"`), featuring an icon in a 36x36px rounded square with subtle accent tint on the left, and uppercase label + bold monospace numerical value on the right.
+  3. **Period Filter & Search Controls Bar**:
+     - **Left**: Inline Quick Period Selector (`Today`, `This week`, `This month`, `Custom`) with inline date range pickers when `Custom` is active.
+     - **Right**: Searchable Client Filter Dropdown (`SearchableClientSelect`) and text search input.
+  4. **Minimalist Tabular Views**:
+     - Tables render within a clean `finance-panel` container with `table-layout: fixed`.
+     - Standardized row heights (header `34px`, rows `36px`).
+     - Resizable columns persisted in `localStorage`.
+     - Non-overengineered presentation: avoid redundant nested toolbars or duplicate status buttons inside tables when page-level controls already govern the view.
+  5. **50-Interval Pagination Footer**:
+     - Displayed at the table footer: `Showing X to Y of Z items (50 per page)` on the left.
+     - `Page M of N` with minimal `<` (Prev) and `>` (Next) 50-interval navigation buttons on the right.
+
+

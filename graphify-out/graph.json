@@ -43,8 +43,8 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_auth_get_current_user",
-      "community": 1,
-      "community_name": "auth.py",
+      "community": 34,
+      "community_name": "User",
       "norm_label": "get_current_user()"
     },
     {
@@ -65,8 +65,8 @@
       "source_location": "L102",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_auth_get_optional_user",
-      "community": 1,
-      "community_name": "auth.py",
+      "community": 34,
+      "community_name": "User",
       "norm_label": "get_optional_user()"
     },
     {
@@ -175,8 +175,8 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_auth_rationale_39",
-      "community": 1,
-      "community_name": "auth.py",
+      "community": 34,
+      "community_name": "User",
       "norm_label": "extract and validate authenticated user from either httponly cookie or..."
     },
     {
@@ -186,8 +186,8 @@
       "source_location": "L106",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_auth_rationale_106",
-      "community": 1,
-      "community_name": "auth.py",
+      "community": 34,
+      "community_name": "User",
       "norm_label": "extract authenticated user if credentials exist, otherwise return none without..."
     },
     {
@@ -1330,8 +1330,8 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "backend_app_core_database_get_db",
-      "community": 9,
-      "community_name": "projects.py",
+      "community": 36,
+      "community_name": "time_entries.py",
       "norm_label": "get_db()"
     },
     {
@@ -1341,8 +1341,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_core_database_py_asyncsession",
-      "community": 9,
-      "community_name": "projects.py",
+      "community": 36,
+      "community_name": "time_entries.py",
       "norm_label": "asyncsession"
     },
     {
@@ -1638,8 +1638,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "backend_app_models_client_model_client",
-      "community": 2,
-      "community_name": "Base",
+      "community": 34,
+      "community_name": "User",
       "norm_label": "client"
     },
     {
@@ -1704,8 +1704,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "backend_app_models_settings_models_systemsetting",
-      "community": 2,
-      "community_name": "Base",
+      "community": 3,
+      "community_name": "settings.py",
       "norm_label": "systemsetting"
     },
     {
@@ -1781,8 +1781,8 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "backend_app_models_user_models_usersession",
-      "community": 1,
-      "community_name": "auth.py",
+      "community": 2,
+      "community_name": "Base",
       "norm_label": "usersession"
     },
     {
@@ -3857,7 +3857,7 @@
       "label": "TaskTableProps",
       "file_type": "code",
       "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
-      "source_location": "L27",
+      "source_location": "L22",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_tasktableprops",
       "community": 35,
@@ -3868,7 +3868,7 @@
       "label": "SortField",
       "file_type": "code",
       "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
-      "source_location": "L36",
+      "source_location": "L31",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_sortfield",
       "community": 35,
@@ -3879,7 +3879,7 @@
       "label": "SortDirection",
       "file_type": "code",
       "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
-      "source_location": "L37",
+      "source_location": "L32",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_sortdirection",
       "community": 35,
@@ -3890,7 +3890,7 @@
       "label": "DEFAULT_TASK_WIDTHS",
       "file_type": "code",
       "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
-      "source_location": "L41",
+      "source_location": "L36",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_default_task_widths",
       "community": 35,
@@ -3901,7 +3901,7 @@
       "label": "MIN_TASK_WIDTHS",
       "file_type": "code",
       "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
-      "source_location": "L51",
+      "source_location": "L46",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_min_task_widths",
       "community": 35,
@@ -3912,7 +3912,7 @@
       "label": "TaskTable()",
       "file_type": "code",
       "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
-      "source_location": "L61",
+      "source_location": "L56",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_tasktable",
       "community": 35,
@@ -5185,6 +5185,17 @@
       "norm_label": "5. modal backdrop dismissal protection (form & data safety)"
     },
     {
+      "label": "6. Uniform Sheet & Table Presentation",
+      "file_type": "document",
+      "source_file": ".agents/rules/manager_x.md",
+      "source_location": "L26",
+      "_origin": "ast",
+      "id": "agents_rules_manager_x_6_uniform_sheet_table_presentation",
+      "community": 18,
+      "community_name": "Manager X Project Rules & Invariants",
+      "norm_label": "6. uniform sheet & table presentation"
+    },
+    {
       "label": ".agents/rules/ponytail.md",
       "file_type": "document",
       "source_file": ".agents/rules/ponytail.md",
@@ -5839,8 +5850,8 @@
     },
     {
       "label": "uuid",
-      "community": 2,
-      "community_name": "Base",
+      "community": 1,
+      "community_name": "auth.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "uuid",
@@ -5923,8 +5934,8 @@
     },
     {
       "label": "sqlite3",
-      "community": 3,
-      "community_name": "settings.py",
+      "community": 2,
+      "community_name": "Base",
       "external": true,
       "file_type": "concept",
       "norm_label": "sqlite3",
@@ -5947,8 +5958,8 @@
     },
     {
       "label": "datetime",
-      "community": 2,
-      "community_name": "Base",
+      "community": 1,
+      "community_name": "auth.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "datetime",
@@ -16000,7 +16011,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
-      "source_location": "L41",
+      "source_location": "L36",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_projects_tasktable",
@@ -16011,7 +16022,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
-      "source_location": "L51",
+      "source_location": "L46",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_projects_tasktable",
@@ -16022,7 +16033,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
-      "source_location": "L37",
+      "source_location": "L32",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_projects_tasktable",
@@ -16033,7 +16044,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
-      "source_location": "L36",
+      "source_location": "L31",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_projects_tasktable",
@@ -16044,7 +16055,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
-      "source_location": "L61",
+      "source_location": "L56",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_projects_tasktable",
@@ -16055,7 +16066,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
-      "source_location": "L27",
+      "source_location": "L22",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_projects_tasktable",
@@ -16139,7 +16150,7 @@
       "context": "field",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
-      "source_location": "L28",
+      "source_location": "L23",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_projects_tasktable_tasktableprops",
@@ -16151,7 +16162,7 @@
       "context": "field",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
-      "source_location": "L32",
+      "source_location": "L27",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_projects_tasktable_tasktableprops",
@@ -16164,7 +16175,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/modules/projects/TaskTable.tsx",
-      "source_location": "L129",
+      "source_location": "L122",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_projects_tasktable_tasktable",
@@ -17490,6 +17501,17 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": ".agents/rules/manager_x.md",
+      "source_location": "L26",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "agents_rules_manager_x_manager_x_project_rules_invariants",
+      "target": "agents_rules_manager_x_6_uniform_sheet_table_presentation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": ".agents/rules/ponytail.md",
       "source_location": "L1",
       "weight": 1.0,
@@ -18059,5 +18081,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "053a4319bebc5ec5e2a5e38009d75ecc002c7c4a"
+  "built_at_commit": "a8b5e30d99f63ae637d17a862443b6e6da5bbcf5"
 }

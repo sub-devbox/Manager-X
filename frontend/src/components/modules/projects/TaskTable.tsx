@@ -17,11 +17,6 @@ import {
   ArrowUpDown,
   ChevronLeft,
   ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
-  Filter,
-  CheckCircle2,
-  AlertCircle,
 } from "lucide-react";
 
 interface TaskTableProps {
@@ -36,7 +31,7 @@ interface TaskTableProps {
 type SortField = "project" | "title" | "client" | "estimated_time" | "time_tracked" | "status";
 type SortDirection = "asc" | "desc";
 
-const DEFAULT_PAGE_SIZE = 50;
+const PAGE_SIZE = 50;
 
 const DEFAULT_TASK_WIDTHS = {
   project: 190,
@@ -45,7 +40,7 @@ const DEFAULT_TASK_WIDTHS = {
   estimated_time: 120,
   time_tracked: 120,
   status: 130,
-  actions: 110,
+  actions: 100,
 };
 
 const MIN_TASK_WIDTHS = {
@@ -55,7 +50,7 @@ const MIN_TASK_WIDTHS = {
   estimated_time: 90,
   time_tracked: 90,
   status: 100,
-  actions: 90,
+  actions: 80,
 };
 
 export default function TaskTable({
@@ -69,8 +64,6 @@ export default function TaskTable({
   const [sortField, setSortField] = useState<SortField>("title");
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [pageSize, setPageSize] = useState<number>(DEFAULT_PAGE_SIZE);
-  const [statusFilter, setStatusFilter] = useState<"all" | TaskStatus>("all");
 
   // Active Timer state tracking from localStorage and events
   const [activeTimer, setActiveTimer] = useState<{
@@ -132,29 +125,6 @@ export default function TaskTable({
     MIN_TASK_WIDTHS
   );
 
-  // Status Filter count statistics
-  const statusCounts = useMemo(() => {
-    const counts = {
-      all: tasks.length,
-      backlog: 0,
-      in_progress: 0,
-      review: 0,
-      done: 0,
-    };
-    for (const t of tasks) {
-      if (counts[t.status] !== undefined) {
-        counts[t.status]++;
-      }
-    }
-    return counts;
-  }, [tasks]);
-
-  // Filter tasks by status tab
-  const filteredTasks = useMemo(() => {
-    if (statusFilter === "all") return tasks;
-    return tasks.filter((t) => t.status === statusFilter);
-  }, [tasks, statusFilter]);
-
   // Sorting logic
   const handleSort = (field: SortField) => {
     if (sortField === field) {
@@ -168,10 +138,10 @@ export default function TaskTable({
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [filteredTasks.length, statusFilter, pageSize]);
+  }, [tasks.length]);
 
   const sortedTasks = useMemo(() => {
-    return [...filteredTasks].sort((a, b) => {
+    return [...tasks].sort((a, b) => {
       let comparison = 0;
 
       switch (sortField) {
@@ -212,42 +182,15 @@ export default function TaskTable({
 
       return sortDirection === "asc" ? comparison : -comparison;
     });
-  }, [filteredTasks, sortField, sortDirection, timeTrackedMap]);
+  }, [tasks, sortField, sortDirection, timeTrackedMap]);
 
   // 50-interval pagination calculations
   const totalTasks = sortedTasks.length;
-  const totalPages = Math.max(1, Math.ceil(totalTasks / pageSize));
+  const totalPages = Math.max(1, Math.ceil(totalTasks / PAGE_SIZE));
   const safeCurrentPage = Math.min(currentPage, totalPages);
-  const startIndex = (safeCurrentPage - 1) * pageSize;
-  const endIndex = Math.min(startIndex + pageSize, totalTasks);
+  const startIndex = (safeCurrentPage - 1) * PAGE_SIZE;
+  const endIndex = Math.min(startIndex + PAGE_SIZE, totalTasks);
   const currentBatch = sortedTasks.slice(startIndex, endIndex);
-
-  // Pagination page numbers generator
-  const paginationRange = useMemo(() => {
-    const delta = 2;
-    const range: number[] = [];
-    for (
-      let i = Math.max(2, safeCurrentPage - delta);
-      i <= Math.min(totalPages - 1, safeCurrentPage + delta);
-      i++
-    ) {
-      range.push(i);
-    }
-
-    if (safeCurrentPage - delta > 2) {
-      range.unshift(-1); // ellipsis
-    }
-    if (safeCurrentPage + delta < totalPages - 1) {
-      range.push(-2); // ellipsis
-    }
-
-    range.unshift(1);
-    if (totalPages > 1) {
-      range.push(totalPages);
-    }
-
-    return range;
-  }, [safeCurrentPage, totalPages]);
 
   const renderSortIndicator = (field: SortField) => {
     if (sortField !== field) {
@@ -297,6 +240,31 @@ export default function TaskTable({
     }
   };
 
+  if (tasks.length === 0) {
+    return (
+      <div
+        className="finance-panel"
+        style={{
+          padding: "48px 24px",
+          textAlign: "center",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "10px",
+          background: "var(--bg-surface)",
+        }}
+      >
+        <CheckSquare size={32} style={{ color: "var(--text-dim)" }} />
+        <div style={{ fontSize: "14px", fontWeight: 600, color: "var(--text-main)" }}>
+          No tasks found
+        </div>
+        <div style={{ fontSize: "12.5px", color: "var(--text-muted)", maxWidth: "360px" }}>
+          No tasks match the active view criteria or search filter.
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       className="finance-panel"
@@ -309,939 +277,500 @@ export default function TaskTable({
         flexDirection: "column",
       }}
     >
-      {/* 1. Sleek Table Toolbar: Status Filtering & View Metrics */}
-      <div
-        style={{
-          padding: "10px 14px",
-          borderBottom: "1px solid var(--border-subtle)",
-          background: "var(--bg-surface-subtle)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          flexWrap: "wrap",
-          gap: "10px",
-        }}
-      >
-        {/* Status Filter Tabs */}
-        <div style={{ display: "flex", alignItems: "center", gap: "4px", flexWrap: "wrap" }}>
-          <span
-            style={{
-              fontSize: "11px",
-              fontWeight: 600,
-              color: "var(--text-dim)",
-              marginRight: "4px",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "4px",
-            }}
-          >
-            <Filter size={11} />
-            <span>Status:</span>
-          </span>
-
-          {/* All */}
-          <button
-            type="button"
-            onClick={() => setStatusFilter("all")}
-            style={{
-              padding: "4px 9px",
-              fontSize: "11.5px",
-              fontWeight: statusFilter === "all" ? 600 : 400,
-              borderRadius: "var(--radius-xs)",
-              border: `1px solid ${statusFilter === "all" ? "var(--accent-blue)" : "transparent"}`,
-              background: statusFilter === "all" ? "var(--bg-surface)" : "transparent",
-              color: statusFilter === "all" ? "var(--accent-blue)" : "var(--text-muted)",
-              cursor: "pointer",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "5px",
-              transition: "all 0.15s ease",
-            }}
-          >
-            <span>All</span>
-            <span
-              className="mono"
-              style={{
-                fontSize: "10px",
-                padding: "1px 5px",
-                borderRadius: "8px",
-                background: "var(--bg-surface-subtle)",
-                color: "var(--text-dim)",
-              }}
-            >
-              {statusCounts.all}
-            </span>
-          </button>
-
-          {/* Backlog */}
-          <button
-            type="button"
-            onClick={() => setStatusFilter("backlog")}
-            style={{
-              padding: "4px 9px",
-              fontSize: "11.5px",
-              fontWeight: statusFilter === "backlog" ? 600 : 400,
-              borderRadius: "var(--radius-xs)",
-              border: `1px solid ${statusFilter === "backlog" ? "var(--border-subtle)" : "transparent"}`,
-              background: statusFilter === "backlog" ? "var(--bg-surface)" : "transparent",
-              color: statusFilter === "backlog" ? "var(--text-main)" : "var(--text-muted)",
-              cursor: "pointer",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "5px",
-              transition: "all 0.15s ease",
-            }}
-          >
-            <span>Backlog</span>
-            <span
-              className="mono"
-              style={{
-                fontSize: "10px",
-                padding: "1px 5px",
-                borderRadius: "8px",
-                background: "var(--bg-surface-subtle)",
-                color: "var(--text-dim)",
-              }}
-            >
-              {statusCounts.backlog}
-            </span>
-          </button>
-
-          {/* In Progress */}
-          <button
-            type="button"
-            onClick={() => setStatusFilter("in_progress")}
-            style={{
-              padding: "4px 9px",
-              fontSize: "11.5px",
-              fontWeight: statusFilter === "in_progress" ? 600 : 400,
-              borderRadius: "var(--radius-xs)",
-              border: `1px solid ${statusFilter === "in_progress" ? "var(--accent-blue)" : "transparent"}`,
-              background: statusFilter === "in_progress" ? "rgba(59, 130, 246, 0.08)" : "transparent",
-              color: statusFilter === "in_progress" ? "var(--accent-blue)" : "var(--text-muted)",
-              cursor: "pointer",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "5px",
-              transition: "all 0.15s ease",
-            }}
-          >
-            <span>In Progress</span>
-            <span
-              className="mono"
-              style={{
-                fontSize: "10px",
-                padding: "1px 5px",
-                borderRadius: "8px",
-                background: "rgba(59, 130, 246, 0.15)",
-                color: "var(--accent-blue)",
-              }}
-            >
-              {statusCounts.in_progress}
-            </span>
-          </button>
-
-          {/* Review */}
-          <button
-            type="button"
-            onClick={() => setStatusFilter("review")}
-            style={{
-              padding: "4px 9px",
-              fontSize: "11.5px",
-              fontWeight: statusFilter === "review" ? 600 : 400,
-              borderRadius: "var(--radius-xs)",
-              border: `1px solid ${statusFilter === "review" ? "var(--accent-amber)" : "transparent"}`,
-              background: statusFilter === "review" ? "rgba(245, 158, 11, 0.08)" : "transparent",
-              color: statusFilter === "review" ? "var(--accent-amber)" : "var(--text-muted)",
-              cursor: "pointer",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "5px",
-              transition: "all 0.15s ease",
-            }}
-          >
-            <span>Review</span>
-            <span
-              className="mono"
-              style={{
-                fontSize: "10px",
-                padding: "1px 5px",
-                borderRadius: "8px",
-                background: "rgba(245, 158, 11, 0.15)",
-                color: "var(--accent-amber)",
-              }}
-            >
-              {statusCounts.review}
-            </span>
-          </button>
-
-          {/* Done */}
-          <button
-            type="button"
-            onClick={() => setStatusFilter("done")}
-            style={{
-              padding: "4px 9px",
-              fontSize: "11.5px",
-              fontWeight: statusFilter === "done" ? 600 : 400,
-              borderRadius: "var(--radius-xs)",
-              border: `1px solid ${statusFilter === "done" ? "var(--accent-emerald)" : "transparent"}`,
-              background: statusFilter === "done" ? "rgba(16, 185, 129, 0.08)" : "transparent",
-              color: statusFilter === "done" ? "var(--accent-emerald)" : "var(--text-muted)",
-              cursor: "pointer",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "5px",
-              transition: "all 0.15s ease",
-            }}
-          >
-            <span>Done</span>
-            <span
-              className="mono"
-              style={{
-                fontSize: "10px",
-                padding: "1px 5px",
-                borderRadius: "8px",
-                background: "rgba(16, 185, 129, 0.15)",
-                color: "var(--accent-emerald)",
-              }}
-            >
-              {statusCounts.done}
-            </span>
-          </button>
-        </div>
-
-        {/* Right Info: 50-interval selector & total info */}
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-            <span style={{ fontSize: "11px", color: "var(--text-dim)" }}>Rows:</span>
-            <select
-              value={pageSize}
-              onChange={(e) => setPageSize(Number(e.target.value))}
-              className="finance-input"
-              style={{
-                height: "26px",
-                padding: "2px 6px",
-                fontSize: "11px",
-                width: "60px",
-                fontWeight: 600,
-              }}
-            >
-              <option value={25}>25</option>
-              <option value={50}>50</option>
-              <option value={100}>100</option>
-            </select>
-          </div>
-
-          <span
-            className="mono"
-            style={{
-              fontSize: "11px",
-              color: "var(--text-muted)",
-              background: "var(--bg-surface)",
-              padding: "3px 8px",
-              borderRadius: "var(--radius-xs)",
-              border: "1px solid var(--border-subtle)",
-            }}
-          >
-            {totalTasks} {totalTasks === 1 ? "task" : "tasks"}
-          </span>
-        </div>
-      </div>
-
-      {/* 2. Empty State when no tasks match */}
-      {totalTasks === 0 ? (
-        <div
+      <div style={{ overflowX: "auto" }}>
+        <table
           style={{
-            padding: "48px 24px",
-            textAlign: "center",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "10px",
-            background: "var(--bg-surface)",
+            width: totalWidth ? `${totalWidth}px` : "100%",
+            minWidth: "100%",
+            tableLayout: "fixed",
+            borderCollapse: "collapse",
+            fontSize: "12px",
+            textAlign: "left",
           }}
         >
-          <CheckSquare size={32} style={{ color: "var(--text-dim)" }} />
-          <div style={{ fontSize: "14px", fontWeight: 600, color: "var(--text-main)" }}>
-            No tasks found
-          </div>
-          <div style={{ fontSize: "12.5px", color: "var(--text-muted)", maxWidth: "360px" }}>
-            {statusFilter !== "all"
-              ? `No tasks currently marked as "${statusFilter}". Try switching status or resetting filters.`
-              : "No tasks match the active view criteria or search filter."}
-          </div>
-          {statusFilter !== "all" && (
-            <button
-              type="button"
-              onClick={() => setStatusFilter("all")}
-              className="finance-button-secondary"
-              style={{ marginTop: "6px", fontSize: "12px", padding: "5px 12px" }}
+          <thead>
+            <tr
+              style={{
+                background: "var(--bg-surface-subtle)",
+                borderBottom: "1px solid var(--border-subtle)",
+                height: "34px",
+              }}
             >
-              Show All Statuses
-            </button>
-          )}
-        </div>
-      ) : (
-        /* 3. Sleek Tabular View Container */
-        <div style={{ overflowX: "auto" }}>
-          <table
-            style={{
-              width: totalWidth ? `${totalWidth}px` : "100%",
-              minWidth: "100%",
-              tableLayout: "fixed",
-              borderCollapse: "collapse",
-              fontSize: "12px",
-              textAlign: "left",
-            }}
-          >
-            <thead>
-              <tr
+              {/* 1. Project Name */}
+              <th
+                onClick={() => handleSort("project")}
                 style={{
-                  background: "var(--bg-surface-subtle)",
-                  borderBottom: "1px solid var(--border-subtle)",
-                  height: "34px",
+                  position: "relative",
+                  width: `${widths.project}px`,
+                  minWidth: `${MIN_TASK_WIDTHS.project}px`,
+                  padding: "6px 12px",
+                  fontWeight: 600,
+                  color: sortField === "project" ? "var(--text-main)" : "var(--text-dim)",
+                  cursor: "pointer",
+                  userSelect: "none",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
                 }}
               >
-                {/* 1. Project Name */}
-                <th
-                  onClick={() => handleSort("project")}
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                  <span>Project Name</span>
+                  {renderSortIndicator("project")}
+                </div>
+                <ResizeHandle onMouseDown={(e) => startResize("project", e)} />
+              </th>
+
+              {/* 2. Task Title */}
+              <th
+                onClick={() => handleSort("title")}
+                style={{
+                  position: "relative",
+                  width: `${widths.title}px`,
+                  minWidth: `${MIN_TASK_WIDTHS.title}px`,
+                  padding: "6px 12px",
+                  fontWeight: 600,
+                  color: sortField === "title" ? "var(--text-main)" : "var(--text-dim)",
+                  cursor: "pointer",
+                  userSelect: "none",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                  <span>Task</span>
+                  {renderSortIndicator("title")}
+                </div>
+                <ResizeHandle onMouseDown={(e) => startResize("title", e)} />
+              </th>
+
+              {/* 3. Client */}
+              <th
+                onClick={() => handleSort("client")}
+                style={{
+                  position: "relative",
+                  width: `${widths.client}px`,
+                  minWidth: `${MIN_TASK_WIDTHS.client}px`,
+                  padding: "6px 12px",
+                  fontWeight: 600,
+                  color: sortField === "client" ? "var(--text-main)" : "var(--text-dim)",
+                  cursor: "pointer",
+                  userSelect: "none",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                  <span>Client</span>
+                  {renderSortIndicator("client")}
+                </div>
+                <ResizeHandle onMouseDown={(e) => startResize("client", e)} />
+              </th>
+
+              {/* 4. Estimated Time */}
+              <th
+                onClick={() => handleSort("estimated_time")}
+                style={{
+                  position: "relative",
+                  width: `${widths.estimated_time}px`,
+                  minWidth: `${MIN_TASK_WIDTHS.estimated_time}px`,
+                  padding: "6px 12px",
+                  fontWeight: 600,
+                  color: sortField === "estimated_time" ? "var(--text-main)" : "var(--text-dim)",
+                  cursor: "pointer",
+                  userSelect: "none",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                  <span>Estimated Time</span>
+                  {renderSortIndicator("estimated_time")}
+                </div>
+                <ResizeHandle onMouseDown={(e) => startResize("estimated_time", e)} />
+              </th>
+
+              {/* 5. Time Tracked */}
+              <th
+                onClick={() => handleSort("time_tracked")}
+                style={{
+                  position: "relative",
+                  width: `${widths.time_tracked}px`,
+                  minWidth: `${MIN_TASK_WIDTHS.time_tracked}px`,
+                  padding: "6px 12px",
+                  fontWeight: 600,
+                  color: sortField === "time_tracked" ? "var(--text-main)" : "var(--text-dim)",
+                  cursor: "pointer",
+                  userSelect: "none",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                  <span>Time Tracked</span>
+                  {renderSortIndicator("time_tracked")}
+                </div>
+                <ResizeHandle onMouseDown={(e) => startResize("time_tracked", e)} />
+              </th>
+
+              {/* 6. Status */}
+              <th
+                onClick={() => handleSort("status")}
+                style={{
+                  position: "relative",
+                  width: `${widths.status}px`,
+                  minWidth: `${MIN_TASK_WIDTHS.status}px`,
+                  padding: "6px 12px",
+                  fontWeight: 600,
+                  color: sortField === "status" ? "var(--text-main)" : "var(--text-dim)",
+                  cursor: "pointer",
+                  userSelect: "none",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                  <span>Status</span>
+                  {renderSortIndicator("status")}
+                </div>
+                <ResizeHandle onMouseDown={(e) => startResize("status", e)} />
+              </th>
+
+              {/* 7. Actions */}
+              <th
+                style={{
+                  position: "relative",
+                  width: `${widths.actions}px`,
+                  minWidth: `${MIN_TASK_WIDTHS.actions}px`,
+                  padding: "6px 12px",
+                  fontWeight: 600,
+                  color: "var(--text-dim)",
+                  textAlign: "right",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                }}
+              >
+                <span>Actions</span>
+                <ResizeHandle onMouseDown={(e) => startResize("actions", e)} />
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {currentBatch.map((task) => {
+              const checklist = task.checklist || [];
+              const completedCount = checklist.filter((i) => i.completed).length;
+              const totalChecklist = checklist.length;
+              const allDone = totalChecklist > 0 && completedCount === totalChecklist;
+              const isThisRunning = activeTimer.isRunning && activeTimer.taskId === task.id;
+              const trackedSec = timeTrackedMap[task.id] || 0;
+
+              return (
+                <tr
+                  key={task.id}
                   style={{
-                    position: "relative",
-                    width: `${widths.project}px`,
-                    minWidth: `${MIN_TASK_WIDTHS.project}px`,
-                    padding: "6px 12px",
-                    fontWeight: 600,
-                    color: sortField === "project" ? "var(--text-main)" : "var(--text-dim)",
-                    cursor: "pointer",
-                    userSelect: "none",
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
+                    borderBottom: "1px solid var(--border-subtle)",
+                    height: "36px",
+                    transition: "background 0.1s ease",
+                    background: isThisRunning ? "rgba(16, 185, 129, 0.04)" : undefined,
                   }}
-                  title="Sort by Project Name"
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.background = isThisRunning
+                      ? "rgba(16, 185, 129, 0.08)"
+                      : "var(--bg-surface-subtle)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.background = isThisRunning
+                      ? "rgba(16, 185, 129, 0.04)"
+                      : "transparent")
+                  }
                 >
-                  <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                    <span>Project Name</span>
-                    {renderSortIndicator("project")}
-                  </div>
-                  <ResizeHandle onMouseDown={(e) => startResize("project", e)} />
-                </th>
-
-                {/* 2. Task Title */}
-                <th
-                  onClick={() => handleSort("title")}
-                  style={{
-                    position: "relative",
-                    width: `${widths.title}px`,
-                    minWidth: `${MIN_TASK_WIDTHS.title}px`,
-                    padding: "6px 12px",
-                    fontWeight: 600,
-                    color: sortField === "title" ? "var(--text-main)" : "var(--text-dim)",
-                    cursor: "pointer",
-                    userSelect: "none",
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  }}
-                  title="Sort by Task Title"
-                >
-                  <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                    <span>Task</span>
-                    {renderSortIndicator("title")}
-                  </div>
-                  <ResizeHandle onMouseDown={(e) => startResize("title", e)} />
-                </th>
-
-                {/* 3. Client */}
-                <th
-                  onClick={() => handleSort("client")}
-                  style={{
-                    position: "relative",
-                    width: `${widths.client}px`,
-                    minWidth: `${MIN_TASK_WIDTHS.client}px`,
-                    padding: "6px 12px",
-                    fontWeight: 600,
-                    color: sortField === "client" ? "var(--text-main)" : "var(--text-dim)",
-                    cursor: "pointer",
-                    userSelect: "none",
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  }}
-                  title="Sort by Client"
-                >
-                  <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                    <span>Client</span>
-                    {renderSortIndicator("client")}
-                  </div>
-                  <ResizeHandle onMouseDown={(e) => startResize("client", e)} />
-                </th>
-
-                {/* 4. Estimated Time */}
-                <th
-                  onClick={() => handleSort("estimated_time")}
-                  style={{
-                    position: "relative",
-                    width: `${widths.estimated_time}px`,
-                    minWidth: `${MIN_TASK_WIDTHS.estimated_time}px`,
-                    padding: "6px 12px",
-                    fontWeight: 600,
-                    color: sortField === "estimated_time" ? "var(--text-main)" : "var(--text-dim)",
-                    cursor: "pointer",
-                    userSelect: "none",
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  }}
-                  title="Sort by Estimated Time"
-                >
-                  <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                    <span>Estimated Time</span>
-                    {renderSortIndicator("estimated_time")}
-                  </div>
-                  <ResizeHandle onMouseDown={(e) => startResize("estimated_time", e)} />
-                </th>
-
-                {/* 5. Time Tracked */}
-                <th
-                  onClick={() => handleSort("time_tracked")}
-                  style={{
-                    position: "relative",
-                    width: `${widths.time_tracked}px`,
-                    minWidth: `${MIN_TASK_WIDTHS.time_tracked}px`,
-                    padding: "6px 12px",
-                    fontWeight: 600,
-                    color: sortField === "time_tracked" ? "var(--text-main)" : "var(--text-dim)",
-                    cursor: "pointer",
-                    userSelect: "none",
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  }}
-                  title="Sort by Time Tracked"
-                >
-                  <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                    <span>Time Tracked</span>
-                    {renderSortIndicator("time_tracked")}
-                  </div>
-                  <ResizeHandle onMouseDown={(e) => startResize("time_tracked", e)} />
-                </th>
-
-                {/* 6. Status */}
-                <th
-                  onClick={() => handleSort("status")}
-                  style={{
-                    position: "relative",
-                    width: `${widths.status}px`,
-                    minWidth: `${MIN_TASK_WIDTHS.status}px`,
-                    padding: "6px 12px",
-                    fontWeight: 600,
-                    color: sortField === "status" ? "var(--text-main)" : "var(--text-dim)",
-                    cursor: "pointer",
-                    userSelect: "none",
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  }}
-                  title="Sort by Status"
-                >
-                  <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                    <span>Status</span>
-                    {renderSortIndicator("status")}
-                  </div>
-                  <ResizeHandle onMouseDown={(e) => startResize("status", e)} />
-                </th>
-
-                {/* 7. Actions */}
-                <th
-                  style={{
-                    position: "relative",
-                    width: `${widths.actions}px`,
-                    minWidth: `${MIN_TASK_WIDTHS.actions}px`,
-                    padding: "6px 12px",
-                    fontWeight: 600,
-                    color: "var(--text-dim)",
-                    textAlign: "right",
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                  }}
-                >
-                  <span>Actions</span>
-                  <ResizeHandle onMouseDown={(e) => startResize("actions", e)} />
-                </th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {currentBatch.map((task) => {
-                const checklist = task.checklist || [];
-                const completedCount = checklist.filter((i) => i.completed).length;
-                const totalChecklist = checklist.length;
-                const allDone = totalChecklist > 0 && completedCount === totalChecklist;
-                const isThisRunning = activeTimer.isRunning && activeTimer.taskId === task.id;
-                const trackedSec = timeTrackedMap[task.id] || 0;
-
-                return (
-                  <tr
-                    key={task.id}
-                    style={{
-                      borderBottom: "1px solid var(--border-subtle)",
-                      height: "38px",
-                      transition: "background 0.1s ease",
-                      background: isThisRunning ? "rgba(16, 185, 129, 0.05)" : undefined,
-                    }}
-                    onMouseEnter={(e) =>
-                      (e.currentTarget.style.background = isThisRunning
-                        ? "rgba(16, 185, 129, 0.09)"
-                        : "var(--bg-surface-subtle)")
-                    }
-                    onMouseLeave={(e) =>
-                      (e.currentTarget.style.background = isThisRunning
-                        ? "rgba(16, 185, 129, 0.05)"
-                        : "transparent")
-                    }
-                  >
-                    {/* 1. Project Name */}
-                    <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
-                      {task.project_name ? (
-                        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                          <FolderKanban
-                            size={12}
-                            style={{
-                              color: "var(--accent-blue)",
-                              opacity: 0.8,
-                              flexShrink: 0,
-                            }}
-                          />
-                          <span
-                            style={{
-                              color: "var(--text-main)",
-                              fontWeight: 500,
-                              maxWidth: "170px",
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                            }}
-                            title={task.project_name}
-                          >
-                            {task.project_name}
-                          </span>
-                        </div>
-                      ) : (
-                        <span style={{ color: "var(--text-dim)" }}>—</span>
-                      )}
-                    </td>
-
-                    {/* 2. Task Title + Checklist Badge */}
-                    <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                  {/* 1. Project Name */}
+                  <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
+                    {task.project_name ? (
+                      <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                        <FolderKanban size={12} style={{ color: "var(--text-dim)", flexShrink: 0 }} />
                         <span
                           style={{
+                            color: "var(--text-main)",
                             fontWeight: 500,
-                            fontSize: "12.5px",
-                            color: task.status === "done" ? "var(--text-muted)" : "var(--text-main)",
-                            textDecoration: task.status === "done" ? "line-through" : "none",
-                            maxWidth: "240px",
+                            maxWidth: "170px",
                             overflow: "hidden",
                             textOverflow: "ellipsis",
                           }}
-                          title={task.title}
+                          title={task.project_name}
                         >
-                          {task.title}
+                          {task.project_name}
                         </span>
-
-                        {/* Checklist Badge if exists */}
-                        {totalChecklist > 0 && (
-                          <div
-                            style={{
-                              display: "inline-flex",
-                              alignItems: "center",
-                              gap: "4px",
-                              fontSize: "10px",
-                              padding: "1px 6px",
-                              borderRadius: "var(--radius-xs)",
-                              background: allDone ? "rgba(16, 185, 129, 0.12)" : "var(--bg-surface-subtle)",
-                              color: allDone ? "var(--accent-emerald)" : "var(--text-dim)",
-                              border: `1px solid ${allDone ? "var(--accent-emerald)" : "var(--border-subtle)"}`,
-                            }}
-                            className="mono"
-                            title={`${completedCount} of ${totalChecklist} checklist items completed`}
-                          >
-                            <CheckSquare size={10} />
-                            <span>
-                              {completedCount}/{totalChecklist}
-                            </span>
-                          </div>
-                        )}
                       </div>
-                    </td>
+                    ) : (
+                      <span style={{ color: "var(--text-dim)" }}>—</span>
+                    )}
+                  </td>
 
-                    {/* 3. Client */}
-                    <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
-                      {task.client_name ? (
-                        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                          <Building2
-                            size={12}
-                            style={{ color: "var(--text-dim)", flexShrink: 0 }}
-                          />
-                          <span
-                            style={{
-                              color: "var(--text-muted)",
-                              maxWidth: "140px",
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                            }}
-                            title={task.client_name}
-                          >
-                            {task.client_name}
-                          </span>
-                        </div>
-                      ) : (
-                        <span style={{ color: "var(--text-dim)" }}>—</span>
-                      )}
-                    </td>
+                  {/* 2. Task Title + Checklist Badge */}
+                  <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                      <span
+                        style={{
+                          fontWeight: 500,
+                          fontSize: "12.5px",
+                          color: task.status === "done" ? "var(--text-muted)" : "var(--text-main)",
+                          textDecoration: task.status === "done" ? "line-through" : "none",
+                          maxWidth: "240px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}
+                        title={task.title}
+                      >
+                        {task.title}
+                      </span>
 
-                    {/* 4. Estimated Time */}
-                    <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
-                      {task.estimated_hours > 0 ? (
-                        <span
-                          className="mono"
-                          style={{
-                            fontSize: "11px",
-                            color: "var(--text-dim)",
-                            background: "var(--bg-surface-subtle)",
-                            padding: "2px 6px",
-                            borderRadius: "var(--radius-xs)",
-                            border: "1px solid var(--border-subtle)",
-                          }}
-                        >
-                          {task.estimated_hours}h
-                        </span>
-                      ) : (
-                        <span style={{ color: "var(--text-dim)", fontSize: "11px" }}>—</span>
-                      )}
-                    </td>
-
-                    {/* 5. Time Tracked */}
-                    <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
-                      {isThisRunning ? (
+                      {/* Checklist Badge if exists */}
+                      {totalChecklist > 0 && (
                         <div
                           style={{
                             display: "inline-flex",
                             alignItems: "center",
-                            gap: "6px",
-                            padding: "2px 7px",
-                            borderRadius: "10px",
-                            background: "rgba(16, 185, 129, 0.12)",
-                            border: "1px solid rgba(16, 185, 129, 0.3)",
+                            gap: "4px",
+                            fontSize: "10px",
+                            padding: "1px 6px",
+                            borderRadius: "var(--radius-xs)",
+                            background: allDone ? "rgba(16, 185, 129, 0.12)" : "var(--bg-surface-subtle)",
+                            color: allDone ? "var(--accent-emerald)" : "var(--text-dim)",
+                            border: `1px solid ${allDone ? "var(--accent-emerald)" : "var(--border-subtle)"}`,
                           }}
-                        >
-                          <span className="pulse-indicator" style={{ width: "6px", height: "6px" }} />
-                          <span
-                            className="mono"
-                            style={{
-                              fontSize: "11px",
-                              color: "var(--accent-emerald)",
-                              fontWeight: 600,
-                            }}
-                          >
-                            Active
-                          </span>
-                        </div>
-                      ) : trackedSec > 0 ? (
-                        <div style={{ display: "inline-flex", alignItems: "center", gap: "5px" }}>
-                          <Clock size={11} style={{ color: "var(--accent-blue)", opacity: 0.8 }} />
-                          <span
-                            className="mono"
-                            style={{
-                              fontSize: "11px",
-                              color: "var(--text-main)",
-                              fontWeight: 500,
-                            }}
-                            title={`${(trackedSec / 3600).toFixed(2)} hours total tracked`}
-                          >
-                            {(trackedSec / 3600).toFixed(1)}h
-                          </span>
-                        </div>
-                      ) : (
-                        <span
-                          style={{ color: "var(--text-dim)", fontSize: "11px" }}
                           className="mono"
+                          title={`${completedCount} of ${totalChecklist} checklist items completed`}
                         >
-                          0.0h
-                        </span>
+                          <CheckSquare size={10} />
+                          <span>
+                            {completedCount}/{totalChecklist}
+                          </span>
+                        </div>
                       )}
-                    </td>
+                    </div>
+                  </td>
 
-                    {/* 6. Status Dropdown */}
-                    <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
-                      <select
-                        value={task.status}
-                        onClick={(e) => e.stopPropagation()}
-                        onChange={(e) =>
-                          onTaskStatusChange &&
-                          onTaskStatusChange(task.id, e.target.value as TaskStatus)
-                        }
-                        className="finance-input"
-                        style={{
-                          padding: "3px 6px",
-                          fontSize: "11px",
-                          height: "26px",
-                          cursor: "pointer",
-                          width: "120px",
-                          color:
-                            task.status === "done"
-                              ? "var(--accent-emerald)"
-                              : task.status === "in_progress"
-                              ? "var(--accent-blue)"
-                              : task.status === "review"
-                              ? "var(--accent-amber)"
-                              : "var(--text-main)",
-                          fontWeight:
-                            task.status === "done" ||
-                            task.status === "in_progress" ||
-                            task.status === "review"
-                              ? 600
-                              : 400,
-                        }}
-                      >
-                        <option value="backlog">Backlog</option>
-                        <option value="in_progress">In Progress</option>
-                        <option value="review">Review</option>
-                        <option value="done">Done</option>
-                      </select>
-                    </td>
-
-                    {/* 7. Actions */}
-                    <td style={{ padding: "6px 12px", textAlign: "right", whiteSpace: "nowrap" }}>
-                      <div
-                        style={{
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: "6px",
-                        }}
-                      >
-                        {/* Start/Stop Tracking Time Button */}
-                        {isThisRunning ? (
-                          <button
-                            type="button"
-                            onClick={(e) => handleStopTracking(e, task)}
-                            className="finance-button-secondary"
-                            style={{
-                              padding: "4px 7px",
-                              color: "var(--accent-rose)",
-                              borderColor: "var(--accent-rose)",
-                              background: "rgba(244, 63, 94, 0.12)",
-                            }}
-                            title="Stop Tracking Time on this Task"
-                          >
-                            <Square size={11} fill="currentColor" />
-                          </button>
-                        ) : (
-                          <button
-                            type="button"
-                            onClick={(e) => handleStartTracking(e, task)}
-                            className="finance-button-secondary"
-                            style={{ padding: "4px 7px", color: "var(--accent-emerald)" }}
-                            title="Start Tracking Time on this Task"
-                          >
-                            <Play size={11} />
-                          </button>
-                        )}
-
-                        <button
-                          type="button"
-                          onClick={() => onEditTask && onEditTask(task)}
-                          className="finance-button-secondary"
-                          style={{ padding: "4px 7px" }}
-                          title="Edit Task"
+                  {/* 3. Client */}
+                  <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
+                    {task.client_name ? (
+                      <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                        <Building2 size={12} style={{ color: "var(--text-dim)", flexShrink: 0 }} />
+                        <span
+                          style={{
+                            color: "var(--text-muted)",
+                            maxWidth: "140px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                          title={task.client_name}
                         >
-                          <Pencil size={11} />
-                        </button>
-
-                        <button
-                          type="button"
-                          onClick={() => onDeleteTask && onDeleteTask(task)}
-                          className="finance-button-secondary"
-                          style={{ padding: "4px 7px", color: "var(--accent-rose)" }}
-                          title="Delete Task"
-                        >
-                          <Trash2 size={11} />
-                        </button>
+                          {task.client_name}
+                        </span>
                       </div>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      )}
+                    ) : (
+                      <span style={{ color: "var(--text-dim)" }}>—</span>
+                    )}
+                  </td>
 
-      {/* 4. Sleek 50-Interval Pagination Bar */}
+                  {/* 4. Estimated Time */}
+                  <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
+                    {task.estimated_hours > 0 ? (
+                      <span className="mono" style={{ fontSize: "11px", color: "var(--text-dim)" }}>
+                        {task.estimated_hours}h
+                      </span>
+                    ) : (
+                      <span style={{ color: "var(--text-dim)", fontSize: "11px" }}>—</span>
+                    )}
+                  </td>
+
+                  {/* 5. Time Tracked */}
+                  <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
+                    {isThisRunning ? (
+                      <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                        <span className="pulse-indicator" style={{ width: "6px", height: "6px" }} />
+                        <span className="mono" style={{ fontSize: "11px", color: "var(--accent-emerald)", fontWeight: 600 }}>
+                          Active
+                        </span>
+                      </div>
+                    ) : trackedSec > 0 ? (
+                      <div style={{ display: "inline-flex", alignItems: "center", gap: "5px" }}>
+                        <Clock size={11} style={{ color: "var(--text-dim)" }} />
+                        <span
+                          className="mono"
+                          style={{ fontSize: "11px", color: "var(--text-main)", fontWeight: 500 }}
+                          title={`${(trackedSec / 3600).toFixed(2)} hours tracked`}
+                        >
+                          {(trackedSec / 3600).toFixed(1)}h
+                        </span>
+                      </div>
+                    ) : (
+                      <span style={{ color: "var(--text-dim)", fontSize: "11px" }} className="mono">
+                        0.0h
+                      </span>
+                    )}
+                  </td>
+
+                  {/* 6. Status Dropdown */}
+                  <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
+                    <select
+                      value={task.status}
+                      onClick={(e) => e.stopPropagation()}
+                      onChange={(e) =>
+                        onTaskStatusChange &&
+                        onTaskStatusChange(task.id, e.target.value as TaskStatus)
+                      }
+                      className="finance-input"
+                      style={{
+                        padding: "3px 6px",
+                        fontSize: "11px",
+                        height: "26px",
+                        cursor: "pointer",
+                        width: "120px",
+                        color:
+                          task.status === "done"
+                            ? "var(--accent-emerald)"
+                            : task.status === "in_progress"
+                            ? "var(--accent-blue)"
+                            : task.status === "review"
+                            ? "var(--accent-amber)"
+                            : "var(--text-main)",
+                        fontWeight:
+                          task.status === "done" ||
+                          task.status === "in_progress" ||
+                          task.status === "review"
+                            ? 600
+                            : 400,
+                      }}
+                    >
+                      <option value="backlog">Backlog</option>
+                      <option value="in_progress">In Progress</option>
+                      <option value="review">Review</option>
+                      <option value="done">Done</option>
+                    </select>
+                  </td>
+
+                  {/* 7. Actions */}
+                  <td style={{ padding: "6px 12px", textAlign: "right", whiteSpace: "nowrap" }}>
+                    <div
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "6px",
+                      }}
+                    >
+                      {/* Start/Stop Tracking Time Button */}
+                      {isThisRunning ? (
+                        <button
+                          type="button"
+                          onClick={(e) => handleStopTracking(e, task)}
+                          className="finance-button-secondary"
+                          style={{
+                            padding: "3px 6px",
+                            color: "var(--accent-rose)",
+                            borderColor: "var(--accent-rose)",
+                            background: "rgba(244, 63, 94, 0.12)",
+                          }}
+                          title="Stop Tracking Time on this Task"
+                        >
+                          <Square size={11} fill="currentColor" />
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={(e) => handleStartTracking(e, task)}
+                          className="finance-button-secondary"
+                          style={{ padding: "3px 6px", color: "var(--accent-emerald)" }}
+                          title="Start Tracking Time on this Task"
+                        >
+                          <Play size={11} />
+                        </button>
+                      )}
+
+                      <button
+                        type="button"
+                        onClick={() => onEditTask && onEditTask(task)}
+                        className="finance-button-secondary"
+                        style={{ padding: "3px 6px" }}
+                        title="Edit Task"
+                      >
+                        <Pencil size={11} />
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => onDeleteTask && onDeleteTask(task)}
+                        className="finance-button-secondary"
+                        style={{ padding: "3px 6px", color: "var(--accent-rose)" }}
+                        title="Delete Task"
+                      >
+                        <Trash2 size={11} />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      {/* 50-Interval Footer Pagination: exactly matching time-tracker */}
       <div
         style={{
-          padding: "8px 16px",
-          borderTop: "1px solid var(--border-subtle)",
-          background: "var(--bg-surface-subtle)",
           display: "flex",
-          alignItems: "center",
           justifyContent: "space-between",
-          flexWrap: "wrap",
-          gap: "10px",
+          alignItems: "center",
+          padding: "8px 14px",
+          background: "var(--bg-surface-subtle)",
+          borderTop: "1px solid var(--border-subtle)",
           fontSize: "11.5px",
           color: "var(--text-muted)",
         }}
       >
-        {/* Interval Summary */}
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <div>
-            Showing{" "}
-            <span className="mono" style={{ color: "var(--text-main)", fontWeight: 600 }}>
-              {totalTasks > 0 ? startIndex + 1 : 0}
-            </span>{" "}
-            to{" "}
-            <span className="mono" style={{ color: "var(--text-main)", fontWeight: 600 }}>
-              {endIndex}
-            </span>{" "}
-            of{" "}
-            <span className="mono" style={{ color: "var(--text-main)", fontWeight: 600 }}>
-              {totalTasks}
-            </span>{" "}
-            tasks
-          </div>
-          <span
-            className="mono"
-            style={{
-              fontSize: "10.5px",
-              padding: "1px 6px",
-              borderRadius: "4px",
-              background: "var(--bg-surface)",
-              border: "1px solid var(--border-subtle)",
-              color: "var(--text-dim)",
-            }}
-          >
-            {pageSize} / interval
-          </span>
+        <div>
+          Showing <span style={{ fontWeight: 600, color: "var(--text-main)" }}>{totalTasks === 0 ? 0 : startIndex + 1}</span> to{" "}
+          <span style={{ fontWeight: 600, color: "var(--text-main)" }}>{endIndex}</span> of{" "}
+          <span style={{ fontWeight: 600, color: "var(--text-main)" }}>{totalTasks}</span> tasks (50 per page)
         </div>
 
-        {/* Interactive Pagination Buttons */}
-        <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-          {/* First Page */}
-          <button
-            type="button"
-            disabled={safeCurrentPage === 1}
-            onClick={() => setCurrentPage(1)}
-            className="finance-button-secondary"
-            style={{
-              padding: "4px 6px",
-              fontSize: "11px",
-              opacity: safeCurrentPage === 1 ? 0.35 : 1,
-              cursor: safeCurrentPage === 1 ? "not-allowed" : "pointer",
-            }}
-            title="First Page"
-          >
-            <ChevronsLeft size={13} />
-          </button>
-
-          {/* Previous Page */}
-          <button
-            type="button"
-            disabled={safeCurrentPage === 1}
-            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-            className="finance-button-secondary"
-            style={{
-              padding: "4px 8px",
-              fontSize: "11px",
-              opacity: safeCurrentPage === 1 ? 0.35 : 1,
-              cursor: safeCurrentPage === 1 ? "not-allowed" : "pointer",
-              gap: "2px",
-            }}
-            title="Previous Page"
-          >
-            <ChevronLeft size={13} />
-            <span>Prev</span>
-          </button>
-
-          {/* Numbered Page Buttons */}
-          <div style={{ display: "flex", alignItems: "center", gap: "2px", margin: "0 2px" }}>
-            {paginationRange.map((pageNumber, idx) => {
-              if (pageNumber < 0) {
-                return (
-                  <span
-                    key={`ellipsis-${idx}`}
-                    style={{
-                      padding: "0 4px",
-                      color: "var(--text-dim)",
-                      fontSize: "11px",
-                    }}
-                  >
-                    …
-                  </span>
-                );
-              }
-
-              const isCurrent = pageNumber === safeCurrentPage;
-              return (
-                <button
-                  key={`page-${pageNumber}`}
-                  type="button"
-                  onClick={() => setCurrentPage(pageNumber)}
-                  className="mono"
-                  style={{
-                    minWidth: "26px",
-                    height: "26px",
-                    padding: "0 5px",
-                    borderRadius: "var(--radius-xs)",
-                    border: `1px solid ${isCurrent ? "var(--accent-blue)" : "var(--border-subtle)"}`,
-                    background: isCurrent ? "var(--accent-blue)" : "var(--bg-surface)",
-                    color: isCurrent ? "#fff" : "var(--text-main)",
-                    fontWeight: isCurrent ? 600 : 400,
-                    fontSize: "11px",
-                    cursor: "pointer",
-                    transition: "all 0.12s ease",
-                  }}
-                >
-                  {pageNumber}
-                </button>
-              );
-            })}
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <span>
+            Page {safeCurrentPage} of {totalPages}
+          </span>
+          <div style={{ display: "flex", gap: "4px" }}>
+            <button
+              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+              disabled={safeCurrentPage <= 1}
+              className="finance-button-secondary"
+              style={{
+                padding: "3px 6px",
+                opacity: safeCurrentPage <= 1 ? 0.4 : 1,
+                cursor: safeCurrentPage <= 1 ? "not-allowed" : "pointer",
+              }}
+              title="Previous 50 tasks"
+            >
+              <ChevronLeft size={13} />
+            </button>
+            <button
+              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+              disabled={safeCurrentPage >= totalPages}
+              className="finance-button-secondary"
+              style={{
+                padding: "3px 6px",
+                opacity: safeCurrentPage >= totalPages ? 0.4 : 1,
+                cursor: safeCurrentPage >= totalPages ? "not-allowed" : "pointer",
+              }}
+              title="Next 50 tasks"
+            >
+              <ChevronRight size={13} />
+            </button>
           </div>
-
-          {/* Next Page */}
-          <button
-            type="button"
-            disabled={safeCurrentPage === totalPages}
-            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-            className="finance-button-secondary"
-            style={{
-              padding: "4px 8px",
-              fontSize: "11px",
-              opacity: safeCurrentPage === totalPages ? 0.35 : 1,
-              cursor: safeCurrentPage === totalPages ? "not-allowed" : "pointer",
-              gap: "2px",
-            }}
-            title="Next Page"
-          >
-            <span>Next</span>
-            <ChevronRight size={13} />
-          </button>
-
-          {/* Last Page */}
-          <button
-            type="button"
-            disabled={safeCurrentPage === totalPages}
-            onClick={() => setCurrentPage(totalPages)}
-            className="finance-button-secondary"
-            style={{
-              padding: "4px 6px",
-              fontSize: "11px",
-              opacity: safeCurrentPage === totalPages ? 0.35 : 1,
-              cursor: safeCurrentPage === totalPages ? "not-allowed" : "pointer",
-            }}
-            title="Last Page"
-          >
-            <ChevronsRight size={13} />
-          </button>
         </div>
       </div>
     </div>
