@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { TaskData, TaskStatus } from "@/types/project";
 import {
   CheckSquare,
@@ -48,6 +48,10 @@ export default function TaskTable({
     }
     setCurrentPage(1);
   };
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [tasks.length]);
 
   const sortedTasks = useMemo(() => {
     return [...tasks].sort((a, b) => {
@@ -458,7 +462,7 @@ export default function TaskTable({
           <strong style={{ color: "var(--text-main)" }}>
             {totalTasks === 0 ? 0 : startIndex + 1} - {endIndex}
           </strong>{" "}
-          of <strong style={{ color: "var(--text-main)" }}>{totalTasks}</strong> tasks
+          of <strong style={{ color: "var(--text-main)" }}>{totalTasks}</strong> tasks (50 per page)
         </span>
 
         {totalPages > 1 && (

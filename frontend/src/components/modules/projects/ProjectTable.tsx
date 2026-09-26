@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { ProjectData, TaskData, TaskStatus } from "@/types/project";
 import {
   Building2,
@@ -111,10 +111,15 @@ export default function ProjectTable({
     });
   }, [projects, sortField, sortDirection]);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [projects.length]);
+
   // 50-item interval pagination
   const totalItems = sortedProjects.length;
   const totalPages = Math.max(1, Math.ceil(totalItems / PAGE_SIZE));
-  const startIndex = (currentPage - 1) * PAGE_SIZE;
+  const safeCurrentPage = Math.min(currentPage, totalPages);
+  const startIndex = (safeCurrentPage - 1) * PAGE_SIZE;
   const endIndex = Math.min(startIndex + PAGE_SIZE, totalItems);
   const currentBatch = sortedProjects.slice(startIndex, endIndex);
 
@@ -786,20 +791,20 @@ export default function ProjectTable({
 
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
           <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>
-            Page {currentPage} of {totalPages}
+            Page {safeCurrentPage} of {totalPages}
           </span>
 
           <div style={{ display: "flex", gap: "4px" }}>
             <button
               type="button"
-              disabled={currentPage <= 1}
+              disabled={safeCurrentPage <= 1}
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               className="finance-button-secondary"
               style={{
                 padding: "3px 8px",
                 fontSize: "11px",
-                opacity: currentPage <= 1 ? 0.4 : 1,
-                cursor: currentPage <= 1 ? "not-allowed" : "pointer",
+                opacity: safeCurrentPage <= 1 ? 0.4 : 1,
+                cursor: safeCurrentPage <= 1 ? "not-allowed" : "pointer",
               }}
               title="Previous 50 projects"
             >
@@ -809,14 +814,14 @@ export default function ProjectTable({
 
             <button
               type="button"
-              disabled={currentPage >= totalPages}
+              disabled={safeCurrentPage >= totalPages}
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               className="finance-button-secondary"
               style={{
                 padding: "3px 8px",
                 fontSize: "11px",
-                opacity: currentPage >= totalPages ? 0.4 : 1,
-                cursor: currentPage >= totalPages ? "not-allowed" : "pointer",
+                opacity: safeCurrentPage >= totalPages ? 0.4 : 1,
+                cursor: safeCurrentPage >= totalPages ? "not-allowed" : "pointer",
               }}
               title="Next 50 projects"
             >
