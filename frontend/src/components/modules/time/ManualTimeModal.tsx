@@ -370,16 +370,26 @@ export default function ManualTimeModal({
 
             {isBillable && (
               <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>Hourly Rate ($):</span>
+                <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>
+                  Hourly Rate ({(() => {
+                    const sel = tasks.find((t) => t.id === taskId);
+                    const curr = sel?.currency_code || (initialEntry as any)?.currency_code || "USD";
+                    const sym = curr === "USD" ? "$" : curr === "GBP" ? "£" : curr === "INR" ? "₹" : curr === "EUR" ? "€" : "";
+                    return sym ? `${sym} ${curr}` : curr;
+                  })()}):
+                </span>
                 <input
                   type="number"
                   step="any"
                   min="0"
                   value={hourlyRate}
                   onChange={(e) => setHourlyRate(e.target.value)}
-                  placeholder="Auto"
+                  placeholder={(() => {
+                    const sel = tasks.find((t) => t.id === taskId);
+                    return sel?.hourly_rate ? String(sel.hourly_rate) : "Auto";
+                  })()}
                   className="finance-input"
-                  style={{ width: "80px", height: "28px", fontSize: "11.5px", textAlign: "right" }}
+                  style={{ width: "90px", height: "28px", fontSize: "11.5px", textAlign: "right" }}
                 />
               </div>
             )}

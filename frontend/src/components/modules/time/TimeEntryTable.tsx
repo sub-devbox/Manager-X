@@ -457,7 +457,15 @@ export default function TimeEntryTable({
                   <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
                     {entry.is_billable ? (
                       <span className="mono" style={{ color: "var(--accent-emerald)", fontWeight: 500 }}>
-                        ${entry.billable_amount.toFixed(2)}
+                        {(() => {
+                          const curr = (entry.currency_code || "USD").toUpperCase();
+                          const sym =
+                            curr === "USD" ? "$" : curr === "GBP" ? "£" : curr === "INR" ? "₹" : curr === "EUR" ? "€" : "";
+                          return `${sym}${entry.billable_amount.toFixed(2)}`;
+                        })()}{" "}
+                        <span style={{ fontSize: "10.5px", color: "var(--text-dim)" }}>
+                          {entry.currency_code || "USD"}
+                        </span>
                       </span>
                     ) : (
                       <span style={{ fontSize: "11px", color: "var(--text-dim)" }}>Non-billable</span>

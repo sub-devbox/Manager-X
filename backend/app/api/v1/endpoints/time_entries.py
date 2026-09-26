@@ -21,9 +21,15 @@ def _format_time_entry_response(entry: TimeEntry) -> TimeEntryResponse:
     project_name = entry.project.name if entry.project else None
     client_name = None
     client_id = None
+    currency_code = "USD"
     if entry.project and entry.project.client:
         client_name = entry.project.client.company_name
         client_id = entry.project.client.id
+        if entry.project.client.currency_code:
+            currency_code = entry.project.client.currency_code
+    elif entry.task and entry.task.project and entry.task.project.client:
+        if entry.task.project.client.currency_code:
+            currency_code = entry.task.project.client.currency_code
 
     effective_rate = entry.hourly_rate if entry.hourly_rate is not None else 0.0
     billable_amount = 0.0
@@ -45,6 +51,7 @@ def _format_time_entry_response(entry: TimeEntry) -> TimeEntryResponse:
         project_name=project_name,
         client_name=client_name,
         client_id=client_id,
+        currency_code=currency_code,
         billable_amount=billable_amount,
         created_at=entry.created_at,
         updated_at=entry.updated_at,

@@ -1,16 +1,16 @@
 # Graph Report - Manager-X  (2026-09-26)
 
 ## Corpus Check
-- 86 files · ~49,379 words
+- 86 files · ~49,782 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 545 nodes · 973 edges · 37 communities (29 shown, 8 thin omitted)
+- 546 nodes · 979 edges · 38 communities (30 shown, 8 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 16 edges (avg confidence: 0.57)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `9099fb38`
+- Built from commit: `21d6656a`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -51,6 +51,7 @@
 - User
 - project.ts
 - time_entries.py
+- config.py
 
 ## God Nodes (most connected - your core abstractions)
 1. `User` - 52 edges
@@ -79,7 +80,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (37 total, 8 thin omitted)
+## Communities (38 total, 8 thin omitted)
 
 ### Community 0 - "devDependencies"
 Cohesion: 0.06
@@ -87,15 +88,15 @@ Nodes (32): eslint, eslint-config-next, dependencies, lucide-react, next, react,
 
 ### Community 1 - "auth.py"
 Cohesion: 0.08
-Nodes (51): Any, check_auth_status(), get_client_ip(), get_current_user(), get_me(), get_optional_user(), login(), logout() (+43 more)
+Nodes (50): Any, check_auth_status(), get_client_ip(), get_current_user(), get_me(), get_optional_user(), login(), logout() (+42 more)
 
 ### Community 2 - "Base"
 Cohesion: 0.07
-Nodes (39): generate_cuid(), Generate a collision-resistant unique identifier (CUID). Structure: prefix (1)…, to_base36(), Base, get_db(), AsyncSession, set_sqlite_pragma(), Client (+31 more)
+Nodes (37): Base, get_db(), AsyncSession, set_sqlite_pragma(), Client, Currency, SystemSetting, datetime (+29 more)
 
 ### Community 3 - "settings.py"
-Cohesion: 0.09
-Nodes (44): add_country(), create_backup_snapshot(), create_currency(), delete_country(), delete_currency(), download_database(), ensure_default_currencies(), _format_size() (+36 more)
+Cohesion: 0.11
+Nodes (38): add_country(), create_backup_snapshot(), create_currency(), delete_country(), delete_currency(), download_database(), ensure_default_currencies(), _format_size() (+30 more)
 
 ### Community 4 - "compilerOptions"
 Cohesion: 0.07
@@ -119,7 +120,7 @@ Nodes (7): Asset Manager Module, Finance Manager Module, ITR Helper Module, Invo
 
 ### Community 9 - "projects.py"
 Cohesion: 0.09
-Nodes (46): create_project(), delete_project(), _format_project_response(), get_project(), list_projects(), list_projects_summary(), AsyncSession, delete (+38 more)
+Nodes (47): create_project(), delete_project(), _format_project_response(), get_project(), list_projects(), list_projects_summary(), AsyncSession, delete (+39 more)
 
 ### Community 10 - "AppShell.tsx"
 Cohesion: 0.06
@@ -193,6 +194,10 @@ Nodes (36): PeriodFilter, ClientOption, ProjectModal(), ProjectModalProps, Proje
 Cohesion: 0.19
 Nodes (19): create_time_entry(), delete_time_entry(), _format_time_entry_response(), get_time_entry(), list_time_entries(), AsyncSession, delete, get (+11 more)
 
+### Community 37 - "config.py"
+Cohesion: 0.20
+Nodes (9): Settings, generate_cuid(), Generate a collision-resistant unique identifier (CUID). Structure: prefix (1)…, to_base36(), BaseSettings, os, pathlib, pydantic_settings (+1 more)
+
 ## Knowledge Gaps
 - **153 isolated node(s):** `eslintConfig`, `nextConfig`, `name`, `version`, `private` (+148 more)
   These have ≤1 connection - possible missing edges or undocumented components.
@@ -202,7 +207,7 @@ Nodes (19): create_time_entry(), delete_time_entry(), _format_time_entry_respons
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `User` connect `User` to `auth.py`, `Base`, `settings.py`, `time_entries.py`, `projects.py`?**
-  _High betweenness centrality (0.089) - this node is a cross-community bridge._
+  _High betweenness centrality (0.090) - this node is a cross-community bridge._
 - **Why does `Base` connect `Base` to `auth.py`, `User`, `time_entries.py`, `main.py`, `projects.py`?**
   _High betweenness centrality (0.020) - this node is a cross-community bridge._
 - **Why does `Currency` connect `Base` to `User`, `settings.py`?**

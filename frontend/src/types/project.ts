@@ -19,6 +19,8 @@ export interface TaskData {
   checklist?: ChecklistItem[];
   project_name?: string | null;
   client_name?: string | null;
+  currency_code?: string | null;
+  hourly_rate?: number | null;
   created_at: string;
   updated_at: string;
 }

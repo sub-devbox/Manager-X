@@ -13,6 +13,7 @@ export interface TimeEntryData {
   project_name?: string | null;
   client_name?: string | null;
   client_id?: string | null;
+  currency_code?: string | null;
   billable_amount: number;
   created_at: string;
   updated_at: string;

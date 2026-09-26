@@ -30,6 +30,7 @@ class TimeEntryResponse(TimeEntryBase):
     project_name: str | None = None
     client_name: str | None = None
     client_id: str | None = None
+    currency_code: str | None = "USD"
     invoiced: bool = False
     billable_amount: float = 0.0
     created_at: datetime

@@ -50,6 +50,8 @@ class TaskResponse(TaskBase):
     project_id: str
     project_name: str | None = None
     client_name: str | None = None
+    currency_code: str | None = None
+    hourly_rate: float | None = None
     created_at: datetime
     updated_at: datetime
 

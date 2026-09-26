@@ -160,8 +160,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/time-tracker/page.tsx": {
-    "mtime": 1790422756.3231757,
-    "ast_hash": "c127304c4d80eccda9e14da0da269088",
+    "mtime": 1790424038.5853262,
+    "ast_hash": "13bf962fa8211d71d79bb346bcc4802a",
     "semantic_hash": ""
   },
   "frontend/src/app/wealth/page.tsx": {
@@ -355,8 +355,8 @@
     "semantic_hash": ""
   },
   "backend/app/api/v1/endpoints/tasks.py": {
-    "mtime": 1790423643.9609804,
-    "ast_hash": "08dbc5f19bc0102256886efb45751829",
+    "mtime": 1790423927.867352,
+    "ast_hash": "8df5a4759a3225c17fcfbdff1bd73a9c",
     "semantic_hash": ""
   },
   "backend/app/models/project_models.py": {
@@ -365,8 +365,8 @@
     "semantic_hash": ""
   },
   "backend/app/schemas/project_schemas.py": {
-    "mtime": 1790413951.6062846,
-    "ast_hash": "e2d2d066a41128ee7ccfac7a3e89fe36",
+    "mtime": 1790423901.9923491,
+    "ast_hash": "c9977733c885fb8f632e60ef9c9a6b61",
     "semantic_hash": ""
   },
   "backend/tests/test_projects_and_tasks_api.py": {
@@ -385,8 +385,8 @@
     "semantic_hash": ""
   },
   "frontend/src/types/project.ts": {
-    "mtime": 1790414006.03687,
-    "ast_hash": "3202fed773760214742a04413fc44775",
+    "mtime": 1790423962.1201804,
+    "ast_hash": "4e39a555b4bfc5c8d8d067e3eb8d5a8a",
     "semantic_hash": ""
   },
   "frontend/src/components/modules/projects/ProjectTable.tsx": {
@@ -400,13 +400,13 @@
     "semantic_hash": ""
   },
   "backend/app/api/v1/endpoints/time_entries.py": {
-    "mtime": 1790416007.9641345,
-    "ast_hash": "cfb201f805206c16be2fb927dc7c8942",
+    "mtime": 1790423942.2342,
+    "ast_hash": "0d475f9c31ae0e1618bbe008e7f0df35",
     "semantic_hash": ""
   },
   "backend/app/schemas/time_schemas.py": {
-    "mtime": 1790415001.9084392,
-    "ast_hash": "5b33186859a0d72317751026872b0cb8",
+    "mtime": 1790423888.025107,
+    "ast_hash": "82ffa96dfb08c6900049800d75c8c14e",
     "semantic_hash": ""
   },
   "backend/tests/test_time_entries_api.py": {
@@ -415,18 +415,18 @@
     "semantic_hash": ""
   },
   "frontend/src/components/modules/time/ManualTimeModal.tsx": {
-    "mtime": 1790423047.0065422,
-    "ast_hash": "530cf946416fa3dc981d22b8963a7849",
+    "mtime": 1790423997.3313508,
+    "ast_hash": "e1c512edd6f2fc0ee1270d06637e4050",
     "semantic_hash": ""
   },
   "frontend/src/components/modules/time/TimeEntryTable.tsx": {
-    "mtime": 1790416073.5102894,
-    "ast_hash": "1a4311002553b3bca3c308efd25d7529",
+    "mtime": 1790424050.8510861,
+    "ast_hash": "6aeb9060d1bbf58a0567848dce2f41e0",
     "semantic_hash": ""
   },
   "frontend/src/types/time.ts": {
-    "mtime": 1790415164.283319,
-    "ast_hash": "0fe87e1ea6d5f21a2130e077a714a255",
+    "mtime": 1790423977.0715175,
+    "ast_hash": "b9efa9c4a1a595b54c7fdd7ec57ec26b",
     "semantic_hash": ""
   },
   "frontend/src/components/modules/time/StartTimerModal.tsx": {

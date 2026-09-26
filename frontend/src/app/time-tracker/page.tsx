@@ -238,8 +238,16 @@ export default function TimeTrackerPage() {
     return filteredEntries.reduce((sum, e) => sum + e.duration_seconds, 0);
   }, [filteredEntries]);
 
-  const totalBillableAmount = useMemo(() => {
-    return filteredEntries.reduce((sum, e) => sum + (e.is_billable ? e.billable_amount : 0), 0);
+  // Sum billable amount separately by currency (e.g. USD, GBP, INR) if not 0
+  const billableByCurrency = useMemo(() => {
+    const totals: Record<string, number> = {};
+    for (const e of filteredEntries) {
+      if (e.is_billable && e.billable_amount > 0) {
+        const curr = (e.currency_code || "USD").toUpperCase();
+        totals[curr] = (totals[curr] || 0) + e.billable_amount;
+      }
+    }
+    return totals;
   }, [filteredEntries]);
 
   const totalHours = (totalSeconds / 3600.0).toFixed(1);
@@ -354,7 +362,7 @@ export default function TimeTrackerPage() {
             </div>
           </div>
 
-          <div className="finance-panel" style={{ padding: "14px 18px", display: "flex", alignItems: "center", gap: "12px" }}>
+          <div className="finance-panel" style={{ padding: "14px 18px", display: "flex", alignItems: "flex-start", gap: "12px" }}>
             <div
               style={{
                 width: "36px",
@@ -365,15 +373,37 @@ export default function TimeTrackerPage() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                flexShrink: 0,
               }}
             >
               <DollarSign size={18} />
             </div>
-            <div>
-              <div style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 500 }}>Billable Amount</div>
-              <div className="mono" style={{ fontSize: "18px", fontWeight: 700, color: "var(--accent-emerald)" }}>
-                ${totalBillableAmount.toFixed(2)}
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 500, marginBottom: "2px" }}>
+                Billable Amount
               </div>
+              {Object.keys(billableByCurrency).length === 0 ? (
+                <div className="mono" style={{ fontSize: "18px", fontWeight: 700, color: "var(--accent-emerald)" }}>
+                  0.00
+                </div>
+              ) : (
+                <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+                  {Object.entries(billableByCurrency).map(([curr, amt]) => {
+                    const symbol =
+                      curr === "USD" ? "$" : curr === "GBP" ? "£" : curr === "INR" ? "₹" : curr === "EUR" ? "€" : "";
+                    return (
+                      <div key={curr} style={{ display: "flex", alignItems: "baseline", gap: "6px" }}>
+                        <span className="mono" style={{ fontSize: "16px", fontWeight: 700, color: "var(--accent-emerald)" }}>
+                          {symbol}{amt.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        </span>
+                        <span style={{ fontSize: "11px", fontWeight: 600, color: "var(--text-muted)" }}>
+                          {curr}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
 

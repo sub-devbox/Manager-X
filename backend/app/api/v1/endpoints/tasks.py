@@ -19,6 +19,8 @@ router = APIRouter(prefix="/tasks", tags=["Tasks"])
 def _format_task_response(task: Task) -> TaskResponse:
     project_name = task.project.name if task.project else None
     client_name = task.project.client.company_name if task.project and task.project.client else None
+    currency_code = task.project.client.currency_code if task.project and task.project.client else "USD"
+    hourly_rate = task.project.hourly_rate if task.project else None
     return TaskResponse(
         id=task.id,
         project_id=task.project_id,
@@ -33,6 +35,8 @@ def _format_task_response(task: Task) -> TaskResponse:
         updated_at=task.updated_at,
         project_name=project_name,
         client_name=client_name,
+        currency_code=currency_code,
+        hourly_rate=hourly_rate,
     )
 
 async def _sync_project_status(db: AsyncSession, project_id: str):
