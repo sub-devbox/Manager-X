@@ -1319,8 +1319,8 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "backend_app_core_database_get_db",
-      "community": 9,
-      "community_name": "projects.py",
+      "community": 2,
+      "community_name": "Base",
       "norm_label": "get_db()"
     },
     {
@@ -1330,8 +1330,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_core_database_py_asyncsession",
-      "community": 9,
-      "community_name": "projects.py",
+      "community": 2,
+      "community_name": "Base",
       "norm_label": "asyncsession"
     },
     {
@@ -1770,8 +1770,8 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "backend_app_models_user_models_usersession",
-      "community": 2,
-      "community_name": "Base",
+      "community": 1,
+      "community_name": "auth.py",
       "norm_label": "usersession"
     },
     {
@@ -3256,7 +3256,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_projects_page",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projects/page.tsx"
     },
     {
@@ -3267,7 +3267,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_projects_page_projectspage",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectspage()"
     },
     {
@@ -3278,29 +3278,29 @@
       "_origin": "ast",
       "id": "frontend_src_app_time_tracker_page",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "time-tracker/page.tsx"
     },
     {
       "label": "PeriodFilter",
       "file_type": "code",
       "source_file": "frontend/src/app/time-tracker/page.tsx",
-      "source_location": "L23",
+      "source_location": "L22",
       "_origin": "ast",
       "id": "frontend_src_app_time_tracker_page_periodfilter",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "periodfilter"
     },
     {
       "label": "TimeTrackerPage()",
       "file_type": "code",
       "source_file": "frontend/src/app/time-tracker/page.tsx",
-      "source_location": "L25",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "frontend_src_app_time_tracker_page_timetrackerpage",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "timetrackerpage()"
     },
     {
@@ -3597,7 +3597,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectmodal",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectmodal.tsx"
     },
     {
@@ -3608,7 +3608,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectmodal_clientoption",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "clientoption"
     },
     {
@@ -3619,7 +3619,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectmodal_projectmodalprops",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectmodalprops"
     },
     {
@@ -3630,7 +3630,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectmodal_projectmodal",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectmodal()"
     },
     {
@@ -3641,7 +3641,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projecttable.tsx"
     },
     {
@@ -3652,7 +3652,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable_projecttableprops",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projecttableprops"
     },
     {
@@ -3663,7 +3663,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable_sortfield",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "sortfield"
     },
     {
@@ -3674,7 +3674,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable_sortdirection",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "sortdirection"
     },
     {
@@ -3685,7 +3685,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable_projecttable",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projecttable()"
     },
     {
@@ -3696,7 +3696,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_taskmodal",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "taskmodal.tsx"
     },
     {
@@ -3707,7 +3707,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_taskmodal_projectoption",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectoption"
     },
     {
@@ -3718,7 +3718,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_taskmodal_taskmodalprops",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "taskmodalprops"
     },
     {
@@ -3729,7 +3729,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_taskmodal_taskmodal",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "taskmodal()"
     },
     {
@@ -3740,7 +3740,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "tasktable.tsx"
     },
     {
@@ -3751,7 +3751,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_tasktableprops",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "tasktableprops"
     },
     {
@@ -3762,7 +3762,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_sortfield",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "sortfield"
     },
     {
@@ -3773,7 +3773,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_sortdirection",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "sortdirection"
     },
     {
@@ -3784,7 +3784,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_tasktable",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "tasktable()"
     },
     {
@@ -3795,7 +3795,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "manualtimemodal.tsx"
     },
     {
@@ -3806,7 +3806,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_manualtimemodalprops",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "manualtimemodalprops"
     },
     {
@@ -3817,7 +3817,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_timetominutes",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "timetominutes()"
     },
     {
@@ -3828,7 +3828,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_minutestotime",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "minutestotime()"
     },
     {
@@ -3839,8 +3839,41 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_manualtimemodal",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "manualtimemodal()"
+    },
+    {
+      "label": "StartTimerModal.tsx",
+      "file_type": "code",
+      "source_file": "frontend/src/components/modules/time/StartTimerModal.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "frontend_src_components_modules_time_starttimermodal",
+      "community": 35,
+      "community_name": "project.ts",
+      "norm_label": "starttimermodal.tsx"
+    },
+    {
+      "label": "StartTimerModalProps",
+      "file_type": "code",
+      "source_file": "frontend/src/components/modules/time/StartTimerModal.tsx",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "frontend_src_components_modules_time_starttimermodal_starttimermodalprops",
+      "community": 35,
+      "community_name": "project.ts",
+      "norm_label": "starttimermodalprops"
+    },
+    {
+      "label": "StartTimerModal()",
+      "file_type": "code",
+      "source_file": "frontend/src/components/modules/time/StartTimerModal.tsx",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "frontend_src_components_modules_time_starttimermodal_starttimermodal",
+      "community": 35,
+      "community_name": "project.ts",
+      "norm_label": "starttimermodal()"
     },
     {
       "label": "TimeEntryTable.tsx",
@@ -3850,7 +3883,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "timeentrytable.tsx"
     },
     {
@@ -3861,7 +3894,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_timeentrytableprops",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "timeentrytableprops"
     },
     {
@@ -3872,7 +3905,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_sortfield",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "sortfield"
     },
     {
@@ -3883,7 +3916,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_sortdirection",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "sortdirection"
     },
     {
@@ -3894,7 +3927,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_timeentrytable",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "timeentrytable()"
     },
     {
@@ -3993,7 +4026,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "project.ts"
     },
     {
@@ -4004,7 +4037,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_taskstatus",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "taskstatus"
     },
     {
@@ -4015,7 +4048,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_taskpriority",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "taskpriority"
     },
     {
@@ -4026,7 +4059,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_checklistitem",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "checklistitem"
     },
     {
@@ -4037,7 +4070,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_taskdata",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "taskdata"
     },
     {
@@ -4048,7 +4081,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_projectbillingtype",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectbillingtype"
     },
     {
@@ -4059,7 +4092,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_projectstatus",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectstatus"
     },
     {
@@ -4070,7 +4103,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_projectclientinfo",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectclientinfo"
     },
     {
@@ -4081,7 +4114,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_projectdata",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectdata"
     },
     {
@@ -4092,7 +4125,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_time",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "time.ts"
     },
     {
@@ -4103,7 +4136,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_time_timeentrydata",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "timeentrydata"
     },
     {
@@ -4114,7 +4147,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_time_timeentrycreatepayload",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "timeentrycreatepayload"
     },
     {
@@ -4125,7 +4158,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_time_timeentryupdatepayload",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "timeentryupdatepayload"
     },
     {
@@ -5619,8 +5652,8 @@
     },
     {
       "label": "uuid",
-      "community": 2,
-      "community_name": "Base",
+      "community": 1,
+      "community_name": "auth.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "uuid",
@@ -14487,7 +14520,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/time-tracker/page.tsx",
-      "source_location": "L23",
+      "source_location": "L22",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_app_time_tracker_page",
@@ -14498,7 +14531,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/time-tracker/page.tsx",
-      "source_location": "L25",
+      "source_location": "L24",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_app_time_tracker_page",
@@ -14558,6 +14591,30 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/time-tracker/page.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_app_time_tracker_page",
+      "target": "frontend_src_components_modules_time_starttimermodal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/time-tracker/page.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_app_time_tracker_page",
+      "target": "frontend_src_components_modules_time_starttimermodal_starttimermodal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/time-tracker/page.tsx",
       "source_location": "L5",
       "weight": 1.0,
       "_origin": "ast",
@@ -14582,7 +14639,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/time-tracker/page.tsx",
-      "source_location": "L9",
+      "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_app_time_tracker_page",
@@ -14594,7 +14651,19 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/time-tracker/page.tsx",
-      "source_location": "L9",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_app_time_tracker_page",
+      "target": "frontend_src_types_project_projectdata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/time-tracker/page.tsx",
+      "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_app_time_tracker_page",
@@ -14606,7 +14675,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/time-tracker/page.tsx",
-      "source_location": "L8",
+      "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_app_time_tracker_page",
@@ -14618,7 +14687,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/time-tracker/page.tsx",
-      "source_location": "L8",
+      "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_app_time_tracker_page",
@@ -15558,6 +15627,88 @@
       "_origin": "ast",
       "source": "frontend_src_components_modules_time_manualtimemodal_manualtimemodal",
       "target": "frontend_src_components_modules_time_manualtimemodal_minutestotime",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/modules/time/StartTimerModal.tsx",
+      "source_location": "L15",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_components_modules_time_starttimermodal",
+      "target": "frontend_src_components_modules_time_starttimermodal_starttimermodal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/modules/time/StartTimerModal.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_components_modules_time_starttimermodal",
+      "target": "frontend_src_components_modules_time_starttimermodal_starttimermodalprops",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/modules/time/StartTimerModal.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_components_modules_time_starttimermodal",
+      "target": "frontend_src_types_project",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/modules/time/StartTimerModal.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_components_modules_time_starttimermodal",
+      "target": "frontend_src_types_project_projectdata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/modules/time/StartTimerModal.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_components_modules_time_starttimermodal",
+      "target": "frontend_src_types_project_taskdata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/modules/time/StartTimerModal.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_components_modules_time_starttimermodal_starttimermodalprops",
+      "target": "frontend_src_types_project_projectdata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/modules/time/StartTimerModal.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_components_modules_time_starttimermodal_starttimermodalprops",
+      "target": "frontend_src_types_project_taskdata",
       "confidence_score": 1.0
     },
     {
@@ -17135,5 +17286,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "d4feb65a1a99ec8bc31b388c4e0a5df2c32837e6"
+  "built_at_commit": "9099fb384cfc85fd8ff5c6cd0dc53ed04c7c13c5"
 }

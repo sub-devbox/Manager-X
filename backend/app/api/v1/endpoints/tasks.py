@@ -35,6 +35,25 @@ def _format_task_response(task: Task) -> TaskResponse:
         client_name=client_name,
     )
 
+async def _sync_project_status(db: AsyncSession, project_id: str):
+    if not project_id:
+        return
+    proj_res = await db.execute(select(Project).where(Project.id == project_id))
+    project = proj_res.scalar_one_or_none()
+    if not project or project.status == "archived":
+        return
+
+    tasks_res = await db.execute(select(Task).where(Task.project_id == project_id))
+    project_tasks = tasks_res.scalars().all()
+    if project_tasks and all(t.status == "done" for t in project_tasks):
+        if project.status != "completed":
+            project.status = "completed"
+            await db.commit()
+    elif project_tasks and any(t.status != "done" for t in project_tasks):
+        if project.status == "completed":
+            project.status = "active"
+            await db.commit()
+
 @router.get("", response_model=List[TaskResponse])
 async def list_tasks(
     project_id: Optional[str] = Query(None, description="Filter by project ID"),
@@ -85,6 +104,7 @@ async def create_task(
     db.add(task)
     await db.commit()
     await db.refresh(task)
+    await _sync_project_status(db, task.project_id)
     return _format_task_response(task)
 
 @router.get("/{task_id}", response_model=TaskResponse)
@@ -118,11 +138,15 @@ async def update_task(
             detail=f"Task '{task_id}' not found.",
         )
 
+    old_proj_id = task.project_id
     for field, val in payload.model_dump(exclude_unset=True).items():
         setattr(task, field, val)
 
     await db.commit()
     await db.refresh(task)
+    await _sync_project_status(db, task.project_id)
+    if old_proj_id and old_proj_id != task.project_id:
+        await _sync_project_status(db, old_proj_id)
     return _format_task_response(task)
 
 @router.patch("/{task_id}/status", response_model=TaskResponse)
@@ -143,6 +167,7 @@ async def update_task_status(
     task.status = payload.status
     await db.commit()
     await db.refresh(task)
+    await _sync_project_status(db, task.project_id)
     return _format_task_response(task)
 
 @router.delete("/{task_id}")
@@ -175,6 +200,8 @@ async def delete_task(
     except Exception:
         pass  # time_entries table may not exist yet
 
+    proj_id = task.project_id
     await db.delete(task)
     await db.commit()
+    await _sync_project_status(db, proj_id)
     return {"message": f"Task '{task.title}' was deleted successfully."}

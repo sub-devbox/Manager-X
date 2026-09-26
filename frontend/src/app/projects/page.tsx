@@ -50,7 +50,12 @@ export default function ProjectsPage() {
         api.get<{ id: string; company_name: string }[]>("/clients"),
       ]);
 
-      setProjects(Array.isArray(projData) ? projData : []);
+      const rawProjects = Array.isArray(projData) ? projData : [];
+      const processedProjects = rawProjects.map((p) => {
+        const is100 = p.task_count > 0 && p.completed_task_count === p.task_count;
+        return is100 && p.status !== "archived" ? { ...p, status: "completed" as const } : p;
+      });
+      setProjects(processedProjects);
       setTasks(Array.isArray(taskData) ? taskData : []);
       setClients(Array.isArray(clientData) ? clientData : []);
     } catch (err: any) {
@@ -119,12 +124,23 @@ export default function ProjectsPage() {
         prev.map((t) => (t.id === taskId ? { ...t, status: newStatus } : t))
       );
       setProjects((prev) =>
-        prev.map((p) => ({
-          ...p,
-          tasks: (p.tasks || []).map((t) => (t.id === taskId ? { ...t, status: newStatus } : t)),
-          completed_task_count:
-            (p.tasks || []).filter((t) => (t.id === taskId ? newStatus === "done" : t.status === "done")).length,
-        }))
+        prev.map((p) => {
+          const updatedTasks = (p.tasks || []).map((t) => (t.id === taskId ? { ...t, status: newStatus } : t));
+          const completedCount = updatedTasks.filter((t) => t.status === "done").length;
+          const is100 = updatedTasks.length > 0 && completedCount === updatedTasks.length;
+          let newProjStatus = p.status;
+          if (is100 && p.status !== "archived") {
+            newProjStatus = "completed";
+          } else if (!is100 && p.status === "completed") {
+            newProjStatus = "active";
+          }
+          return {
+            ...p,
+            tasks: updatedTasks,
+            completed_task_count: completedCount,
+            status: newProjStatus,
+          };
+        })
       );
       await api.patch(`/tasks/${taskId}/status`, { status: newStatus });
       fetchData();

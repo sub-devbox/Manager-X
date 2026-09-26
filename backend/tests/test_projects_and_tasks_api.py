@@ -154,10 +154,22 @@ async def test_projects_and_tasks_lifecycle(client: AsyncClient):
     assert patch_res.status_code == 200
     assert patch_res.json()["status"] == "done"
 
-    # Verify updated metrics on project
+    # Verify updated metrics on project (1/2 done -> still active)
     proj_get2 = await client.get(f"/api/v1/projects/{project_id}")
     assert proj_get2.json()["completed_task_count"] == 1
     assert proj_get2.json()["active_task_count"] == 1
+    assert proj_get2.json()["status"] == "active"
+
+    # Move task 2 to done (2/2 done -> 100% completion -> project becomes completed)
+    patch_res2 = await client.patch(
+        f"/api/v1/tasks/{task2_id}/status",
+        json={"status": "done"},
+    )
+    assert patch_res2.status_code == 200
+    proj_get3 = await client.get(f"/api/v1/projects/{project_id}")
+    assert proj_get3.json()["completed_task_count"] == 2
+    assert proj_get3.json()["active_task_count"] == 0
+    assert proj_get3.json()["status"] == "completed"
 
     # 7. Referential Deletion Invariant Checks:
     # A. Attempting to delete client should be BLOCKED because project exists

@@ -21,6 +21,9 @@ router = APIRouter(prefix="/projects", tags=["Projects"])
 def _format_project_response(project: Project) -> dict:
     tasks = project.tasks or []
     completed = sum(1 for t in tasks if t.status == "done")
+    effective_status = project.status
+    if len(tasks) > 0 and completed == len(tasks) and effective_status != "archived":
+        effective_status = "completed"
     return {
         "id": project.id,
         "client_id": project.client_id,
@@ -29,7 +32,7 @@ def _format_project_response(project: Project) -> dict:
         "billing_type": project.billing_type,
         "hourly_rate": project.hourly_rate,
         "budget_amount": project.budget_amount,
-        "status": project.status,
+        "status": effective_status,
         "start_date": project.start_date,
         "end_date": project.end_date,
         "created_at": project.created_at,
@@ -78,6 +81,15 @@ async def list_projects(
 
     res = await db.execute(stmt)
     projects = res.scalars().all()
+    status_updated = False
+    for p in projects:
+        t_list = p.tasks or []
+        done_cnt = sum(1 for t in t_list if t.status == "done")
+        if t_list and done_cnt == len(t_list) and p.status not in ("completed", "archived"):
+            p.status = "completed"
+            status_updated = True
+    if status_updated:
+        await db.commit()
     return [_format_project_response(p) for p in projects]
 
 @router.get("/summary", response_model=List[ProjectSummary])
@@ -141,6 +153,12 @@ async def get_project(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Project '{project_id}' not found.",
         )
+    t_list = project.tasks or []
+    done_cnt = sum(1 for t in t_list if t.status == "done")
+    if t_list and done_cnt == len(t_list) and project.status not in ("completed", "archived"):
+        project.status = "completed"
+        await db.commit()
+        await db.refresh(project)
     return _format_project_response(project)
 
 @router.put("/{project_id}", response_model=ProjectResponse)

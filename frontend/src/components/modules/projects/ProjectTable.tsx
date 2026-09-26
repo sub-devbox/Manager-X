@@ -312,6 +312,10 @@ export default function ProjectTable({
                 proj.task_count > 0
                   ? Math.round((proj.completed_task_count / proj.task_count) * 100)
                   : 0;
+              const effectiveStatus =
+                percent === 100 && proj.task_count > 0 && proj.status !== "archived"
+                  ? "completed"
+                  : proj.status;
 
               const isExpanded = expandedProjectIds.has(proj.id);
               const tasks = proj.tasks || [];
@@ -356,10 +360,10 @@ export default function ProjectTable({
                             width: "7px",
                             height: "7px",
                             borderRadius: "50%",
-                            background: getStatusDotColor(proj.status),
+                            background: getStatusDotColor(effectiveStatus),
                             flexShrink: 0,
                           }}
-                          title={`Status: ${proj.status}`}
+                          title={`Status: ${effectiveStatus}`}
                         />
                         <span
                           style={{
@@ -384,6 +388,35 @@ export default function ProjectTable({
                           }}
                         >
                           {proj.billing_type}
+                        </span>
+                        <span
+                          style={{
+                            fontSize: "10px",
+                            padding: "1px 6px",
+                            borderRadius: "10px",
+                            border: `1px solid ${
+                              effectiveStatus === "completed"
+                                ? "rgba(59, 130, 246, 0.4)"
+                                : effectiveStatus === "active"
+                                ? "rgba(16, 185, 129, 0.4)"
+                                : "var(--border-subtle)"
+                            }`,
+                            background:
+                              effectiveStatus === "completed"
+                                ? "rgba(59, 130, 246, 0.1)"
+                                : effectiveStatus === "active"
+                                ? "rgba(16, 185, 129, 0.1)"
+                                : "transparent",
+                            color:
+                              effectiveStatus === "completed"
+                                ? "var(--accent-blue)"
+                                : effectiveStatus === "active"
+                                ? "var(--accent-emerald)"
+                                : "var(--text-muted)",
+                            textTransform: "capitalize",
+                          }}
+                        >
+                          {effectiveStatus.replace("_", " ")}
                         </span>
                       </div>
                     </td>

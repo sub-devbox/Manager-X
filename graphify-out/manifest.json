@@ -155,8 +155,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/projects/page.tsx": {
-    "mtime": 1790414072.960448,
-    "ast_hash": "6118ff195edeb0ee55bf1195e02bfae2",
+    "mtime": 1790423700.5434654,
+    "ast_hash": "94993a90ae80b474d714ef28b1a9aaed",
     "semantic_hash": ""
   },
   "frontend/src/app/time-tracker/page.tsx": {
@@ -350,13 +350,13 @@
     "semantic_hash": ""
   },
   "backend/app/api/v1/endpoints/projects.py": {
-    "mtime": 1790415583.7173495,
-    "ast_hash": "4e04ea888ed9176841721870fd2cfdc7",
+    "mtime": 1790423663.1514583,
+    "ast_hash": "b804326c0da163c8d013993c3e89eac7",
     "semantic_hash": ""
   },
   "backend/app/api/v1/endpoints/tasks.py": {
-    "mtime": 1790415576.8884914,
-    "ast_hash": "db95cdbcaccdd7da55953e28f10ac38b",
+    "mtime": 1790423643.9609804,
+    "ast_hash": "08dbc5f19bc0102256886efb45751829",
     "semantic_hash": ""
   },
   "backend/app/models/project_models.py": {
@@ -370,8 +370,8 @@
     "semantic_hash": ""
   },
   "backend/tests/test_projects_and_tasks_api.py": {
-    "mtime": 1790413163.8295205,
-    "ast_hash": "801be944d6851c1d57270a49dc3756e0",
+    "mtime": 1790423681.523967,
+    "ast_hash": "4abf2b9e1becdec0dfda1ab2c14521da",
     "semantic_hash": ""
   },
   "frontend/src/components/modules/projects/ProjectModal.tsx": {
@@ -390,8 +390,8 @@
     "semantic_hash": ""
   },
   "frontend/src/components/modules/projects/ProjectTable.tsx": {
-    "mtime": 1790414317.918741,
-    "ast_hash": "fa3efd39c7e7224a87602a5281e61b9f",
+    "mtime": 1790423718.27675,
+    "ast_hash": "87956ae4cb4a83d511cdead8c028804a",
     "semantic_hash": ""
   },
   "frontend/src/components/modules/projects/TaskTable.tsx": {
