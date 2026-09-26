@@ -22,6 +22,8 @@ export interface ClientData {
   currency_code: string;
   payment_terms_days: number;
   is_active: boolean;
+  total_incoming_amount?: number;
+  total_equivalent_inr?: number;
 }
 
 interface CurrencyOption {

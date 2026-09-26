@@ -54,6 +54,8 @@ class ClientResponse(ClientBase):
     created_at: datetime
     updated_at: datetime
     currency: CurrencyNested | None = None
+    total_incoming_amount: float = 0.0
+    total_equivalent_inr: float = 0.0
 
     model_config = ConfigDict(from_attributes=True)
 

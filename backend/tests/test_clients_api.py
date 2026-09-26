@@ -141,3 +141,141 @@ async def test_client_lifecycle_and_address_validation(client: AsyncClient):
     # 10. Verify Deletion
     del_verify = await client.get(f"/api/v1/clients/{client_id}")
     assert del_verify.status_code == 404
+
+
+@pytest.mark.asyncio
+async def test_client_incoming_currency_and_equivalent_inr_auto_calc(client: AsyncClient):
+    # 1. Register & Login
+    await client.post(
+        "/api/v1/auth/register",
+        json={
+            "email": "revenue_mgr@managerx.com",
+            "password": "Str0ngAdminP@ssw0rd!2026",
+            "full_name": "Revenue Manager",
+        },
+    )
+    await client.post(
+        "/api/v1/auth/login",
+        json={
+            "email": "revenue_mgr@managerx.com",
+            "password": "Str0ngAdminP@ssw0rd!2026",
+        },
+    )
+
+    # 2. Ensure Currencies exist
+    async with TestSessionLocal() as session:
+        session.add_all([
+            Currency(code="USD", symbol="$", name="US Dollar", is_base_currency=False, is_active=True),
+            Currency(code="INR", symbol="₹", name="Indian Rupee", is_base_currency=True, is_active=True),
+        ])
+        await session.commit()
+
+    # 3. Create Client
+    c_res = await client.post(
+        "/api/v1/clients",
+        json={
+            "company_name": "Stark Industries",
+            "contact_person": "Tony Stark",
+            "email": "tony@stark.com",
+            "address_line1": "10880 Malibu Point",
+            "city": "Malibu",
+            "state": "California",
+            "postal_code": "90265",
+            "country": "United States",
+            "hourly_rate": 200.0,
+            "currency_code": "USD",
+        },
+    )
+    assert c_res.status_code == 201
+    client_data = c_res.json()
+    c_id = client_data["id"]
+    assert client_data["total_incoming_amount"] == 0.0
+    assert client_data["total_equivalent_inr"] == 0.0
+
+    # 4. Create an unpaid/draft invoice for this client
+    inv1_res = await client.post(
+        "/api/v1/invoices",
+        json={
+            "client_id": c_id,
+            "issue_date": "2026-09-26",
+            "due_date": "2026-10-10",
+            "currency_code": "USD",
+            "items": [
+                {
+                    "description": "Arc Reactor R&D",
+                    "price": 1000.0,
+                    "quantity": 1.0,
+                    "unit_price": 1000.0,
+                    "total": 1000.0,
+                }
+            ],
+        },
+    )
+    assert inv1_res.status_code == 201
+    inv1_id = inv1_res.json()["id"]
+
+    # Verify client totals are still 0 (draft invoice doesn't count)
+    get_c = await client.get(f"/api/v1/clients/{c_id}")
+    assert get_c.status_code == 200
+    assert get_c.json()["total_incoming_amount"] == 0.0
+    assert get_c.json()["total_equivalent_inr"] == 0.0
+
+    # 5. Mark inv1 as paid with received_amount_inr = 85000.0
+    pay_res = await client.put(
+        f"/api/v1/invoices/{inv1_id}",
+        json={
+            "status": "paid",
+            "received_amount_inr": 85000.0,
+            "payment_date": "2026-09-26",
+        },
+    )
+    assert pay_res.status_code == 200
+
+    # Verify client totals update automatically
+    get_c2 = await client.get(f"/api/v1/clients/{c_id}")
+    assert get_c2.status_code == 200
+    assert get_c2.json()["total_incoming_amount"] == 1000.0
+    assert get_c2.json()["total_equivalent_inr"] == 85000.0
+
+    # 6. Add second paid invoice (final_amount = 500, received_amount_inr = 42500)
+    inv2_res = await client.post(
+        "/api/v1/invoices",
+        json={
+            "client_id": c_id,
+            "issue_date": "2026-09-26",
+            "due_date": "2026-10-10",
+            "currency_code": "USD",
+            "items": [
+                {
+                    "description": "Suit Upgrades",
+                    "price": 500.0,
+                    "quantity": 1.0,
+                    "unit_price": 500.0,
+                    "total": 500.0,
+                }
+            ],
+        },
+    )
+    inv2_id = inv2_res.json()["id"]
+    await client.put(
+        f"/api/v1/invoices/{inv2_id}",
+        json={
+            "status": "paid",
+            "received_amount_inr": 42500.0,
+            "payment_date": "2026-09-26",
+        },
+    )
+
+    # Verify both list_clients and get_client return aggregated totals:
+    # Incoming: 1000 + 500 = 1500.0
+    # Equivalent INR: 85000 + 42500 = 127500.0
+    get_c3 = await client.get(f"/api/v1/clients/{c_id}")
+    assert get_c3.json()["total_incoming_amount"] == 1500.0
+    assert get_c3.json()["total_equivalent_inr"] == 127500.0
+
+    list_all = await client.get("/api/v1/clients")
+    assert list_all.status_code == 200
+    matching = [x for x in list_all.json() if x["id"] == c_id]
+    assert len(matching) == 1
+    assert matching[0]["total_incoming_amount"] == 1500.0
+    assert matching[0]["total_equivalent_inr"] == 127500.0

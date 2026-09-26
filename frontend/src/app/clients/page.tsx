@@ -18,6 +18,7 @@ import {
   AlertCircle,
   DollarSign,
   FileText,
+  TrendingUp,
 } from "lucide-react";
 
 export default function ClientsPage() {
@@ -28,6 +29,9 @@ export default function ClientsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingClient, setEditingClient] = useState<ClientData | null>(null);
   const [actionMsg, setActionMsg] = useState<{ type: "success" | "error"; text: string } | null>(null);
+
+  const totalSettledINR = clients.reduce((acc, c) => acc + (c.total_equivalent_inr || 0), 0);
+  const activeClientsCount = clients.filter((c) => c.is_active).length;
 
   const fetchClients = useCallback(async () => {
     setLoading(true);
@@ -126,6 +130,81 @@ export default function ClientsPage() {
             </button>
           </div>
         )}
+
+        {/* Top Summary Metrics */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+            gap: "14px",
+          }}
+        >
+          <div
+            className="finance-panel"
+            style={{
+              padding: "16px 20px",
+              display: "flex",
+              alignItems: "center",
+              gap: "14px",
+            }}
+          >
+            <div
+              style={{
+                width: "40px",
+                height: "40px",
+                borderRadius: "var(--radius-xs)",
+                background: "rgba(59, 130, 246, 0.1)",
+                color: "var(--accent-blue)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Building2 size={20} />
+            </div>
+            <div>
+              <div style={{ fontSize: "11px", color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                Total Clients
+              </div>
+              <div className="mono" style={{ fontSize: "20px", fontWeight: 700, marginTop: "2px" }}>
+                {clients.length} <span style={{ fontSize: "13px", fontWeight: 400, color: "var(--text-dim)" }}>({activeClientsCount} active)</span>
+              </div>
+            </div>
+          </div>
+
+          <div
+            className="finance-panel"
+            style={{
+              padding: "16px 20px",
+              display: "flex",
+              alignItems: "center",
+              gap: "14px",
+            }}
+          >
+            <div
+              style={{
+                width: "40px",
+                height: "40px",
+                borderRadius: "var(--radius-xs)",
+                background: "rgba(16, 185, 129, 0.1)",
+                color: "var(--accent-emerald)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <TrendingUp size={20} />
+            </div>
+            <div>
+              <div style={{ fontSize: "11px", color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                Total Revenue Settled (INR)
+              </div>
+              <div className="mono" style={{ fontSize: "20px", fontWeight: 700, marginTop: "2px", color: "var(--accent-emerald)" }}>
+                ₹{totalSettledINR.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* Top Control Bar */}
         <div
@@ -366,6 +445,38 @@ export default function ClientsPage() {
                         <br />
                         {client.city}, {client.state} {client.postal_code}, {client.country}
                       </span>
+                    </div>
+                  </div>
+
+                  {/* Revenue Auto-Calculated Metrics Strip: Total Incoming Currency | Total Equiv INR */}
+                  <div
+                    style={{
+                      marginTop: "12px",
+                      display: "grid",
+                      gridTemplateColumns: "1fr 1fr",
+                      gap: "8px",
+                      padding: "10px 12px",
+                      background: "var(--bg-surface-subtle)",
+                      borderRadius: "var(--radius-xs)",
+                      border: "1px solid var(--border-subtle)",
+                    }}
+                  >
+                    <div>
+                      <div style={{ fontSize: "10px", color: "var(--text-dim)", textTransform: "uppercase" }}>
+                        Total Incoming
+                      </div>
+                      <div className="mono" style={{ fontSize: "13px", fontWeight: 700, marginTop: "2px" }}>
+                        {client.currency_code} {(client.total_incoming_amount ?? 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                      </div>
+                    </div>
+
+                    <div>
+                      <div style={{ fontSize: "10px", color: "var(--text-dim)", textTransform: "uppercase" }}>
+                        Equivalent INR
+                      </div>
+                      <div className="mono" style={{ fontSize: "13px", fontWeight: 700, marginTop: "2px", color: "var(--accent-emerald)" }}>
+                        ₹{(client.total_equivalent_inr ?? 0).toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                      </div>
                     </div>
                   </div>
                 </div>

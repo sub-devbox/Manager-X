@@ -1,13 +1,14 @@
 from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, or_, text
+from sqlalchemy import select, or_, text, func, case
 
 from app.core.database import get_db
 from app.api.v1.endpoints.auth import get_current_user
 from app.models.user_models import User
 from app.models.client_model import Client
 from app.models.settings_models import Currency
+from app.models.invoice_model import Invoice
 from app.schemas.client_schemas import (
     ClientCreate,
     ClientUpdate,
@@ -16,6 +17,36 @@ from app.schemas.client_schemas import (
 )
 
 router = APIRouter(prefix="/clients", tags=["Clients"])
+
+
+async def get_client_aggregates(client_id: str, db: AsyncSession) -> tuple[float, float]:
+    """Helper to auto-calculate incoming amounts and equivalent INR from paid invoices for a client."""
+    inv_stmt = select(
+        func.coalesce(func.sum(Invoice.final_amount), 0.0),
+        func.coalesce(
+            func.sum(
+                func.coalesce(
+                    Invoice.received_amount_inr,
+                    case((Invoice.currency_code == "INR", Invoice.final_amount), else_=0.0),
+                )
+            ),
+            0.0,
+        ),
+    ).where(
+        Invoice.client_id == client_id,
+        Invoice.status == "paid",
+    )
+    res = await db.execute(inv_stmt)
+    incoming, inr = res.one()
+    return round(float(incoming), 2), round(float(inr), 2)
+
+
+def build_client_response(client: Client, incoming: float = 0.0, inr: float = 0.0) -> ClientResponse:
+    resp = ClientResponse.model_validate(client)
+    resp.total_incoming_amount = incoming
+    resp.total_equivalent_inr = inr
+    return resp
+
 
 @router.get("", response_model=List[ClientResponse])
 async def list_clients(
@@ -41,7 +72,40 @@ async def list_clients(
 
     stmt = stmt.order_by(Client.company_name.asc())
     result = await db.execute(stmt)
-    return result.scalars().all()
+    clients = result.scalars().all()
+
+    if not clients:
+        return []
+
+    client_ids = [c.id for c in clients]
+    inv_agg_stmt = (
+        select(
+            Invoice.client_id,
+            func.coalesce(func.sum(Invoice.final_amount), 0.0).label("incoming"),
+            func.coalesce(
+                func.sum(
+                    func.coalesce(
+                        Invoice.received_amount_inr,
+                        case((Invoice.currency_code == "INR", Invoice.final_amount), else_=0.0),
+                    )
+                ),
+                0.0,
+            ).label("inr"),
+        )
+        .where(
+            Invoice.client_id.in_(client_ids),
+            Invoice.status == "paid",
+        )
+        .group_by(Invoice.client_id)
+    )
+    agg_res = await db.execute(inv_agg_stmt)
+    agg_map = {row.client_id: (round(float(row.incoming), 2), round(float(row.inr), 2)) for row in agg_res.all()}
+
+    return [
+        build_client_response(c, *agg_map.get(c.id, (0.0, 0.0)))
+        for c in clients
+    ]
+
 
 @router.get("/summary", response_model=List[ClientSummary])
 async def list_clients_summary(
@@ -52,6 +116,7 @@ async def list_clients_summary(
     stmt = select(Client).where(Client.is_active == is_active).order_by(Client.company_name.asc())
     result = await db.execute(stmt)
     return result.scalars().all()
+
 
 @router.post("", response_model=ClientResponse, status_code=status.HTTP_201_CREATED)
 async def create_client(
@@ -77,7 +142,8 @@ async def create_client(
     db.add(client)
     await db.commit()
     await db.refresh(client)
-    return client
+    return build_client_response(client, 0.0, 0.0)
+
 
 @router.get("/{client_id}", response_model=ClientResponse)
 async def get_client(
@@ -93,7 +159,9 @@ async def get_client(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Client '{client_id}' not found.",
         )
-    return client
+    incoming, inr = await get_client_aggregates(client.id, db)
+    return build_client_response(client, incoming, inr)
+
 
 @router.put("/{client_id}", response_model=ClientResponse)
 async def update_client(
@@ -128,7 +196,9 @@ async def update_client(
 
     await db.commit()
     await db.refresh(client)
-    return client
+    incoming, inr = await get_client_aggregates(client.id, db)
+    return build_client_response(client, incoming, inr)
+
 
 @router.patch("/{client_id}/toggle-status", response_model=ClientResponse)
 async def toggle_client_status(
@@ -148,7 +218,8 @@ async def toggle_client_status(
     client.is_active = not client.is_active
     await db.commit()
     await db.refresh(client)
-    return client
+    incoming, inr = await get_client_aggregates(client.id, db)
+    return build_client_response(client, incoming, inr)
 
 @router.delete("/{client_id}")
 async def delete_client(
