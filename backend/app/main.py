@@ -9,6 +9,7 @@ from app.api.v1.router import api_router
 # Import models to ensure they register on Base.metadata
 import app.models.user_models  # noqa: F401
 import app.models.settings_models  # noqa: F401
+import app.models.client_model  # noqa: F401
 
 class SecurityHeadersMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):

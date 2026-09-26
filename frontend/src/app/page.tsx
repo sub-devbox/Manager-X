@@ -5,6 +5,7 @@ import Link from "next/link";
 import AppShell from "@/components/layout/AppShell";
 import { useAuth } from "@/context/AuthContext";
 import {
+  Building2,
   FolderKanban,
   Clock,
   FileText,
@@ -21,6 +22,13 @@ export default function OverviewPage() {
   const { user } = useAuth();
 
   const operationalModules = [
+    {
+      title: "Client Directory",
+      desc: "Client records, contact details, structured addresses, and commercial billing terms.",
+      href: "/clients",
+      icon: Building2,
+      badge: "Ops",
+    },
     {
       title: "Project Manager",
       desc: "Client engagements, sprint milestones, and ticket Kanban board.",

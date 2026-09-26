@@ -80,8 +80,15 @@ It combines 7 pillars into a cohesive platform:
   - [x] Modular App Router stubs (`/projects`, `/time-tracker`, `/invoices`, `/finance`, `/assets`, `/itr-helper`, `/wealth`).
   - [x] 100% passing production build (`next build` / TypeScript verification).
 
-- [ ] **Phase 4: Operational Module Implementation (PM, TT, Invoices)**
-  - [ ] Client & Project CRUD + Kanban Board.
+- [/] **Phase 4: Operational Module Implementation (PM, TT, Invoices)**
+  - [x] Client Management Module:
+    - [x] Database model (`Client`) with CUID primary key (`cli_`), full structured address (Line 1, Line 2, City, State, Postal code, Country), commercial terms (Hourly Rate, Currency FK, Payment Terms Days, Active Status).
+    - [x] Zero-hardcoding currency validation against database `currencies` table.
+    - [x] Pydantic schemas (`ClientCreate`, `ClientUpdate`, `ClientResponse`, `ClientSummary`).
+    - [x] REST API endpoints (`GET /clients`, `POST /clients`, `GET /clients/{id}`, `PUT /clients/{id}`, `PATCH /clients/{id}/toggle-status`, `DELETE /clients/{id}` with referential deletion protection).
+    - [x] 100% passing automated test suite (`backend/tests/test_clients_api.py`).
+    - [x] Frontend Client Directory (`/clients`), search & status filters, and ClientModal create/edit drawer.
+  - [ ] Project CRUD & Kanban Board.
   - [ ] Live Timer with WebSocket sync + Manual time logging.
   - [ ] Invoice creation wizard, tax calculation, and PDF generator.
 

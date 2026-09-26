@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
+  Building2,
   FolderKanban,
   Clock,
   FileText,
@@ -38,6 +39,7 @@ export default function Sidebar({
     {
       title: "Operations",
       items: [
+        { name: "Clients", href: "/clients", icon: Building2 },
         { name: "Projects & Tasks", href: "/projects", icon: FolderKanban },
         { name: "Time Tracker", href: "/time-tracker", icon: Clock },
         { name: "Invoices", href: "/invoices", icon: FileText },
