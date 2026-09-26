@@ -8,6 +8,7 @@ import { api } from "@/lib/api-client";
 import {
   Building2,
   FolderKanban,
+  CheckSquare,
   Clock,
   FileText,
   DollarSign,
@@ -78,6 +79,13 @@ export default function OverviewPage() {
       desc: "Client engagements, deliverables, milestones, and nested task tracking.",
       href: "/projects",
       icon: FolderKanban,
+      badge: "Ops",
+    },
+    {
+      title: "Tasks Sheet",
+      desc: "Deliverables, deadlines, statuses, and quick stopwatch time logs.",
+      href: "/tasks",
+      icon: CheckSquare,
       badge: "Ops",
     },
     {

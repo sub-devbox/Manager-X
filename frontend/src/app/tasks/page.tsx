@@ -3,23 +3,25 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import Link from "next/link";
 import AppShell from "@/components/layout/AppShell";
-import ProjectModal from "@/components/modules/projects/ProjectModal";
 import TaskModal from "@/components/modules/projects/TaskModal";
-import ProjectTable from "@/components/modules/projects/ProjectTable";
+import TaskTable from "@/components/modules/projects/TaskTable";
 import { api } from "@/lib/api-client";
-import { ProjectData, TaskData, TaskStatus } from "@/types/project";
+import { TaskData, TaskStatus, ProjectData } from "@/types/project";
 import {
-  FolderKanban,
   CheckSquare,
+  FolderKanban,
   Plus,
   Search,
   AlertCircle,
   CheckCircle2,
+  Clock,
+  ArrowRight,
 } from "lucide-react";
 
-export default function ProjectsPage() {
-  const [projects, setProjects] = useState<ProjectData[]>([]);
+export default function TasksPage() {
+  const [taskViewFilter, setTaskViewFilter] = useState<"pending" | "completed" | "all">("pending");
   const [tasks, setTasks] = useState<TaskData[]>([]);
+  const [projects, setProjects] = useState<ProjectData[]>([]);
   const [clients, setClients] = useState<{ id: string; company_name: string }[]>([]);
   const [loading, setLoading] = useState(true);
   const [actionMsg, setActionMsg] = useState<{ type: "success" | "error"; text: string } | null>(null);
@@ -27,12 +29,8 @@ export default function ProjectsPage() {
   // Filters
   const [searchQuery, setSearchQuery] = useState("");
   const [clientFilter, setClientFilter] = useState("all");
-  const [statusFilter, setStatusFilter] = useState("all");
 
-  // Modals state
-  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
-  const [editingProject, setEditingProject] = useState<ProjectData | null>(null);
-
+  // Task Modal state
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   const [editingTask, setEditingTask] = useState<TaskData | null>(null);
   const [taskDefaultProjectId, setTaskDefaultProjectId] = useState<string | undefined>();
@@ -41,22 +39,17 @@ export default function ProjectsPage() {
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      const [projData, taskData, clientData] = await Promise.all([
-        api.get<ProjectData[]>("/projects"),
+      const [taskData, projData, clientData] = await Promise.all([
         api.get<TaskData[]>("/tasks"),
+        api.get<ProjectData[]>("/projects"),
         api.get<{ id: string; company_name: string }[]>("/clients"),
       ]);
 
-      const rawProjects = Array.isArray(projData) ? projData : [];
-      const processedProjects = rawProjects.map((p) => {
-        const is100 = p.task_count > 0 && p.completed_task_count === p.task_count;
-        return is100 && p.status !== "archived" ? { ...p, status: "completed" as const } : p;
-      });
-      setProjects(processedProjects);
       setTasks(Array.isArray(taskData) ? taskData : []);
+      setProjects(Array.isArray(projData) ? projData : []);
       setClients(Array.isArray(clientData) ? clientData : []);
     } catch (err: any) {
-      setActionMsg({ type: "error", text: err.message || "Failed to load project records." });
+      setActionMsg({ type: "error", text: err.message || "Failed to load task records." });
     } finally {
       setLoading(false);
     }
@@ -65,29 +58,6 @@ export default function ProjectsPage() {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
-
-  // Project Actions
-  const handleOpenNewProject = () => {
-    setEditingProject(null);
-    setIsProjectModalOpen(true);
-  };
-
-  const handleOpenEditProject = (proj: ProjectData) => {
-    setEditingProject(proj);
-    setIsProjectModalOpen(true);
-  };
-
-  const handleDeleteProject = async (proj: ProjectData) => {
-    if (!confirm(`Delete project "${proj.name}"? This cannot be undone.`)) return;
-    setActionMsg(null);
-    try {
-      await api.delete(`/projects/${proj.id}`);
-      setActionMsg({ type: "success", text: `Project "${proj.name}" deleted.` });
-      fetchData();
-    } catch (err: any) {
-      setActionMsg({ type: "error", text: err.message || "Failed to delete project." });
-    }
-  };
 
   // Task Actions
   const handleOpenNewTask = (projectId?: string, defaultCol: TaskStatus = "backlog") => {
@@ -118,28 +88,9 @@ export default function ProjectsPage() {
 
   const handleTaskStatusChange = async (taskId: string, newStatus: TaskStatus) => {
     try {
-      // Optimistic update in both tasks state and projects.tasks nested state
+      // Optimistic update
       setTasks((prev) =>
         prev.map((t) => (t.id === taskId ? { ...t, status: newStatus } : t))
-      );
-      setProjects((prev) =>
-        prev.map((p) => {
-          const updatedTasks = (p.tasks || []).map((t) => (t.id === taskId ? { ...t, status: newStatus } : t));
-          const completedCount = updatedTasks.filter((t) => t.status === "done").length;
-          const is100 = updatedTasks.length > 0 && completedCount === updatedTasks.length;
-          let newProjStatus = p.status;
-          if (is100 && p.status !== "archived") {
-            newProjStatus = "completed";
-          } else if (!is100 && p.status === "completed") {
-            newProjStatus = "active";
-          }
-          return {
-            ...p,
-            tasks: updatedTasks,
-            completed_task_count: completedCount,
-            status: newProjStatus,
-          };
-        })
       );
       await api.patch(`/tasks/${taskId}/status`, { status: newStatus });
       fetchData();
@@ -149,31 +100,38 @@ export default function ProjectsPage() {
     }
   };
 
-  // Filtered Projects for Projects Table
-  const filteredProjects = useMemo(() => {
-    return projects.filter((p) => {
+  // Filtered Tasks
+  const filteredTasks = useMemo(() => {
+    return tasks.filter((t) => {
+      // 1. Completion view pill filter
+      if (taskViewFilter === "pending" && t.status === "done") return false;
+      if (taskViewFilter === "completed" && t.status !== "done") return false;
+
+      // 2. Search query filter
       const q = searchQuery.trim().toLowerCase();
       const matchesSearch =
         !q ||
-        p.name.toLowerCase().includes(q) ||
-        (p.description && p.description.toLowerCase().includes(q)) ||
-        (p.client?.company_name && p.client.company_name.toLowerCase().includes(q));
+        t.title.toLowerCase().includes(q) ||
+        (t.description && t.description.toLowerCase().includes(q)) ||
+        (t.project_name && t.project_name.toLowerCase().includes(q)) ||
+        (t.client_name && t.client_name.toLowerCase().includes(q));
 
-      const matchesClient = clientFilter === "all" || p.client_id === clientFilter;
-      const matchesStatus = statusFilter === "all" || p.status === statusFilter;
+      // 3. Client filter
+      const prj = projects.find((p) => p.id === t.project_id);
+      const matchesClient = clientFilter === "all" || (prj && prj.client_id === clientFilter);
 
-      return matchesSearch && matchesClient && matchesStatus;
+      return matchesSearch && matchesClient;
     });
-  }, [projects, searchQuery, clientFilter, statusFilter]);
+  }, [tasks, taskViewFilter, searchQuery, clientFilter, projects]);
 
   // Aggregate stats
-  const totalProjects = projects.length;
-  const activeProjects = projects.filter((p) => p.status === "active").length;
-  const completedProjects = projects.filter((p) => p.status === "completed").length;
   const totalTasks = tasks.length;
+  const pendingTasks = tasks.filter((t) => t.status !== "done").length;
+  const completedTasks = totalTasks - pendingTasks;
+  const inProgressTasks = tasks.filter((t) => t.status === "in_progress").length;
 
   return (
-    <AppShell title="Projects">
+    <AppShell title="Tasks">
       <div className="animate-fade-in" style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
         {/* Action Status Toast */}
         {actionMsg && (
@@ -225,19 +183,19 @@ export default function ProjectsPage() {
                 width: "36px",
                 height: "36px",
                 borderRadius: "var(--radius-xs)",
-                background: "rgba(59, 130, 246, 0.12)",
-                color: "var(--accent-blue)",
+                background: "rgba(16, 185, 129, 0.12)",
+                color: "var(--accent-emerald)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
               }}
             >
-              <FolderKanban size={18} />
+              <CheckSquare size={18} />
             </div>
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                 <h2 style={{ fontSize: "16px", fontWeight: 600, color: "var(--text-main)" }}>
-                  Projects Sheet
+                  Tasks Sheet
                 </h2>
                 <span
                   className="mono"
@@ -250,11 +208,11 @@ export default function ProjectsPage() {
                     color: "var(--text-dim)",
                   }}
                 >
-                  {totalProjects} total
+                  {totalTasks} total
                 </span>
               </div>
               <p style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "2px" }}>
-                Manage client engagements, milestones, and deliverable pipelines
+                Manage deliverables, deadlines, statuses, and live time tracking
               </p>
             </div>
           </div>
@@ -262,22 +220,22 @@ export default function ProjectsPage() {
           {/* Action Buttons */}
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <Link
-              href="/tasks"
+              href="/projects"
               className="finance-button-secondary"
               style={{ textDecoration: "none", gap: "6px", fontSize: "12.5px" }}
             >
-              <CheckSquare size={14} style={{ color: "var(--accent-emerald)" }} />
-              <span>Tasks Sheet</span>
+              <FolderKanban size={14} style={{ color: "var(--accent-blue)" }} />
+              <span>Projects Sheet</span>
             </Link>
 
             <button
               type="button"
-              onClick={handleOpenNewProject}
+              onClick={() => handleOpenNewTask()}
               className="finance-button-primary"
               style={{ width: "auto" }}
             >
               <Plus size={14} />
-              <span>New Project</span>
+              <span>New Task</span>
             </button>
           </div>
         </div>
@@ -292,55 +250,58 @@ export default function ProjectsPage() {
         >
           <div className="finance-panel" style={{ padding: "16px", background: "var(--bg-surface)" }}>
             <div style={{ fontSize: "11px", color: "var(--text-dim)", textTransform: "uppercase" }}>
-              Total Projects
-            </div>
-            <div style={{ fontSize: "22px", fontWeight: 600, marginTop: "6px" }} className="mono">
-              {totalProjects}
-            </div>
-            <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px" }}>
-              Across all clients
-            </div>
-          </div>
-
-          <div className="finance-panel" style={{ padding: "16px", background: "var(--bg-surface)" }}>
-            <div style={{ fontSize: "11px", color: "var(--text-dim)", textTransform: "uppercase" }}>
-              Active Projects
-            </div>
-            <div
-              style={{ fontSize: "22px", fontWeight: 600, marginTop: "6px", color: "var(--accent-emerald)" }}
-              className="mono"
-            >
-              {activeProjects}
-            </div>
-            <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px" }}>
-              In active execution
-            </div>
-          </div>
-
-          <div className="finance-panel" style={{ padding: "16px", background: "var(--bg-surface)" }}>
-            <div style={{ fontSize: "11px", color: "var(--text-dim)", textTransform: "uppercase" }}>
-              Completed Projects
-            </div>
-            <div
-              style={{ fontSize: "22px", fontWeight: 600, marginTop: "6px", color: "var(--accent-blue)" }}
-              className="mono"
-            >
-              {completedProjects}
-            </div>
-            <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px" }}>
-              100% deliverables done
-            </div>
-          </div>
-
-          <div className="finance-panel" style={{ padding: "16px", background: "var(--bg-surface)" }}>
-            <div style={{ fontSize: "11px", color: "var(--text-dim)", textTransform: "uppercase" }}>
               Total Deliverables
             </div>
             <div style={{ fontSize: "22px", fontWeight: 600, marginTop: "6px" }} className="mono">
               {totalTasks}
             </div>
             <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px" }}>
-              Tracked across projects
+              Across all projects
+            </div>
+          </div>
+
+          <div className="finance-panel" style={{ padding: "16px", background: "var(--bg-surface)" }}>
+            <div style={{ fontSize: "11px", color: "var(--text-dim)", textTransform: "uppercase" }}>
+              Pending Tasks
+            </div>
+            <div
+              style={{ fontSize: "22px", fontWeight: 600, marginTop: "6px", color: "var(--accent-amber)" }}
+              className="mono"
+            >
+              {pendingTasks}
+            </div>
+            <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px" }}>
+              Awaiting completion
+            </div>
+          </div>
+
+          <div className="finance-panel" style={{ padding: "16px", background: "var(--bg-surface)" }}>
+            <div style={{ fontSize: "11px", color: "var(--text-dim)", textTransform: "uppercase" }}>
+              In Progress
+            </div>
+            <div
+              style={{ fontSize: "22px", fontWeight: 600, marginTop: "6px", color: "var(--accent-blue)" }}
+              className="mono"
+            >
+              {inProgressTasks}
+            </div>
+            <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px" }}>
+              Actively in execution
+            </div>
+          </div>
+
+          <div className="finance-panel" style={{ padding: "16px", background: "var(--bg-surface)" }}>
+            <div style={{ fontSize: "11px", color: "var(--text-dim)", textTransform: "uppercase" }}>
+              Completed Tasks
+            </div>
+            <div
+              style={{ fontSize: "22px", fontWeight: 600, marginTop: "6px", color: "var(--accent-emerald)" }}
+              className="mono"
+            >
+              {completedTasks}
+            </div>
+            <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px" }}>
+              Successfully closed
             </div>
           </div>
         </div>
@@ -355,7 +316,7 @@ export default function ProjectsPage() {
             justifyContent: "space-between",
           }}
         >
-          {/* Left Controls: Search + Dropdowns */}
+          {/* Left Controls: Search + Client Filter */}
           <div
             style={{
               display: "flex",
@@ -380,7 +341,7 @@ export default function ProjectsPage() {
               />
               <input
                 type="text"
-                placeholder="Search projects by name, description, client..."
+                placeholder="Search tasks, projects, clients..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="finance-input"
@@ -403,28 +364,12 @@ export default function ProjectsPage() {
               ))}
             </select>
 
-            {/* Status Filter */}
-            <select
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-              className="finance-input"
-              style={{ width: "150px", height: "36px", fontSize: "12.5px" }}
-            >
-              <option value="all">All Statuses</option>
-              <option value="active">Active</option>
-              <option value="in_progress">In Progress</option>
-              <option value="on_hold">On Hold</option>
-              <option value="completed">Completed</option>
-              <option value="archived">Archived</option>
-            </select>
-
-            {(searchQuery || clientFilter !== "all" || statusFilter !== "all") && (
+            {(searchQuery || clientFilter !== "all") && (
               <button
                 type="button"
                 onClick={() => {
                   setSearchQuery("");
                   setClientFilter("all");
-                  setStatusFilter("all");
                 }}
                 className="finance-button-secondary"
                 style={{ padding: "8px 12px", fontSize: "12px" }}
@@ -433,25 +378,81 @@ export default function ProjectsPage() {
               </button>
             )}
           </div>
+
+          {/* Right Controls: Task View Option Pills */}
+          <div
+            style={{
+              display: "flex",
+              background: "var(--bg-surface-subtle)",
+              border: "1px solid var(--border-subtle)",
+              borderRadius: "var(--radius-xs)",
+              padding: "2px",
+              gap: "2px",
+            }}
+          >
+            <button
+              type="button"
+              onClick={() => setTaskViewFilter("pending")}
+              style={{
+                padding: "5px 12px",
+                fontSize: "12px",
+                fontWeight: 500,
+                borderRadius: "var(--radius-xs)",
+                border: "none",
+                cursor: "pointer",
+                background: taskViewFilter === "pending" ? "var(--bg-surface)" : "transparent",
+                color: taskViewFilter === "pending" ? "var(--accent-amber)" : "var(--text-muted)",
+                boxShadow: taskViewFilter === "pending" ? "0 1px 2px rgba(0,0,0,0.06)" : "none",
+                transition: "all 0.15s ease",
+              }}
+            >
+              Pending Tasks ({pendingTasks})
+            </button>
+            <button
+              type="button"
+              onClick={() => setTaskViewFilter("completed")}
+              style={{
+                padding: "5px 12px",
+                fontSize: "12px",
+                fontWeight: 500,
+                borderRadius: "var(--radius-xs)",
+                border: "none",
+                cursor: "pointer",
+                background: taskViewFilter === "completed" ? "var(--bg-surface)" : "transparent",
+                color: taskViewFilter === "completed" ? "var(--accent-emerald)" : "var(--text-muted)",
+                boxShadow: taskViewFilter === "completed" ? "0 1px 2px rgba(0,0,0,0.06)" : "none",
+                transition: "all 0.15s ease",
+              }}
+            >
+              Completed Tasks ({completedTasks})
+            </button>
+            <button
+              type="button"
+              onClick={() => setTaskViewFilter("all")}
+              style={{
+                padding: "5px 12px",
+                fontSize: "12px",
+                fontWeight: 500,
+                borderRadius: "var(--radius-xs)",
+                border: "none",
+                cursor: "pointer",
+                background: taskViewFilter === "all" ? "var(--bg-surface)" : "transparent",
+                color: taskViewFilter === "all" ? "var(--text-main)" : "var(--text-muted)",
+                boxShadow: taskViewFilter === "all" ? "0 1px 2px rgba(0,0,0,0.06)" : "none",
+                transition: "all 0.15s ease",
+              }}
+            >
+              All Tasks ({totalTasks})
+            </button>
+          </div>
         </div>
 
-        {/* View Content: Tabular Projects Sheet */}
-        <ProjectTable
-          projects={filteredProjects}
-          onEditProject={handleOpenEditProject}
-          onDeleteProject={handleDeleteProject}
-          onAddTask={(projId) => handleOpenNewTask(projId)}
+        {/* View Content: Dedicated Tasks Sheet */}
+        <TaskTable
+          tasks={filteredTasks}
           onEditTask={handleOpenEditTask}
           onDeleteTask={handleDeleteTask}
           onTaskStatusChange={handleTaskStatusChange}
-        />
-
-        {/* Project Modal */}
-        <ProjectModal
-          isOpen={isProjectModalOpen}
-          onClose={() => setIsProjectModalOpen(false)}
-          onSuccess={fetchData}
-          initialData={editingProject}
         />
 
         {/* Task Modal */}

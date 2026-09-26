@@ -3453,26 +3453,26 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_components_layout_globaltimerbar",
-      "community": 10,
-      "community_name": "AppShell.tsx",
+      "community": 35,
+      "community_name": "project.ts",
       "norm_label": "globaltimerbar.tsx"
     },
     {
       "label": "TimerState",
       "file_type": "code",
       "source_file": "frontend/src/components/layout/GlobalTimerBar.tsx",
-      "source_location": "L6",
+      "source_location": "L9",
       "_origin": "ast",
       "id": "frontend_src_components_layout_globaltimerbar_timerstate",
-      "community": 10,
-      "community_name": "AppShell.tsx",
+      "community": 35,
+      "community_name": "project.ts",
       "norm_label": "timerstate"
     },
     {
       "label": "GlobalTimerBar()",
       "file_type": "code",
       "source_file": "frontend/src/components/layout/GlobalTimerBar.tsx",
-      "source_location": "L17",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "frontend_src_components_layout_globaltimerbar_globaltimerbar",
       "community": 10,
@@ -15035,7 +15035,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/layout/GlobalTimerBar.tsx",
-      "source_location": "L17",
+      "source_location": "L20",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_layout_globaltimerbar",
@@ -15046,11 +15046,71 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/layout/GlobalTimerBar.tsx",
-      "source_location": "L6",
+      "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_layout_globaltimerbar",
       "target": "frontend_src_components_layout_globaltimerbar_timerstate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/layout/GlobalTimerBar.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_components_layout_globaltimerbar",
+      "target": "frontend_src_components_modules_time_starttimermodal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/layout/GlobalTimerBar.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_components_layout_globaltimerbar",
+      "target": "frontend_src_components_modules_time_starttimermodal_starttimermodal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/layout/GlobalTimerBar.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_components_layout_globaltimerbar",
+      "target": "frontend_src_types_project",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/layout/GlobalTimerBar.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_components_layout_globaltimerbar",
+      "target": "frontend_src_types_project_projectdata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/layout/GlobalTimerBar.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_components_layout_globaltimerbar",
+      "target": "frontend_src_types_project_taskdata",
       "confidence_score": 1.0
     },
     {
@@ -17368,5 +17428,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "20ff61f7132479cfb1a550ebac7fcec9d934a725"
+  "built_at_commit": "8e7d707c12fedb69a44a0d99caf5c3c3726a54b5"
 }

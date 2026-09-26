@@ -7,6 +7,7 @@ import {
   LayoutDashboard,
   Building2,
   FolderKanban,
+  CheckSquare,
   Clock,
   FileText,
   DollarSign,
@@ -40,7 +41,8 @@ export default function Sidebar({
       title: "Operations",
       items: [
         { name: "Clients", href: "/clients", icon: Building2 },
-        { name: "Projects & Tasks", href: "/projects", icon: FolderKanban },
+        { name: "Projects", href: "/projects", icon: FolderKanban },
+        { name: "Tasks", href: "/tasks", icon: CheckSquare },
         { name: "Time Tracker", href: "/time-tracker", icon: Clock },
         { name: "Invoices", href: "/invoices", icon: FileText },
       ],
