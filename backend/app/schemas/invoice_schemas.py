@@ -49,6 +49,10 @@ class InvoiceBase(BaseModel):
     discount_amount: float = 0.0
     round_off: float = 0.0
     gateway_notes: Optional[str] = None
+    received_amount_inr: Optional[float] = None
+    payment_date: Optional[str] = None
+    is_reconciled: bool = False
+    bank_transaction_id: Optional[str] = None
 
 class InvoiceCreate(InvoiceBase):
     invoice_number: Optional[str] = None
@@ -72,7 +76,20 @@ class InvoiceUpdate(BaseModel):
     final_amount: Optional[float] = None
     currency_code: Optional[str] = None
     gateway_notes: Optional[str] = None
+    received_amount_inr: Optional[float] = None
+    payment_date: Optional[str] = None
+    is_reconciled: Optional[bool] = None
+    bank_transaction_id: Optional[str] = None
     items: Optional[List[InvoiceItemCreate]] = None
+
+class RecordPaymentRequest(BaseModel):
+    received_amount_inr: float = Field(..., ge=0, description="Equivalent INR amount received in bank account")
+    payment_date: Optional[str] = Field(default=None, description="Date payment received (YYYY-MM-DD)")
+    bank_reference: Optional[str] = Field(default=None, description="Bank transaction reference or notes")
+
+class ReconcileRequest(BaseModel):
+    bank_transaction_id: Optional[str] = Field(default=None, description="Bank transaction identifier")
+    payment_date: Optional[str] = Field(default=None, description="Matched bank transaction payment date")
 
 class InvoiceResponse(InvoiceBase):
     id: str

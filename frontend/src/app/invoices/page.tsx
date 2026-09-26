@@ -28,8 +28,6 @@ export default function InvoicesPage() {
   const [periodFilter, setPeriodFilter] = useState<"today" | "this_week" | "this_month" | "custom">("this_month");
   const [customStartDate, setCustomStartDate] = useState("");
   const [customEndDate, setCustomEndDate] = useState("");
-  const [currencyFilter, setCurrencyFilter] = useState("all");
-  const [statusFilter, setStatusFilter] = useState("all");
   const [clientFilter, setClientFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -132,25 +130,12 @@ export default function InvoicesPage() {
 
       if (!matchesPeriod) return false;
 
-      // 2. Currency filter
-      if (currencyFilter !== "all") {
-        const invCurr = (inv.currency_code || "USD").toUpperCase();
-        if (invCurr !== currencyFilter.toUpperCase()) {
-          return false;
-        }
-      }
-
-      // 3. Status filter
-      if (statusFilter !== "all" && inv.status !== statusFilter) {
-        return false;
-      }
-
-      // 4. Client filter
+      // 2. Client filter
       if (clientFilter !== "all" && inv.client_id !== clientFilter) {
         return false;
       }
 
-      // 5. Search query
+      // 3. Search query
       const q = searchQuery.trim().toLowerCase();
       if (q) {
         const matchesQuery =
@@ -162,7 +147,7 @@ export default function InvoicesPage() {
 
       return true;
     });
-  }, [invoices, periodFilter, customStartDate, customEndDate, currencyFilter, statusFilter, clientFilter, searchQuery]);
+  }, [invoices, periodFilter, customStartDate, customEndDate, clientFilter, searchQuery]);
 
   // Aggregate KPI Stats grouped by currency
   const {
@@ -186,12 +171,6 @@ export default function InvoicesPage() {
 
     const baseInvoices = invoices.filter((inv) => {
       if (clientFilter !== "all" && inv.client_id !== clientFilter) return false;
-      if (
-        currencyFilter !== "all" &&
-        (inv.currency_code || "USD").toUpperCase() !== currencyFilter.toUpperCase()
-      ) {
-        return false;
-      }
       return true;
     });
 
@@ -224,7 +203,7 @@ export default function InvoicesPage() {
       paidCount: paidC,
       monthInvoiceCount: monthC,
     };
-  }, [invoices, clientFilter, currencyFilter]);
+  }, [invoices, clientFilter]);
 
   const formatCurrencyWithSymbol = (amount: number, currency: string = "USD") => {
     try {
@@ -564,37 +543,6 @@ export default function InvoicesPage() {
                 />
               </div>
             )}
-
-            {/* Currency Filter */}
-            <select
-              value={currencyFilter}
-              onChange={(e) => setCurrencyFilter(e.target.value)}
-              className="finance-input"
-              style={{ width: "130px", height: "32px", fontSize: "12px" }}
-              title="Filter by currency"
-            >
-              <option value="all">All Currencies</option>
-              {availableCurrencies.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select>
-
-            {/* Status Filter */}
-            <select
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-              className="finance-input"
-              style={{ width: "130px", height: "32px", fontSize: "12px" }}
-            >
-              <option value="all">All Statuses</option>
-              <option value="draft">Draft</option>
-              <option value="sent">Sent</option>
-              <option value="paid">Paid</option>
-              <option value="overdue">Overdue</option>
-              <option value="void">Void</option>
-            </select>
           </div>
 
           {/* Search & Client Filter (Right) */}
@@ -628,14 +576,12 @@ export default function InvoicesPage() {
               />
             </div>
 
-            {(searchQuery || clientFilter !== "all" || statusFilter !== "all" || currencyFilter !== "all" || periodFilter !== "this_month") && (
+            {(searchQuery || clientFilter !== "all" || periodFilter !== "this_month") && (
               <button
                 type="button"
                 onClick={() => {
                   setSearchQuery("");
                   setClientFilter("all");
-                  setStatusFilter("all");
-                  setCurrencyFilter("all");
                   setPeriodFilter("this_month");
                   setCustomStartDate("");
                   setCustomEndDate("");
@@ -655,6 +601,7 @@ export default function InvoicesPage() {
           invoices={filteredInvoices}
           onSelectInvoice={handleOpenEditInvoice}
           onEditInvoice={handleOpenEditInvoice}
+          onInvoiceUpdated={fetchData}
         />
 
         {/* 2-Split Screen Modal (User Input + Real-time Letter Preview) */}

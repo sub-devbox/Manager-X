@@ -47,6 +47,10 @@ export interface InvoiceData {
   final_amount: number;
   currency_code: string;
   gateway_notes?: string | null;
+  received_amount_inr?: number | null;
+  payment_date?: string | null;
+  is_reconciled?: boolean;
+  bank_transaction_id?: string | null;
   created_at: string;
   updated_at: string;
   client?: ClientInvoiceSummary | null;
@@ -68,7 +72,22 @@ export interface InvoiceCreatePayload {
   final_amount?: number;
   currency_code?: string;
   gateway_notes?: string;
+  received_amount_inr?: number | null;
+  payment_date?: string | null;
+  is_reconciled?: boolean;
+  bank_transaction_id?: string | null;
   items: InvoiceItemData[];
+}
+
+export interface RecordPaymentPayload {
+  received_amount_inr: number;
+  payment_date?: string;
+  bank_reference?: string;
+}
+
+export interface ReconcilePayload {
+  bank_transaction_id?: string;
+  payment_date?: string;
 }
 
 export interface UnbilledTaskData {

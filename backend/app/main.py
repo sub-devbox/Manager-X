@@ -40,6 +40,18 @@ async def lifespan(app: FastAPI):
             if time_cols and "invoice_id" not in time_cols:
                 cur.execute("ALTER TABLE time_entries ADD COLUMN invoice_id VARCHAR(32) REFERENCES invoices(id) ON DELETE SET NULL")
 
+            cur.execute("PRAGMA table_info(invoices)")
+            inv_cols = [r[1] for r in cur.fetchall()]
+            if inv_cols:
+                if "received_amount_inr" not in inv_cols:
+                    cur.execute("ALTER TABLE invoices ADD COLUMN received_amount_inr FLOAT")
+                if "payment_date" not in inv_cols:
+                    cur.execute("ALTER TABLE invoices ADD COLUMN payment_date VARCHAR(20)")
+                if "is_reconciled" not in inv_cols:
+                    cur.execute("ALTER TABLE invoices ADD COLUMN is_reconciled BOOLEAN DEFAULT 0")
+                if "bank_transaction_id" not in inv_cols:
+                    cur.execute("ALTER TABLE invoices ADD COLUMN bank_transaction_id VARCHAR(64)")
+
         await conn.run_sync(_migrate)
     yield
     # Shutdown connection pool

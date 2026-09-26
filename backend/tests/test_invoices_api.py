@@ -352,3 +352,116 @@ async def test_unbilled_tasks_aggregation_and_sync(client: AsyncClient):
     assert te_due1_revert.json()["invoice_status"] == "due"
     assert te_due1_revert.json()["invoiced"] is False
     assert te_due1_revert.json()["invoice_id"] is None
+
+
+@pytest.mark.asyncio
+async def test_invoice_payment_and_reconciliation(client: AsyncClient):
+    # Setup & Login
+    await client.post(
+        "/api/v1/auth/register",
+        json={
+            "email": "pay_reconcile@managerx.com",
+            "password": "Str0ngAdminP@ssw0rd!2026",
+            "full_name": "Pay Reconcile User",
+        },
+    )
+    await client.post(
+        "/api/v1/auth/login",
+        json={
+            "email": "pay_reconcile@managerx.com",
+            "password": "Str0ngAdminP@ssw0rd!2026",
+        },
+    )
+
+    # Seed Currencies
+    async with TestSessionLocal() as session:
+        session.add_all([
+            Currency(code="USD", symbol="$", name="US Dollar", is_base_currency=False, is_active=True),
+            Currency(code="EUR", symbol="€", name="Euro", is_base_currency=False, is_active=True),
+        ])
+        await session.commit()
+
+    # Create client
+    c_res = await client.post(
+        "/api/v1/clients",
+        json={
+            "company_name": "Nordic Solutions OY",
+            "contact_person": "Lars Lindqvist",
+            "email": "lars@nordicsolutions.fi",
+            "address_line1": "Mannerheimintie 12",
+            "city": "Helsinki",
+            "state": "Uusimaa",
+            "postal_code": "00100",
+            "country": "Finland",
+            "hourly_rate": 80.0,
+            "currency_code": "USD",
+            "payment_terms_days": 15,
+        },
+    )
+    assert c_res.status_code == 201
+    client_id = c_res.json()["id"]
+
+    # Create Invoice in EUR
+    inv_res = await client.post(
+        "/api/v1/invoices",
+        json={
+            "client_id": client_id,
+            "status": "sent",
+            "currency_code": "EUR",
+            "issue_date": "2026-09-26",
+            "due_date": "2026-10-10",
+            "items": [
+                {
+                    "description": "Backend System Migration",
+                    "quantity": 10.0,
+                    "unit_price": 80.0,
+                    "total": 800.0,
+                }
+            ],
+            "subtotal": 800.0,
+            "final_amount": 800.0,
+        },
+    )
+    assert inv_res.status_code == 201
+    inv = inv_res.json()
+    inv_id = inv["id"]
+    assert inv["status"] == "sent"
+    assert inv["is_reconciled"] is False
+    assert inv["received_amount_inr"] is None
+
+    # Test POST /api/v1/invoices/{id}/pay
+    pay_res = await client.post(
+        f"/api/v1/invoices/{inv_id}/pay",
+        json={
+            "received_amount_inr": 72450.50,
+            "payment_date": "2026-09-27",
+            "bank_reference": "HDFC-WIRE-EUR-9988",
+        },
+    )
+    assert pay_res.status_code == 200
+    paid_inv = pay_res.json()
+    assert paid_inv["status"] == "paid"
+    assert paid_inv["received_amount_inr"] == 72450.50
+    assert paid_inv["payment_date"] == "2026-09-27"
+    assert "HDFC-WIRE-EUR-9988" in (paid_inv["gateway_notes"] or "")
+
+    # Test POST /api/v1/invoices/{id}/reconcile
+    rec_res = await client.post(
+        f"/api/v1/invoices/{inv_id}/reconcile",
+        json={
+            "bank_transaction_id": "TXN_BANK_FEED_445566",
+            "payment_date": "2026-09-27",
+        },
+    )
+    assert rec_res.status_code == 200
+    rec_inv = rec_res.json()
+    assert rec_inv["is_reconciled"] is True
+    assert rec_inv["bank_transaction_id"] == "TXN_BANK_FEED_445566"
+    assert rec_inv["payment_date"] == "2026-09-27"
+
+    # Test ReportLab PDF Download with PAID stamp and INR received row
+    pdf_res = await client.get(f"/api/v1/invoices/{inv_id}/pdf")
+    assert pdf_res.status_code == 200
+    assert pdf_res.headers["content-type"] == "application/pdf"
+    assert pdf_res.content.startswith(b"%PDF")
+

@@ -20,6 +20,8 @@ from app.schemas.invoice_schemas import (
     InvoiceUpdate,
     InvoiceResponse,
     UnbilledTaskOut,
+    RecordPaymentRequest,
+    ReconcileRequest,
 )
 
 router = APIRouter(prefix="/invoices", tags=["Invoices"])
@@ -271,6 +273,10 @@ async def create_invoice(
         final_amount=final_amount,
         currency_code=currency,
         gateway_notes=payload.gateway_notes,
+        received_amount_inr=payload.received_amount_inr,
+        payment_date=payload.payment_date,
+        is_reconciled=payload.is_reconciled,
+        bank_transaction_id=payload.bank_transaction_id,
         items=items_to_create,
     )
 
@@ -366,6 +372,14 @@ async def update_invoice(
         invoice.currency_code = payload.currency_code
     if payload.gateway_notes is not None:
         invoice.gateway_notes = payload.gateway_notes
+    if payload.received_amount_inr is not None:
+        invoice.received_amount_inr = payload.received_amount_inr
+    if payload.payment_date is not None:
+        invoice.payment_date = payload.payment_date
+    if payload.is_reconciled is not None:
+        invoice.is_reconciled = payload.is_reconciled
+    if payload.bank_transaction_id is not None:
+        invoice.bank_transaction_id = payload.bank_transaction_id
 
     # Update line items if provided
     if payload.items is not None:
@@ -473,6 +487,86 @@ async def update_invoice(
     res = await db.execute(res_stmt)
     return res.scalar_one()
 
+@router.post("/{invoice_id}/pay", response_model=InvoiceResponse)
+async def record_invoice_payment(
+    invoice_id: str,
+    payload: RecordPaymentRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: Optional[User] = Depends(get_optional_user),
+):
+    stmt = (
+        select(Invoice)
+        .options(selectinload(Invoice.client), selectinload(Invoice.items))
+        .where(Invoice.id == invoice_id)
+    )
+    res = await db.execute(stmt)
+    invoice = res.scalar_one_or_none()
+    if not invoice:
+        raise HTTPException(status_code=404, detail="Invoice not found")
+
+    pay_date = payload.payment_date or datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    invoice.status = "paid"
+    invoice.received_amount_inr = payload.received_amount_inr
+    invoice.payment_date = pay_date
+    if payload.bank_reference:
+        ref_text = f"Bank Ref: {payload.bank_reference}"
+        if invoice.gateway_notes:
+            invoice.gateway_notes = f"{invoice.gateway_notes}\n{ref_text}"
+        else:
+            invoice.gateway_notes = ref_text
+
+    # Mark all linked time entries as invoiced (paid)
+    await db.execute(
+        update(TimeEntry)
+        .where(TimeEntry.invoice_id == invoice.id)
+        .values(invoiced=True)
+    )
+
+    await db.commit()
+    await db.refresh(invoice)
+
+    reload_stmt = (
+        select(Invoice)
+        .options(selectinload(Invoice.client), selectinload(Invoice.items))
+        .where(Invoice.id == invoice.id)
+    )
+    reload_res = await db.execute(reload_stmt)
+    return reload_res.scalar_one()
+
+@router.post("/{invoice_id}/reconcile", response_model=InvoiceResponse)
+async def reconcile_invoice(
+    invoice_id: str,
+    payload: ReconcileRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: Optional[User] = Depends(get_optional_user),
+):
+    stmt = (
+        select(Invoice)
+        .options(selectinload(Invoice.client), selectinload(Invoice.items))
+        .where(Invoice.id == invoice_id)
+    )
+    res = await db.execute(stmt)
+    invoice = res.scalar_one_or_none()
+    if not invoice:
+        raise HTTPException(status_code=404, detail="Invoice not found")
+
+    invoice.is_reconciled = True
+    if payload.bank_transaction_id:
+        invoice.bank_transaction_id = payload.bank_transaction_id
+    if payload.payment_date:
+        invoice.payment_date = payload.payment_date
+
+    await db.commit()
+    await db.refresh(invoice)
+
+    reload_stmt = (
+        select(Invoice)
+        .options(selectinload(Invoice.client), selectinload(Invoice.items))
+        .where(Invoice.id == invoice.id)
+    )
+    reload_res = await db.execute(reload_stmt)
+    return reload_res.scalar_one()
+
 @router.delete("/{invoice_id}")
 async def delete_invoice(
     invoice_id: str,
@@ -528,6 +622,9 @@ async def download_invoice_pdf(
         "discount_amount": invoice.discount_amount,
         "round_off": invoice.round_off,
         "final_amount": invoice.final_amount,
+        "received_amount_inr": invoice.received_amount_inr,
+        "payment_date": invoice.payment_date,
+        "is_reconciled": invoice.is_reconciled,
         "items": [
             {
                 "description": itm.description,

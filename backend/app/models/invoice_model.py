@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from sqlalchemy import String, Float, DateTime, Text, ForeignKey
+from sqlalchemy import String, Float, DateTime, Text, ForeignKey, Boolean
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.database import Base
@@ -37,6 +37,11 @@ class Invoice(Base):
     currency_code: Mapped[str] = mapped_column(String(10), default="USD", nullable=False)
 
     gateway_notes: Mapped[str | None] = mapped_column(Text, nullable=True)
+
+    received_amount_inr: Mapped[float | None] = mapped_column(Float, nullable=True)
+    payment_date: Mapped[str | None] = mapped_column(String(20), nullable=True)
+    is_reconciled: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    bank_transaction_id: Mapped[str | None] = mapped_column(String(64), nullable=True)
 
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),

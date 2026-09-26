@@ -3,6 +3,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { InvoiceData } from "@/types/invoice";
 import { useResizableColumns, ResizeHandle } from "@/hooks/useResizableColumns";
+import { api } from "@/lib/api-client";
 import {
   Calendar,
   Building2,
@@ -15,12 +16,18 @@ import {
   FileText,
   DollarSign,
   Download,
+  CheckCircle2,
+  RefreshCw,
+  AlertCircle,
+  X,
+  CheckCheck,
 } from "lucide-react";
 
 interface InvoiceTableProps {
   invoices: InvoiceData[];
   onSelectInvoice: (invoice: InvoiceData) => void;
   onEditInvoice: (invoice: InvoiceData) => void;
+  onInvoiceUpdated?: () => void;
 }
 
 type SortField = "invoice_date" | "invoice_number" | "client" | "status" | "amount";
@@ -29,31 +36,49 @@ type SortDirection = "asc" | "desc";
 const PAGE_SIZE = 50;
 
 const DEFAULT_INVOICE_WIDTHS = {
-  invoice_date: 130,
-  invoice_number: 220,
-  client: 200,
-  status: 120,
-  amount: 150,
-  actions: 80,
+  invoice_date: 120,
+  invoice_number: 180,
+  client: 170,
+  status: 125,
+  amount: 155,
+  actions: 180,
 };
 
 const MIN_INVOICE_WIDTHS = {
   invoice_date: 90,
-  invoice_number: 140,
-  client: 120,
+  invoice_number: 130,
+  client: 110,
   status: 90,
   amount: 100,
-  actions: 70,
+  actions: 145,
 };
 
 export default function InvoiceTable({
   invoices,
   onSelectInvoice,
   onEditInvoice,
+  onInvoiceUpdated,
 }: InvoiceTableProps) {
   const [sortField, setSortField] = useState<SortField>("invoice_date");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
   const [currentPage, setCurrentPage] = useState(1);
+
+  // Record Payment Modal State
+  const [payModalOpen, setPayModalOpen] = useState(false);
+  const [payingInvoice, setPayingInvoice] = useState<InvoiceData | null>(null);
+  const [payAmountInr, setPayAmountInr] = useState("");
+  const [payDate, setPayDate] = useState("");
+  const [payRef, setPayRef] = useState("");
+  const [paySubmitting, setPaySubmitting] = useState(false);
+  const [payError, setPayError] = useState("");
+
+  // Reconcile Modal State
+  const [reconcileModalOpen, setReconcileModalOpen] = useState(false);
+  const [reconcilingInvoice, setReconcilingInvoice] = useState<InvoiceData | null>(null);
+  const [reconcileTxId, setReconcileTxId] = useState("");
+  const [reconcileDate, setReconcileDate] = useState("");
+  const [reconcileSubmitting, setReconcileSubmitting] = useState(false);
+  const [reconcileError, setReconcileError] = useState("");
 
   const { widths, totalWidth, startResize } = useResizableColumns(
     "mx_col_widths_invoices",
@@ -191,6 +216,96 @@ export default function InvoiceTable({
       document.body.removeChild(a);
     } catch (err) {
       console.error("PDF download failed:", err);
+    }
+  };
+
+  // Open Record Payment Modal
+  const handleOpenPayModal = (inv: InvoiceData) => {
+    setPayingInvoice(inv);
+    setPayAmountInr(
+      inv.received_amount_inr
+        ? String(inv.received_amount_inr)
+        : (inv.currency_code === "INR" ? String(inv.final_amount) : "")
+    );
+    setPayDate(inv.payment_date || new Date().toISOString().slice(0, 10));
+    setPayRef("");
+    setPayError("");
+    setPayModalOpen(true);
+  };
+
+  // Submit Payment
+  const handleConfirmPayment = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!payingInvoice) return;
+    const inrVal = parseFloat(payAmountInr);
+    if (isNaN(inrVal) || inrVal < 0) {
+      setPayError("Please enter a valid equivalent INR amount received in bank account.");
+      return;
+    }
+    setPaySubmitting(true);
+    setPayError("");
+    try {
+      await api.post(`/invoices/${payingInvoice.id}/pay`, {
+        received_amount_inr: inrVal,
+        payment_date: payDate || new Date().toISOString().slice(0, 10),
+        bank_reference: payRef.trim() || undefined,
+      });
+      setPayModalOpen(false);
+      setPayingInvoice(null);
+      if (onInvoiceUpdated) onInvoiceUpdated();
+    } catch (err: any) {
+      setPayError(err.message || "Failed to record payment.");
+    } finally {
+      setPaySubmitting(false);
+    }
+  };
+
+  // Open Reconcile Modal
+  const handleOpenReconcileModal = (inv: InvoiceData) => {
+    setReconcilingInvoice(inv);
+    setReconcileTxId(inv.bank_transaction_id || "");
+    setReconcileDate(inv.payment_date || new Date().toISOString().slice(0, 10));
+    setReconcileError("");
+    setReconcileModalOpen(true);
+  };
+
+  // Submit Reconcile
+  const handleConfirmReconcile = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!reconcilingInvoice) return;
+    setReconcileSubmitting(true);
+    setReconcileError("");
+    try {
+      await api.post(`/invoices/${reconcilingInvoice.id}/reconcile`, {
+        bank_transaction_id: reconcileTxId.trim() || undefined,
+        payment_date: reconcileDate || undefined,
+      });
+      setReconcileModalOpen(false);
+      setReconcilingInvoice(null);
+      if (onInvoiceUpdated) onInvoiceUpdated();
+    } catch (err: any) {
+      setReconcileError(err.message || "Failed to reconcile invoice.");
+    } finally {
+      setReconcileSubmitting(false);
+    }
+  };
+
+  // Un-reconcile
+  const handleUnreconcile = async () => {
+    if (!reconcilingInvoice) return;
+    setReconcileSubmitting(true);
+    try {
+      await api.put(`/invoices/${reconcilingInvoice.id}`, {
+        is_reconciled: false,
+        bank_transaction_id: null,
+      });
+      setReconcileModalOpen(false);
+      setReconcilingInvoice(null);
+      if (onInvoiceUpdated) onInvoiceUpdated();
+    } catch (err: any) {
+      setReconcileError(err.message || "Failed to un-reconcile invoice.");
+    } finally {
+      setReconcileSubmitting(false);
     }
   };
 
@@ -446,51 +561,157 @@ export default function InvoiceTable({
 
                   {/* 4. Status */}
                   <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
-                    <span
-                      style={{
-                        display: "inline-block",
-                        padding: "2px 8px",
-                        borderRadius: "10px",
-                        fontSize: "11px",
-                        fontWeight: 600,
-                        background: badge.bg,
-                        color: badge.color,
-                        textTransform: "capitalize",
-                      }}
-                    >
-                      {badge.label}
-                    </span>
+                    <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                      <span
+                        style={{
+                          display: "inline-block",
+                          padding: "2px 8px",
+                          borderRadius: "10px",
+                          fontSize: "11px",
+                          fontWeight: 600,
+                          background: badge.bg,
+                          color: badge.color,
+                          textTransform: "capitalize",
+                        }}
+                      >
+                        {badge.label}
+                      </span>
+                      {inv.is_reconciled && (
+                        <span
+                          style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: "3px",
+                            padding: "1px 6px",
+                            borderRadius: "4px",
+                            fontSize: "10px",
+                            fontWeight: 600,
+                            background: "rgba(16, 185, 129, 0.12)",
+                            color: "var(--accent-emerald)",
+                            border: "1px solid rgba(16, 185, 129, 0.25)",
+                          }}
+                          title={`Reconciled with Bank (Date: ${inv.payment_date || "Matched"})`}
+                        >
+                          <CheckCheck size={10} />
+                          <span>Rec</span>
+                        </span>
+                      )}
+                    </div>
                   </td>
 
                   {/* 5. Amount */}
                   <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }} className="mono">
-                    <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                      <span style={{ fontWeight: 700, color: "var(--text-main)", fontSize: "12.5px" }}>
-                        {formatCurrency(inv.final_amount, inv.currency_code)}
-                      </span>
-                      <span
-                        style={{
-                          fontSize: "10px",
-                          fontWeight: 600,
-                          padding: "1px 5px",
-                          borderRadius: "4px",
-                          background: "var(--bg-surface-subtle)",
-                          border: "1px solid var(--border-subtle)",
-                          color: "var(--text-muted)",
-                          letterSpacing: "0.3px",
-                        }}
-                      >
-                        {(inv.currency_code || "USD").toUpperCase()}
-                      </span>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                        <span style={{ fontWeight: 700, color: "var(--text-main)", fontSize: "12.5px" }}>
+                          {formatCurrency(inv.final_amount, inv.currency_code)}
+                        </span>
+                        <span
+                          style={{
+                            fontSize: "10px",
+                            fontWeight: 600,
+                            padding: "1px 5px",
+                            borderRadius: "4px",
+                            background: "var(--bg-surface-subtle)",
+                            border: "1px solid var(--border-subtle)",
+                            color: "var(--text-muted)",
+                            letterSpacing: "0.3px",
+                          }}
+                        >
+                          {(inv.currency_code || "USD").toUpperCase()}
+                        </span>
+                      </div>
+                      {inv.received_amount_inr != null && inv.received_amount_inr > 0 ? (
+                        <span
+                          style={{
+                            fontSize: "10.5px",
+                            color: "var(--accent-emerald)",
+                            fontWeight: 600,
+                          }}
+                          title={`Equivalent INR amount received in bank account: ₹${inv.received_amount_inr.toLocaleString()}`}
+                        >
+                          ₹{inv.received_amount_inr.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} rec'd
+                        </span>
+                      ) : null}
                     </div>
                   </td>
 
-                  {/* 6. Actions (Edit only, no delete button on row) */}
+                  {/* 6. Actions */}
                   <td style={{ padding: "6px 12px", textAlign: "right", whiteSpace: "nowrap" }}>
                     <div
                       style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}
                       onClick={(e) => e.stopPropagation()}
                     >
+                      {/* Paid Button */}
+                      {inv.status !== "paid" ? (
+                        <button
+                          type="button"
+                          onClick={() => handleOpenPayModal(inv)}
+                          className="finance-button-secondary"
+                          style={{
+                            padding: "3px 8px",
+                            fontSize: "11px",
+                            fontWeight: 600,
+                            color: "var(--accent-emerald)",
+                            borderColor: "rgba(16, 185, 129, 0.35)",
+                            background: "rgba(16, 185, 129, 0.08)",
+                            gap: "3px",
+                          }}
+                          title="Record equivalent INR payment & mark as paid"
+                        >
+                          <DollarSign size={11} />
+                          <span>Paid</span>
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => handleOpenPayModal(inv)}
+                          className="finance-button-secondary"
+                          style={{
+                            padding: "3px 7px",
+                            fontSize: "10.5px",
+                            fontWeight: 600,
+                            color: "var(--accent-emerald)",
+                            borderColor: "rgba(16, 185, 129, 0.35)",
+                            background: "rgba(16, 185, 129, 0.15)",
+                            gap: "3px",
+                          }}
+                          title={
+                            inv.received_amount_inr
+                              ? `Paid: ₹${inv.received_amount_inr.toLocaleString()} on ${inv.payment_date || ""} (Click to edit payment)`
+                              : "Paid (Click to edit payment)"
+                          }
+                        >
+                          <CheckCircle2 size={11} />
+                          <span>Paid</span>
+                        </button>
+                      )}
+
+                      {/* Reconcile Button */}
+                      <button
+                        type="button"
+                        onClick={() => handleOpenReconcileModal(inv)}
+                        className="finance-button-secondary"
+                        style={{
+                          padding: "3px 7px",
+                          fontSize: "10.5px",
+                          fontWeight: 500,
+                          color: inv.is_reconciled ? "var(--accent-emerald)" : "var(--accent-blue)",
+                          borderColor: inv.is_reconciled ? "rgba(16, 185, 129, 0.35)" : "rgba(59, 130, 246, 0.35)",
+                          background: inv.is_reconciled ? "rgba(16, 185, 129, 0.08)" : "rgba(59, 130, 246, 0.08)",
+                          gap: "3px",
+                        }}
+                        title={
+                          inv.is_reconciled
+                            ? `Reconciled with Bank Transaction ${inv.bank_transaction_id ? `(${inv.bank_transaction_id})` : ""}`
+                            : "Match bank transaction and reconcile"
+                        }
+                      >
+                        <RefreshCw size={11} />
+                        <span>{inv.is_reconciled ? "Reconciled" : "Reconcile"}</span>
+                      </button>
+
+                      {/* Download PDF */}
                       <button
                         type="button"
                         onClick={(e) => handleDownloadPdf(inv, e)}
@@ -500,6 +721,8 @@ export default function InvoiceTable({
                       >
                         <Download size={11} />
                       </button>
+
+                      {/* Edit Invoice */}
                       <button
                         type="button"
                         onClick={() => onEditInvoice(inv)}
@@ -571,6 +794,474 @@ export default function InvoiceTable({
           </button>
         </div>
       </div>
+
+      {/* ========================================================= */}
+      {/* 1. POPUP: RECORD EQUIVALENT INR PAYMENT RECEIVED IN BANK   */}
+      {/* ========================================================= */}
+      {payModalOpen && payingInvoice && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 99999,
+            background: "rgba(0, 0, 0, 0.75)",
+            backdropFilter: "blur(4px)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "16px",
+          }}
+          onClick={() => setPayModalOpen(false)}
+        >
+          <div
+            className="finance-panel animate-fade-in"
+            style={{
+              width: "100%",
+              maxWidth: "460px",
+              background: "var(--bg-surface)",
+              border: "1px solid var(--border-subtle)",
+              borderRadius: "var(--radius-md)",
+              boxShadow: "0 20px 40px rgba(0, 0, 0, 0.5)",
+              overflow: "hidden",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "14px 18px",
+                borderBottom: "1px solid var(--border-subtle)",
+                background: "var(--bg-surface-subtle)",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <div
+                  style={{
+                    width: "28px",
+                    height: "28px",
+                    borderRadius: "var(--radius-xs)",
+                    background: "rgba(16, 185, 129, 0.15)",
+                    color: "var(--accent-emerald)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <DollarSign size={16} />
+                </div>
+                <span style={{ fontSize: "14px", fontWeight: 700, color: "var(--text-main)" }}>
+                  Record Payment Received
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setPayModalOpen(false)}
+                className="finance-button-secondary"
+                style={{ width: "26px", height: "26px", padding: 0, justifyContent: "center" }}
+              >
+                <X size={14} />
+              </button>
+            </div>
+
+            {/* Form */}
+            <form onSubmit={handleConfirmPayment} style={{ padding: "18px 20px", display: "flex", flexDirection: "column", gap: "14px" }}>
+              {/* Invoice Metadata Banner */}
+              <div
+                style={{
+                  padding: "10px 14px",
+                  borderRadius: "var(--radius-xs)",
+                  background: "var(--bg-surface-subtle)",
+                  border: "1px solid var(--border-subtle)",
+                  fontSize: "12px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <div>
+                  <div style={{ fontWeight: 600, color: "var(--text-main)" }}>
+                    {payingInvoice.invoice_number}
+                  </div>
+                  <div style={{ color: "var(--text-dim)", fontSize: "11px" }}>
+                    {payingInvoice.client?.company_name || "Client"}
+                  </div>
+                </div>
+                <div style={{ textAlign: "right" }}>
+                  <div style={{ fontSize: "11px", color: "var(--text-muted)" }}>Billed Amount</div>
+                  <div className="mono" style={{ fontWeight: 700, fontSize: "13px", color: "var(--text-main)" }}>
+                    {formatCurrency(payingInvoice.final_amount, payingInvoice.currency_code)}
+                  </div>
+                </div>
+              </div>
+
+              {payError && (
+                <div
+                  style={{
+                    padding: "8px 12px",
+                    borderRadius: "var(--radius-xs)",
+                    background: "rgba(244, 63, 94, 0.1)",
+                    border: "1px solid var(--accent-rose)",
+                    color: "var(--accent-rose)",
+                    fontSize: "12px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "6px",
+                  }}
+                >
+                  <AlertCircle size={14} />
+                  <span>{payError}</span>
+                </div>
+              )}
+
+              {/* Equivalent INR Amount */}
+              <div>
+                <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "var(--text-main)", marginBottom: "4px" }}>
+                  Equivalent INR Amount Received in Bank Account (₹) *
+                </label>
+                <div style={{ position: "relative" }}>
+                  <span
+                    style={{
+                      position: "absolute",
+                      left: "10px",
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      fontWeight: 700,
+                      color: "var(--text-dim)",
+                      fontSize: "13px",
+                    }}
+                  >
+                    ₹
+                  </span>
+                  <input
+                    type="number"
+                    step="any"
+                    required
+                    placeholder="e.g. 84500.00"
+                    value={payAmountInr}
+                    onChange={(e) => setPayAmountInr(e.target.value)}
+                    className="finance-input mono"
+                    autoFocus
+                    style={{ paddingLeft: "26px", height: "36px", fontSize: "13px", fontWeight: 600 }}
+                  />
+                </div>
+                <span style={{ display: "block", fontSize: "11px", color: "var(--text-dim)", marginTop: "4px" }}>
+                  Enter the actual INR amount credited to your bank account after foreign exchange conversion.
+                </span>
+              </div>
+
+              {/* Payment Date */}
+              <div>
+                <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "var(--text-main)", marginBottom: "4px" }}>
+                  Payment Received Date *
+                </label>
+                <input
+                  type="date"
+                  required
+                  value={payDate}
+                  onChange={(e) => setPayDate(e.target.value)}
+                  className="finance-input mono"
+                  style={{ height: "36px", fontSize: "12px" }}
+                />
+              </div>
+
+              {/* Bank Reference / Notes */}
+              <div>
+                <label style={{ display: "block", fontSize: "12px", color: "var(--text-muted)", marginBottom: "4px" }}>
+                  Bank Reference / Wire UTR (Optional)
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. HDFC wire UTR #12345678"
+                  value={payRef}
+                  onChange={(e) => setPayRef(e.target.value)}
+                  className="finance-input"
+                  style={{ height: "34px", fontSize: "12px" }}
+                />
+              </div>
+
+              {/* Footer Actions */}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  gap: "8px",
+                  marginTop: "8px",
+                  paddingTop: "12px",
+                  borderTop: "1px solid var(--border-subtle)",
+                }}
+              >
+                <button
+                  type="button"
+                  onClick={() => setPayModalOpen(false)}
+                  disabled={paySubmitting}
+                  className="finance-button-secondary"
+                  style={{ height: "34px", padding: "0 14px", fontSize: "12px" }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={paySubmitting}
+                  className="finance-button-primary"
+                  style={{
+                    height: "34px",
+                    padding: "0 16px",
+                    fontSize: "12px",
+                    background: "var(--accent-emerald)",
+                    borderColor: "var(--accent-emerald)",
+                    color: "#ffffff",
+                    fontWeight: 600,
+                    width: "auto",
+                  }}
+                >
+                  {paySubmitting ? "Recording..." : "Confirm & Mark Paid"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================= */}
+      {/* 2. POPUP: BANK TRANSACTION RECONCILIATION MODAL           */}
+      {/* ========================================================= */}
+      {reconcileModalOpen && reconcilingInvoice && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 99999,
+            background: "rgba(0, 0, 0, 0.75)",
+            backdropFilter: "blur(4px)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "16px",
+          }}
+          onClick={() => setReconcileModalOpen(false)}
+        >
+          <div
+            className="finance-panel animate-fade-in"
+            style={{
+              width: "100%",
+              maxWidth: "480px",
+              background: "var(--bg-surface)",
+              border: "1px solid var(--border-subtle)",
+              borderRadius: "var(--radius-md)",
+              boxShadow: "0 20px 40px rgba(0, 0, 0, 0.5)",
+              overflow: "hidden",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "14px 18px",
+                borderBottom: "1px solid var(--border-subtle)",
+                background: "var(--bg-surface-subtle)",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <div
+                  style={{
+                    width: "28px",
+                    height: "28px",
+                    borderRadius: "var(--radius-xs)",
+                    background: "rgba(59, 130, 246, 0.15)",
+                    color: "var(--accent-blue)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <RefreshCw size={15} />
+                </div>
+                <div>
+                  <div style={{ fontSize: "14px", fontWeight: 700, color: "var(--text-main)" }}>
+                    Bank Transaction Reconciliation
+                  </div>
+                  <div style={{ fontSize: "11px", color: "var(--text-dim)" }}>
+                    Invoice #{reconcilingInvoice.invoice_number}
+                  </div>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setReconcileModalOpen(false)}
+                className="finance-button-secondary"
+                style={{ width: "26px", height: "26px", padding: 0, justifyContent: "center" }}
+              >
+                <X size={14} />
+              </button>
+            </div>
+
+            {/* Content */}
+            <form onSubmit={handleConfirmReconcile} style={{ padding: "18px 20px", display: "flex", flexDirection: "column", gap: "14px" }}>
+              {/* Summary Cards */}
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: "10px",
+                  padding: "10px 12px",
+                  borderRadius: "var(--radius-xs)",
+                  background: "var(--bg-surface-subtle)",
+                  border: "1px solid var(--border-subtle)",
+                  fontSize: "12px",
+                }}
+              >
+                <div>
+                  <div style={{ fontSize: "11px", color: "var(--text-dim)" }}>Billed Amount</div>
+                  <div className="mono" style={{ fontWeight: 600, color: "var(--text-main)" }}>
+                    {formatCurrency(reconcilingInvoice.final_amount, reconcilingInvoice.currency_code)}
+                  </div>
+                </div>
+                <div>
+                  <div style={{ fontSize: "11px", color: "var(--text-dim)" }}>Bank INR Credited</div>
+                  <div className="mono" style={{ fontWeight: 600, color: reconcilingInvoice.received_amount_inr ? "var(--accent-emerald)" : "var(--text-muted)" }}>
+                    {reconcilingInvoice.received_amount_inr ? `₹${reconcilingInvoice.received_amount_inr.toLocaleString()}` : "Not recorded"}
+                  </div>
+                </div>
+              </div>
+
+              {/* Future Integration Explainer Box */}
+              <div
+                style={{
+                  padding: "10px 12px",
+                  borderRadius: "var(--radius-xs)",
+                  background: "rgba(59, 130, 246, 0.08)",
+                  border: "1px solid rgba(59, 130, 246, 0.25)",
+                  fontSize: "11.5px",
+                  color: "var(--text-muted)",
+                  lineHeight: "1.5",
+                }}
+              >
+                <div style={{ fontWeight: 600, color: "var(--accent-blue)", marginBottom: "3px" }}>
+                  Automated Bank Statement Matching
+                </div>
+                Once you import your bank statement or connect bank feed, Manager-X will automatically match incoming transaction credits with this invoice and auto-populate the confirmed payment date.
+              </div>
+
+              {reconcileError && (
+                <div
+                  style={{
+                    padding: "8px 12px",
+                    borderRadius: "var(--radius-xs)",
+                    background: "rgba(244, 63, 94, 0.1)",
+                    border: "1px solid var(--accent-rose)",
+                    color: "var(--accent-rose)",
+                    fontSize: "12px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "6px",
+                  }}
+                >
+                  <AlertCircle size={14} />
+                  <span>{reconcileError}</span>
+                </div>
+              )}
+
+              {/* Matched Transaction Reference */}
+              <div>
+                <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "var(--text-main)", marginBottom: "4px" }}>
+                  Bank Transaction ID / Reference
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. TXN-2026-HDFC-99120"
+                  value={reconcileTxId}
+                  onChange={(e) => setReconcileTxId(e.target.value)}
+                  className="finance-input mono"
+                  style={{ height: "34px", fontSize: "12px" }}
+                />
+              </div>
+
+              {/* Matched Payment Date */}
+              <div>
+                <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "var(--text-main)", marginBottom: "4px" }}>
+                  Payment Date (from Bank Transaction)
+                </label>
+                <input
+                  type="date"
+                  value={reconcileDate}
+                  onChange={(e) => setReconcileDate(e.target.value)}
+                  className="finance-input mono"
+                  style={{ height: "34px", fontSize: "12px" }}
+                />
+                <span style={{ display: "block", fontSize: "11px", color: "var(--text-dim)", marginTop: "4px" }}>
+                  Setting this will update the invoice's payment date to match the bank transaction.
+                </span>
+              </div>
+
+              {/* Footer */}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: reconcilingInvoice.is_reconciled ? "space-between" : "flex-end",
+                  alignItems: "center",
+                  gap: "8px",
+                  marginTop: "8px",
+                  paddingTop: "12px",
+                  borderTop: "1px solid var(--border-subtle)",
+                }}
+              >
+                {reconcilingInvoice.is_reconciled && (
+                  <button
+                    type="button"
+                    onClick={handleUnreconcile}
+                    disabled={reconcileSubmitting}
+                    className="finance-button-secondary"
+                    style={{
+                      height: "34px",
+                      padding: "0 12px",
+                      fontSize: "12px",
+                      color: "var(--accent-rose)",
+                      borderColor: "rgba(244, 63, 94, 0.2)",
+                    }}
+                  >
+                    Un-reconcile
+                  </button>
+                )}
+
+                <div style={{ display: "flex", gap: "8px" }}>
+                  <button
+                    type="button"
+                    onClick={() => setReconcileModalOpen(false)}
+                    disabled={reconcileSubmitting}
+                    className="finance-button-secondary"
+                    style={{ height: "34px", padding: "0 14px", fontSize: "12px" }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={reconcileSubmitting}
+                    className="finance-button-primary"
+                    style={{
+                      height: "34px",
+                      padding: "0 16px",
+                      fontSize: "12px",
+                      background: "var(--accent-blue)",
+                      borderColor: "var(--accent-blue)",
+                      color: "#ffffff",
+                      fontWeight: 600,
+                      width: "auto",
+                    }}
+                  >
+                    {reconcileSubmitting ? "Matching..." : reconcilingInvoice.is_reconciled ? "Update Match" : "Confirm & Reconcile"}
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

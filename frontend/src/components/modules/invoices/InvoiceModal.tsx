@@ -87,6 +87,10 @@ export default function InvoiceModal({
   });
   const [paymentGateway, setPaymentGateway] = useState("Razorpay");
   const [currencyCode, setCurrencyCode] = useState("USD");
+  const [receivedAmountInr, setReceivedAmountInr] = useState<number | string>("");
+  const [paymentDate, setPaymentDate] = useState<string>("");
+  const [isReconciled, setIsReconciled] = useState<boolean>(false);
+  const [bankTransactionId, setBankTransactionId] = useState<string>("");
 
   const [items, setItems] = useState<InvoiceItemData[]>([]);
   const [discountType, setDiscountType] = useState<"fixed" | "percentage">("fixed");
@@ -184,6 +188,14 @@ export default function InvoiceModal({
       setDiscountValue(initialData.discount_value || 0);
       setRoundOff(initialData.round_off || 0);
       setGatewayNotes(initialData.gateway_notes || "");
+      setReceivedAmountInr(
+        initialData.received_amount_inr !== undefined && initialData.received_amount_inr !== null
+          ? initialData.received_amount_inr
+          : ""
+      );
+      setPaymentDate(initialData.payment_date || "");
+      setIsReconciled(initialData.is_reconciled || false);
+      setBankTransactionId(initialData.bank_transaction_id || "");
       setItems(
         (initialData.items || []).map((itm) => ({
           ...itm,
@@ -205,6 +217,10 @@ export default function InvoiceModal({
       setDiscountType("fixed");
       setDiscountValue(0);
       setRoundOff(0);
+      setReceivedAmountInr("");
+      setPaymentDate("");
+      setIsReconciled(false);
+      setBankTransactionId("");
       setGatewayNotes(
         "Payment terms: Net 15 days.\nPlease remit via Razorpay link or SWIFT wire transfer.\nInclude Invoice number as payment reference."
       );
@@ -395,6 +411,13 @@ export default function InvoiceModal({
         final_amount: finalAmount,
         currency_code: currencyCode,
         gateway_notes: gatewayNotes,
+        received_amount_inr:
+          receivedAmountInr !== "" && !isNaN(Number(receivedAmountInr))
+            ? Number(receivedAmountInr)
+            : null,
+        payment_date: paymentDate || null,
+        is_reconciled: isReconciled,
+        bank_transaction_id: bankTransactionId.trim() || null,
         items: items.map((itm, idx) => ({
           task_id: itm.task_id || null,
           description: itm.description || "Consulting Services",
@@ -504,6 +527,13 @@ export default function InvoiceModal({
         discount_amount: discountAmount,
         round_off: roundOff,
         final_amount: finalAmount,
+        received_amount_inr:
+          receivedAmountInr !== "" && !isNaN(Number(receivedAmountInr))
+            ? Number(receivedAmountInr)
+            : null,
+        payment_date: paymentDate || null,
+        is_reconciled: isReconciled,
+        bank_transaction_id: bankTransactionId.trim() || null,
         items: items,
       };
 
@@ -789,7 +819,13 @@ export default function InvoiceModal({
                   </label>
                   <select
                     value={status}
-                    onChange={(e) => setStatus(e.target.value as InvoiceStatus)}
+                    onChange={(e) => {
+                      const newStatus = e.target.value as InvoiceStatus;
+                      setStatus(newStatus);
+                      if (newStatus === "paid" && !paymentDate) {
+                        setPaymentDate(new Date().toISOString().slice(0, 10));
+                      }
+                    }}
                     className="finance-input"
                     style={{ height: "34px", fontSize: "12px" }}
                   >
@@ -835,6 +871,110 @@ export default function InvoiceModal({
                   />
                 </div>
               </div>
+
+              {/* Payment Settlement & Bank Reconciliation (Visible when status is paid) */}
+              {status === "paid" && (
+                <div
+                  style={{
+                    padding: "12px 14px",
+                    background: "rgba(16, 185, 129, 0.06)",
+                    border: "1px solid rgba(16, 185, 129, 0.25)",
+                    borderRadius: "var(--radius-xs)",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "10px",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <span style={{ fontSize: "11px", fontWeight: 700, color: "var(--accent-emerald)", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                      Bank Settlement (INR) &amp; Reconciliation
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "10px",
+                        padding: "2px 6px",
+                        borderRadius: "4px",
+                        background: isReconciled ? "rgba(16, 185, 129, 0.2)" : "rgba(245, 158, 11, 0.15)",
+                        color: isReconciled ? "var(--accent-emerald)" : "var(--accent-amber)",
+                        fontWeight: 600,
+                      }}
+                    >
+                      {isReconciled ? "✓ Reconciled" : "Pending Bank Match"}
+                    </span>
+                  </div>
+
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
+                    <div>
+                      <label style={{ display: "block", fontSize: "11px", color: "var(--text-muted)", marginBottom: "3px" }}>
+                        Equivalent INR Received in Bank *
+                      </label>
+                      <div style={{ position: "relative" }}>
+                        <span style={{ position: "absolute", left: "10px", top: "8px", fontSize: "12px", color: "var(--text-dim)" }}>₹</span>
+                        <input
+                          type="number"
+                          step="any"
+                          min="0"
+                          value={receivedAmountInr}
+                          onChange={(e) => setReceivedAmountInr(e.target.value)}
+                          placeholder="0.00"
+                          className="finance-input mono"
+                          style={{ height: "32px", fontSize: "12px", paddingLeft: "24px", color: "var(--accent-emerald)", fontWeight: 600 }}
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label style={{ display: "block", fontSize: "11px", color: "var(--text-muted)", marginBottom: "3px" }}>
+                        Payment Received Date
+                      </label>
+                      <input
+                        type="date"
+                        value={paymentDate}
+                        onChange={(e) => setPaymentDate(e.target.value)}
+                        className="finance-input mono"
+                        style={{ height: "32px", fontSize: "12px" }}
+                      />
+                    </div>
+                  </div>
+
+                  <div style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: "10px", alignItems: "center" }}>
+                    <div>
+                      <label style={{ display: "block", fontSize: "11px", color: "var(--text-muted)", marginBottom: "3px" }}>
+                        Bank Transaction / Reference ID
+                      </label>
+                      <input
+                        type="text"
+                        value={bankTransactionId}
+                        onChange={(e) => setBankTransactionId(e.target.value)}
+                        placeholder="e.g. TXN987654321 / NEFT / IMPS"
+                        className="finance-input mono"
+                        style={{ height: "32px", fontSize: "11px" }}
+                      />
+                    </div>
+
+                    <div style={{ paddingTop: "14px" }}>
+                      <label
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "6px",
+                          fontSize: "11px",
+                          color: "var(--text-main)",
+                          cursor: "pointer",
+                        }}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isReconciled}
+                          onChange={(e) => setIsReconciled(e.target.checked)}
+                          style={{ accentColor: "var(--accent-emerald)" }}
+                        />
+                        <span>Mark as Reconciled</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             <hr style={{ border: "none", borderTop: "1px solid var(--border-subtle)", margin: "4px 0" }} />
@@ -1251,6 +1391,7 @@ export default function InvoiceModal({
             <div
               id="invoice-letter-sheet"
               style={{
+                position: "relative",
                 width: "100%",
                 maxWidth: "680px",
                 minHeight: "880px",
@@ -1264,8 +1405,45 @@ export default function InvoiceModal({
                 justifyContent: "space-between",
                 fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
                 boxSizing: "border-box",
+                overflow: "hidden",
               }}
             >
+              {/* PAID Rubber Stamp */}
+              {status === "paid" && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "140px",
+                    right: "48px",
+                    transform: "rotate(-14deg)",
+                    border: "3.5px double #059669",
+                    borderRadius: "8px",
+                    padding: "6px 16px",
+                    color: "#059669",
+                    textAlign: "center",
+                    pointerEvents: "none",
+                    opacity: 0.9,
+                    zIndex: 10,
+                    backgroundColor: "rgba(236, 253, 245, 0.85)",
+                    boxShadow: "0 2px 8px rgba(5, 150, 105, 0.15)",
+                  }}
+                >
+                  <div style={{ fontSize: "26px", fontWeight: 900, letterSpacing: "4px", lineHeight: "1" }}>
+                    PAID
+                  </div>
+                  {paymentDate && (
+                    <div className="mono" style={{ fontSize: "9.5px", fontWeight: 700, marginTop: "4px", letterSpacing: "0.5px" }}>
+                      {paymentDate}
+                    </div>
+                  )}
+                  {receivedAmountInr !== "" && !isNaN(Number(receivedAmountInr)) && Number(receivedAmountInr) > 0 && (
+                    <div className="mono" style={{ fontSize: "8.5px", fontWeight: 700, marginTop: "2px", color: "#047857" }}>
+                      ₹{Number(receivedAmountInr).toLocaleString("en-IN", { minimumFractionDigits: 2 })} REC&apos;D
+                    </div>
+                  )}
+                </div>
+              )}
+
               <div>
                 {/* 1. Invoice Top Header */}
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", borderBottom: "2px solid #0f172a", paddingBottom: "18px" }}>
@@ -1462,19 +1640,40 @@ export default function InvoiceModal({
                         justifyContent: "space-between",
                         alignItems: "center",
                         padding: "8px 10px",
-                        background: "#0f172a",
+                        background: status === "paid" ? "#064e3b" : "#0f172a",
                         color: "#ffffff",
                         borderRadius: "4px",
                         marginTop: "4px",
                       }}
                     >
                       <span style={{ fontSize: "12px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.5px" }}>
-                        Final Amount:
+                        {status === "paid" ? "Final Amount Paid:" : "Final Amount:"}
                       </span>
                       <span className="mono" style={{ fontSize: "15px", fontWeight: 800 }}>
                         {formatCurrency(finalAmount)}
                       </span>
                     </div>
+
+                    {status === "paid" && receivedAmountInr !== "" && !isNaN(Number(receivedAmountInr)) && Number(receivedAmountInr) > 0 && (
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          padding: "6px 10px",
+                          background: "#ecfdf5",
+                          border: "1px solid #a7f3d0",
+                          borderRadius: "4px",
+                          color: "#065f46",
+                          fontSize: "11px",
+                        }}
+                      >
+                        <span style={{ fontWeight: 600 }}>Bank Received (INR):</span>
+                        <span className="mono" style={{ fontWeight: 800, fontSize: "12px" }}>
+                          ₹{Number(receivedAmountInr).toLocaleString("en-IN", { minimumFractionDigits: 2 })}
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
 

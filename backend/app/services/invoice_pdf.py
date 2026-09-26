@@ -510,10 +510,24 @@ def build_invoice_pdf(
             Paragraph(f"{round_off:+.2f}", total_val_style),
         ])
 
+    grand_label_text = "Final Amount Paid:" if invoice_data.get("status") == "paid" else "Final Amount Due:"
     totals_rows.append([
-        Paragraph("Final Amount Due:", grand_total_label),
+        Paragraph(grand_label_text, grand_total_label),
         Paragraph(format_money(final_amount, currency_code), grand_total_val),
     ])
+
+    inr_amt = invoice_data.get("received_amount_inr")
+    if inr_amt:
+        inr_val_style = ParagraphStyle(
+            "InrVal",
+            parent=total_val_style,
+            fontName="Helvetica-Bold",
+            textColor=colors.HexColor("#15803d"),
+        )
+        totals_rows.append([
+            Paragraph("Bank Received (INR):", total_label_style),
+            Paragraph(f"₹{inr_amt:,.2f}", inr_val_style),
+        ])
 
     totals_table = Table(totals_rows, colWidths=[120, 130])
     totals_table.setStyle(
@@ -586,7 +600,39 @@ def build_invoice_pdf(
     story.append(PushToBottom(bottom_block))
     story.append(bottom_block)
 
-    doc.build(story)
+    def draw_page_decorations(canvas, d):
+        if invoice_data.get("status") == "paid":
+            canvas.saveState()
+            canvas.translate(430, 675)
+            canvas.rotate(-14)
+
+            # Outer border box
+            canvas.setStrokeColor(colors.HexColor("#16a34a"))
+            canvas.setFillColor(colors.HexColor("#f0fdf4"))
+            canvas.setLineWidth(2)
+            canvas.rect(-70, -22, 140, 46, fill=1, stroke=1)
+
+            # Inner border box
+            canvas.setLineWidth(0.75)
+            canvas.rect(-66, -18, 132, 38, fill=0, stroke=1)
+
+            # PAID title
+            canvas.setFillColor(colors.HexColor("#15803d"))
+            canvas.setFont("Helvetica-Bold", 16)
+            canvas.drawCentredString(0, 2, "PAID")
+
+            # Date / INR caption
+            canvas.setFont("Helvetica-Bold", 7)
+            p_date = invoice_data.get("payment_date") or invoice_data.get("issue_date") or ""
+            inr = invoice_data.get("received_amount_inr")
+            sub_caption = p_date
+            if inr:
+                sub_caption = f"{p_date} \u2022 \u20B9{inr:,.2f}"
+            canvas.drawCentredString(0, -11, sub_caption)
+
+            canvas.restoreState()
+
+    doc.build(story, onFirstPage=draw_page_decorations)
     pdf_bytes = buffer.getvalue()
     buffer.close()
     return pdf_bytes
