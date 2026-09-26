@@ -1,0 +1,116 @@
+{
+  "backend/app/api/v1/endpoints/auth.py": {
+    "mtime": 1790260102.3689194,
+    "seen": 1790263004.5212903,
+    "ast_hash": "d16cca102ec482c6cf55af839c2460a2",
+    "semantic_hash": "d16cca102ec482c6cf55af839c2460a2"
+  },
+  "backend/app/api/v1/router.py": {
+    "mtime": 1790260106.50065,
+    "seen": 1790263004.521296,
+    "ast_hash": "d65b74dcf1e8e2912b3c3edbe05d7175",
+    "semantic_hash": "d65b74dcf1e8e2912b3c3edbe05d7175"
+  },
+  "backend/app/core/config.py": {
+    "mtime": 1790260053.2006822,
+    "seen": 1790263004.5212986,
+    "ast_hash": "b27015ff8ce8bbe7f29c8fd8620f0fe7",
+    "semantic_hash": "b27015ff8ce8bbe7f29c8fd8620f0fe7"
+  },
+  "backend/app/core/database.py": {
+    "mtime": 1790260063.093161,
+    "seen": 1790263004.5213,
+    "ast_hash": "eee573c4b6b9cc07d8039e257057ce1b",
+    "semantic_hash": "eee573c4b6b9cc07d8039e257057ce1b"
+  },
+  "backend/app/core/security.py": {
+    "mtime": 1790260081.7405896,
+    "seen": 1790263004.521301,
+    "ast_hash": "4480e8c55a6dc4084d83173b5abf98b9",
+    "semantic_hash": "4480e8c55a6dc4084d83173b5abf98b9"
+  },
+  "backend/app/main.py": {
+    "mtime": 1790260112.7074542,
+    "seen": 1790263004.521302,
+    "ast_hash": "6f9c3bbea4b375809ec970f4d1d563dc",
+    "semantic_hash": "6f9c3bbea4b375809ec970f4d1d563dc"
+  },
+  "backend/app/models/user_models.py": {
+    "mtime": 1790260522.4321194,
+    "seen": 1790263004.5213032,
+    "ast_hash": "d3b9984a6e74837b929afca6994ddb9d",
+    "semantic_hash": "d3b9984a6e74837b929afca6994ddb9d"
+  },
+  "backend/app/schemas/auth_schemas.py": {
+    "mtime": 1790260644.2617953,
+    "seen": 1790263004.5213041,
+    "ast_hash": "319d041efd63fb686017e6b922ee977f",
+    "semantic_hash": "319d041efd63fb686017e6b922ee977f"
+  },
+  "backend/tests/test_auth_api.py": {
+    "mtime": 1790260767.8812227,
+    "seen": 1790263004.521305,
+    "ast_hash": "4ec0decdcd56491258ca204910192903",
+    "semantic_hash": "4ec0decdcd56491258ca204910192903"
+  },
+  "backend/tests/test_auth_security.py": {
+    "mtime": 1790260128.4437122,
+    "seen": 1790263004.521306,
+    "ast_hash": "5750663809d83b7cb8022856ba2bccc2",
+    "semantic_hash": "5750663809d83b7cb8022856ba2bccc2"
+  },
+  "frontend/eslint.config.mjs": {
+    "mtime": 1790260154.543764,
+    "seen": 1790263004.521307,
+    "ast_hash": "dfa1f5f6a7037bf39dc510f30b180002",
+    "semantic_hash": "dfa1f5f6a7037bf39dc510f30b180002"
+  },
+  "frontend/next.config.ts": {
+    "mtime": 1790260435.236991,
+    "seen": 1790263004.521308,
+    "ast_hash": "76798836754f4bf82062a6d7577deb8d",
+    "semantic_hash": "76798836754f4bf82062a6d7577deb8d"
+  },
+  "frontend/package.json": {
+    "mtime": 1790260284.6841195,
+    "seen": 1790263004.521309,
+    "ast_hash": "55b1ad4f553f1254f49d310abdfa99fc",
+    "semantic_hash": "55b1ad4f553f1254f49d310abdfa99fc"
+  },
+  "frontend/src/app/layout.tsx": {
+    "mtime": 1790260413.9649217,
+    "seen": 1790263004.5213099,
+    "ast_hash": "20a223ed8ecf2cbbf581ef97831e6cb1",
+    "semantic_hash": "20a223ed8ecf2cbbf581ef97831e6cb1"
+  },
+  "frontend/src/app/page.tsx": {
+    "mtime": 1790261546.1783187,
+    "seen": 1790263004.5213108,
+    "ast_hash": "73c6aa983bffbaf800c1d1bda107bef5",
+    "semantic_hash": "73c6aa983bffbaf800c1d1bda107bef5"
+  },
+  "frontend/tsconfig.json": {
+    "mtime": 1790260154.8837595,
+    "seen": 1790263004.5213118,
+    "ast_hash": "ee17fd1c97c735e9f3564e3f5251f125",
+    "semantic_hash": "ee17fd1c97c735e9f3564e3f5251f125"
+  },
+  "skills/architecture.md": {
+    "mtime": 1790258988.5104387,
+    "seen": 1790263004.5213127,
+    "ast_hash": "d7a5728a1a3ced600eec00271e9bbf44",
+    "semantic_hash": "d7a5728a1a3ced600eec00271e9bbf44"
+  },
+  "skills/prd.md": {
+    "mtime": 1790258961.4957206,
+    "seen": 1790263004.5213134,
+    "ast_hash": "d3951f3bc9a99742ad560c51085e2702",
+    "semantic_hash": "d3951f3bc9a99742ad560c51085e2702"
+  },
+  "skills/product.md": {
+    "mtime": 1790258948.96833,
+    "seen": 1790263004.5213146,
+    "ast_hash": "efdbb835eb800eeee9abea2fdbcb7cad",
+    "semantic_hash": "efdbb835eb800eeee9abea2fdbcb7cad"
+  }
+}

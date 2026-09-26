@@ -72,11 +72,13 @@ It combines 7 pillars into a cohesive platform:
     - [x] Brute-force lockout countdown timer.
     - [x] Dynamic admin onboarding bootstrap vs. sign-in state machine.
 
-- [ ] **Phase 3: Frontend Foundation & Design System**
-  - [ ] Scaffold Next.js project with TypeScript.
-  - [ ] Implement design token system in `globals.css` (minimal clean dark/light themes, typography, elevation).
-  - [ ] Build shared shell: Sidebar, Header, Global Floating Time Tracker component.
-  - [ ] Setup API client and React Query configuration.
+- [x] **Phase 3: Frontend Foundation & Design System**
+  - [x] Scaffold Next.js project with TypeScript.
+  - [x] Implement design token system in `globals.css` (minimal clean dark/light themes, typography, elevation, layout tokens).
+  - [x] Build shared shell: Responsive `Sidebar`, sticky `Header`, `AppShell`, and persistent `GlobalTimerBar` component.
+  - [x] Setup API client (`src/lib/api-client.ts`) and React Query configuration (`QueryProvider` & `query-client.ts`).
+  - [x] Modular App Router stubs (`/projects`, `/time-tracker`, `/invoices`, `/finance`, `/assets`, `/itr-helper`, `/wealth`).
+  - [x] 100% passing production build (`next build` / TypeScript verification).
 
 - [ ] **Phase 4: Operational Module Implementation (PM, TT, Invoices)**
   - [ ] Client & Project CRUD + Kanban Board.

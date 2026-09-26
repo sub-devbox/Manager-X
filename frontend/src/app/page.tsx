@@ -1,705 +1,367 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from "react";
+import React from "react";
+import Link from "next/link";
+import AppShell from "@/components/layout/AppShell";
+import { useAuth } from "@/context/AuthContext";
 import {
-  Lock,
-  Mail,
-  User as UserIcon,
-  Eye,
-  EyeOff,
-  Sun,
-  Moon,
-  ArrowRight,
-  ShieldCheck,
-  AlertCircle,
-  CheckCircle2,
-  Clock,
-  LogOut,
   FolderKanban,
+  Clock,
   FileText,
   DollarSign,
   TrendingUp,
   Package,
-  Settings,
+  Calculator,
+  ArrowRight,
+  ShieldCheck,
+  Zap,
 } from "lucide-react";
 
-import SettingsModal from "../components/SettingsModal";
+export default function OverviewPage() {
+  const { user } = useAuth();
 
-interface AuthUser {
-  id: string;
-  email: string;
-  full_name: string;
-  is_active: boolean;
-  is_superuser: boolean;
-  created_at: string;
-}
+  const operationalModules = [
+    {
+      title: "Project Manager",
+      desc: "Client engagements, sprint milestones, and ticket Kanban board.",
+      href: "/projects",
+      icon: FolderKanban,
+      badge: "Ops",
+    },
+    {
+      title: "Time Tracker",
+      desc: "Live multi-tab stopwatch, billable hours capture, and audit logs.",
+      href: "/time-tracker",
+      icon: Clock,
+      badge: "Ops",
+    },
+    {
+      title: "Invoice Generator",
+      desc: "GST-compliant invoices, automated tax split, and PDF exports.",
+      href: "/invoices",
+      icon: FileText,
+      badge: "Ops",
+    },
+  ];
 
-export default function App() {
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
-  const [loading, setLoading] = useState(true);
-  const [submitting, setSubmitting] = useState(false);
-  const [isInitialized, setIsInitialized] = useState<boolean | null>(null);
-  const [user, setUser] = useState<AuthUser | null>(null);
-
-  // Form
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-
-  // Feedback
-  const [errorMsg, setErrorMsg] = useState("");
-  const [successMsg, setSuccessMsg] = useState("");
-  const [lockoutTimer, setLockoutTimer] = useState<number | null>(null);
-  const [attemptsRemaining, setAttemptsRemaining] = useState<number | null>(null);
-  const [showSettings, setShowSettings] = useState(false);
-
-  useEffect(() => {
-    const saved = (localStorage.getItem("mx_theme") as "dark" | "light") || "dark";
-    setTheme(saved);
-    document.documentElement.dataset.theme = saved;
-
-    // Load persisted accent color
-    fetch("/api/v1/settings/theme")
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data) => {
-        if (data?.accent_color) {
-          document.documentElement.style.setProperty("--accent-primary", data.accent_color);
-        }
-      })
-      .catch(() => {});
-  }, []);
-
-  const toggleTheme = () => {
-    const next = theme === "dark" ? "light" : "dark";
-    setTheme(next);
-    localStorage.setItem("mx_theme", next);
-    document.documentElement.dataset.theme = next;
-  };
-
-  // Lockout countdown
-  useEffect(() => {
-    if (lockoutTimer === null || lockoutTimer <= 0) return;
-    const t = setInterval(() => {
-      setLockoutTimer((p) => {
-        if (p === null || p <= 1) {
-          setErrorMsg("");
-          return null;
-        }
-        return p - 1;
-      });
-    }, 1000);
-    return () => clearInterval(t);
-  }, [lockoutTimer]);
-
-  useEffect(() => {
-    checkAuth();
-  }, []);
-
-  const checkAuth = async () => {
-    setLoading(true);
-    setErrorMsg("");
-    try {
-      const meRes = await fetch("/api/v1/auth/me", { credentials: "include" });
-      if (meRes.ok) {
-        setUser(await meRes.json());
-        setIsInitialized(true);
-        return;
-      }
-      const statusRes = await fetch("/api/v1/auth/status");
-      if (statusRes.ok) {
-        const data = await statusRes.json();
-        setIsInitialized(data.initialized);
-      } else {
-        setIsInitialized(true);
-      }
-    } catch {
-      setErrorMsg("Unable to reach backend on port 8000.");
-      setIsInitialized(true);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const passwordScore = useMemo(() => {
-    let score = 0;
-    if (password.length >= 8) score++;
-    if (/[A-Z]/.test(password)) score++;
-    if (/\d/.test(password)) score++;
-    if (/[^A-Za-z0-9]/.test(password)) score++;
-    return score;
-  }, [password]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (lockoutTimer && lockoutTimer > 0) return;
-
-    setErrorMsg("");
-    setSuccessMsg("");
-    setSubmitting(true);
-
-    try {
-      if (!isInitialized) {
-        if (passwordScore < 4) {
-          throw new Error("Password requires 8+ chars, upper, number, and special character.");
-        }
-        const regRes = await fetch("/api/v1/auth/register", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password, full_name: fullName }),
-        });
-        const regData = await regRes.json();
-        if (!regRes.ok) throw new Error(regData.detail || "Registration failed.");
-        setIsInitialized(true);
-        setSuccessMsg("Administrator registered. Initializing session...");
-      }
-
-      // Login
-      const loginRes = await fetch("/api/v1/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ email, password }),
-      });
-      const loginData = await loginRes.json();
-
-      if (loginRes.status === 423) {
-        setLockoutTimer(15 * 60);
-        throw new Error(loginData.detail || "Account temporarily locked.");
-      }
-
-      if (!loginRes.ok) {
-        if (typeof loginData.detail === "string" && loginData.detail.includes("attempt(s) remaining")) {
-          const match = loginData.detail.match(/(\d+)\s+attempt/);
-          if (match) setAttemptsRemaining(parseInt(match[1]));
-        }
-        throw new Error(loginData.detail || "Invalid credentials.");
-      }
-
-      setUser(loginData.user);
-      setPassword("");
-      setAttemptsRemaining(null);
-    } catch (err: any) {
-      setErrorMsg(err.message || "An error occurred.");
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  const handleLogout = async () => {
-    try {
-      await fetch("/api/v1/auth/logout", { method: "POST", credentials: "include" });
-    } finally {
-      setUser(null);
-      setPassword("");
-      setSuccessMsg("Signed out successfully.");
-    }
-  };
-
-  const formatTimer = (seconds: number) => {
-    const m = Math.floor(seconds / 60);
-    const s = seconds % 60;
-    return `${m}:${s < 10 ? "0" : ""}${s}`;
-  };
+  const financialModules = [
+    {
+      title: "Finance & Accounts",
+      desc: "Bank & cash accounts ledger, double-entry transfers, and P&L charts.",
+      href: "/finance",
+      icon: DollarSign,
+      badge: "Financial",
+    },
+    {
+      title: "Asset Registry",
+      desc: "Fixed assets tracking, WDV & SLM formula depreciation engines.",
+      href: "/assets",
+      icon: Package,
+      badge: "Financial",
+    },
+    {
+      title: "ITR Tax Helper",
+      desc: "Old vs New regime comparator, 44ADA presumptive tax estimator.",
+      href: "/itr-helper",
+      icon: Calculator,
+      badge: "Tax",
+    },
+    {
+      title: "Wealth Portfolio",
+      desc: "Asset allocations, net worth timeline, and goal tracking.",
+      href: "/wealth",
+      icon: TrendingUp,
+      badge: "Wealth",
+    },
+  ];
 
   return (
-    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
-      {/* Top Navigation Bar - Clean, flat, border-bottom only, NO shadow */}
-      <header
-        style={{
-          borderBottom: "1px solid var(--border-subtle)",
-          padding: "14px 24px",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          background: "var(--bg-surface)",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <div
-            style={{
-              width: "28px",
-              height: "28px",
-              borderRadius: "var(--radius-xs)",
-              background: "var(--text-main)",
-              color: "var(--bg-app)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontWeight: 700,
-              fontSize: "13px",
-              letterSpacing: "-0.5px",
-            }}
-          >
-            MX
-          </div>
+    <AppShell title="Executive Overview">
+      <div className="animate-fade-in" style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+        {/* Welcome Banner */}
+        <div
+          className="finance-panel"
+          style={{
+            padding: "24px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
+            gap: "16px",
+          }}
+        >
           <div>
-            <span style={{ fontWeight: 600, fontSize: "14px", letterSpacing: "-0.2px" }}>Manager X</span>
-          </div>
-        </div>
-
-        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "6px",
-              padding: "4px 8px",
-              border: "1px solid var(--border-subtle)",
-              borderRadius: "var(--radius-xs)",
-              fontSize: "12px",
-              color: "var(--text-muted)",
-            }}
-          >
-            <span
-              style={{
-                width: "6px",
-                height: "6px",
-                borderRadius: "50%",
-                background: "var(--accent-emerald)",
-              }}
-            />
-            <span className="mono">SYSTEM LIVE</span>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px" }}>
+              <span style={{ fontSize: "18px", fontWeight: 600, letterSpacing: "-0.3px" }}>
+                Welcome back, {user?.full_name || user?.email || "Executive"}
+              </span>
+              <span
+                style={{
+                  fontSize: "11px",
+                  padding: "2px 6px",
+                  borderRadius: "var(--radius-xs)",
+                  background: "rgba(16, 185, 129, 0.1)",
+                  color: "var(--accent-emerald)",
+                  border: "1px solid rgba(16, 185, 129, 0.2)",
+                  fontWeight: 500,
+                }}
+              >
+                {user?.is_superuser ? "Super Admin" : "Member"}
+              </span>
+            </div>
+            <p style={{ fontSize: "13px", color: "var(--text-muted)", margin: 0 }}>
+              Unified operational ERP, billable time tracker, and financial wealth operating system.
+            </p>
           </div>
 
-          <button
-            onClick={toggleTheme}
-            className="finance-button-secondary"
-            title="Toggle theme"
-            style={{ padding: "6px 10px" }}
-          >
-            {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
-          </button>
-
-          <button
-            onClick={() => setShowSettings(true)}
-            className="finance-button-secondary"
-            title="Workspace Settings"
-            style={{ padding: "6px 10px", display: "inline-flex", alignItems: "center", gap: "6px" }}
-          >
-            <Settings size={14} />
-            <span>Settings</span>
-          </button>
-        </div>
-      </header>
-
-      {/* Main Content Area */}
-      <main
-        style={{
-          flex: 1,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "32px 16px",
-        }}
-      >
-        {loading ? (
-          <div style={{ color: "var(--text-muted)", fontSize: "14px" }} className="mono">
-            Synchronizing state...
-          </div>
-        ) : user ? (
-          /* Authenticated Dashboard View - Minimalist Financial Portfolio */
-          <div
-            className="finance-panel animate-fade-in"
-            style={{ width: "100%", maxWidth: "860px", padding: "28px" }}
-          >
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             <div
               style={{
                 display: "flex",
-                justifyContent: "space-between",
-                alignItems: "flex-start",
-                borderBottom: "1px solid var(--border-subtle)",
-                paddingBottom: "20px",
-                marginBottom: "24px",
+                alignItems: "center",
+                gap: "6px",
+                padding: "6px 10px",
+                border: "1px solid var(--border-subtle)",
+                borderRadius: "var(--radius-xs)",
+                fontSize: "12px",
+                color: "var(--text-muted)",
               }}
             >
-              <div>
-                <h1 style={{ fontSize: "18px", fontWeight: 600, letterSpacing: "-0.3px" }}>Overview</h1>
-                <p style={{ fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>
-                  Signed in as <span style={{ color: "var(--text-main)", fontWeight: 500 }}>{user.email}</span>
-                </p>
-              </div>
-
-              <button onClick={handleLogout} className="finance-button-secondary">
-                <LogOut size={14} />
-                <span>Sign Out</span>
-              </button>
+              <ShieldCheck size={14} style={{ color: "var(--accent-emerald)" }} />
+              <span className="mono">Local-First SQLite (WAL)</span>
             </div>
+          </div>
+        </div>
 
-            {/* Quick KPI stats */}
+        {/* Quick KPI Stat Cards */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gap: "12px",
+          }}
+        >
+          {[
+            { label: "Active Engagements", val: "0 Projects", sub: "Operational Pipeline" },
+            { label: "Billable Unbilled Time", val: "0h 00m", sub: "Ready for Invoicing" },
+            { label: "Outstanding Receivables", val: "₹0.00", sub: "Unpaid Invoices" },
+            { label: "Cash & Liquid Balance", val: "₹0.00", sub: "Across All Accounts" },
+          ].map((kpi, idx) => (
             <div
+              key={idx}
+              className="finance-panel"
               style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-                gap: "12px",
-                marginBottom: "24px",
+                padding: "16px",
+                background: "var(--bg-surface)",
               }}
             >
-              <div
-                style={{
-                  background: "var(--bg-surface-subtle)",
-                  border: "1px solid var(--border-subtle)",
-                  borderRadius: "var(--radius-sm)",
-                  padding: "16px",
-                }}
-              >
-                <div style={{ fontSize: "12px", color: "var(--text-dim)", textTransform: "uppercase" }}>
-                  Authentication
-                </div>
-                <div style={{ fontSize: "16px", fontWeight: 600, marginTop: "6px" }} className="mono">
-                  Argon2id + JWT
-                </div>
+              <div style={{ fontSize: "12px", color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.4px" }}>
+                {kpi.label}
               </div>
-
-              <div
-                style={{
-                  background: "var(--bg-surface-subtle)",
-                  border: "1px solid var(--border-subtle)",
-                  borderRadius: "var(--radius-sm)",
-                  padding: "16px",
-                }}
-              >
-                <div style={{ fontSize: "12px", color: "var(--text-dim)", textTransform: "uppercase" }}>
-                  Database Engine
-                </div>
-                <div style={{ fontSize: "16px", fontWeight: 600, marginTop: "6px" }} className="mono">
-                  SQLite (WAL)
-                </div>
+              <div style={{ fontSize: "20px", fontWeight: 600, marginTop: "8px", letterSpacing: "-0.5px" }} className="mono">
+                {kpi.val}
               </div>
-
-              <div
-                style={{
-                  background: "var(--bg-surface-subtle)",
-                  border: "1px solid var(--border-subtle)",
-                  borderRadius: "var(--radius-sm)",
-                  padding: "16px",
-                }}
-              >
-                <div style={{ fontSize: "12px", color: "var(--text-dim)", textTransform: "uppercase" }}>
-                  Role & Privileges
-                </div>
-                <div style={{ fontSize: "16px", fontWeight: 600, marginTop: "6px", color: "var(--accent-emerald)" }}>
-                  {user.is_superuser ? "Super Administrator" : "Active Member"}
-                </div>
+              <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px" }}>
+                {kpi.sub}
               </div>
             </div>
+          ))}
+        </div>
 
-            {/* Platform Applications Grid */}
-            <div style={{ borderTop: "1px solid var(--border-subtle)", paddingTop: "20px" }}>
-              <div
-                style={{
-                  fontSize: "12px",
-                  color: "var(--text-dim)",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.5px",
-                  marginBottom: "12px",
-                }}
-              >
-                Manager X Modules
-              </div>
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-                  gap: "10px",
-                }}
-              >
-                {[
-                  { name: "Project Manager", desc: "Sprints, milestones & tickets", icon: FolderKanban },
-                  { name: "Time Tracker", desc: "Billable client hours & audits", icon: Clock },
-                  { name: "Invoice Generator", desc: "GST & compliant export", icon: FileText },
-                  { name: "Finance Manager", desc: "Cash flow & P&L tracking", icon: DollarSign },
-                  { name: "Wealth & Assets", desc: "Holdings, inventory & ITR helper", icon: TrendingUp },
-                ].map((mod, idx) => {
-                  const Icon = mod.icon;
-                  return (
-                    <div
-                      key={idx}
-                      style={{
-                        padding: "14px",
-                        border: "1px solid var(--border-subtle)",
-                        borderRadius: "var(--radius-sm)",
-                        background: "var(--bg-input)",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "12px",
-                      }}
-                    >
+        {/* Operations Section */}
+        <div>
+          <div
+            style={{
+              fontSize: "12px",
+              color: "var(--text-dim)",
+              textTransform: "uppercase",
+              letterSpacing: "0.6px",
+              fontWeight: 600,
+              marginBottom: "12px",
+            }}
+          >
+            Operational Modules
+          </div>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gap: "12px",
+            }}
+          >
+            {operationalModules.map((mod, idx) => {
+              const Icon = mod.icon;
+              return (
+                <Link
+                  key={idx}
+                  href={mod.href}
+                  className="finance-panel"
+                  style={{
+                    padding: "20px",
+                    textDecoration: "none",
+                    color: "inherit",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    transition: "border-color 0.15s ease, background 0.15s ease",
+                  }}
+                >
+                  <div>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "12px" }}>
                       <div
                         style={{
-                          width: "32px",
-                          height: "32px",
+                          width: "36px",
+                          height: "36px",
                           borderRadius: "var(--radius-xs)",
                           background: "var(--bg-surface-subtle)",
                           border: "1px solid var(--border-subtle)",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          color: "var(--text-muted)",
+                          color: "var(--text-main)",
                         }}
                       >
-                        <Icon size={16} />
+                        <Icon size={18} />
                       </div>
-                      <div>
-                        <div style={{ fontSize: "13px", fontWeight: 500 }}>{mod.name}</div>
-                        <div style={{ fontSize: "11px", color: "var(--text-dim)" }}>{mod.desc}</div>
-                      </div>
+                      <span
+                        style={{
+                          fontSize: "10px",
+                          textTransform: "uppercase",
+                          padding: "2px 6px",
+                          borderRadius: "var(--radius-xs)",
+                          border: "1px solid var(--border-subtle)",
+                          color: "var(--text-dim)",
+                        }}
+                      >
+                        {mod.badge}
+                      </span>
                     </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        ) : (
-          /* Clean, Razor-sharp, Minimal Finance Login Card */
-          <div
-            className="finance-panel animate-fade-in"
-            style={{
-              width: "100%",
-              maxWidth: "380px",
-              padding: "28px",
-            }}
-          >
-            <div style={{ marginBottom: "20px" }}>
-              <h2 style={{ fontSize: "17px", fontWeight: 600, letterSpacing: "-0.3px" }}>
-                {isInitialized ? "Sign In" : "Setup Administrator"}
-              </h2>
-              <p style={{ fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>
-                {isInitialized
-                  ? "Access your secure Manager X workspace."
-                  : "Initialize root administrative credentials."}
-              </p>
-            </div>
 
-            {errorMsg && (
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  gap: "8px",
-                  padding: "10px 12px",
-                  borderRadius: "var(--radius-sm)",
-                  background: "rgba(244, 63, 94, 0.08)",
-                  border: "1px solid var(--accent-rose)",
-                  color: "var(--accent-rose)",
-                  fontSize: "13px",
-                  marginBottom: "16px",
-                }}
-              >
-                <AlertCircle size={15} style={{ flexShrink: 0, marginTop: "2px" }} />
-                <span>{errorMsg}</span>
-              </div>
-            )}
-
-            {successMsg && (
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  gap: "8px",
-                  padding: "10px 12px",
-                  borderRadius: "var(--radius-sm)",
-                  background: "rgba(16, 185, 129, 0.08)",
-                  border: "1px solid var(--accent-emerald)",
-                  color: "var(--accent-emerald)",
-                  fontSize: "13px",
-                  marginBottom: "16px",
-                }}
-              >
-                <CheckCircle2 size={15} style={{ flexShrink: 0, marginTop: "2px" }} />
-                <span>{successMsg}</span>
-              </div>
-            )}
-
-            {lockoutTimer && lockoutTimer > 0 && (
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  padding: "10px 12px",
-                  borderRadius: "var(--radius-sm)",
-                  background: "rgba(245, 158, 11, 0.08)",
-                  border: "1px solid var(--accent-amber)",
-                  color: "var(--accent-amber)",
-                  fontSize: "13px",
-                  marginBottom: "16px",
-                }}
-              >
-                <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                  <Clock size={14} />
-                  <span>Lockout cooldown</span>
-                </div>
-                <span className="mono" style={{ fontWeight: 600 }}>
-                  {formatTimer(lockoutTimer)}
-                </span>
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-              {!isInitialized && (
-                <div>
-                  <label
-                    style={{
-                      display: "block",
-                      fontSize: "12px",
-                      color: "var(--text-muted)",
-                      marginBottom: "6px",
-                    }}
-                  >
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="Workspace Administrator"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    className="finance-input"
-                  />
-                </div>
-              )}
-
-              <div>
-                <label
-                  style={{
-                    display: "block",
-                    fontSize: "12px",
-                    color: "var(--text-muted)",
-                    marginBottom: "6px",
-                  }}
-                >
-                  Work Email
-                </label>
-                <input
-                  type="email"
-                  required
-                  placeholder="admin@managerx.internal"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="finance-input"
-                  autoComplete="email"
-                />
-              </div>
-
-              <div>
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px" }}>
-                  <label style={{ fontSize: "12px", color: "var(--text-muted)" }}>Password</label>
-                  {attemptsRemaining !== null && (
-                    <span style={{ fontSize: "11px", color: "var(--accent-amber)" }} className="mono">
-                      {attemptsRemaining} attempts left
-                    </span>
-                  )}
-                </div>
-
-                <div style={{ position: "relative" }}>
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    required
-                    placeholder="••••••••••••"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="finance-input"
-                    style={{ paddingRight: "38px" }}
-                    autoComplete={isInitialized ? "current-password" : "new-password"}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    tabIndex={-1}
-                    style={{
-                      position: "absolute",
-                      right: "10px",
-                      top: "50%",
-                      transform: "translateY(-50%)",
-                      background: "transparent",
-                      border: "none",
-                      color: "var(--text-dim)",
-                      cursor: "pointer",
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
-                  </button>
-                </div>
-
-                {/* Minimalist 4-segment strength bar for setup */}
-                {!isInitialized && password.length > 0 && (
-                  <div style={{ marginTop: "8px" }}>
-                    <div style={{ display: "flex", gap: "4px", height: "3px" }}>
-                      {[1, 2, 3, 4].map((step) => (
-                        <div
-                          key={step}
-                          style={{
-                            flex: 1,
-                            borderRadius: "1px",
-                            background:
-                              passwordScore >= step
-                                ? passwordScore === 4
-                                  ? "var(--accent-emerald)"
-                                  : "var(--accent-amber)"
-                                : "var(--border-subtle)",
-                            transition: "background-color 0.2s ease",
-                          }}
-                        />
-                      ))}
+                    <div style={{ fontSize: "14px", fontWeight: 600, marginBottom: "4px" }}>
+                      {mod.title}
                     </div>
-                    <div style={{ fontSize: "11px", color: "var(--text-dim)", marginTop: "4px" }}>
-                      Requires 8+ chars, uppercase, number, symbol
+                    <div style={{ fontSize: "12px", color: "var(--text-muted)", lineHeight: "1.4" }}>
+                      {mod.desc}
                     </div>
                   </div>
-                )}
-              </div>
 
-              <button
-                type="submit"
-                disabled={submitting || (lockoutTimer !== null && lockoutTimer > 0)}
-                className="finance-button-primary"
-                style={{ marginTop: "6px" }}
-              >
-                <span>{submitting ? "Authenticating..." : isInitialized ? "Continue" : "Initialize Workspace"}</span>
-                <ArrowRight size={15} />
-              </button>
-            </form>
-
-            <div
-              style={{
-                marginTop: "20px",
-                paddingTop: "14px",
-                borderTop: "1px solid var(--border-subtle)",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                fontSize: "11px",
-                color: "var(--text-dim)",
-              }}
-            >
-              <span>Argon2id + HTTP-Only Cookie</span>
-              <span className="mono">WAL SQLite</span>
-            </div>
+                  <div
+                    style={{
+                      marginTop: "16px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      fontSize: "12px",
+                      color: "var(--accent-blue)",
+                      fontWeight: 500,
+                    }}
+                  >
+                    <span>Open Module</span>
+                    <ArrowRight size={13} />
+                  </div>
+                </Link>
+              );
+            })}
           </div>
-        )}
-      </main>
+        </div>
 
-      {/* Footer - Minimal hairline */}
-      <footer
-        style={{
-          borderTop: "1px solid var(--border-subtle)",
-          padding: "12px 24px",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          fontSize: "12px",
-          color: "var(--text-dim)",
-        }}
-      >
-        <span>Manager X &copy; 2026.</span>
-        <span className="mono">Security Status: Enforced</span>
-      </footer>
+        {/* Financial & Wealth Section */}
+        <div>
+          <div
+            style={{
+              fontSize: "12px",
+              color: "var(--text-dim)",
+              textTransform: "uppercase",
+              letterSpacing: "0.6px",
+              fontWeight: 600,
+              marginBottom: "12px",
+            }}
+          >
+            Financial, Tax & Wealth Systems
+          </div>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gap: "12px",
+            }}
+          >
+            {financialModules.map((mod, idx) => {
+              const Icon = mod.icon;
+              return (
+                <Link
+                  key={idx}
+                  href={mod.href}
+                  className="finance-panel"
+                  style={{
+                    padding: "20px",
+                    textDecoration: "none",
+                    color: "inherit",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    transition: "border-color 0.15s ease, background 0.15s ease",
+                  }}
+                >
+                  <div>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "12px" }}>
+                      <div
+                        style={{
+                          width: "36px",
+                          height: "36px",
+                          borderRadius: "var(--radius-xs)",
+                          background: "var(--bg-surface-subtle)",
+                          border: "1px solid var(--border-subtle)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          color: "var(--text-main)",
+                        }}
+                      >
+                        <Icon size={18} />
+                      </div>
+                      <span
+                        style={{
+                          fontSize: "10px",
+                          textTransform: "uppercase",
+                          padding: "2px 6px",
+                          borderRadius: "var(--radius-xs)",
+                          border: "1px solid var(--border-subtle)",
+                          color: "var(--text-dim)",
+                        }}
+                      >
+                        {mod.badge}
+                      </span>
+                    </div>
 
-      {/* Settings Modal */}
-      <SettingsModal isOpen={showSettings} onClose={() => setShowSettings(false)} />
-    </div>
+                    <div style={{ fontSize: "14px", fontWeight: 600, marginBottom: "4px" }}>
+                      {mod.title}
+                    </div>
+                    <div style={{ fontSize: "12px", color: "var(--text-muted)", lineHeight: "1.4" }}>
+                      {mod.desc}
+                    </div>
+                  </div>
+
+                  <div
+                    style={{
+                      marginTop: "16px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      fontSize: "12px",
+                      color: "var(--accent-blue)",
+                      fontWeight: 500,
+                    }}
+                  >
+                    <span>Open Module</span>
+                    <ArrowRight size={13} />
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </AppShell>
   );
 }
