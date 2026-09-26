@@ -145,8 +145,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/invoices/page.tsx": {
-    "mtime": 1790437638.5660608,
-    "ast_hash": "8c288b7daba032c9accbbf82351b399a",
+    "mtime": 1790438697.7662656,
+    "ast_hash": "03110f0bf769719b4f51e5823c40383d",
     "semantic_hash": ""
   },
   "frontend/src/app/itr-helper/page.tsx": {
@@ -480,8 +480,8 @@
     "semantic_hash": ""
   },
   "frontend/src/components/modules/invoices/InvoiceTable.tsx": {
-    "mtime": 1790437575.4433532,
-    "ast_hash": "8ef8265efc467d832d386aa3ed374211",
+    "mtime": 1790438718.8476512,
+    "ast_hash": "6fc401d11a3442858ad24b8bc8d4b785",
     "semantic_hash": ""
   },
   "frontend/src/types/client.ts": {

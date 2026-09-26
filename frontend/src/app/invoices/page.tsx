@@ -28,6 +28,7 @@ export default function InvoicesPage() {
   const [periodFilter, setPeriodFilter] = useState<"today" | "this_week" | "this_month" | "custom">("this_month");
   const [customStartDate, setCustomStartDate] = useState("");
   const [customEndDate, setCustomEndDate] = useState("");
+  const [currencyFilter, setCurrencyFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
   const [clientFilter, setClientFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
@@ -55,6 +56,19 @@ export default function InvoicesPage() {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
+
+  // Unique currencies available in records
+  const availableCurrencies = useMemo(() => {
+    const set = new Set<string>();
+    invoices.forEach((i) => {
+      if (i.currency_code) set.add(i.currency_code.toUpperCase());
+    });
+    clients.forEach((c) => {
+      if (c.currency_code) set.add(c.currency_code.toUpperCase());
+    });
+    if (set.size === 0) set.add("USD");
+    return Array.from(set).sort();
+  }, [invoices, clients]);
 
   // Invoice Actions
   const handleOpenNewInvoice = () => {
@@ -118,17 +132,25 @@ export default function InvoicesPage() {
 
       if (!matchesPeriod) return false;
 
-      // 2. Status filter
+      // 2. Currency filter
+      if (currencyFilter !== "all") {
+        const invCurr = (inv.currency_code || "USD").toUpperCase();
+        if (invCurr !== currencyFilter.toUpperCase()) {
+          return false;
+        }
+      }
+
+      // 3. Status filter
       if (statusFilter !== "all" && inv.status !== statusFilter) {
         return false;
       }
 
-      // 3. Client filter
+      // 4. Client filter
       if (clientFilter !== "all" && inv.client_id !== clientFilter) {
         return false;
       }
 
-      // 4. Search query
+      // 5. Search query
       const q = searchQuery.trim().toLowerCase();
       if (q) {
         const matchesQuery =
@@ -140,50 +162,130 @@ export default function InvoicesPage() {
 
       return true;
     });
-  }, [invoices, periodFilter, customStartDate, customEndDate, statusFilter, clientFilter, searchQuery]);
+  }, [invoices, periodFilter, customStartDate, customEndDate, currencyFilter, statusFilter, clientFilter, searchQuery]);
 
-  // Aggregate KPI Stats
-  const { totalInvoicedThisMonth, pendingReceivables, paidThisMonth, pendingCount, paidCount } = useMemo(() => {
+  // Aggregate KPI Stats grouped by currency
+  const {
+    invoicedByCurrency,
+    pendingByCurrency,
+    paidByCurrency,
+    pendingCount,
+    paidCount,
+    monthInvoiceCount,
+  } = useMemo(() => {
     const now = new Date();
     const firstOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
     const lastOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
 
-    let totMonth = 0;
-    let pend = 0;
+    const invMonth: Record<string, number> = {};
+    const pend: Record<string, number> = {};
+    const paid: Record<string, number> = {};
     let pendC = 0;
-    let paid = 0;
     let paidC = 0;
+    let monthC = 0;
 
-    for (const inv of invoices) {
+    const baseInvoices = invoices.filter((inv) => {
+      if (clientFilter !== "all" && inv.client_id !== clientFilter) return false;
+      if (
+        currencyFilter !== "all" &&
+        (inv.currency_code || "USD").toUpperCase() !== currencyFilter.toUpperCase()
+      ) {
+        return false;
+      }
+      return true;
+    });
+
+    for (const inv of baseInvoices) {
       const invDate = inv.issue_date ? new Date(inv.issue_date) : null;
       const isThisMonth = invDate ? invDate >= firstOfMonth && invDate <= lastOfMonth : false;
+      const curr = (inv.currency_code || "USD").toUpperCase();
 
       if (isThisMonth) {
-        totMonth += inv.final_amount;
+        invMonth[curr] = (invMonth[curr] || 0) + inv.final_amount;
+        monthC += 1;
       }
 
       if (inv.status === "paid") {
         if (isThisMonth) {
-          paid += inv.final_amount;
+          paid[curr] = (paid[curr] || 0) + inv.final_amount;
           paidC += 1;
         }
       } else if (inv.status === "sent" || inv.status === "draft" || inv.status === "overdue") {
-        pend += inv.final_amount;
+        pend[curr] = (pend[curr] || 0) + inv.final_amount;
         pendC += 1;
       }
     }
 
     return {
-      totalInvoicedThisMonth: totMonth,
-      pendingReceivables: pend,
+      invoicedByCurrency: invMonth,
+      pendingByCurrency: pend,
+      paidByCurrency: paid,
       pendingCount: pendC,
-      paidThisMonth: paid,
       paidCount: paidC,
+      monthInvoiceCount: monthC,
     };
-  }, [invoices]);
+  }, [invoices, clientFilter, currencyFilter]);
 
-  const formatCurrencySimple = (amount: number) => {
-    return `$${amount.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  const formatCurrencyWithSymbol = (amount: number, currency: string = "USD") => {
+    try {
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: currency.toUpperCase(),
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }).format(amount);
+    } catch {
+      const symbol =
+        currency === "USD" ? "$" : currency === "GBP" ? "£" : currency === "INR" ? "₹" : currency === "EUR" ? "€" : "";
+      return `${symbol}${amount.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    }
+  };
+
+  const renderCurrencyList = (
+    currencyMap: Record<string, number>,
+    color: string,
+    emptyLabel: string = "0.00"
+  ) => {
+    const entries = Object.entries(currencyMap).filter(([, amt]) => amt > 0);
+    if (entries.length === 0) {
+      return (
+        <div className="mono" style={{ fontSize: "18px", fontWeight: 700, color }}>
+          {emptyLabel}
+        </div>
+      );
+    }
+
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+        {entries.map(([curr, amt]) => (
+          <div key={curr} style={{ display: "flex", alignItems: "baseline", gap: "6px" }}>
+            <span
+              className="mono"
+              style={{
+                fontSize: entries.length > 1 ? "15px" : "18px",
+                fontWeight: 700,
+                color,
+              }}
+            >
+              {formatCurrencyWithSymbol(amt, curr)}
+            </span>
+            <span
+              style={{
+                fontSize: "10px",
+                fontWeight: 600,
+                padding: "1px 5px",
+                borderRadius: "4px",
+                background: "var(--bg-surface-subtle)",
+                border: "1px solid var(--border-subtle)",
+                color: "var(--text-muted)",
+              }}
+            >
+              {curr}
+            </span>
+          </div>
+        ))}
+      </div>
+    );
   };
 
   return (
@@ -277,17 +379,17 @@ export default function InvoicesPage() {
           </div>
         </div>
 
-        {/* Stats KPI Summary Bar (matching presentation of other sheets) */}
+        {/* Stats KPI Summary Bar (differentiated by currency) */}
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
             gap: "12px",
           }}
         >
           <div
             className="finance-panel"
-            style={{ padding: "14px 18px", display: "flex", alignItems: "center", gap: "12px" }}
+            style={{ padding: "14px 18px", display: "flex", alignItems: "flex-start", gap: "12px" }}
           >
             <div
               style={{
@@ -299,26 +401,25 @@ export default function InvoicesPage() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                flexShrink: 0,
               }}
             >
               <FileText size={18} />
             </div>
-            <div>
-              <div style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 500 }}>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 500, marginBottom: "4px" }}>
                 Invoiced This Month
               </div>
-              <div
-                className="mono"
-                style={{ fontSize: "18px", fontWeight: 700, color: "var(--text-main)" }}
-              >
-                {formatCurrencySimple(totalInvoicedThisMonth)}
+              {renderCurrencyList(invoicedByCurrency, "var(--text-main)")}
+              <div style={{ fontSize: "11px", color: "var(--text-dim)", marginTop: "4px" }}>
+                {monthInvoiceCount} {monthInvoiceCount === 1 ? "invoice" : "invoices"}
               </div>
             </div>
           </div>
 
           <div
             className="finance-panel"
-            style={{ padding: "14px 18px", display: "flex", alignItems: "center", gap: "12px" }}
+            style={{ padding: "14px 18px", display: "flex", alignItems: "flex-start", gap: "12px" }}
           >
             <div
               style={{
@@ -330,29 +431,25 @@ export default function InvoicesPage() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                flexShrink: 0,
               }}
             >
               <Clock size={18} />
             </div>
-            <div>
-              <div style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 500 }}>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 500, marginBottom: "4px" }}>
                 Pending Receivables
               </div>
-              <div
-                className="mono"
-                style={{ fontSize: "18px", fontWeight: 700, color: "var(--accent-amber)" }}
-              >
-                {formatCurrencySimple(pendingReceivables)}{" "}
-                <span style={{ fontSize: "11px", fontWeight: 400, color: "var(--text-dim)" }}>
-                  ({pendingCount} open)
-                </span>
+              {renderCurrencyList(pendingByCurrency, "var(--accent-amber)")}
+              <div style={{ fontSize: "11px", color: "var(--text-dim)", marginTop: "4px" }}>
+                {pendingCount} open {pendingCount === 1 ? "invoice" : "invoices"}
               </div>
             </div>
           </div>
 
           <div
             className="finance-panel"
-            style={{ padding: "14px 18px", display: "flex", alignItems: "center", gap: "12px" }}
+            style={{ padding: "14px 18px", display: "flex", alignItems: "flex-start", gap: "12px" }}
           >
             <div
               style={{
@@ -364,22 +461,18 @@ export default function InvoicesPage() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                flexShrink: 0,
               }}
             >
               <CheckCircle2 size={18} />
             </div>
-            <div>
-              <div style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 500 }}>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 500, marginBottom: "4px" }}>
                 Paid / Settled This Month
               </div>
-              <div
-                className="mono"
-                style={{ fontSize: "18px", fontWeight: 700, color: "var(--accent-emerald)" }}
-              >
-                {formatCurrencySimple(paidThisMonth)}{" "}
-                <span style={{ fontSize: "11px", fontWeight: 400, color: "var(--text-dim)" }}>
-                  ({paidCount} paid)
-                </span>
+              {renderCurrencyList(paidByCurrency, "var(--accent-emerald)")}
+              <div style={{ fontSize: "11px", color: "var(--text-dim)", marginTop: "4px" }}>
+                {paidCount} settled {paidCount === 1 ? "invoice" : "invoices"}
               </div>
             </div>
           </div>
@@ -472,6 +565,22 @@ export default function InvoicesPage() {
               </div>
             )}
 
+            {/* Currency Filter */}
+            <select
+              value={currencyFilter}
+              onChange={(e) => setCurrencyFilter(e.target.value)}
+              className="finance-input"
+              style={{ width: "130px", height: "32px", fontSize: "12px" }}
+              title="Filter by currency"
+            >
+              <option value="all">All Currencies</option>
+              {availableCurrencies.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+
             {/* Status Filter */}
             <select
               value={statusFilter}
@@ -519,13 +628,14 @@ export default function InvoicesPage() {
               />
             </div>
 
-            {(searchQuery || clientFilter !== "all" || statusFilter !== "all" || periodFilter !== "this_month") && (
+            {(searchQuery || clientFilter !== "all" || statusFilter !== "all" || currencyFilter !== "all" || periodFilter !== "this_month") && (
               <button
                 type="button"
                 onClick={() => {
                   setSearchQuery("");
                   setClientFilter("all");
                   setStatusFilter("all");
+                  setCurrencyFilter("all");
                   setPeriodFilter("this_month");
                   setCustomStartDate("");
                   setCustomEndDate("");

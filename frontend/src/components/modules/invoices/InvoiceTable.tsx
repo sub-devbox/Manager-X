@@ -160,14 +160,17 @@ export default function InvoiceTable({
   };
 
   const formatCurrency = (amount: number, currencyCode: string = "USD") => {
+    const code = (currencyCode || "USD").toUpperCase();
     try {
       return new Intl.NumberFormat("en-US", {
         style: "currency",
-        currency: currencyCode,
+        currency: code,
         minimumFractionDigits: 2,
       }).format(amount);
     } catch {
-      return `$${amount.toFixed(2)}`;
+      const symbol =
+        code === "USD" ? "$" : code === "INR" ? "₹" : code === "EUR" ? "€" : code === "GBP" ? "£" : "";
+      return `${symbol}${amount.toFixed(2)}`;
     }
   };
 
@@ -441,9 +444,25 @@ export default function InvoiceTable({
 
                   {/* 5. Amount */}
                   <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }} className="mono">
-                    <span style={{ fontWeight: 700, color: "var(--text-main)", fontSize: "12.5px" }}>
-                      {formatCurrency(inv.final_amount, inv.currency_code)}
-                    </span>
+                    <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                      <span style={{ fontWeight: 700, color: "var(--text-main)", fontSize: "12.5px" }}>
+                        {formatCurrency(inv.final_amount, inv.currency_code)}
+                      </span>
+                      <span
+                        style={{
+                          fontSize: "10px",
+                          fontWeight: 600,
+                          padding: "1px 5px",
+                          borderRadius: "4px",
+                          background: "var(--bg-surface-subtle)",
+                          border: "1px solid var(--border-subtle)",
+                          color: "var(--text-muted)",
+                          letterSpacing: "0.3px",
+                        }}
+                      >
+                        {(inv.currency_code || "USD").toUpperCase()}
+                      </span>
+                    </div>
                   </td>
 
                   {/* 6. Actions (Edit only, no delete button on row) */}
