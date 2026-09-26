@@ -25,8 +25,8 @@
     "semantic_hash": "4480e8c55a6dc4084d83173b5abf98b9"
   },
   "backend/app/main.py": {
-    "mtime": 1790437478.1480057,
-    "ast_hash": "3454dde2e59a32b90f6ef8754919c73f",
+    "mtime": 1790440899.0682263,
+    "ast_hash": "b3bd5adcaff23b669b3c5e1c50baa642",
     "semantic_hash": ""
   },
   "backend/app/models/user_models.py": {
@@ -160,8 +160,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/time-tracker/page.tsx": {
-    "mtime": 1790429844.4707532,
-    "ast_hash": "a9a8fe9770f1dae1a7c0bf35f076c504",
+    "mtime": 1790441251.9007769,
+    "ast_hash": "2ecd86d5b5fa546286082437bb693781",
     "semantic_hash": ""
   },
   "frontend/src/app/wealth/page.tsx": {
@@ -360,8 +360,8 @@
     "semantic_hash": ""
   },
   "backend/app/models/project_models.py": {
-    "mtime": 1790414990.001495,
-    "ast_hash": "5eb2f1c580650f8c3bba6a9b309e219d",
+    "mtime": 1790440884.6260707,
+    "ast_hash": "5fe8fa449a11b00e0688695927859e6e",
     "semantic_hash": ""
   },
   "backend/app/schemas/project_schemas.py": {
@@ -400,13 +400,13 @@
     "semantic_hash": ""
   },
   "backend/app/api/v1/endpoints/time_entries.py": {
-    "mtime": 1790423942.2342,
-    "ast_hash": "0d475f9c31ae0e1618bbe008e7f0df35",
+    "mtime": 1790440971.7605405,
+    "ast_hash": "b3b47985325ce7c9060581284d4f0c73",
     "semantic_hash": ""
   },
   "backend/app/schemas/time_schemas.py": {
-    "mtime": 1790423888.025107,
-    "ast_hash": "82ffa96dfb08c6900049800d75c8c14e",
+    "mtime": 1790440932.4578223,
+    "ast_hash": "36c1bb162fcfc2ef9bceaf854ff71fd9",
     "semantic_hash": ""
   },
   "backend/tests/test_time_entries_api.py": {
@@ -420,13 +420,13 @@
     "semantic_hash": ""
   },
   "frontend/src/components/modules/time/TimeEntryTable.tsx": {
-    "mtime": 1790429816.1389973,
-    "ast_hash": "49a0fe05d5d5cca89a964803aa5687f1",
+    "mtime": 1790441403.5336275,
+    "ast_hash": "e771b793fa4ba485cdc9854fea3018d8",
     "semantic_hash": ""
   },
   "frontend/src/types/time.ts": {
-    "mtime": 1790423977.0715175,
-    "ast_hash": "b9efa9c4a1a595b54c7fdd7ec57ec26b",
+    "mtime": 1790441140.780621,
+    "ast_hash": "dd55552cb5f2036d89daf97dd4f4651d",
     "semantic_hash": ""
   },
   "frontend/src/components/modules/time/StartTimerModal.tsx": {
@@ -455,8 +455,8 @@
     "semantic_hash": ""
   },
   "backend/app/api/v1/endpoints/invoices.py": {
-    "mtime": 1790438911.5436637,
-    "ast_hash": "999b74b03ea21b9137467ed0ee78c03e",
+    "mtime": 1790441371.05125,
+    "ast_hash": "e2fdbfc2fa403a654f5f108db80650ae",
     "semantic_hash": ""
   },
   "backend/app/models/invoice_model.py": {
@@ -470,8 +470,8 @@
     "semantic_hash": ""
   },
   "backend/tests/test_invoices_api.py": {
-    "mtime": 1790438923.314269,
-    "ast_hash": "63cc500b4aef1735316c81c3b6829f6f",
+    "mtime": 1790441346.18923,
+    "ast_hash": "1349f5b213e6a09102e6708f08514d78",
     "semantic_hash": ""
   },
   "frontend/src/components/modules/invoices/InvoiceModal.tsx": {

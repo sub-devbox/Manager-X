@@ -31,9 +31,14 @@ async def lifespan(app: FastAPI):
         def _migrate(sync_conn):
             cur = sync_conn.connection.cursor()
             cur.execute("PRAGMA table_info(tasks)")
-            cols = [r[1] for r in cur.fetchall()]
-            if cols and "checklist" not in cols:
+            task_cols = [r[1] for r in cur.fetchall()]
+            if task_cols and "checklist" not in task_cols:
                 cur.execute("ALTER TABLE tasks ADD COLUMN checklist JSON DEFAULT '[]'")
+
+            cur.execute("PRAGMA table_info(time_entries)")
+            time_cols = [r[1] for r in cur.fetchall()]
+            if time_cols and "invoice_id" not in time_cols:
+                cur.execute("ALTER TABLE time_entries ADD COLUMN invoice_id VARCHAR(32) REFERENCES invoices(id) ON DELETE SET NULL")
 
         await conn.run_sync(_migrate)
     yield

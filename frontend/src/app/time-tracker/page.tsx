@@ -39,6 +39,7 @@ export default function TimeTrackerPage() {
     return new Date().toISOString().slice(0, 10);
   });
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [invoiceStatusFilter, setInvoiceStatusFilter] = useState<string>("all");
 
   // Modals state
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -237,9 +238,18 @@ export default function TimeTrackerPage() {
         if (!matchTask && !matchProj && !matchClient && !matchDesc) return false;
       }
 
+      // Invoice status filter
+      if (invoiceStatusFilter !== "all") {
+        const rawStatus = (
+          entry.invoice_status ||
+          (entry.is_billable ? (entry.invoiced ? "paid" : "due") : "non_billable")
+        ).toLowerCase();
+        if (rawStatus !== invoiceStatusFilter) return false;
+      }
+
       return true;
     });
-  }, [entries, periodFilter, customStartDate, customEndDate, searchQuery]);
+  }, [entries, periodFilter, customStartDate, customEndDate, searchQuery, invoiceStatusFilter]);
 
   // Aggregate stats
   const totalSeconds = useMemo(() => {
@@ -550,6 +560,29 @@ export default function TimeTrackerPage() {
                 style={{ paddingLeft: "30px", height: "32px", fontSize: "12px", width: "220px" }}
               />
             </div>
+
+            {/* Invoice Status Filter */}
+            <select
+              value={invoiceStatusFilter}
+              onChange={(e) => setInvoiceStatusFilter(e.target.value)}
+              className="finance-input"
+              style={{
+                height: "32px",
+                fontSize: "12px",
+                padding: "0 10px",
+                background: "var(--bg-surface)",
+                cursor: "pointer",
+              }}
+              title="Filter by Invoice Status"
+            >
+              <option value="all">All Invoice Statuses</option>
+              <option value="due">Due</option>
+              <option value="draft">Draft</option>
+              <option value="sent">Sent</option>
+              <option value="overdue">Overdue</option>
+              <option value="paid">Paid</option>
+              <option value="non_billable">Non-billable</option>
+            </select>
           </div>
         </div>
 

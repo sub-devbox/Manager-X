@@ -24,25 +24,27 @@ interface TimeEntryTableProps {
   onDeleteEntry?: (entry: TimeEntryData) => void;
 }
 
-type SortField = "date" | "project_task" | "client" | "duration";
+type SortField = "date" | "project_task" | "client" | "duration" | "invoice_status";
 type SortDirection = "asc" | "desc";
 
 const PAGE_SIZE = 50;
 
 const DEFAULT_TIME_WIDTHS = {
-  date: 160,
-  project_task: 360,
-  client: 180,
-  duration: 150,
-  actions: 80,
+  date: 150,
+  project_task: 330,
+  client: 160,
+  duration: 130,
+  invoice_status: 125,
+  actions: 75,
 };
 
 const MIN_TIME_WIDTHS = {
-  date: 120,
+  date: 110,
   project_task: 180,
   client: 110,
   duration: 100,
-  actions: 70,
+  invoice_status: 90,
+  actions: 65,
 };
 
 export default function TimeEntryTable({
@@ -101,6 +103,12 @@ export default function TimeEntryTable({
           comparison = a.duration_seconds - b.duration_seconds;
           break;
         }
+        case "invoice_status": {
+          const statusA = a.invoice_status || (a.is_billable ? (a.invoiced ? "paid" : "due") : "non_billable");
+          const statusB = b.invoice_status || (b.is_billable ? (b.invoiced ? "paid" : "due") : "non_billable");
+          comparison = statusA.localeCompare(statusB, undefined, { sensitivity: "base" });
+          break;
+        }
         default:
           comparison = 0;
       }
@@ -150,6 +158,96 @@ export default function TimeEntryTable({
     } catch {
       return "";
     }
+  };
+
+  const renderInvoiceStatusBadge = (entry: TimeEntryData) => {
+    if (!entry.is_billable) {
+      return (
+        <span style={{ fontSize: "11px", color: "var(--text-dim)", opacity: 0.6 }}>
+          —
+        </span>
+      );
+    }
+
+    const rawStatus = (entry.invoice_status || (entry.invoiced ? "paid" : "due")).toLowerCase();
+
+    const statusConfig: Record<string, { label: string; bg: string; border: string; color: string }> = {
+      due: {
+        label: "Due",
+        bg: "rgba(245, 158, 11, 0.12)",
+        border: "rgba(245, 158, 11, 0.3)",
+        color: "#f59e0b",
+      },
+      draft: {
+        label: "Draft",
+        bg: "rgba(148, 163, 184, 0.14)",
+        border: "rgba(148, 163, 184, 0.28)",
+        color: "#94a3b8",
+      },
+      sent: {
+        label: "Sent",
+        bg: "rgba(59, 130, 246, 0.12)",
+        border: "rgba(59, 130, 246, 0.3)",
+        color: "#3b82f6",
+      },
+      overdue: {
+        label: "Overdue",
+        bg: "rgba(239, 68, 68, 0.12)",
+        border: "rgba(239, 68, 68, 0.3)",
+        color: "#ef4444",
+      },
+      paid: {
+        label: "Paid",
+        bg: "rgba(16, 185, 129, 0.12)",
+        border: "rgba(16, 185, 129, 0.3)",
+        color: "#10b981",
+      },
+    };
+
+    const cfg = statusConfig[rawStatus] || statusConfig.due;
+
+    return (
+      <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+        <span
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "4px",
+            padding: "2px 7px",
+            borderRadius: "10px",
+            fontSize: "10.5px",
+            fontWeight: 600,
+            background: cfg.bg,
+            border: `1px solid ${cfg.border}`,
+            color: cfg.color,
+            letterSpacing: "0.2px",
+          }}
+          title={entry.invoice_number ? `Invoice ${entry.invoice_number} (${cfg.label})` : cfg.label}
+        >
+          <span
+            style={{
+              width: "5px",
+              height: "5px",
+              borderRadius: "50%",
+              backgroundColor: cfg.color,
+            }}
+          />
+          {cfg.label}
+        </span>
+        {entry.invoice_number && (
+          <span
+            style={{
+              fontSize: "10px",
+              color: "var(--text-dim)",
+              fontFamily: "monospace",
+            }}
+            title={`Invoice: ${entry.invoice_number}`}
+          >
+            #{entry.invoice_number}
+          </span>
+        )}
+      </div>
+    );
   };
 
   const renderSortIndicator = (field: SortField) => {
@@ -315,7 +413,31 @@ export default function TimeEntryTable({
                 <ResizeHandle onMouseDown={(e) => startResize("duration", e)} />
               </th>
 
-              {/* 5. Actions */}
+              {/* 5. Invoice Status */}
+              <th
+                onClick={() => handleSort("invoice_status")}
+                style={{
+                  position: "relative",
+                  width: `${widths.invoice_status}px`,
+                  minWidth: `${MIN_TIME_WIDTHS.invoice_status}px`,
+                  padding: "6px 12px",
+                  fontWeight: 600,
+                  color: sortField === "invoice_status" ? "var(--text-main)" : "var(--text-dim)",
+                  cursor: "pointer",
+                  userSelect: "none",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                  <span>Invoice Status</span>
+                  {renderSortIndicator("invoice_status")}
+                </div>
+                <ResizeHandle onMouseDown={(e) => startResize("invoice_status", e)} />
+              </th>
+
+              {/* 6. Actions */}
               <th
                 style={{
                   position: "relative",
@@ -492,7 +614,19 @@ export default function TimeEntryTable({
                     </div>
                   </td>
 
-                  {/* 5. Actions */}
+                  {/* 5. Invoice Status */}
+                  <td
+                    style={{
+                      padding: "6px 12px",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    {renderInvoiceStatusBadge(entry)}
+                  </td>
+
+                  {/* 6. Actions */}
                   <td style={{ padding: "6px 12px", textAlign: "right", whiteSpace: "nowrap" }}>
                     <div style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
                       <button

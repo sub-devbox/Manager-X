@@ -4,7 +4,7 @@ from typing import List, Optional, Dict, Any
 from datetime import datetime, timezone
 from fastapi import APIRouter, Depends, HTTPException, Query, status, Response
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, func, and_, or_
+from sqlalchemy import select, func, and_, or_, update
 from sqlalchemy.orm import selectinload
 
 from app.core.database import get_db
@@ -104,12 +104,12 @@ async def get_unbilled_tasks(
     if not project_map:
         return []
 
-    # 2. Get task IDs already assigned to invoices
+    # 2. Get task IDs already assigned to other invoices
     inv_item_stmt = select(InvoiceItem.task_id).where(InvoiceItem.task_id.isnot(None))
     if exclude_invoice_id:
         inv_item_stmt = inv_item_stmt.where(InvoiceItem.invoice_id != exclude_invoice_id)
     inv_item_res = await db.execute(inv_item_stmt)
-    already_invoiced_task_ids = set([t for t in inv_item_res.scalars().all() if t])
+    other_invoiced_task_ids = set([t for t in inv_item_res.scalars().all() if t])
 
     # 3. Fetch all tasks for these projects
     task_stmt = select(Task).where(Task.project_id.in_(list(project_map.keys())))
@@ -118,26 +118,62 @@ async def get_unbilled_tasks(
 
     unbilled: List[UnbilledTaskOut] = []
     for task in all_tasks:
-        if task.id in already_invoiced_task_ids:
-            continue
-
         proj = project_map.get(task.project_id)
-        # Compute time spent on this task
-        time_stmt = select(func.sum(TimeEntry.duration_seconds)).where(TimeEntry.task_id == task.id)
-        time_res = await db.execute(time_stmt)
-        total_sec = time_res.scalar() or 0
 
-        unbilled.append(
-            UnbilledTaskOut(
-                id=task.id,
-                title=task.title,
-                project_id=task.project_id,
-                project_name=proj.name if proj else None,
-                estimated_hours=task.estimated_hours or 0.0,
-                hourly_rate=proj.hourly_rate if proj and proj.hourly_rate else None,
-                time_spent_seconds=int(total_sec),
-            )
+        # Sum ONLY Due time entries for this task
+        # Due means: billable, duration > 0, and not attached to another invoice
+        time_cond = and_(
+            TimeEntry.task_id == task.id,
+            TimeEntry.is_billable == True,
+            TimeEntry.duration_seconds > 0,
         )
+        if exclude_invoice_id:
+            time_cond = and_(
+                time_cond,
+                or_(TimeEntry.invoice_id.is_(None), TimeEntry.invoice_id == exclude_invoice_id),
+            )
+        else:
+            time_cond = and_(
+                time_cond,
+                TimeEntry.invoice_id.is_(None),
+                TimeEntry.invoiced == False,
+            )
+
+        time_stmt = select(func.sum(TimeEntry.duration_seconds)).where(time_cond)
+        time_res = await db.execute(time_stmt)
+        due_sec = time_res.scalar() or 0
+
+        # Check total time entries for this task (to know if work was logged)
+        total_time_stmt = select(func.count(TimeEntry.id)).where(TimeEntry.task_id == task.id)
+        total_time_res = await db.execute(total_time_stmt)
+        total_entries_count = total_time_res.scalar() or 0
+
+        if due_sec > 0:
+            # Has unbilled/due time to invoice!
+            unbilled.append(
+                UnbilledTaskOut(
+                    id=task.id,
+                    title=task.title,
+                    project_id=task.project_id,
+                    project_name=proj.name if proj else None,
+                    estimated_hours=task.estimated_hours or 0.0,
+                    hourly_rate=proj.hourly_rate if proj and proj.hourly_rate else None,
+                    time_spent_seconds=int(due_sec),
+                )
+            )
+        elif total_entries_count == 0 and task.id not in other_invoiced_task_ids:
+            # No time entries logged at all, but task exists and hasn't been invoiced
+            unbilled.append(
+                UnbilledTaskOut(
+                    id=task.id,
+                    title=task.title,
+                    project_id=task.project_id,
+                    project_name=proj.name if proj else None,
+                    estimated_hours=task.estimated_hours or 0.0,
+                    hourly_rate=proj.hourly_rate if proj and proj.hourly_rate else None,
+                    time_spent_seconds=0,
+                )
+            )
 
     return unbilled
 
@@ -239,6 +275,26 @@ async def create_invoice(
     )
 
     db.add(invoice)
+    await db.flush()
+
+    # Link unbilled time entries for each line item with task_id
+    for item in items_to_create:
+        if item.task_id:
+            time_update_stmt = (
+                update(TimeEntry)
+                .where(
+                    TimeEntry.task_id == item.task_id,
+                    TimeEntry.is_billable == True,
+                    TimeEntry.invoice_id.is_(None),
+                    TimeEntry.invoiced == False,
+                )
+                .values(
+                    invoice_id=invoice.id,
+                    invoiced=(invoice.status == "paid"),
+                )
+            )
+            await db.execute(time_update_stmt)
+
     await db.commit()
     await db.refresh(invoice)
 
@@ -313,6 +369,26 @@ async def update_invoice(
 
     # Update line items if provided
     if payload.items is not None:
+        current_task_ids = [item.task_id for item in payload.items if item.task_id]
+
+        # 1. Unlink time entries for tasks that were removed from this invoice
+        if current_task_ids:
+            unlink_stmt = (
+                update(TimeEntry)
+                .where(
+                    TimeEntry.invoice_id == invoice.id,
+                    TimeEntry.task_id.not_in(current_task_ids),
+                )
+                .values(invoice_id=None, invoiced=False)
+            )
+        else:
+            unlink_stmt = (
+                update(TimeEntry)
+                .where(TimeEntry.invoice_id == invoice.id)
+                .values(invoice_id=None, invoiced=False)
+            )
+        await db.execute(unlink_stmt)
+
         # Clear existing items
         invoice.items.clear()
         subtotal = 0.0
@@ -332,6 +408,41 @@ async def update_invoice(
                 )
             )
         invoice.subtotal = round(subtotal, 2)
+
+        # 2. Link unbilled time entries for all current tasks
+        target_status = payload.status if payload.status is not None else invoice.status
+        is_paid = (target_status == "paid")
+        for tid in current_task_ids:
+            link_stmt = (
+                update(TimeEntry)
+                .where(
+                    TimeEntry.task_id == tid,
+                    TimeEntry.is_billable == True,
+                    or_(
+                        and_(TimeEntry.invoice_id.is_(None), TimeEntry.invoiced == False),
+                        TimeEntry.invoice_id == invoice.id,
+                    ),
+                )
+                .values(
+                    invoice_id=invoice.id,
+                    invoiced=is_paid,
+                )
+            )
+            await db.execute(link_stmt)
+    elif payload.status is not None:
+        # Items were not replaced, but status changed
+        if payload.status == "paid":
+            await db.execute(
+                update(TimeEntry)
+                .where(TimeEntry.invoice_id == invoice.id)
+                .values(invoiced=True)
+            )
+        else:
+            await db.execute(
+                update(TimeEntry)
+                .where(TimeEntry.invoice_id == invoice.id)
+                .values(invoiced=False)
+            )
 
     # Recalculate discount & final amount if financial fields provided
     disc_type = payload.discount_type if payload.discount_type is not None else invoice.discount_type
@@ -373,6 +484,13 @@ async def delete_invoice(
     invoice = res.scalar_one_or_none()
     if not invoice:
         raise HTTPException(status_code=404, detail="Invoice not found")
+
+    # Unlink any time entries associated with this invoice before deleting
+    await db.execute(
+        update(TimeEntry)
+        .where(TimeEntry.invoice_id == invoice_id)
+        .values(invoice_id=None, invoiced=False)
+    )
 
     await db.delete(invoice)
     await db.commit()

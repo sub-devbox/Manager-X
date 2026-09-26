@@ -8,6 +8,7 @@ from app.core.database import get_db
 from app.api.v1.endpoints.auth import get_current_user
 from app.models.user_models import User
 from app.models.project_models import Project, Task, TimeEntry
+from app.models.invoice_model import Invoice
 from app.schemas.time_schemas import (
     TimeEntryCreate,
     TimeEntryUpdate,
@@ -36,6 +37,17 @@ def _format_time_entry_response(entry: TimeEntry) -> TimeEntryResponse:
     if entry.is_billable and effective_rate > 0:
         billable_amount = round((entry.duration_seconds / 3600.0) * effective_rate, 2)
 
+    inv_id = entry.invoice_id
+    inv_number = entry.invoice.invoice_number if entry.invoice else None
+    if not entry.is_billable:
+        inv_status = "non_billable"
+    elif entry.invoice:
+        inv_status = entry.invoice.status
+    elif entry.invoiced:
+        inv_status = "paid"
+    else:
+        inv_status = "due"
+
     return TimeEntryResponse(
         id=entry.id,
         task_id=entry.task_id,
@@ -53,6 +65,9 @@ def _format_time_entry_response(entry: TimeEntry) -> TimeEntryResponse:
         client_id=client_id,
         currency_code=currency_code,
         billable_amount=billable_amount,
+        invoice_id=inv_id,
+        invoice_number=inv_number,
+        invoice_status=inv_status,
         created_at=entry.created_at,
         updated_at=entry.updated_at,
     )
@@ -61,6 +76,7 @@ def _format_time_entry_response(entry: TimeEntry) -> TimeEntryResponse:
 async def list_time_entries(
     task_id: Optional[str] = Query(None, description="Filter by task ID"),
     project_id: Optional[str] = Query(None, description="Filter by project ID"),
+    invoice_status: Optional[str] = Query(None, description="Filter by invoice status (due, draft, sent, paid, overdue)"),
     date_from: Optional[str] = Query(None, description="Filter start date >= YYYY-MM-DD"),
     date_to: Optional[str] = Query(None, description="Filter start date <= YYYY-MM-DD"),
     limit: int = Query(50, ge=1, le=100),
@@ -75,6 +91,15 @@ async def list_time_entries(
         filters.append(TimeEntry.task_id == task_id)
     if project_id:
         filters.append(TimeEntry.project_id == project_id)
+    if invoice_status and invoice_status != "all":
+        st = invoice_status.lower()
+        if st == "due":
+            filters.append(and_(TimeEntry.is_billable == True, TimeEntry.invoice_id.is_(None), TimeEntry.invoiced == False))
+        elif st == "non_billable":
+            filters.append(TimeEntry.is_billable == False)
+        else:
+            filters.append(TimeEntry.invoice.has(Invoice.status == st))
+
     if date_from:
         try:
             dt_from = datetime.fromisoformat(date_from).replace(tzinfo=timezone.utc)

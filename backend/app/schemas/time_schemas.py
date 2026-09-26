@@ -33,6 +33,9 @@ class TimeEntryResponse(TimeEntryBase):
     currency_code: str | None = "USD"
     invoiced: bool = False
     billable_amount: float = 0.0
+    invoice_id: str | None = None
+    invoice_number: str | None = None
+    invoice_status: str | None = None  # "due", "draft", "sent", "paid", "overdue", "void", "non_billable"
     created_at: datetime
     updated_at: datetime
 

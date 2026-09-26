@@ -9,6 +9,9 @@ export interface TimeEntryData {
   is_billable: boolean;
   hourly_rate?: number | null;
   invoiced: boolean;
+  invoice_id?: string | null;
+  invoice_number?: string | null;
+  invoice_status?: string | null;
   task_title?: string | null;
   project_name?: string | null;
   client_name?: string | null;

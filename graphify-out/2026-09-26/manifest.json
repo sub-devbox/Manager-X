@@ -495,8 +495,8 @@
     "semantic_hash": ""
   },
   "backend/app/services/invoice_pdf.py": {
-    "mtime": 1790439120.2650535,
-    "ast_hash": "396d05dda0a2837f0fd4732825d9f001",
+    "mtime": 1790439578.9458394,
+    "ast_hash": "40eb1f8eee65c31d558f6ea0913fecc9",
     "semantic_hash": ""
   }
 }

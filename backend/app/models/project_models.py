@@ -124,6 +124,12 @@ class TimeEntry(Base):
     is_billable: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
     hourly_rate: Mapped[float | None] = mapped_column(Float, nullable=True)
     invoiced: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    invoice_id: Mapped[str | None] = mapped_column(
+        String(32),
+        ForeignKey("invoices.id", ondelete="SET NULL"),
+        nullable=True,
+        index=True,
+    )
 
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
@@ -137,4 +143,5 @@ class TimeEntry(Base):
 
     task = relationship("Task", back_populates="time_entries", lazy="selectin")
     project = relationship("Project", back_populates="time_entries", lazy="selectin")
+    invoice = relationship("Invoice", lazy="selectin")
 
