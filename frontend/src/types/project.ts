@@ -17,6 +17,8 @@ export interface TaskData {
   estimated_hours: number;
   due_date?: string | null;
   checklist?: ChecklistItem[];
+  project_name?: string | null;
+  client_name?: string | null;
   created_at: string;
   updated_at: string;
 }

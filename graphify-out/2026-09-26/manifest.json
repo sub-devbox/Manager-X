@@ -350,8 +350,8 @@
     "semantic_hash": ""
   },
   "backend/app/api/v1/endpoints/projects.py": {
-    "mtime": 1790410483.667182,
-    "ast_hash": "68d8703aaf1489cd8f6fcc3deb138b6f",
+    "mtime": 1790413073.2070153,
+    "ast_hash": "162b51e1b15deafa3f67bd4b083dadb4",
     "semantic_hash": ""
   },
   "backend/app/api/v1/endpoints/tasks.py": {
@@ -370,13 +370,13 @@
     "semantic_hash": ""
   },
   "backend/tests/test_projects_and_tasks_api.py": {
-    "mtime": 1790411911.0955968,
-    "ast_hash": "071fe7ffe9cf0be03af1d5cd29a7737d",
+    "mtime": 1790413163.8295205,
+    "ast_hash": "801be944d6851c1d57270a49dc3756e0",
     "semantic_hash": ""
   },
   "frontend/src/components/modules/projects/ProjectModal.tsx": {
-    "mtime": 1790409168.4599087,
-    "ast_hash": "c0e3464aaac374e25dfe386a35c3b7ba",
+    "mtime": 1790413130.0555887,
+    "ast_hash": "ed120c6c424183b9d1ccc6930da376b3",
     "semantic_hash": ""
   },
   "frontend/src/components/modules/projects/TaskModal.tsx": {

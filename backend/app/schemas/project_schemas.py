@@ -48,6 +48,8 @@ class TaskStatusUpdate(BaseModel):
 class TaskResponse(TaskBase):
     id: str
     project_id: str
+    project_name: str | None = None
+    client_name: str | None = None
     created_at: datetime
     updated_at: datetime
 

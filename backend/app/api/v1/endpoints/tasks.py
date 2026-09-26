@@ -16,6 +16,25 @@ from app.schemas.project_schemas import (
 
 router = APIRouter(prefix="/tasks", tags=["Tasks"])
 
+def _format_task_response(task: Task) -> TaskResponse:
+    project_name = task.project.name if task.project else None
+    client_name = task.project.client.company_name if task.project and task.project.client else None
+    return TaskResponse(
+        id=task.id,
+        project_id=task.project_id,
+        title=task.title,
+        description=task.description,
+        status=task.status,
+        priority=task.priority,
+        estimated_hours=task.estimated_hours,
+        due_date=task.due_date,
+        checklist=task.checklist or [],
+        created_at=task.created_at,
+        updated_at=task.updated_at,
+        project_name=project_name,
+        client_name=client_name,
+    )
+
 @router.get("", response_model=List[TaskResponse])
 async def list_tasks(
     project_id: Optional[str] = Query(None, description="Filter by project ID"),
@@ -44,7 +63,8 @@ async def list_tasks(
 
     stmt = stmt.order_by(Task.created_at.desc())
     res = await db.execute(stmt)
-    return res.scalars().all()
+    tasks = res.scalars().all()
+    return [_format_task_response(t) for t in tasks]
 
 @router.post("", response_model=TaskResponse, status_code=status.HTTP_201_CREATED)
 async def create_task(
@@ -54,7 +74,8 @@ async def create_task(
 ):
     # Verify parent project exists
     prj_res = await db.execute(select(Project).where(Project.id == payload.project_id))
-    if not prj_res.scalar_one_or_none():
+    project = prj_res.scalar_one_or_none()
+    if not project:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Project with id '{payload.project_id}' not found.",
@@ -64,7 +85,7 @@ async def create_task(
     db.add(task)
     await db.commit()
     await db.refresh(task)
-    return task
+    return _format_task_response(task)
 
 @router.get("/{task_id}", response_model=TaskResponse)
 async def get_task(
@@ -79,7 +100,7 @@ async def get_task(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Task '{task_id}' not found.",
         )
-    return task
+    return _format_task_response(task)
 
 @router.put("/{task_id}", response_model=TaskResponse)
 async def update_task(
@@ -101,7 +122,7 @@ async def update_task(
 
     await db.commit()
     await db.refresh(task)
-    return task
+    return _format_task_response(task)
 
 @router.patch("/{task_id}/status", response_model=TaskResponse)
 async def update_task_status(
@@ -121,7 +142,7 @@ async def update_task_status(
     task.status = payload.status
     await db.commit()
     await db.refresh(task)
-    return task
+    return _format_task_response(task)
 
 @router.delete("/{task_id}")
 async def delete_task(
