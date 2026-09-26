@@ -37,23 +37,6 @@ interface ClientModalProps {
   initialData?: ClientData | null;
 }
 
-const COUNTRIES = [
-  "India",
-  "United States",
-  "United Kingdom",
-  "Canada",
-  "Australia",
-  "Germany",
-  "France",
-  "Singapore",
-  "United Arab Emirates",
-  "Netherlands",
-  "Switzerland",
-  "Japan",
-  "Ireland",
-  "New Zealand",
-];
-
 export default function ClientModal({
   isOpen,
   onClose,
@@ -62,6 +45,7 @@ export default function ClientModal({
 }: ClientModalProps) {
   const [mounted, setMounted] = useState(false);
   const [currencies, setCurrencies] = useState<CurrencyOption[]>([]);
+  const [countries, setCountries] = useState<string[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -76,7 +60,7 @@ export default function ClientModal({
     city: "",
     state: "",
     postal_code: "",
-    country: "India",
+    country: "",
     hourly_rate: 0,
     currency_code: "INR",
     payment_terms_days: 15,
@@ -101,7 +85,7 @@ export default function ClientModal({
   useEffect(() => {
     if (isOpen) {
       setErrorMsg("");
-      loadCurrencies();
+      loadSettingsData();
       if (initialData) {
         setFormData({
           ...initialData,
@@ -121,7 +105,7 @@ export default function ClientModal({
           city: "",
           state: "",
           postal_code: "",
-          country: "India",
+          country: "",
           hourly_rate: 0,
           currency_code: "INR",
           payment_terms_days: 15,
@@ -131,14 +115,38 @@ export default function ClientModal({
     }
   }, [isOpen, initialData]);
 
-  const loadCurrencies = async () => {
+  const loadSettingsData = async () => {
     try {
-      const data = await api.get<CurrencyOption[]>("/settings/currencies");
-      if (data && data.length > 0) {
-        setCurrencies(data);
+      const [currRes, countryRes, compRes] = await Promise.allSettled([
+        api.get<CurrencyOption[]>("/settings/currencies"),
+        api.get<string[]>("/settings/countries"),
+        api.get<{ address?: string }>("/settings/company"),
+      ]);
+
+      if (currRes.status === "fulfilled" && currRes.value && currRes.value.length > 0) {
+        setCurrencies(currRes.value);
         if (!initialData && !formData.currency_code) {
-          setFormData((prev) => ({ ...prev, currency_code: data[0].code }));
+          setFormData((prev) => ({ ...prev, currency_code: currRes.value[0].code }));
         }
+      }
+
+      let loadedCountries: string[] = [];
+      if (countryRes.status === "fulfilled" && countryRes.value && countryRes.value.length > 0) {
+        loadedCountries = countryRes.value;
+        setCountries(countryRes.value);
+      }
+
+      if (!initialData) {
+        let defaultCountry = loadedCountries[0] || "India";
+        if (compRes.status === "fulfilled" && compRes.value?.address) {
+          const parts = compRes.value.address.split(",").map((s) => s.trim());
+          const candidate = parts[parts.length - 1];
+          if (candidate) defaultCountry = candidate;
+        }
+        setFormData((prev) => ({
+          ...prev,
+          country: prev.country || defaultCountry,
+        }));
       }
     } catch {
       setCurrencies([
@@ -470,22 +478,30 @@ export default function ClientModal({
               </div>
 
               <div>
-                <label style={{ display: "block", fontSize: "12px", color: "var(--text-muted)", marginBottom: "4px" }}>
-                  Country *
-                </label>
-                <select
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
+                  <label style={{ fontSize: "12px", color: "var(--text-muted)" }}>
+                    Country *
+                  </label>
+                  <span style={{ fontSize: "11px", color: "var(--text-dim)" }}>
+                    Select or type custom
+                  </span>
+                </div>
+                <input
+                  type="text"
                   name="country"
+                  list="countries-datalist"
+                  required
+                  placeholder="Select or enter country..."
                   value={formData.country}
                   onChange={handleChange}
                   className="finance-input"
-                  style={{ cursor: "pointer" }}
-                >
-                  {COUNTRIES.map((c) => (
-                    <option key={c} value={c} style={{ background: "var(--bg-surface)", color: "var(--text-main)" }}>
-                      {c}
-                    </option>
+                  autoComplete="country-name"
+                />
+                <datalist id="countries-datalist">
+                  {countries.map((c) => (
+                    <option key={c} value={c} />
                   ))}
-                </select>
+                </datalist>
               </div>
             </div>
           </div>

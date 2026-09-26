@@ -32,8 +32,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_auth_py_request",
-      "community": 1,
-      "community_name": "auth.py",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "request"
     },
     {
@@ -43,8 +43,8 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_auth_get_current_user",
-      "community": 1,
-      "community_name": "auth.py",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "get_current_user()"
     },
     {
@@ -54,8 +54,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_auth_py_asyncsession",
-      "community": 1,
-      "community_name": "auth.py",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "asyncsession"
     },
     {
@@ -65,8 +65,8 @@
       "source_location": "L102",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_auth_get_optional_user",
-      "community": 1,
-      "community_name": "auth.py",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "get_optional_user()"
     },
     {
@@ -175,8 +175,8 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_auth_rationale_39",
-      "community": 1,
-      "community_name": "auth.py",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "extract and validate authenticated user from either httponly cookie or..."
     },
     {
@@ -186,8 +186,8 @@
       "source_location": "L106",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_auth_rationale_106",
-      "community": 1,
-      "community_name": "auth.py",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "extract authenticated user if credentials exist, otherwise return none without..."
     },
     {
@@ -253,7 +253,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "clients.py"
     },
     {
@@ -264,7 +264,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_py_get",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "get"
     },
     {
@@ -275,7 +275,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_list_clients",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "list_clients()"
     },
     {
@@ -286,7 +286,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_py_asyncsession",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "asyncsession"
     },
     {
@@ -297,7 +297,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_list_clients_summary",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "list_clients_summary()"
     },
     {
@@ -308,7 +308,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_py_post",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "post"
     },
     {
@@ -319,7 +319,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_create_client",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "create_client()"
     },
     {
@@ -330,7 +330,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_get_client",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "get_client()"
     },
     {
@@ -341,7 +341,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_py_put",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "put"
     },
     {
@@ -352,7 +352,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_update_client",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "update_client()"
     },
     {
@@ -363,7 +363,7 @@
       "_origin": "ast",
       "id": "patch",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "patch"
     },
     {
@@ -374,7 +374,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_toggle_client_status",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "toggle_client_status()"
     },
     {
@@ -385,7 +385,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_py_delete",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "delete"
     },
     {
@@ -396,7 +396,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_delete_client",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "delete_client()"
     },
     {
@@ -499,26 +499,15 @@
       "norm_label": "update_theme_settings()"
     },
     {
-      "label": "ensure_default_currencies()",
+      "label": "get_countries()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L122",
+      "source_location": "L131",
       "_origin": "ast",
-      "id": "backend_app_api_v1_endpoints_settings_ensure_default_currencies",
+      "id": "backend_app_api_v1_endpoints_settings_get_countries",
       "community": 3,
       "community_name": "settings.py",
-      "norm_label": "ensure_default_currencies()"
-    },
-    {
-      "label": "list_currencies()",
-      "file_type": "code",
-      "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L137",
-      "_origin": "ast",
-      "id": "backend_app_api_v1_endpoints_settings_list_currencies",
-      "community": 3,
-      "community_name": "settings.py",
-      "norm_label": "list_currencies()"
+      "norm_label": "get_countries()"
     },
     {
       "label": "post",
@@ -532,10 +521,43 @@
       "norm_label": "post"
     },
     {
+      "label": "add_country()",
+      "file_type": "code",
+      "source_file": "backend/app/api/v1/endpoints/settings.py",
+      "source_location": "L146",
+      "_origin": "ast",
+      "id": "backend_app_api_v1_endpoints_settings_add_country",
+      "community": 3,
+      "community_name": "settings.py",
+      "norm_label": "add_country()"
+    },
+    {
+      "label": "ensure_default_currencies()",
+      "file_type": "code",
+      "source_file": "backend/app/api/v1/endpoints/settings.py",
+      "source_location": "L185",
+      "_origin": "ast",
+      "id": "backend_app_api_v1_endpoints_settings_ensure_default_currencies",
+      "community": 3,
+      "community_name": "settings.py",
+      "norm_label": "ensure_default_currencies()"
+    },
+    {
+      "label": "list_currencies()",
+      "file_type": "code",
+      "source_file": "backend/app/api/v1/endpoints/settings.py",
+      "source_location": "L200",
+      "_origin": "ast",
+      "id": "backend_app_api_v1_endpoints_settings_list_currencies",
+      "community": 3,
+      "community_name": "settings.py",
+      "norm_label": "list_currencies()"
+    },
+    {
       "label": "create_currency()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L147",
+      "source_location": "L210",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_create_currency",
       "community": 3,
@@ -546,7 +568,7 @@
       "label": "update_currency()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L170",
+      "source_location": "L233",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_update_currency",
       "community": 3,
@@ -568,7 +590,7 @@
       "label": "delete_currency()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L195",
+      "source_location": "L258",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_delete_currency",
       "community": 3,
@@ -579,7 +601,7 @@
       "label": "_format_size()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L233",
+      "source_location": "L296",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_format_size",
       "community": 3,
@@ -590,7 +612,7 @@
       "label": "list_backups()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L241",
+      "source_location": "L304",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_list_backups",
       "community": 3,
@@ -601,7 +623,7 @@
       "label": "create_backup_snapshot()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L260",
+      "source_location": "L323",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_create_backup_snapshot",
       "community": 3,
@@ -612,7 +634,7 @@
       "label": "download_database()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L285",
+      "source_location": "L348",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_download_database",
       "community": 3,
@@ -623,7 +645,7 @@
       "label": "restore_database()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L307",
+      "source_location": "L370",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_restore_database",
       "community": 3,
@@ -645,9 +667,9 @@
       "label": "Seed standard currencies if none exist.",
       "file_type": "rationale",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L123",
+      "source_location": "L186",
       "_origin": "ast",
-      "id": "backend_app_api_v1_endpoints_settings_rationale_123",
+      "id": "backend_app_api_v1_endpoints_settings_rationale_186",
       "community": 3,
       "community_name": "settings.py",
       "norm_label": "seed standard currencies if none exist."
@@ -656,9 +678,9 @@
       "label": "Download a live, WAL-consistent copy of the SQLite database.",
       "file_type": "rationale",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L288",
+      "source_location": "L351",
       "_origin": "ast",
-      "id": "backend_app_api_v1_endpoints_settings_rationale_288",
+      "id": "backend_app_api_v1_endpoints_settings_rationale_351",
       "community": 3,
       "community_name": "settings.py",
       "norm_label": "download a live, wal-consistent copy of the sqlite database."
@@ -667,9 +689,9 @@
       "label": "Restore database from an existing snapshot or an uploaded .db file.",
       "file_type": "rationale",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L312",
+      "source_location": "L375",
       "_origin": "ast",
-      "id": "backend_app_api_v1_endpoints_settings_rationale_312",
+      "id": "backend_app_api_v1_endpoints_settings_rationale_375",
       "community": 3,
       "community_name": "settings.py",
       "norm_label": "restore database from an existing snapshot or an uploaded .db file."
@@ -692,8 +714,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_core_config",
-      "community": 3,
-      "community_name": "settings.py",
+      "community": 9,
+      "community_name": "config.py",
       "norm_label": "config.py"
     },
     {
@@ -703,8 +725,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "backend_app_core_config_settings",
-      "community": 3,
-      "community_name": "settings.py",
+      "community": 9,
+      "community_name": "config.py",
       "norm_label": "settings"
     },
     {
@@ -714,8 +736,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "basesettings",
-      "community": 3,
-      "community_name": "settings.py",
+      "community": 9,
+      "community_name": "config.py",
       "norm_label": "basesettings"
     },
     {
@@ -725,8 +747,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_core_cuid",
-      "community": 2,
-      "community_name": "Base",
+      "community": 9,
+      "community_name": "config.py",
       "norm_label": "cuid.py"
     },
     {
@@ -736,8 +758,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "backend_app_core_cuid_to_base36",
-      "community": 2,
-      "community_name": "Base",
+      "community": 9,
+      "community_name": "config.py",
       "norm_label": "to_base36()"
     },
     {
@@ -747,8 +769,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "backend_app_core_cuid_generate_cuid",
-      "community": 2,
-      "community_name": "Base",
+      "community": 9,
+      "community_name": "config.py",
       "norm_label": "generate_cuid()"
     },
     {
@@ -758,8 +780,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "backend_app_core_cuid_rationale_17",
-      "community": 2,
-      "community_name": "Base",
+      "community": 9,
+      "community_name": "config.py",
       "norm_label": "generate a collision-resistant unique identifier (cuid). structure: prefix (1)..."
     },
     {
@@ -769,8 +791,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_core_database",
-      "community": 2,
-      "community_name": "Base",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "database.py"
     },
     {
@@ -780,8 +802,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "listens_for",
-      "community": 2,
-      "community_name": "Base",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "listens_for"
     },
     {
@@ -791,8 +813,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "backend_app_core_database_set_sqlite_pragma",
-      "community": 2,
-      "community_name": "Base",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "set_sqlite_pragma()"
     },
     {
@@ -802,8 +824,8 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "backend_app_core_database_base",
-      "community": 2,
-      "community_name": "Base",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "base"
     },
     {
@@ -813,8 +835,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "declarativebase",
-      "community": 2,
-      "community_name": "Base",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "declarativebase"
     },
     {
@@ -824,8 +846,8 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "backend_app_core_database_get_db",
-      "community": 2,
-      "community_name": "Base",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "get_db()"
     },
     {
@@ -835,8 +857,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_core_database_py_asyncsession",
-      "community": 2,
-      "community_name": "Base",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "asyncsession"
     },
     {
@@ -1121,8 +1143,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_models_client_model",
-      "community": 2,
-      "community_name": "Base",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "client_model.py"
     },
     {
@@ -1132,8 +1154,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "backend_app_models_client_model_client",
-      "community": 2,
-      "community_name": "Base",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "client"
     },
     {
@@ -1143,8 +1165,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_models_settings_models",
-      "community": 2,
-      "community_name": "Base",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "settings_models.py"
     },
     {
@@ -1154,8 +1176,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "backend_app_models_settings_models_systemsetting",
-      "community": 2,
-      "community_name": "Base",
+      "community": 3,
+      "community_name": "settings.py",
       "norm_label": "systemsetting"
     },
     {
@@ -1165,8 +1187,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "backend_app_models_settings_models_currency",
-      "community": 2,
-      "community_name": "Base",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "currency"
     },
     {
@@ -1176,8 +1198,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_models_user_models",
-      "community": 2,
-      "community_name": "Base",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "user_models.py"
     },
     {
@@ -1187,8 +1209,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "backend_app_models_user_models_generate_uuid",
-      "community": 2,
-      "community_name": "Base",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "generate_uuid()"
     },
     {
@@ -1198,8 +1220,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "backend_app_models_user_models_utc_now",
-      "community": 2,
-      "community_name": "Base",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "utc_now()"
     },
     {
@@ -1209,8 +1231,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_models_user_models_py_datetime",
-      "community": 2,
-      "community_name": "Base",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "datetime"
     },
     {
@@ -1220,8 +1242,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "backend_app_models_user_models_user",
-      "community": 34,
-      "community_name": "User",
+      "community": 3,
+      "community_name": "settings.py",
       "norm_label": "user"
     },
     {
@@ -1231,8 +1253,8 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "backend_app_models_user_models_usersession",
-      "community": 2,
-      "community_name": "Base",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "usersession"
     },
     {
@@ -1342,7 +1364,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "client_schemas.py"
     },
     {
@@ -1353,7 +1375,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_currencynested",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "currencynested"
     },
     {
@@ -1364,7 +1386,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_py_basemodel",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "basemodel"
     },
     {
@@ -1375,7 +1397,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_clientbase",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "clientbase"
     },
     {
@@ -1386,7 +1408,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_clientcreate",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "clientcreate"
     },
     {
@@ -1397,7 +1419,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_clientupdate",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "clientupdate"
     },
     {
@@ -1408,7 +1430,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_clientresponse",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "clientresponse"
     },
     {
@@ -1419,7 +1441,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_clientsummary",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "clientsummary"
     },
     {
@@ -1562,7 +1584,7 @@
       "_origin": "ast",
       "id": "backend_tests_conftest",
       "community": 2,
-      "community_name": "Base",
+      "community_name": "conftest.py",
       "norm_label": "conftest.py"
     },
     {
@@ -1573,7 +1595,7 @@
       "_origin": "ast",
       "id": "backend_tests_conftest_override_get_db",
       "community": 2,
-      "community_name": "Base",
+      "community_name": "conftest.py",
       "norm_label": "override_get_db()"
     },
     {
@@ -1584,7 +1606,7 @@
       "_origin": "ast",
       "id": "fixture",
       "community": 2,
-      "community_name": "Base",
+      "community_name": "conftest.py",
       "norm_label": "fixture"
     },
     {
@@ -1595,7 +1617,7 @@
       "_origin": "ast",
       "id": "backend_tests_conftest_prepare_database",
       "community": 2,
-      "community_name": "Base",
+      "community_name": "conftest.py",
       "norm_label": "prepare_database()"
     },
     {
@@ -1606,7 +1628,7 @@
       "_origin": "ast",
       "id": "backend_tests_conftest_client",
       "community": 2,
-      "community_name": "Base",
+      "community_name": "conftest.py",
       "norm_label": "client()"
     },
     {
@@ -1617,7 +1639,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_auth_api",
       "community": 2,
-      "community_name": "Base",
+      "community_name": "conftest.py",
       "norm_label": "test_auth_api.py"
     },
     {
@@ -1628,7 +1650,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_auth_api_py_asyncio",
       "community": 2,
-      "community_name": "Base",
+      "community_name": "conftest.py",
       "norm_label": "asyncio"
     },
     {
@@ -1639,7 +1661,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_auth_api_test_full_security_and_auth_lifecycle",
       "community": 2,
-      "community_name": "Base",
+      "community_name": "conftest.py",
       "norm_label": "test_full_security_and_auth_lifecycle()"
     },
     {
@@ -1650,7 +1672,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_auth_api_py_asyncclient",
       "community": 2,
-      "community_name": "Base",
+      "community_name": "conftest.py",
       "norm_label": "asyncclient"
     },
     {
@@ -1705,7 +1727,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_clients_api",
       "community": 2,
-      "community_name": "Base",
+      "community_name": "conftest.py",
       "norm_label": "test_clients_api.py"
     },
     {
@@ -1716,7 +1738,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_clients_api_py_asyncio",
       "community": 2,
-      "community_name": "Base",
+      "community_name": "conftest.py",
       "norm_label": "asyncio"
     },
     {
@@ -1727,7 +1749,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_clients_api_test_client_lifecycle_and_address_validation",
       "community": 2,
-      "community_name": "Base",
+      "community_name": "conftest.py",
       "norm_label": "test_client_lifecycle_and_address_validation()"
     },
     {
@@ -1738,7 +1760,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_clients_api_py_asyncclient",
       "community": 2,
-      "community_name": "Base",
+      "community_name": "conftest.py",
       "norm_label": "asyncclient"
     },
     {
@@ -1749,7 +1771,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_settings_api",
       "community": 2,
-      "community_name": "Base",
+      "community_name": "conftest.py",
       "norm_label": "test_settings_api.py"
     },
     {
@@ -1760,7 +1782,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_settings_api_py_asyncio",
       "community": 2,
-      "community_name": "Base",
+      "community_name": "conftest.py",
       "norm_label": "asyncio"
     },
     {
@@ -1771,7 +1793,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_settings_api_test_settings_lifecycle",
       "community": 2,
-      "community_name": "Base",
+      "community_name": "conftest.py",
       "norm_label": "test_settings_lifecycle()"
     },
     {
@@ -1782,7 +1804,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_settings_api_py_asyncclient",
       "community": 2,
-      "community_name": "Base",
+      "community_name": "conftest.py",
       "norm_label": "asyncclient"
     },
     {
@@ -2221,8 +2243,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_clients_page",
-      "community": 35,
-      "community_name": "clients/page.tsx",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "clients/page.tsx"
     },
     {
@@ -2232,8 +2254,8 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "frontend_src_app_clients_page_clientspage",
-      "community": 35,
-      "community_name": "clients/page.tsx",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "clientspage()"
     },
     {
@@ -2639,8 +2661,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_components_modules_clients_clientmodal",
-      "community": 35,
-      "community_name": "clients/page.tsx",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "clientmodal.tsx"
     },
     {
@@ -2650,8 +2672,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "frontend_src_components_modules_clients_clientmodal_clientdata",
-      "community": 35,
-      "community_name": "clients/page.tsx",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "clientdata"
     },
     {
@@ -2661,8 +2683,8 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "frontend_src_components_modules_clients_clientmodal_currencyoption",
-      "community": 35,
-      "community_name": "clients/page.tsx",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "currencyoption"
     },
     {
@@ -2672,30 +2694,19 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "frontend_src_components_modules_clients_clientmodal_clientmodalprops",
-      "community": 35,
-      "community_name": "clients/page.tsx",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "clientmodalprops"
-    },
-    {
-      "label": "COUNTRIES",
-      "file_type": "code",
-      "source_file": "frontend/src/components/modules/clients/ClientModal.tsx",
-      "source_location": "L40",
-      "_origin": "ast",
-      "id": "frontend_src_components_modules_clients_clientmodal_countries",
-      "community": 35,
-      "community_name": "clients/page.tsx",
-      "norm_label": "countries"
     },
     {
       "label": "ClientModal()",
       "file_type": "code",
       "source_file": "frontend/src/components/modules/clients/ClientModal.tsx",
-      "source_location": "L57",
+      "source_location": "L40",
       "_origin": "ast",
       "id": "frontend_src_components_modules_clients_clientmodal_clientmodal",
-      "community": 35,
-      "community_name": "clients/page.tsx",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "clientmodal()"
     },
     {
@@ -4232,7 +4243,7 @@
     {
       "label": "pytest",
       "community": 2,
-      "community_name": "Base",
+      "community_name": "conftest.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "pytest",
@@ -4255,8 +4266,8 @@
     },
     {
       "label": "uuid",
-      "community": 1,
-      "community_name": "auth.py",
+      "community": 34,
+      "community_name": "clients.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "uuid",
@@ -4280,7 +4291,7 @@
     {
       "label": "httpx",
       "community": 2,
-      "community_name": "Base",
+      "community_name": "conftest.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "httpx",
@@ -4292,7 +4303,7 @@
     {
       "label": "pytest_asyncio",
       "community": 2,
-      "community_name": "Base",
+      "community_name": "conftest.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "pytest_asyncio",
@@ -4303,8 +4314,8 @@
     },
     {
       "label": "sqlalchemy",
-      "community": 2,
-      "community_name": "Base",
+      "community": 34,
+      "community_name": "clients.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "sqlalchemy",
@@ -4315,8 +4326,8 @@
     },
     {
       "label": "sqlalchemy_ext_asyncio",
-      "community": 2,
-      "community_name": "Base",
+      "community": 34,
+      "community_name": "clients.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "sqlalchemy_ext_asyncio",
@@ -4327,8 +4338,8 @@
     },
     {
       "label": "sqlalchemy_orm",
-      "community": 2,
-      "community_name": "Base",
+      "community": 34,
+      "community_name": "clients.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "sqlalchemy_orm",
@@ -4339,8 +4350,8 @@
     },
     {
       "label": "sqlite3",
-      "community": 3,
-      "community_name": "settings.py",
+      "community": 34,
+      "community_name": "clients.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "sqlite3",
@@ -4351,8 +4362,8 @@
     },
     {
       "label": "typing",
-      "community": 1,
-      "community_name": "auth.py",
+      "community": 34,
+      "community_name": "clients.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "typing",
@@ -4363,8 +4374,8 @@
     },
     {
       "label": "datetime",
-      "community": 2,
-      "community_name": "Base",
+      "community": 1,
+      "community_name": "auth.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "datetime",
@@ -4376,7 +4387,7 @@
     {
       "label": "pydantic",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "pydantic",
@@ -4591,8 +4602,8 @@
     },
     {
       "label": "os",
-      "community": 3,
-      "community_name": "settings.py",
+      "community": 9,
+      "community_name": "config.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "os",
@@ -4603,8 +4614,8 @@
     },
     {
       "label": "pathlib",
-      "community": 3,
-      "community_name": "settings.py",
+      "community": 9,
+      "community_name": "config.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "pathlib",
@@ -4615,8 +4626,8 @@
     },
     {
       "label": "pydantic_settings",
-      "community": 3,
-      "community_name": "settings.py",
+      "community": 9,
+      "community_name": "config.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "pydantic_settings",
@@ -4627,8 +4638,8 @@
     },
     {
       "label": "secrets",
-      "community": 3,
-      "community_name": "settings.py",
+      "community": 9,
+      "community_name": "config.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "secrets",
@@ -6204,7 +6215,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L260",
+      "source_location": "L146",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_settings",
+      "target": "backend_app_api_v1_endpoints_settings_add_country",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/settings.py",
+      "source_location": "L323",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings",
@@ -6215,7 +6237,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L147",
+      "source_location": "L210",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings",
@@ -6226,7 +6248,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L195",
+      "source_location": "L258",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings",
@@ -6237,7 +6259,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L285",
+      "source_location": "L348",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings",
@@ -6248,7 +6270,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L122",
+      "source_location": "L185",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings",
@@ -6259,7 +6281,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L233",
+      "source_location": "L296",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings",
@@ -6281,6 +6303,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
+      "source_location": "L131",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_settings",
+      "target": "backend_app_api_v1_endpoints_settings_get_countries",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/settings.py",
       "source_location": "L81",
       "weight": 1.0,
       "_origin": "ast",
@@ -6292,7 +6325,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L241",
+      "source_location": "L304",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings",
@@ -6303,7 +6336,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L137",
+      "source_location": "L200",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings",
@@ -6314,7 +6347,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L307",
+      "source_location": "L370",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings",
@@ -6336,7 +6369,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L170",
+      "source_location": "L233",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings",
@@ -6587,7 +6620,19 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L152",
+      "source_location": "L151",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_settings_add_country",
+      "target": "backend_app_api_v1_endpoints_settings_py_get",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/settings.py",
+      "source_location": "L215",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_create_currency",
@@ -6599,7 +6644,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L200",
+      "source_location": "L263",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_delete_currency",
@@ -6610,7 +6655,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L284",
+      "source_location": "L347",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -6634,6 +6679,18 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
+      "source_location": "L130",
+      "weight": 1.0,
+      "context": "decorator",
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_settings_get_countries",
+      "target": "backend_app_api_v1_endpoints_settings_py_get",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/settings.py",
       "source_location": "L80",
       "weight": 1.0,
       "context": "decorator",
@@ -6646,7 +6703,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L240",
+      "source_location": "L303",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -6658,7 +6715,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L136",
+      "source_location": "L199",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -6671,7 +6728,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L176",
+      "source_location": "L239",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_update_currency",
@@ -6719,7 +6776,19 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L147",
+      "source_location": "L146",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_settings_add_country",
+      "target": "backend_app_api_v1_endpoints_settings_py_asyncsession",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/settings.py",
+      "source_location": "L210",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_create_currency",
@@ -6731,7 +6800,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L195",
+      "source_location": "L258",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_delete_currency",
@@ -6743,10 +6812,22 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L122",
+      "source_location": "L185",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_ensure_default_currencies",
+      "target": "backend_app_api_v1_endpoints_settings_py_asyncsession",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/settings.py",
+      "source_location": "L131",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_settings_get_countries",
       "target": "backend_app_api_v1_endpoints_settings_py_asyncsession",
       "confidence_score": 1.0
     },
@@ -6767,7 +6848,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L137",
+      "source_location": "L200",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_list_currencies",
@@ -6791,7 +6872,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L170",
+      "source_location": "L233",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_update_currency",
@@ -6826,7 +6907,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L169",
+      "source_location": "L232",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -6931,11 +7012,83 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/settings.py",
+      "source_location": "L145",
+      "weight": 1.0,
+      "context": "decorator",
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_settings_add_country",
+      "target": "backend_app_api_v1_endpoints_settings_py_post",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/settings.py",
+      "source_location": "L322",
+      "weight": 1.0,
+      "context": "decorator",
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_settings_create_backup_snapshot",
+      "target": "backend_app_api_v1_endpoints_settings_py_post",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/settings.py",
+      "source_location": "L209",
+      "weight": 1.0,
+      "context": "decorator",
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_settings_create_currency",
+      "target": "backend_app_api_v1_endpoints_settings_py_post",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/settings.py",
+      "source_location": "L369",
+      "weight": 1.0,
+      "context": "decorator",
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_settings_restore_database",
+      "target": "backend_app_api_v1_endpoints_settings_py_post",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/api/v1/endpoints/settings.py",
+      "source_location": "L176",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_settings_add_country",
+      "target": "backend_app_models_settings_models_systemsetting"
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/settings.py",
+      "source_location": "L146",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_settings_add_country",
+      "target": "backend_app_models_user_models_user",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L128",
+      "source_location": "L191",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_ensure_default_currencies",
@@ -6947,7 +7100,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L141",
+      "source_location": "L204",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_list_currencies",
@@ -6958,10 +7111,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L123",
+      "source_location": "L186",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "backend_app_api_v1_endpoints_settings_rationale_123",
+      "source": "backend_app_api_v1_endpoints_settings_rationale_186",
       "target": "backend_app_api_v1_endpoints_settings_ensure_default_currencies",
       "confidence_score": 1.0
     },
@@ -6970,47 +7123,11 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L137",
+      "source_location": "L200",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_list_currencies",
       "target": "backend_app_models_user_models_user",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L259",
-      "weight": 1.0,
-      "context": "decorator",
-      "_origin": "ast",
-      "source": "backend_app_api_v1_endpoints_settings_create_backup_snapshot",
-      "target": "backend_app_api_v1_endpoints_settings_py_post",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L146",
-      "weight": 1.0,
-      "context": "decorator",
-      "_origin": "ast",
-      "source": "backend_app_api_v1_endpoints_settings_create_currency",
-      "target": "backend_app_api_v1_endpoints_settings_py_post",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L306",
-      "weight": 1.0,
-      "context": "decorator",
-      "_origin": "ast",
-      "source": "backend_app_api_v1_endpoints_settings_restore_database",
-      "target": "backend_app_api_v1_endpoints_settings_py_post",
       "confidence_score": 1.0
     },
     {
@@ -7019,7 +7136,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L163",
+      "source_location": "L226",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_create_currency",
@@ -7030,7 +7147,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L147",
+      "source_location": "L210",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_create_currency",
@@ -7042,7 +7159,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L147",
+      "source_location": "L210",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_create_currency",
@@ -7054,7 +7171,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L170",
+      "source_location": "L233",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_update_currency",
@@ -7066,7 +7183,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L170",
+      "source_location": "L233",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_update_currency",
@@ -7078,7 +7195,7 @@
       "context": "decorator",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L194",
+      "source_location": "L257",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_delete_currency",
@@ -7090,7 +7207,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L195",
+      "source_location": "L258",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_delete_currency",
@@ -7103,7 +7220,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L227",
+      "source_location": "L290",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_delete_currency",
@@ -7114,7 +7231,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L280",
+      "source_location": "L343",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_create_backup_snapshot",
@@ -7126,7 +7243,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L253",
+      "source_location": "L316",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_list_backups",
@@ -7138,7 +7255,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L241",
+      "source_location": "L304",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_list_backups",
@@ -7151,7 +7268,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L250",
+      "source_location": "L313",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_list_backups",
@@ -7162,7 +7279,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L260",
+      "source_location": "L323",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_create_backup_snapshot",
@@ -7175,7 +7292,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L277",
+      "source_location": "L340",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_create_backup_snapshot",
@@ -7186,7 +7303,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L285",
+      "source_location": "L348",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_download_database",
@@ -7197,10 +7314,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L288",
+      "source_location": "L351",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "backend_app_api_v1_endpoints_settings_rationale_288",
+      "source": "backend_app_api_v1_endpoints_settings_rationale_351",
       "target": "backend_app_api_v1_endpoints_settings_download_database",
       "confidence_score": 1.0
     },
@@ -7208,10 +7325,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L312",
+      "source_location": "L375",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "backend_app_api_v1_endpoints_settings_rationale_312",
+      "source": "backend_app_api_v1_endpoints_settings_rationale_375",
       "target": "backend_app_api_v1_endpoints_settings_restore_database",
       "confidence_score": 1.0
     },
@@ -7220,7 +7337,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L307",
+      "source_location": "L370",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_restore_database",
@@ -7233,7 +7350,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L363",
+      "source_location": "L426",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_restore_database",
@@ -7244,7 +7361,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/settings.py",
-      "source_location": "L307",
+      "source_location": "L370",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_settings_restore_database",
@@ -10535,7 +10652,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/clients/ClientModal.tsx",
-      "source_location": "L57",
+      "source_location": "L40",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_clients_clientmodal",
@@ -10551,17 +10668,6 @@
       "_origin": "ast",
       "source": "frontend_src_components_modules_clients_clientmodal",
       "target": "frontend_src_components_modules_clients_clientmodal_clientmodalprops",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/components/modules/clients/ClientModal.tsx",
-      "source_location": "L40",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "frontend_src_components_modules_clients_clientmodal",
-      "target": "frontend_src_components_modules_clients_clientmodal_countries",
       "confidence_score": 1.0
     },
     {
@@ -11927,5 +12033,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "7a3492663b2d3121e2f4fa364c31ceedee6d3b25"
+  "built_at_commit": "fe9bab089eb0a554bfadc5fc7a06ae8b8bca7f21"
 }

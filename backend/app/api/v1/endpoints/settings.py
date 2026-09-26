@@ -116,6 +116,69 @@ async def update_theme_settings(
     return theme
 
 # -------------------------------------------------------------
+# DYNAMIC COUNTRIES REGISTRY
+# -------------------------------------------------------------
+
+DEFAULT_COUNTRIES = [
+    "Australia", "Brazil", "Canada", "Denmark", "Finland", "France",
+    "Germany", "Hong Kong", "India", "Ireland", "Israel", "Italy",
+    "Japan", "Mexico", "Netherlands", "New Zealand", "Norway", "Poland",
+    "Singapore", "South Africa", "Spain", "Sweden", "Switzerland",
+    "United Arab Emirates", "United Kingdom", "United States",
+]
+
+@router.get("/countries", response_model=List[str])
+async def get_countries(
+    db: AsyncSession = Depends(get_db),
+):
+    stmt = select(SystemSetting).where(SystemSetting.key == "supported_countries")
+    res = await db.execute(stmt)
+    setting = res.scalar_one_or_none()
+    if not setting:
+        return sorted(DEFAULT_COUNTRIES)
+    try:
+        countries = json.loads(setting.value)
+        return sorted(list(set(countries)))
+    except Exception:
+        return sorted(DEFAULT_COUNTRIES)
+
+@router.post("/countries", response_model=List[str])
+async def add_country(
+    payload: dict,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    country = str(payload.get("country", "")).strip()
+    if not country:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Country name is required.",
+        )
+
+    stmt = select(SystemSetting).where(SystemSetting.key == "supported_countries")
+    res = await db.execute(stmt)
+    setting = res.scalar_one_or_none()
+
+    if setting:
+        try:
+            countries = json.loads(setting.value)
+        except Exception:
+            countries = list(DEFAULT_COUNTRIES)
+    else:
+        countries = list(DEFAULT_COUNTRIES)
+
+    if country not in countries:
+        countries.append(country)
+        countries_json = json.dumps(sorted(countries))
+        if setting:
+            setting.value = countries_json
+        else:
+            db.add(SystemSetting(key="supported_countries", value=countries_json, category="general"))
+        await db.commit()
+
+    return sorted(countries)
+
+# -------------------------------------------------------------
 # CURRENCIES
 # -------------------------------------------------------------
 

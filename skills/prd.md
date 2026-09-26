@@ -21,6 +21,7 @@ Manager X provides an integrated operational and financial operating system for 
 | **Minimalist Aesthetic** | Clean, high-density yet breathable layout, dark/light theme toggle, subtle micro-interactions, monospace figures for financial data, zero visual noise. |
 | **Local-First & Resilient** | Powered by SQLite with Write-Ahead Logging (`PRAGMA journal_mode=WAL;`), automatic atomic transactions, and one-click data snapshots. |
 | **Strict Type Safety** | Pydantic v2 schemas on the FastAPI backend; TypeScript interfaces and Zod schemas on the Next.js frontend. |
+| **Automatic Version Control** | Every code modification, bug fix, or feature step must be automatically staged and committed into git version control immediately upon verification. |
 
 ---
 

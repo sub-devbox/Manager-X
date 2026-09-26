@@ -105,3 +105,15 @@ async def test_settings_lifecycle(client: AsyncClient):
         backups_res = await client.get("/api/v1/settings/backup/list")
         assert backups_res.status_code == 200
         assert isinstance(backups_res.json(), list)
+
+        # 5. Dynamic Countries Registry
+        countries_res = await client.get("/api/v1/settings/countries")
+        assert countries_res.status_code == 200
+        countries = countries_res.json()
+        assert "India" in countries
+        assert "United States" in countries
+
+        # Add a custom country
+        add_country_res = await client.post("/api/v1/settings/countries", json={"country": "Iceland"})
+        assert add_country_res.status_code == 200
+        assert "Iceland" in add_country_res.json()

@@ -1,13 +1,14 @@
 {
   "0": "devDependencies",
   "1": "auth.py",
-  "2": "Base",
+  "2": "conftest.py",
   "3": "settings.py",
   "4": "compilerOptions",
   "5": "Ponytail",
   "6": "main.py",
   "7": "FastAPI ASGI Backend",
   "8": "Finance Manager Module",
+  "9": "config.py",
   "10": "AppShell.tsx",
   "11": "Ponytail",
   "12": "Ponytail Help",
@@ -32,6 +33,5 @@
   "31": "eslint.config.mjs",
   "32": "next.config.ts",
   "33": "CLAUDE.md",
-  "34": "User",
-  "35": "clients/page.tsx"
+  "34": "clients.py"
 }

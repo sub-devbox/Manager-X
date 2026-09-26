@@ -390,3 +390,6 @@ To satisfy the strict constraint of **Zero Hardcoding**:
    - On backend boot and via a periodic local thread, a snapshot of `manager_x.db` is copied into `data/backups/manager_x_YYYYMMDD_HHMMSS.db`.
 3. **Full JSON Export/Import**:
    - `/api/v1/settings/export` generates a single comprehensive JSON file of all data.
+4. **Automatic Git Version Control**:
+   - Every single atomic change to code or configuration must be automatically staged and committed into git version control immediately upon verification.
+

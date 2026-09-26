@@ -13,3 +13,8 @@
 ## 3. Currencies & Exchange Rates
 - Currency definitions only store metadata (`code`, `symbol`, `name`, `is_base_currency`, `is_active`).
 - **No static "Exchange Rate to Base"**: FX rates are dynamic and determined at invoice/transaction execution time, not stored as a static currency definition property.
+
+## 4. Automatic Git Version Control
+- **Commit on every single code change**: Every time code files are created, modified, or refactored, automatically stage (`git add .`) and commit with a conventional commit message (`feat(...)`, `fix(...)`, `refactor(...)`).
+- Do not wait for the user to prompt for a commit. Automatic version control must be executed after verifying changes.
+

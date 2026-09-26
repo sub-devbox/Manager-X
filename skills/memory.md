@@ -83,11 +83,11 @@ It combines 7 pillars into a cohesive platform:
 - [/] **Phase 4: Operational Module Implementation (PM, TT, Invoices)**
   - [x] Client Management Module:
     - [x] Database model (`Client`) with CUID primary key (`cli_`), full structured address (Line 1, Line 2, City, State, Postal code, Country), commercial terms (Hourly Rate, Currency FK, Payment Terms Days, Active Status).
-    - [x] Zero-hardcoding currency validation against database `currencies` table.
+    - [x] Zero-hardcoding currency validation against database `currencies` table and dynamic countries registry (`/api/v1/settings/countries`).
     - [x] Pydantic schemas (`ClientCreate`, `ClientUpdate`, `ClientResponse`, `ClientSummary`).
     - [x] REST API endpoints (`GET /clients`, `POST /clients`, `GET /clients/{id}`, `PUT /clients/{id}`, `PATCH /clients/{id}/toggle-status`, `DELETE /clients/{id}` with referential deletion protection).
-    - [x] 100% passing automated test suite (`backend/tests/test_clients_api.py`).
-    - [x] Frontend Client Directory (`/clients`), search & status filters, and ClientModal create/edit drawer.
+    - [x] 100% passing automated test suite (`backend/tests/test_clients_api.py` & `backend/tests/test_settings_api.py`).
+    - [x] Frontend Client Directory (`/clients`), search & status filters, and ClientModal with dynamic combobox/datalist for country selection without hardcoding.
   - [ ] Project CRUD & Kanban Board.
   - [ ] Live Timer with WebSocket sync + Manual time logging.
   - [ ] Invoice creation wizard, tax calculation, and PDF generator.
@@ -113,3 +113,5 @@ It combines 7 pillars into a cohesive platform:
 | **ADR-002** | Decoupled FastAPI + Next.js | Maximizes separation of concerns; Python provides powerful math/tax/PDF generation while Next.js provides instant client UX. | Accepted |
 | **ADR-003** | Dynamic Settings Lookup Engine | Enforces the "zero hardcoding" constraint; tax laws and user categories evolve without requiring code modifications. | Accepted |
 | **ADR-004** | Global WebSocket for Timer | Allows a seamless live stopwatch across multi-tab browsing without timer drift or desync. | Accepted |
+| **ADR-005** | Automatic Git Version Control | Commits every single code change automatically upon verification to maintain a complete, unbroken audit trail. | Accepted |
+
