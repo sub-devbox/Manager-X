@@ -65,7 +65,7 @@ export default function GlobalTimerBar() {
 
   // Listen for task start timer events from TaskTable or TimeTracker
   useEffect(() => {
-    const handleStartTask = (e: Event) => {
+    const handleStartTask = async (e: Event) => {
       const customEvent = e as CustomEvent<{
         taskId: string;
         taskTitle: string;
@@ -73,6 +73,26 @@ export default function GlobalTimerBar() {
         projectTitle?: string;
       }>;
       if (customEvent.detail) {
+        // Auto-save existing timer if it was running and had seconds >= 1
+        const current = timerStateRef.current;
+        if (current.isRunning && current.taskId && current.seconds >= 1) {
+          try {
+            const startTime = current.startTime || new Date(Date.now() - current.seconds * 1000).toISOString();
+            await api.post("/time-entries", {
+              task_id: current.taskId,
+              project_id: current.projectId || undefined,
+              description: current.description || `Logged via stopwatch for ${current.taskTitle}`,
+              start_time: startTime,
+              end_time: new Date().toISOString(),
+              duration_seconds: current.seconds,
+              is_billable: true,
+            });
+            window.dispatchEvent(new CustomEvent("mx_timer_saved"));
+          } catch (err) {
+            console.error("Auto-saving prior timer session failed:", err);
+          }
+        }
+
         setTimerState({
           isRunning: true,
           seconds: 0,
@@ -170,7 +190,7 @@ export default function GlobalTimerBar() {
 
   const stopTimer = async () => {
     const current = timerStateRef.current;
-    if (current.taskId && current.seconds >= 5) {
+    if (current.taskId && current.seconds >= 1) {
       setIsSaving(true);
       try {
         const startTime = current.startTime || new Date(Date.now() - current.seconds * 1000).toISOString();

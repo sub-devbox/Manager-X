@@ -9,6 +9,7 @@ import {
   Building2,
   Clock,
   Play,
+  Square,
   Pencil,
   Trash2,
   ChevronDown,
@@ -20,41 +21,103 @@ import {
 
 interface TaskTableProps {
   tasks: TaskData[];
+  timeTrackedMap?: Record<string, number>;
   onEditTask?: (task: TaskData) => void;
   onDeleteTask?: (task: TaskData) => void;
   onTaskStatusChange?: (taskId: string, newStatus: TaskStatus) => void;
+  onTimerNotice?: (msg: { type: "success" | "error"; text: string }) => void;
 }
 
-type SortField = "title" | "status" | "project" | "client";
+type SortField = "project" | "title" | "client" | "estimated_time" | "time_tracked" | "status";
 type SortDirection = "asc" | "desc";
 
 const PAGE_SIZE = 50;
 
 const DEFAULT_TASK_WIDTHS = {
-  title: 320,
-  status: 140,
-  project: 200,
-  client: 180,
-  actions: 90,
+  project: 190,
+  title: 270,
+  client: 160,
+  estimated_time: 120,
+  time_tracked: 120,
+  status: 130,
+  actions: 110,
 };
 
 const MIN_TASK_WIDTHS = {
-  title: 140,
-  status: 110,
   project: 120,
-  client: 110,
-  actions: 80,
+  title: 150,
+  client: 100,
+  estimated_time: 90,
+  time_tracked: 90,
+  status: 100,
+  actions: 90,
 };
 
 export default function TaskTable({
   tasks,
+  timeTrackedMap = {},
   onEditTask,
   onDeleteTask,
   onTaskStatusChange,
+  onTimerNotice,
 }: TaskTableProps) {
   const [sortField, setSortField] = useState<SortField>("title");
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const [currentPage, setCurrentPage] = useState<number>(1);
+
+  // Active Timer tracker from localStorage and events
+  const [activeTimer, setActiveTimer] = useState<{
+    isRunning: boolean;
+    taskId: string | null;
+  }>(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const saved = localStorage.getItem("mx_active_timer");
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          return {
+            isRunning: Boolean(parsed.isRunning),
+            taskId: parsed.taskId || null,
+          };
+        }
+      } catch {}
+    }
+    return { isRunning: false, taskId: null };
+  });
+
+  useEffect(() => {
+    const handleTimerChange = (e: Event) => {
+      const customEvent = e as CustomEvent<{
+        isRunning?: boolean;
+        taskId?: string | null;
+      }>;
+      if (customEvent.detail) {
+        setActiveTimer({
+          isRunning: Boolean(customEvent.detail.isRunning),
+          taskId: customEvent.detail.taskId || null,
+        });
+      }
+    };
+
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === "mx_active_timer" && e.newValue) {
+        try {
+          const parsed = JSON.parse(e.newValue);
+          setActiveTimer({
+            isRunning: Boolean(parsed.isRunning),
+            taskId: parsed.taskId || null,
+          });
+        } catch {}
+      }
+    };
+
+    window.addEventListener("mx_timer_state_change", handleTimerChange);
+    window.addEventListener("storage", handleStorage);
+    return () => {
+      window.removeEventListener("mx_timer_state_change", handleTimerChange);
+      window.removeEventListener("storage", handleStorage);
+    };
+  }, []);
 
   const { widths, startResize, totalWidth } = useResizableColumns(
     "mx_col_widths_tasks",
@@ -82,8 +145,26 @@ export default function TaskTable({
       let comparison = 0;
 
       switch (sortField) {
+        case "project": {
+          const projA = a.project_name || "";
+          const projB = b.project_name || "";
+          comparison = projA.localeCompare(projB, undefined, { sensitivity: "base" });
+          break;
+        }
         case "title":
           comparison = a.title.localeCompare(b.title, undefined, { sensitivity: "base" });
+          break;
+        case "client": {
+          const clientA = a.client_name || "";
+          const clientB = b.client_name || "";
+          comparison = clientA.localeCompare(clientB, undefined, { sensitivity: "base" });
+          break;
+        }
+        case "estimated_time":
+          comparison = (a.estimated_hours || 0) - (b.estimated_hours || 0);
+          break;
+        case "time_tracked":
+          comparison = (timeTrackedMap[a.id] || 0) - (timeTrackedMap[b.id] || 0);
           break;
         case "status": {
           const statusOrder: Record<TaskStatus, number> = {
@@ -95,25 +176,13 @@ export default function TaskTable({
           comparison = (statusOrder[a.status] || 0) - (statusOrder[b.status] || 0);
           break;
         }
-        case "project": {
-          const projA = a.project_name || "";
-          const projB = b.project_name || "";
-          comparison = projA.localeCompare(projB, undefined, { sensitivity: "base" });
-          break;
-        }
-        case "client": {
-          const clientA = a.client_name || "";
-          const clientB = b.client_name || "";
-          comparison = clientA.localeCompare(clientB, undefined, { sensitivity: "base" });
-          break;
-        }
         default:
           comparison = 0;
       }
 
       return sortDirection === "asc" ? comparison : -comparison;
     });
-  }, [tasks, sortField, sortDirection]);
+  }, [tasks, sortField, sortDirection, timeTrackedMap]);
 
   // 50-interval pagination calculations
   const totalTasks = sortedTasks.length;
@@ -132,6 +201,43 @@ export default function TaskTable({
     ) : (
       <ChevronDown size={12} style={{ color: "var(--accent-blue)" }} />
     );
+  };
+
+  const handleStartTracking = (e: React.MouseEvent, task: TaskData) => {
+    e.stopPropagation();
+    window.dispatchEvent(
+      new CustomEvent("mx_start_timer", {
+        detail: {
+          taskId: task.id,
+          taskTitle: task.title,
+          projectId: task.project_id,
+          projectTitle: task.project_name || "Project",
+        },
+      })
+    );
+
+    if (task.status === "backlog" && onTaskStatusChange) {
+      onTaskStatusChange(task.id, "in_progress");
+    }
+
+    if (onTimerNotice) {
+      onTimerNotice({
+        type: "success",
+        text: `Live timer started for "${task.title}". Ticking in the bottom bar!`,
+      });
+    }
+  };
+
+  const handleStopTracking = (e: React.MouseEvent, task: TaskData) => {
+    e.stopPropagation();
+    window.dispatchEvent(new CustomEvent("mx_stop_timer"));
+
+    if (onTimerNotice) {
+      onTimerNotice({
+        type: "success",
+        text: `Stopping timer and saving session for "${task.title}"...`,
+      });
+    }
   };
 
   if (tasks.length === 0) {
@@ -191,55 +297,7 @@ export default function TaskTable({
                 height: "32px",
               }}
             >
-              {/* 1. Task Title */}
-              <th
-                onClick={() => handleSort("title")}
-                style={{
-                  position: "relative",
-                  width: `${widths.title}px`,
-                  minWidth: `${MIN_TASK_WIDTHS.title}px`,
-                  padding: "6px 12px",
-                  fontWeight: 600,
-                  color: sortField === "title" ? "var(--text-main)" : "var(--text-dim)",
-                  cursor: "pointer",
-                  userSelect: "none",
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                }}
-              >
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                  <span>Task Title</span>
-                  {renderSortIndicator("title")}
-                </div>
-                <ResizeHandle onMouseDown={(e) => startResize("title", e)} />
-              </th>
-
-              {/* 2. Status */}
-              <th
-                onClick={() => handleSort("status")}
-                style={{
-                  position: "relative",
-                  width: `${widths.status}px`,
-                  minWidth: `${MIN_TASK_WIDTHS.status}px`,
-                  padding: "6px 12px",
-                  fontWeight: 600,
-                  color: sortField === "status" ? "var(--text-main)" : "var(--text-dim)",
-                  cursor: "pointer",
-                  userSelect: "none",
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                }}
-              >
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                  <span>Status</span>
-                  {renderSortIndicator("status")}
-                </div>
-                <ResizeHandle onMouseDown={(e) => startResize("status", e)} />
-              </th>
-
-              {/* 3. Project */}
+              {/* 1. Project Name */}
               <th
                 onClick={() => handleSort("project")}
                 style={{
@@ -257,13 +315,37 @@ export default function TaskTable({
                 }}
               >
                 <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                  <span>Project</span>
+                  <span>Project Name</span>
                   {renderSortIndicator("project")}
                 </div>
                 <ResizeHandle onMouseDown={(e) => startResize("project", e)} />
               </th>
 
-              {/* 4. Client */}
+              {/* 2. Task Title */}
+              <th
+                onClick={() => handleSort("title")}
+                style={{
+                  position: "relative",
+                  width: `${widths.title}px`,
+                  minWidth: `${MIN_TASK_WIDTHS.title}px`,
+                  padding: "6px 12px",
+                  fontWeight: 600,
+                  color: sortField === "title" ? "var(--text-main)" : "var(--text-dim)",
+                  cursor: "pointer",
+                  userSelect: "none",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                  <span>Task</span>
+                  {renderSortIndicator("title")}
+                </div>
+                <ResizeHandle onMouseDown={(e) => startResize("title", e)} />
+              </th>
+
+              {/* 3. Client */}
               <th
                 onClick={() => handleSort("client")}
                 style={{
@@ -287,7 +369,79 @@ export default function TaskTable({
                 <ResizeHandle onMouseDown={(e) => startResize("client", e)} />
               </th>
 
-              {/* 5. Actions */}
+              {/* 4. Estimated Time */}
+              <th
+                onClick={() => handleSort("estimated_time")}
+                style={{
+                  position: "relative",
+                  width: `${widths.estimated_time}px`,
+                  minWidth: `${MIN_TASK_WIDTHS.estimated_time}px`,
+                  padding: "6px 12px",
+                  fontWeight: 600,
+                  color: sortField === "estimated_time" ? "var(--text-main)" : "var(--text-dim)",
+                  cursor: "pointer",
+                  userSelect: "none",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                  <span>Estimated Time</span>
+                  {renderSortIndicator("estimated_time")}
+                </div>
+                <ResizeHandle onMouseDown={(e) => startResize("estimated_time", e)} />
+              </th>
+
+              {/* 5. Time Tracked */}
+              <th
+                onClick={() => handleSort("time_tracked")}
+                style={{
+                  position: "relative",
+                  width: `${widths.time_tracked}px`,
+                  minWidth: `${MIN_TASK_WIDTHS.time_tracked}px`,
+                  padding: "6px 12px",
+                  fontWeight: 600,
+                  color: sortField === "time_tracked" ? "var(--text-main)" : "var(--text-dim)",
+                  cursor: "pointer",
+                  userSelect: "none",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                  <span>Time Tracked</span>
+                  {renderSortIndicator("time_tracked")}
+                </div>
+                <ResizeHandle onMouseDown={(e) => startResize("time_tracked", e)} />
+              </th>
+
+              {/* 6. Status */}
+              <th
+                onClick={() => handleSort("status")}
+                style={{
+                  position: "relative",
+                  width: `${widths.status}px`,
+                  minWidth: `${MIN_TASK_WIDTHS.status}px`,
+                  padding: "6px 12px",
+                  fontWeight: 600,
+                  color: sortField === "status" ? "var(--text-main)" : "var(--text-dim)",
+                  cursor: "pointer",
+                  userSelect: "none",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                  <span>Status</span>
+                  {renderSortIndicator("status")}
+                </div>
+                <ResizeHandle onMouseDown={(e) => startResize("status", e)} />
+              </th>
+
+              {/* 7. Actions */}
               <th
                 style={{
                   position: "relative",
@@ -313,6 +467,8 @@ export default function TaskTable({
               const completedCount = checklist.filter((i) => i.completed).length;
               const totalChecklist = checklist.length;
               const allDone = totalChecklist > 0 && completedCount === totalChecklist;
+              const isThisRunning = activeTimer.isRunning && activeTimer.taskId === task.id;
+              const trackedSec = timeTrackedMap[task.id] || 0;
 
               return (
                 <tr
@@ -321,11 +477,35 @@ export default function TaskTable({
                     borderBottom: "1px solid var(--border-subtle)",
                     height: "36px",
                     transition: "background 0.1s ease",
+                    background: isThisRunning ? "rgba(16, 185, 129, 0.04)" : undefined,
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--bg-surface-subtle)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = isThisRunning ? "rgba(16, 185, 129, 0.08)" : "var(--bg-surface-subtle)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = isThisRunning ? "rgba(16, 185, 129, 0.04)" : "transparent")}
                 >
-                  {/* Task Title + Checklist Badge */}
+                  {/* 1. Project Name */}
+                  <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
+                    {task.project_name ? (
+                      <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                        <FolderKanban size={12} style={{ color: "var(--text-dim)", flexShrink: 0 }} />
+                        <span
+                          style={{
+                            color: "var(--text-main)",
+                            fontWeight: 500,
+                            maxWidth: "170px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                          title={task.project_name}
+                        >
+                          {task.project_name}
+                        </span>
+                      </div>
+                    ) : (
+                      <span style={{ color: "var(--text-dim)" }}>—</span>
+                    )}
+                  </td>
+
+                  {/* 2. Task Title + Checklist Badge */}
                   <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                       <span
@@ -334,7 +514,7 @@ export default function TaskTable({
                           fontSize: "12.5px",
                           color: task.status === "done" ? "var(--text-muted)" : "var(--text-main)",
                           textDecoration: task.status === "done" ? "line-through" : "none",
-                          maxWidth: "280px",
+                          maxWidth: "240px",
                           overflow: "hidden",
                           textOverflow: "ellipsis",
                         }}
@@ -366,23 +546,70 @@ export default function TaskTable({
                           </span>
                         </div>
                       )}
-
-                      {task.estimated_hours > 0 && (
-                        <span
-                          className="mono"
-                          style={{
-                            fontSize: "10.5px",
-                            color: "var(--text-dim)",
-                            marginLeft: "auto",
-                          }}
-                        >
-                          {task.estimated_hours}h
-                        </span>
-                      )}
                     </div>
                   </td>
 
-                  {/* Status Dropdown */}
+                  {/* 3. Client */}
+                  <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
+                    {task.client_name ? (
+                      <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                        <Building2 size={12} style={{ color: "var(--text-dim)", flexShrink: 0 }} />
+                        <span
+                          style={{
+                            color: "var(--text-muted)",
+                            maxWidth: "140px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                          title={task.client_name}
+                        >
+                          {task.client_name}
+                        </span>
+                      </div>
+                    ) : (
+                      <span style={{ color: "var(--text-dim)" }}>—</span>
+                    )}
+                  </td>
+
+                  {/* 4. Estimated Time */}
+                  <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
+                    {task.estimated_hours > 0 ? (
+                      <span className="mono" style={{ fontSize: "11px", color: "var(--text-dim)" }}>
+                        {task.estimated_hours}h
+                      </span>
+                    ) : (
+                      <span style={{ color: "var(--text-dim)", fontSize: "11px" }}>—</span>
+                    )}
+                  </td>
+
+                  {/* 5. Time Tracked */}
+                  <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
+                    {isThisRunning ? (
+                      <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                        <span className="pulse-indicator" style={{ width: "6px", height: "6px" }} />
+                        <span className="mono" style={{ fontSize: "11px", color: "var(--accent-emerald)", fontWeight: 600 }}>
+                          Active
+                        </span>
+                      </div>
+                    ) : trackedSec > 0 ? (
+                      <div style={{ display: "inline-flex", alignItems: "center", gap: "5px" }}>
+                        <Clock size={11} style={{ color: "var(--text-dim)" }} />
+                        <span
+                          className="mono"
+                          style={{ fontSize: "11px", color: "var(--text-main)", fontWeight: 500 }}
+                          title={`${(trackedSec / 3600).toFixed(2)} hours tracked`}
+                        >
+                          {(trackedSec / 3600).toFixed(1)}h
+                        </span>
+                      </div>
+                    ) : (
+                      <span style={{ color: "var(--text-dim)", fontSize: "11px" }} className="mono">
+                        0.0h
+                      </span>
+                    )}
+                  </td>
+
+                  {/* 6. Status Dropdown */}
                   <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
                     <select
                       value={task.status}
@@ -414,82 +641,43 @@ export default function TaskTable({
                     </select>
                   </td>
 
-                  {/* Project */}
-                  <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
-                    {task.project_name ? (
-                      <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                        <FolderKanban size={12} style={{ color: "var(--text-dim)", flexShrink: 0 }} />
-                        <span
-                          style={{
-                            color: "var(--text-main)",
-                            maxWidth: "180px",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                          }}
-                          title={task.project_name}
-                        >
-                          {task.project_name}
-                        </span>
-                      </div>
-                    ) : (
-                      <span style={{ color: "var(--text-dim)" }}>—</span>
-                    )}
-                  </td>
-
-                  {/* Client */}
-                  <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
-                    {task.client_name ? (
-                      <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                        <Building2 size={12} style={{ color: "var(--text-dim)", flexShrink: 0 }} />
-                        <span
-                          style={{
-                            color: "var(--text-muted)",
-                            maxWidth: "160px",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                          }}
-                          title={task.client_name}
-                        >
-                          {task.client_name}
-                        </span>
-                      </div>
-                    ) : (
-                      <span style={{ color: "var(--text-dim)" }}>—</span>
-                    )}
-                  </td>
-
-                  {/* Actions */}
+                  {/* 7. Actions */}
                   <td style={{ padding: "6px 12px", textAlign: "right", whiteSpace: "nowrap" }}>
-                      <div
-                        style={{
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: "6px",
-                        }}
-                      >
+                    <div
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "6px",
+                      }}
+                    >
+                      {/* Start/Stop Tracking Time Button */}
+                      {isThisRunning ? (
                         <button
-                        type="button"
-                        onClick={() => {
-                          window.dispatchEvent(
-                            new CustomEvent("mx_start_timer", {
-                              detail: {
-                                taskId: task.id,
-                                taskTitle: task.title,
-                                projectId: task.project_id,
-                                projectTitle: task.project_name || "Project",
-                              },
-                            })
-                          );
-                          if (task.status === "backlog" && onTaskStatusChange) {
-                            onTaskStatusChange(task.id, "in_progress");
-                          }
-                        }}
-                        className="finance-button-secondary"
-                        style={{ padding: "3px 6px", color: "var(--accent-emerald)" }}
-                        title="Start Tracking Time on this Task"
-                      >
-                        <Play size={11} />
-                      </button>
+                          type="button"
+                          onClick={(e) => handleStopTracking(e, task)}
+                          className="finance-button-secondary"
+                          style={{
+                            padding: "3px 6px",
+                            color: "var(--accent-rose)",
+                            borderColor: "var(--accent-rose)",
+                            background: "rgba(244, 63, 94, 0.12)",
+                          }}
+                          title="Stop Tracking Time on this Task"
+                        >
+                          <Square size={11} fill="currentColor" />
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={(e) => handleStartTracking(e, task)}
+                          className="finance-button-secondary"
+                          style={{ padding: "3px 6px", color: "var(--accent-emerald)" }}
+                          title="Start Tracking Time on this Task"
+                        >
+                          <Play size={11} />
+                        </button>
+                      )}
+
                       <button
                         type="button"
                         onClick={() => onEditTask && onEditTask(task)}
@@ -499,6 +687,7 @@ export default function TaskTable({
                       >
                         <Pencil size={11} />
                       </button>
+
                       <button
                         type="button"
                         onClick={() => onDeleteTask && onDeleteTask(task)}
@@ -518,67 +707,66 @@ export default function TaskTable({
       </div>
 
       {/* 50-Interval Pagination Bar */}
-      <div
-        style={{
-          padding: "10px 16px",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          borderTop: "1px solid var(--border-subtle)",
-          background: "var(--bg-surface)",
-          fontSize: "12px",
-          flexWrap: "wrap",
-          gap: "8px",
-        }}
-      >
-        <span style={{ color: "var(--text-dim)" }}>
-          Showing{" "}
-          <strong style={{ color: "var(--text-main)" }}>
-            {totalTasks === 0 ? 0 : startIndex + 1} - {endIndex}
-          </strong>{" "}
-          of <strong style={{ color: "var(--text-main)" }}>{totalTasks}</strong> tasks (50 per page)
-        </span>
+      {totalPages > 1 && (
+        <div
+          style={{
+            padding: "8px 16px",
+            borderTop: "1px solid var(--border-subtle)",
+            background: "var(--bg-surface-subtle)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            fontSize: "11.5px",
+            color: "var(--text-muted)",
+          }}
+        >
+          <div>
+            Showing <span className="mono" style={{ color: "var(--text-main)", fontWeight: 600 }}>{startIndex + 1}</span> to{" "}
+            <span className="mono" style={{ color: "var(--text-main)", fontWeight: 600 }}>{endIndex}</span> of{" "}
+            <span className="mono" style={{ color: "var(--text-main)", fontWeight: 600 }}>{totalTasks}</span> tasks
+          </div>
 
-        {totalPages > 1 && (
           <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
             <button
               type="button"
-              disabled={safeCurrentPage <= 1}
+              disabled={safeCurrentPage === 1}
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               className="finance-button-secondary"
               style={{
-                padding: "4px 8px",
+                padding: "3px 8px",
                 fontSize: "11px",
-                opacity: safeCurrentPage <= 1 ? 0.4 : 1,
-                cursor: safeCurrentPage <= 1 ? "not-allowed" : "pointer",
+                opacity: safeCurrentPage === 1 ? 0.4 : 1,
+                cursor: safeCurrentPage === 1 ? "not-allowed" : "pointer",
+                gap: "2px",
               }}
             >
               <ChevronLeft size={13} />
-              <span>Prev 50</span>
+              <span>Prev</span>
             </button>
 
-            <span className="mono" style={{ fontSize: "11px", padding: "0 6px", color: "var(--text-muted)" }}>
-              Page {safeCurrentPage} / {totalPages}
+            <span className="mono" style={{ padding: "0 6px", fontSize: "11px" }}>
+              {safeCurrentPage} / {totalPages}
             </span>
 
             <button
               type="button"
-              disabled={safeCurrentPage >= totalPages}
+              disabled={safeCurrentPage === totalPages}
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               className="finance-button-secondary"
               style={{
-                padding: "4px 8px",
+                padding: "3px 8px",
                 fontSize: "11px",
-                opacity: safeCurrentPage >= totalPages ? 0.4 : 1,
-                cursor: safeCurrentPage >= totalPages ? "not-allowed" : "pointer",
+                opacity: safeCurrentPage === totalPages ? 0.4 : 1,
+                cursor: safeCurrentPage === totalPages ? "not-allowed" : "pointer",
+                gap: "2px",
               }}
             >
-              <span>Next 50</span>
+              <span>Next</span>
               <ChevronRight size={13} />
             </button>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

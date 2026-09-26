@@ -7,6 +7,7 @@ import TaskModal from "@/components/modules/projects/TaskModal";
 import TaskTable from "@/components/modules/projects/TaskTable";
 import { api } from "@/lib/api-client";
 import { TaskData, TaskStatus, ProjectData } from "@/types/project";
+import { TimeEntryData } from "@/types/time";
 import {
   CheckSquare,
   FolderKanban,
@@ -15,14 +16,25 @@ import {
   AlertCircle,
   CheckCircle2,
   Clock,
-  ArrowRight,
 } from "lucide-react";
 
+type PeriodFilter = "today" | "this_week" | "this_month" | "custom";
+
 export default function TasksPage() {
-  const [taskViewFilter, setTaskViewFilter] = useState<"pending" | "completed" | "all">("pending");
+  const [periodFilter, setPeriodFilter] = useState<PeriodFilter>("this_week");
+  const [customStartDate, setCustomStartDate] = useState<string>(() => {
+    const d = new Date();
+    d.setDate(d.getDate() - 7);
+    return d.toISOString().slice(0, 10);
+  });
+  const [customEndDate, setCustomEndDate] = useState<string>(() => {
+    return new Date().toISOString().slice(0, 10);
+  });
+
   const [tasks, setTasks] = useState<TaskData[]>([]);
   const [projects, setProjects] = useState<ProjectData[]>([]);
   const [clients, setClients] = useState<{ id: string; company_name: string }[]>([]);
+  const [entries, setEntries] = useState<TimeEntryData[]>([]);
   const [loading, setLoading] = useState(true);
   const [actionMsg, setActionMsg] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
@@ -39,15 +51,17 @@ export default function TasksPage() {
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      const [taskData, projData, clientData] = await Promise.all([
+      const [taskData, projData, clientData, entryData] = await Promise.all([
         api.get<TaskData[]>("/tasks"),
         api.get<ProjectData[]>("/projects"),
         api.get<{ id: string; company_name: string }[]>("/clients"),
+        api.get<TimeEntryData[]>("/time-entries"),
       ]);
 
       setTasks(Array.isArray(taskData) ? taskData : []);
       setProjects(Array.isArray(projData) ? projData : []);
       setClients(Array.isArray(clientData) ? clientData : []);
+      setEntries(Array.isArray(entryData) ? entryData : []);
     } catch (err: any) {
       setActionMsg({ type: "error", text: err.message || "Failed to load task records." });
     } finally {
@@ -58,6 +72,26 @@ export default function TasksPage() {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
+
+  // Listen for timer events saved from GlobalTimerBar or TimeTracker
+  useEffect(() => {
+    const handleTimerSaved = () => {
+      fetchData();
+    };
+    window.addEventListener("mx_timer_saved", handleTimerSaved);
+    return () => window.removeEventListener("mx_timer_saved", handleTimerSaved);
+  }, [fetchData]);
+
+  // Aggregate tracked seconds per task ID
+  const timeTrackedMap = useMemo(() => {
+    const map: Record<string, number> = {};
+    for (const entry of entries) {
+      if (entry.task_id) {
+        map[entry.task_id] = (map[entry.task_id] || 0) + (entry.duration_seconds || 0);
+      }
+    }
+    return map;
+  }, [entries]);
 
   // Task Actions
   const handleOpenNewTask = (projectId?: string, defaultCol: TaskStatus = "backlog") => {
@@ -102,10 +136,80 @@ export default function TasksPage() {
 
   // Filtered Tasks
   const filteredTasks = useMemo(() => {
+    const now = new Date();
+    const todayStr = now.toISOString().slice(0, 10);
+
+    // Monday of this week
+    const dayOfWeek = now.getDay() || 7; // Sunday is 7
+    const monday = new Date(now);
+    monday.setDate(now.getDate() - (dayOfWeek - 1));
+    monday.setHours(0, 0, 0, 0);
+
+    // Sunday of this week
+    const sunday = new Date(monday);
+    sunday.setDate(monday.getDate() + 6);
+    sunday.setHours(23, 59, 59, 999);
+
+    // First and last day of this month
+    const firstOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    firstOfMonth.setHours(0, 0, 0, 0);
+    const lastOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
+
+    // Tasks that had active time entries within selected period
+    const taskIdsWithTimeInPeriod = new Set<string>();
+    for (const entry of entries) {
+      if (!entry.task_id) continue;
+      const entryDateStr = entry.start_time ? entry.start_time.slice(0, 10) : "";
+      const entryDate = entry.start_time ? new Date(entry.start_time) : null;
+      let inPeriod = false;
+
+      if (periodFilter === "today") {
+        inPeriod = entryDateStr === todayStr;
+      } else if (periodFilter === "this_week") {
+        inPeriod = entryDate ? entryDate >= monday : false;
+      } else if (periodFilter === "this_month") {
+        inPeriod = entryDate ? entryDate >= firstOfMonth : false;
+      } else if (periodFilter === "custom") {
+        const afterStart = !customStartDate || entryDateStr >= customStartDate;
+        const beforeEnd = !customEndDate || entryDateStr <= customEndDate;
+        inPeriod = afterStart && beforeEnd;
+      }
+
+      if (inPeriod) {
+        taskIdsWithTimeInPeriod.add(entry.task_id);
+      }
+    }
+
     return tasks.filter((t) => {
-      // 1. Completion view pill filter
-      if (taskViewFilter === "pending" && t.status === "done") return false;
-      if (taskViewFilter === "completed" && t.status !== "done") return false;
+      // 1. Period View Filter
+      const hasTimeInPeriod = taskIdsWithTimeInPeriod.has(t.id);
+      let matchesPeriod = hasTimeInPeriod;
+
+      if (!matchesPeriod) {
+        const taskDateStr = t.due_date ? t.due_date.slice(0, 10) : (t.updated_at || t.created_at || "").slice(0, 10);
+        const taskDate = taskDateStr ? new Date(taskDateStr) : null;
+
+        if (periodFilter === "today") {
+          matchesPeriod = taskDateStr === todayStr || (t.status === "in_progress" && (t.updated_at || "").slice(0, 10) === todayStr);
+        } else if (periodFilter === "this_week") {
+          if (!taskDate) matchesPeriod = true;
+          else if (t.due_date) matchesPeriod = taskDate >= monday && taskDate <= sunday;
+          else matchesPeriod = taskDate >= monday;
+        } else if (periodFilter === "this_month") {
+          if (!taskDate) matchesPeriod = true;
+          else if (t.due_date) matchesPeriod = taskDate >= firstOfMonth && taskDate <= lastOfMonth;
+          else matchesPeriod = taskDate >= firstOfMonth;
+        } else if (periodFilter === "custom") {
+          if (!taskDateStr) matchesPeriod = true;
+          else {
+            const afterStart = !customStartDate || taskDateStr >= customStartDate;
+            const beforeEnd = !customEndDate || taskDateStr <= customEndDate;
+            matchesPeriod = afterStart && beforeEnd;
+          }
+        }
+      }
+
+      if (!matchesPeriod) return false;
 
       // 2. Search query filter
       const q = searchQuery.trim().toLowerCase();
@@ -116,19 +220,21 @@ export default function TasksPage() {
         (t.project_name && t.project_name.toLowerCase().includes(q)) ||
         (t.client_name && t.client_name.toLowerCase().includes(q));
 
+      if (!matchesSearch) return false;
+
       // 3. Client filter
       const prj = projects.find((p) => p.id === t.project_id);
       const matchesClient = clientFilter === "all" || (prj && prj.client_id === clientFilter);
 
-      return matchesSearch && matchesClient;
+      return matchesClient;
     });
-  }, [tasks, taskViewFilter, searchQuery, clientFilter, projects]);
+  }, [tasks, entries, periodFilter, customStartDate, customEndDate, searchQuery, clientFilter, projects]);
 
   // Aggregate stats
-  const totalTasks = tasks.length;
-  const pendingTasks = tasks.filter((t) => t.status !== "done").length;
+  const totalTasks = filteredTasks.length;
+  const pendingTasks = filteredTasks.filter((t) => t.status !== "done").length;
   const completedTasks = totalTasks - pendingTasks;
-  const inProgressTasks = tasks.filter((t) => t.status === "in_progress").length;
+  const inProgressTasks = filteredTasks.filter((t) => t.status === "in_progress").length;
 
   return (
     <AppShell title="Tasks">
@@ -208,7 +314,7 @@ export default function TasksPage() {
                     color: "var(--text-dim)",
                   }}
                 >
-                  {totalTasks} total
+                  {totalTasks} shown ({tasks.length} total)
                 </span>
               </div>
               <p style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "2px" }}>
@@ -250,13 +356,13 @@ export default function TasksPage() {
         >
           <div className="finance-panel" style={{ padding: "16px", background: "var(--bg-surface)" }}>
             <div style={{ fontSize: "11px", color: "var(--text-dim)", textTransform: "uppercase" }}>
-              Total Deliverables
+              Total in View
             </div>
             <div style={{ fontSize: "22px", fontWeight: 600, marginTop: "6px" }} className="mono">
               {totalTasks}
             </div>
             <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px" }}>
-              Across all projects
+              Matching active view filter
             </div>
           </div>
 
@@ -379,80 +485,123 @@ export default function TasksPage() {
             )}
           </div>
 
-          {/* Right Controls: Task View Option Pills */}
-          <div
-            style={{
-              display: "flex",
-              background: "var(--bg-surface-subtle)",
-              border: "1px solid var(--border-subtle)",
-              borderRadius: "var(--radius-xs)",
-              padding: "2px",
-              gap: "2px",
-            }}
-          >
-            <button
-              type="button"
-              onClick={() => setTaskViewFilter("pending")}
+          {/* Right Controls: View Switcher (today | This week (defult) | This month | Custom) */}
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+            <div
               style={{
-                padding: "5px 12px",
-                fontSize: "12px",
-                fontWeight: 500,
+                display: "flex",
+                background: "var(--bg-surface-subtle)",
+                border: "1px solid var(--border-subtle)",
                 borderRadius: "var(--radius-xs)",
-                border: "none",
-                cursor: "pointer",
-                background: taskViewFilter === "pending" ? "var(--bg-surface)" : "transparent",
-                color: taskViewFilter === "pending" ? "var(--accent-amber)" : "var(--text-muted)",
-                boxShadow: taskViewFilter === "pending" ? "0 1px 2px rgba(0,0,0,0.06)" : "none",
-                transition: "all 0.15s ease",
+                padding: "2px",
+                gap: "2px",
               }}
             >
-              Pending Tasks ({pendingTasks})
-            </button>
-            <button
-              type="button"
-              onClick={() => setTaskViewFilter("completed")}
-              style={{
-                padding: "5px 12px",
-                fontSize: "12px",
-                fontWeight: 500,
-                borderRadius: "var(--radius-xs)",
-                border: "none",
-                cursor: "pointer",
-                background: taskViewFilter === "completed" ? "var(--bg-surface)" : "transparent",
-                color: taskViewFilter === "completed" ? "var(--accent-emerald)" : "var(--text-muted)",
-                boxShadow: taskViewFilter === "completed" ? "0 1px 2px rgba(0,0,0,0.06)" : "none",
-                transition: "all 0.15s ease",
-              }}
-            >
-              Completed Tasks ({completedTasks})
-            </button>
-            <button
-              type="button"
-              onClick={() => setTaskViewFilter("all")}
-              style={{
-                padding: "5px 12px",
-                fontSize: "12px",
-                fontWeight: 500,
-                borderRadius: "var(--radius-xs)",
-                border: "none",
-                cursor: "pointer",
-                background: taskViewFilter === "all" ? "var(--bg-surface)" : "transparent",
-                color: taskViewFilter === "all" ? "var(--text-main)" : "var(--text-muted)",
-                boxShadow: taskViewFilter === "all" ? "0 1px 2px rgba(0,0,0,0.06)" : "none",
-                transition: "all 0.15s ease",
-              }}
-            >
-              All Tasks ({totalTasks})
-            </button>
+              <button
+                type="button"
+                onClick={() => setPeriodFilter("today")}
+                style={{
+                  padding: "5px 12px",
+                  fontSize: "12px",
+                  fontWeight: 500,
+                  borderRadius: "var(--radius-xs)",
+                  border: "none",
+                  cursor: "pointer",
+                  background: periodFilter === "today" ? "var(--bg-surface)" : "transparent",
+                  color: periodFilter === "today" ? "var(--accent-blue)" : "var(--text-muted)",
+                  boxShadow: periodFilter === "today" ? "0 1px 2px rgba(0,0,0,0.06)" : "none",
+                  transition: "all 0.15s ease",
+                }}
+              >
+                today
+              </button>
+              <button
+                type="button"
+                onClick={() => setPeriodFilter("this_week")}
+                style={{
+                  padding: "5px 12px",
+                  fontSize: "12px",
+                  fontWeight: 500,
+                  borderRadius: "var(--radius-xs)",
+                  border: "none",
+                  cursor: "pointer",
+                  background: periodFilter === "this_week" ? "var(--bg-surface)" : "transparent",
+                  color: periodFilter === "this_week" ? "var(--accent-blue)" : "var(--text-muted)",
+                  boxShadow: periodFilter === "this_week" ? "0 1px 2px rgba(0,0,0,0.06)" : "none",
+                  transition: "all 0.15s ease",
+                }}
+              >
+                This week
+              </button>
+              <button
+                type="button"
+                onClick={() => setPeriodFilter("this_month")}
+                style={{
+                  padding: "5px 12px",
+                  fontSize: "12px",
+                  fontWeight: 500,
+                  borderRadius: "var(--radius-xs)",
+                  border: "none",
+                  cursor: "pointer",
+                  background: periodFilter === "this_month" ? "var(--bg-surface)" : "transparent",
+                  color: periodFilter === "this_month" ? "var(--accent-blue)" : "var(--text-muted)",
+                  boxShadow: periodFilter === "this_month" ? "0 1px 2px rgba(0,0,0,0.06)" : "none",
+                  transition: "all 0.15s ease",
+                }}
+              >
+                This month
+              </button>
+              <button
+                type="button"
+                onClick={() => setPeriodFilter("custom")}
+                style={{
+                  padding: "5px 12px",
+                  fontSize: "12px",
+                  fontWeight: 500,
+                  borderRadius: "var(--radius-xs)",
+                  border: "none",
+                  cursor: "pointer",
+                  background: periodFilter === "custom" ? "var(--bg-surface)" : "transparent",
+                  color: periodFilter === "custom" ? "var(--accent-blue)" : "var(--text-muted)",
+                  boxShadow: periodFilter === "custom" ? "0 1px 2px rgba(0,0,0,0.06)" : "none",
+                  transition: "all 0.15s ease",
+                }}
+              >
+                Custom
+              </button>
+            </div>
+
+            {/* Custom Date Pickers */}
+            {periodFilter === "custom" && (
+              <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                <input
+                  type="date"
+                  value={customStartDate}
+                  onChange={(e) => setCustomStartDate(e.target.value)}
+                  className="finance-input"
+                  style={{ height: "32px", fontSize: "11px", width: "130px" }}
+                />
+                <span style={{ fontSize: "11px", color: "var(--text-dim)" }}>to</span>
+                <input
+                  type="date"
+                  value={customEndDate}
+                  onChange={(e) => setCustomEndDate(e.target.value)}
+                  className="finance-input"
+                  style={{ height: "32px", fontSize: "11px", width: "130px" }}
+                />
+              </div>
+            )}
           </div>
         </div>
 
         {/* View Content: Dedicated Tasks Sheet */}
         <TaskTable
           tasks={filteredTasks}
+          timeTrackedMap={timeTrackedMap}
           onEditTask={handleOpenEditTask}
           onDeleteTask={handleDeleteTask}
           onTaskStatusChange={handleTaskStatusChange}
+          onTimerNotice={setActionMsg}
         />
 
         {/* Task Modal */}

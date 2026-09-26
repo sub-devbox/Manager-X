@@ -1,16 +1,16 @@
 # Graph Report - Manager-X  (2026-09-26)
 
 ## Corpus Check
-- 88 files · ~52,047 words
+- 88 files · ~53,342 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 557 nodes · 1013 edges · 37 communities (29 shown, 8 thin omitted)
+- 558 nodes · 1016 edges · 37 communities (29 shown, 8 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 16 edges (avg confidence: 0.57)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `6ab25c23`
+- Built from commit: `e0c312d1`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -187,14 +187,14 @@ Nodes (22): create_client(), delete_client(), get_client(), list_clients(), list
 
 ### Community 35 - "project.ts"
 Cohesion: 0.07
-Nodes (45): PeriodFilter, TimerState, ClientOption, ProjectModal(), ProjectModalProps, DEFAULT_PROJECT_WIDTHS, MIN_PROJECT_WIDTHS, ProjectTable() (+37 more)
+Nodes (46): PeriodFilter, PeriodFilter, TimerState, ClientOption, ProjectModal(), ProjectModalProps, DEFAULT_PROJECT_WIDTHS, MIN_PROJECT_WIDTHS (+38 more)
 
 ### Community 36 - "time_entries.py"
 Cohesion: 0.18
 Nodes (20): create_time_entry(), delete_time_entry(), _format_time_entry_response(), get_time_entry(), list_time_entries(), AsyncSession, delete, get (+12 more)
 
 ## Knowledge Gaps
-- **159 isolated node(s):** `eslintConfig`, `nextConfig`, `name`, `version`, `private` (+154 more)
+- **160 isolated node(s):** `eslintConfig`, `nextConfig`, `name`, `version`, `private` (+155 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **8 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -210,7 +210,7 @@ _Questions this graph is uniquely positioned to answer:_
 - **Are the 10 inferred relationships involving `Base` (e.g. with `SecurityHeadersMiddleware` and `Client`) actually correct?**
   _`Base` has 10 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `eslintConfig`, `nextConfig`, `name` to the rest of the system?**
-  _159 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _160 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `devDependencies` be split into smaller, more focused modules?**
   _Cohesion score 0.06060606060606061 - nodes in this community are weakly interconnected._
 - **Should `auth.py` be split into smaller, more focused modules?**

@@ -180,8 +180,8 @@
     "semantic_hash": ""
   },
   "frontend/src/components/layout/GlobalTimerBar.tsx": {
-    "mtime": 1790424257.0862901,
-    "ast_hash": "0643496a134628c71d55e91f71f82049",
+    "mtime": 1790425863.8694038,
+    "ast_hash": "b1ade14ef0e3904cfea6b8fbadb225a7",
     "semantic_hash": ""
   },
   "frontend/src/components/layout/Header.tsx": {
@@ -395,8 +395,8 @@
     "semantic_hash": ""
   },
   "frontend/src/components/modules/projects/TaskTable.tsx": {
-    "mtime": 1790424981.6881843,
-    "ast_hash": "84a38f93aed243bd8b6691c5332a40f5",
+    "mtime": 1790425913.5171661,
+    "ast_hash": "12bd92ac70c9031c34936538ea5488bf",
     "semantic_hash": ""
   },
   "backend/app/api/v1/endpoints/time_entries.py": {
@@ -435,8 +435,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/tasks/page.tsx": {
-    "mtime": 1790424558.040152,
-    "ast_hash": "1d0d58ed1031e3aef829deb94d595cb3",
+    "mtime": 1790425938.8659606,
+    "ast_hash": "9bfadf250352cd209c40fd970b0d9e06",
     "semantic_hash": ""
   },
   "frontend/src/hooks/useResizableColumns.tsx": {
