@@ -21,6 +21,7 @@ import {
   AlertCircle,
   X,
   CheckCheck,
+  Phone,
 } from "lucide-react";
 
 interface InvoiceTableProps {
@@ -551,11 +552,19 @@ export default function InvoiceTable({
 
                   {/* 3. Client */}
                   <td style={{ padding: "6px 12px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                      <Building2 size={12} style={{ color: "var(--text-dim)", flexShrink: 0 }} />
-                      <span style={{ fontWeight: 500, color: "var(--text-main)" }}>
-                        {inv.client?.company_name || "—"}
-                      </span>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                        <Building2 size={12} style={{ color: "var(--text-dim)", flexShrink: 0 }} />
+                        <span style={{ fontWeight: 500, color: "var(--text-main)" }}>
+                          {inv.client?.company_name || "—"}
+                        </span>
+                      </div>
+                      {inv.client?.phone && (
+                        <div style={{ display: "flex", alignItems: "center", gap: "4px", paddingLeft: "18px", fontSize: "11px", color: "var(--text-muted)" }}>
+                          <Phone size={10} style={{ color: "var(--text-dim)", flexShrink: 0 }} />
+                          <span>{inv.client.phone}</span>
+                        </div>
+                      )}
                     </div>
                   </td>
 

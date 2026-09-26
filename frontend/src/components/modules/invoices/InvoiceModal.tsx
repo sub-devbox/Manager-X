@@ -136,8 +136,8 @@ export default function InvoiceModal({
 
   // Selected client details
   const selectedClient = useMemo(() => {
-    return clients.find((c) => c.id === clientId) || null;
-  }, [clients, clientId]);
+    return clients.find((c) => c.id === clientId) || (initialData?.client ? (initialData.client as unknown as ClientData) : null);
+  }, [clients, clientId, initialData]);
 
   // Helper: Extract company initials (e.g., American Dreams LLC -> ADL)
   const extractCompanyInitials = (name: string): string => {
@@ -1538,6 +1538,7 @@ export default function InvoiceModal({
                         </div>
                         {selectedClient.tax_id && <div>Tax ID: {selectedClient.tax_id}</div>}
                         {selectedClient.email && <div>Email: {selectedClient.email}</div>}
+                        {selectedClient.phone && <div>Phone: {selectedClient.phone}</div>}
                       </>
                     ) : (
                       <div style={{ color: "#94a3b8", fontStyle: "italic" }}>No client selected</div>

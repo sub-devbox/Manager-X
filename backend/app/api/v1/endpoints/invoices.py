@@ -679,6 +679,7 @@ async def download_invoice_pdf(
         client_data = {
             "company_name": invoice.client.company_name,
             "contact_person": invoice.client.contact_person,
+            "phone": invoice.client.phone,
             "address_line1": invoice.client.address_line1,
             "address_line2": invoice.client.address_line2,
             "city": invoice.client.city,
@@ -719,6 +720,7 @@ async def render_custom_invoice_pdf(
             client_data = {
                 "company_name": client.company_name,
                 "contact_person": client.contact_person,
+                "phone": client.phone,
                 "address_line1": client.address_line1,
                 "address_line2": client.address_line2,
                 "city": client.city,

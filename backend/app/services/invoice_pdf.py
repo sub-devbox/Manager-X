@@ -365,6 +365,8 @@ def build_invoice_pdf(
         cli_lines.append(Paragraph(f"Tax ID: {cli['tax_id']}", body_style))
     if cli.get("email"):
         cli_lines.append(Paragraph(f"Email: {cli['email']}", body_style))
+    if cli.get("phone"):
+        cli_lines.append(Paragraph(f"Phone: {cli['phone']}", body_style))
 
     bill_from_cell = [
         Paragraph("<b>BILL FROM:</b>", section_hdr_style),
