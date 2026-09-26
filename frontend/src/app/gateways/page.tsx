@@ -10,13 +10,10 @@ import {
   Plus,
   Search,
   Pencil,
-  Trash2,
   CheckCircle2,
   XCircle,
   AlertCircle,
   TrendingUp,
-  FileText,
-  DollarSign,
 } from "lucide-react";
 
 export default function GatewaysPage() {
@@ -65,17 +62,13 @@ export default function GatewaysPage() {
 
   const handleDelete = async (gateway: GatewayData) => {
     if (!gateway.id) return;
-    const confirmDelete = window.confirm(
-      `Are you sure you want to delete payment gateway '${gateway.name}'?\n\nThis will remove the saved remittance instructions and metrics.`
-    );
-    if (!confirmDelete) return;
-
     try {
       await api.delete(`/gateways/${gateway.id}`);
       setActionMsg({ type: "success", text: `Gateway '${gateway.name}' was deleted.` });
       fetchGateways();
     } catch (err: any) {
       setActionMsg({ type: "error", text: err.message || "Cannot delete payment gateway." });
+      throw err;
     }
   };
 
@@ -236,7 +229,7 @@ export default function GatewaysPage() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search gateways, currency, or notes..."
+              placeholder="Search gateways or currency..."
               className="finance-input"
               style={{ paddingLeft: "32px", height: "34px", fontSize: "13px" }}
             />
@@ -317,11 +310,11 @@ export default function GatewaysPage() {
             >
               <CreditCard size={24} />
             </div>
-            <div style={{ fontSize: "15px", fontWeight: 600 }}>No Gateways Found</div>
+            <div style={{ fontSize: "15px", fontWeight: 600 }}>No Gateways Registered</div>
             <div style={{ fontSize: "13px", color: "var(--text-muted)", maxWidth: "380px" }}>
               {searchQuery
                 ? `No gateways match "${searchQuery}".`
-                : "No payment gateways registered yet. Add your settlement gateways to automatically populate invoice remittance instructions."}
+                : "Add your settlement payment gateways to track incoming foreign currency, bank INR conversions, and auto-fill remittance instructions."}
             </div>
             {!searchQuery && (
               <button
@@ -355,7 +348,7 @@ export default function GatewaysPage() {
                   opacity: gw.is_active ? 1 : 0.65,
                 }}
               >
-                {/* Gateway Card Header */}
+                {/* Gateway Card Header: Gateway Name | Currency | Status */}
                 <div>
                   <div
                     style={{
@@ -407,14 +400,14 @@ export default function GatewaysPage() {
                     </span>
                   </div>
 
-                  {/* Financial Metrics Strip */}
+                  {/* Financial Metrics Strip: Total Incoming | Total Equivalent INR | Average Rate */}
                   <div
                     style={{
                       marginTop: "12px",
                       display: "grid",
                       gridTemplateColumns: "1fr 1fr 1fr",
                       gap: "8px",
-                      padding: "10px 12px",
+                      padding: "12px 14px",
                       background: "var(--bg-surface-subtle)",
                       borderRadius: "var(--radius-xs)",
                       border: "1px solid var(--border-subtle)",
@@ -424,7 +417,7 @@ export default function GatewaysPage() {
                       <div style={{ fontSize: "10px", color: "var(--text-dim)", textTransform: "uppercase" }}>
                         Incoming
                       </div>
-                      <div className="mono" style={{ fontSize: "12px", fontWeight: 700, marginTop: "2px" }}>
+                      <div className="mono" style={{ fontSize: "13px", fontWeight: 700, marginTop: "2px" }}>
                         {gw.currency_code} {gw.total_incoming_amount.toLocaleString("en-US", { minimumFractionDigits: 2 })}
                       </div>
                     </div>
@@ -433,7 +426,7 @@ export default function GatewaysPage() {
                       <div style={{ fontSize: "10px", color: "var(--text-dim)", textTransform: "uppercase" }}>
                         Equiv. INR
                       </div>
-                      <div className="mono" style={{ fontSize: "12px", fontWeight: 700, marginTop: "2px", color: "var(--accent-emerald)" }}>
+                      <div className="mono" style={{ fontSize: "13px", fontWeight: 700, marginTop: "2px", color: "var(--accent-emerald)" }}>
                         ₹{gw.total_equivalent_inr.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
                       </div>
                     </div>
@@ -442,43 +435,14 @@ export default function GatewaysPage() {
                       <div style={{ fontSize: "10px", color: "var(--text-dim)", textTransform: "uppercase" }}>
                         Avg Rate
                       </div>
-                      <div className="mono" style={{ fontSize: "12px", fontWeight: 700, marginTop: "2px", color: "var(--accent-blue)" }}>
+                      <div className="mono" style={{ fontSize: "13px", fontWeight: 700, marginTop: "2px", color: "var(--accent-blue)" }}>
                         ₹{gw.average_rate.toFixed(2)}
                       </div>
                     </div>
                   </div>
-
-                  {/* Multiline Gateway Note Preview */}
-                  <div style={{ marginTop: "12px" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
-                      <span style={{ fontSize: "11px", fontWeight: 600, color: "var(--text-muted)" }}>
-                        Payment Instructions / Note:
-                      </span>
-                      <span style={{ fontSize: "10px", color: "var(--text-dim)" }}>
-                        Used on Invoice Sheet
-                      </span>
-                    </div>
-                    <div
-                      className="mono"
-                      style={{
-                        background: "var(--bg-surface-subtle)",
-                        border: "1px solid var(--border-subtle)",
-                        borderRadius: "var(--radius-xs)",
-                        padding: "8px 10px",
-                        fontSize: "11px",
-                        lineHeight: "1.4",
-                        color: "var(--text-main)",
-                        whiteSpace: "pre-wrap",
-                        maxHeight: "95px",
-                        overflowY: "auto",
-                      }}
-                    >
-                      {gw.gateway_note || "No custom note provided."}
-                    </div>
-                  </div>
                 </div>
 
-                {/* Card Actions Bar */}
+                {/* Card Actions Bar: Activate / Archive & Edit button (Delete moved inside Edit window) */}
                 <div
                   style={{
                     borderTop: "1px solid var(--border-subtle)",
@@ -503,29 +467,14 @@ export default function GatewaysPage() {
                     {gw.is_active ? "Archive Gateway" : "Activate Gateway"}
                   </button>
 
-                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                    <button
-                      onClick={() => openEditModal(gw)}
-                      className="finance-button-secondary"
-                      style={{ height: "30px", padding: "0 10px", fontSize: "12px", gap: "4px" }}
-                    >
-                      <Pencil size={12} />
-                      <span>Edit</span>
-                    </button>
-                    <button
-                      onClick={() => handleDelete(gw)}
-                      className="finance-button-secondary"
-                      style={{
-                        height: "30px",
-                        width: "30px",
-                        padding: 0,
-                        justifyContent: "center",
-                        color: "var(--accent-rose)",
-                      }}
-                    >
-                      <Trash2 size={13} />
-                    </button>
-                  </div>
+                  <button
+                    onClick={() => openEditModal(gw)}
+                    className="finance-button-secondary"
+                    style={{ height: "30px", padding: "0 12px", fontSize: "12px", gap: "5px" }}
+                  >
+                    <Pencil size={12} />
+                    <span>Edit</span>
+                  </button>
                 </div>
               </div>
             ))}
@@ -537,6 +486,7 @@ export default function GatewaysPage() {
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           onSuccess={fetchGateways}
+          onDelete={handleDelete}
           initialData={editingGateway}
         />
       </div>

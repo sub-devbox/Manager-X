@@ -37,16 +37,6 @@ interface InvoiceModalProps {
   clients: ClientData[];
 }
 
-const GATEWAY_OPTIONS = [
-  { id: "Razorpay", label: "Razorpay" },
-  { id: "PayPal", label: "PayPal" },
-  { id: "Payoneer", label: "Payoneer" },
-  { id: "Stripe", label: "Stripe" },
-  { id: "Direct Bank Wire", label: "Direct Bank Wire (SWIFT / IBAN)" },
-  { id: "Wise", label: "Wise (TransferWise)" },
-  { id: "Other", label: "Other / Custom Gateway" },
-];
-
 export default function InvoiceModal({
   isOpen,
   onClose,
@@ -86,7 +76,7 @@ export default function InvoiceModal({
     d.setDate(d.getDate() + 15);
     return d.toISOString().slice(0, 10);
   });
-  const [paymentGateway, setPaymentGateway] = useState("Razorpay");
+  const [paymentGateway, setPaymentGateway] = useState("");
   const [currencyCode, setCurrencyCode] = useState("USD");
   const [availableGateways, setAvailableGateways] = useState<GatewayData[]>([]);
   const [receivedAmountInr, setReceivedAmountInr] = useState<number | string>("");
@@ -120,32 +110,27 @@ export default function InvoiceModal({
     async function loadGateways() {
       try {
         const res = await api.get<GatewayData[]>("/gateways?is_active=true");
-        if (Array.isArray(res) && res.length > 0) {
+        if (Array.isArray(res)) {
           setAvailableGateways(res);
-          // If creating new invoice, set default gateway notes from the first or matching gateway
-          if (!initialData) {
-            const matched = res.find((g) => g.name === paymentGateway) || res[0];
-            if (matched) {
-              setPaymentGateway(matched.name);
-              if (matched.gateway_note) {
-                setGatewayNotes(matched.gateway_note);
-              }
-            }
-          }
         }
       } catch {}
     }
 
     loadCompanyProfile();
     loadGateways();
-  }, [isOpen, initialData]);
+  }, [isOpen]);
 
   // Handle gateway change & auto-reflect gateway note
   const handleGatewayChange = (newGatewayName: string) => {
     setPaymentGateway(newGatewayName);
     const matched = availableGateways.find((g) => g.name === newGatewayName);
-    if (matched && matched.gateway_note) {
-      setGatewayNotes(matched.gateway_note);
+    if (matched) {
+      setGatewayNotes(matched.gateway_note || "");
+      if (matched.currency_code) {
+        setCurrencyCode(matched.currency_code);
+      }
+    } else {
+      setGatewayNotes("");
     }
   };
 
@@ -245,7 +230,7 @@ export default function InvoiceModal({
       const firstClient = clients[0]?.id || "";
       setClientId(firstClient);
       setStatus("draft");
-      setPaymentGateway("Razorpay");
+      setPaymentGateway("");
       setDiscountType("fixed");
       setDiscountValue(0);
       setRoundOff(0);
@@ -253,9 +238,7 @@ export default function InvoiceModal({
       setPaymentDate("");
       setIsReconciled(false);
       setBankTransactionId("");
-      setGatewayNotes(
-        "Payment terms: Net 15 days.\nPlease remit via Razorpay link or SWIFT wire transfer.\nInclude Invoice number as payment reference."
-      );
+      setGatewayNotes("");
       setItems([]);
 
       if (firstClient) {
@@ -881,19 +864,12 @@ export default function InvoiceModal({
                     className="finance-input"
                     style={{ height: "34px", fontSize: "12px" }}
                   >
-                    {availableGateways.length > 0 ? (
-                      availableGateways.map((g) => (
-                        <option key={g.id || g.name} value={g.name}>
-                          {g.name} ({g.currency_code})
-                        </option>
-                      ))
-                    ) : (
-                      GATEWAY_OPTIONS.map((g) => (
-                        <option key={g.id} value={g.id}>
-                          {g.label}
-                        </option>
-                      ))
-                    )}
+                    <option value="">Select payment gateway...</option>
+                    {availableGateways.map((g) => (
+                      <option key={g.id || g.name} value={g.name}>
+                        {g.name} ({g.currency_code})
+                      </option>
+                    ))}
                   </select>
                 </div>
 

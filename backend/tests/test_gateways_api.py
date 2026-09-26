@@ -21,18 +21,15 @@ async def test_payment_gateways_lifecycle(client: AsyncClient):
     )
     assert login_res.status_code == 200
 
-    # 2. List initial gateways
+    # 2. List initial gateways - should be blank
     list_init = await client.get("/api/v1/gateways")
     assert list_init.status_code == 200
     assert isinstance(list_init.json(), list)
 
-    # 3. Create a new custom Gateway
+    # 3. Create a new custom Gateway (without manual financial amounts)
     gw_payload = {
         "name": "Custom Corporate SWIFT Wire",
         "currency_code": "USD",
-        "total_incoming_amount": 2000.0,
-        "total_equivalent_inr": 173000.0,
-        "average_rate": 0.0,  # Should auto-calculate to 86.5
         "gateway_note": "Bank: HDFC Bank Ltd\nAccount: 502000998877\nIFSC: HDFC0000123\nSWIFT: HDFCINBBXXX",
         "is_active": True,
     }
@@ -42,7 +39,9 @@ async def test_payment_gateways_lifecycle(client: AsyncClient):
     gw_id = gw["id"]
     assert gw["name"] == "Custom Corporate SWIFT Wire"
     assert gw["currency_code"] == "USD"
-    assert gw["average_rate"] == 86.5
+    assert gw["total_incoming_amount"] == 0.0
+    assert gw["total_equivalent_inr"] == 0.0
+    assert gw["average_rate"] == 0.0
     assert "HDFC0000123" in gw["gateway_note"]
     assert gw["is_active"] is True
 
@@ -62,12 +61,11 @@ async def test_payment_gateways_lifecycle(client: AsyncClient):
     updated_note = "Bank: HDFC Bank Ltd\nUpdated Instructions: Include invoice number in wire memo."
     update_res = await client.put(
         f"/api/v1/gateways/{gw_id}",
-        json={"gateway_note": updated_note, "total_incoming_amount": 2500.0},
+        json={"gateway_note": updated_note},
     )
     assert update_res.status_code == 200
     updated_gw = update_res.json()
     assert updated_gw["gateway_note"] == updated_note
-    assert updated_gw["total_incoming_amount"] == 2500.0
 
     # 7. Toggle status
     toggle_res = await client.patch(f"/api/v1/gateways/{gw_id}/toggle-status")

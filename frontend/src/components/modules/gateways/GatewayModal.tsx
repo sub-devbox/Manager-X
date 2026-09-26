@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { X, CreditCard, AlertCircle, RefreshCw } from "lucide-react";
+import { X, CreditCard, AlertCircle, Trash2 } from "lucide-react";
 import { api } from "@/lib/api-client";
 import { GatewayData, GatewayCreatePayload } from "@/types/gateway";
 
@@ -10,6 +10,7 @@ interface GatewayModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSuccess: () => void;
+  onDelete?: (gateway: GatewayData) => Promise<void> | void;
   initialData?: GatewayData | null;
 }
 
@@ -34,19 +35,19 @@ export default function GatewayModal({
   isOpen,
   onClose,
   onSuccess,
+  onDelete,
   initialData,
 }: GatewayModalProps) {
   const [mounted, setMounted] = useState(false);
   const [currencies, setCurrencies] = useState<CurrencyOption[]>(COMMON_CURRENCIES);
   const [submitting, setSubmitting] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
   const [formData, setFormData] = useState<GatewayCreatePayload>({
     name: "",
     currency_code: "USD",
-    total_incoming_amount: 0,
-    total_equivalent_inr: 0,
-    average_rate: 0,
     gateway_note: "",
     is_active: true,
   });
@@ -78,13 +79,14 @@ export default function GatewayModal({
 
   // Reset or populate form data
   useEffect(() => {
+    setConfirmDelete(false);
+    setDeleting(false);
+    setErrorMsg("");
+
     if (initialData) {
       setFormData({
         name: initialData.name,
         currency_code: initialData.currency_code,
-        total_incoming_amount: initialData.total_incoming_amount,
-        total_equivalent_inr: initialData.total_equivalent_inr,
-        average_rate: initialData.average_rate,
         gateway_note: initialData.gateway_note || "",
         is_active: initialData.is_active,
       });
@@ -92,14 +94,10 @@ export default function GatewayModal({
       setFormData({
         name: "",
         currency_code: "USD",
-        total_incoming_amount: 0,
-        total_equivalent_inr: 0,
-        average_rate: 0,
         gateway_note: "",
         is_active: true,
       });
     }
-    setErrorMsg("");
   }, [initialData, isOpen]);
 
   // Handle ESC key
@@ -116,31 +114,7 @@ export default function GatewayModal({
   if (!isOpen || !mounted) return null;
 
   const handleInputChange = (field: keyof GatewayCreatePayload, value: any) => {
-    setFormData((prev) => {
-      const next = { ...prev, [field]: value };
-
-      // Auto-recalculate average rate when incoming or inr amount changes if rate was 0 or unedited
-      if (field === "total_incoming_amount" || field === "total_equivalent_inr") {
-        const inAmt = field === "total_incoming_amount" ? Number(value) || 0 : prev.total_incoming_amount || 0;
-        const inrAmt = field === "total_equivalent_inr" ? Number(value) || 0 : prev.total_equivalent_inr || 0;
-        if (inAmt > 0 && inrAmt > 0) {
-          next.average_rate = Number((inrAmt / inAmt).toFixed(2));
-        }
-      }
-
-      return next;
-    });
-  };
-
-  const calculateAutoRate = () => {
-    const inAmt = Number(formData.total_incoming_amount) || 0;
-    const inrAmt = Number(formData.total_equivalent_inr) || 0;
-    if (inAmt > 0 && inrAmt > 0) {
-      setFormData((prev) => ({
-        ...prev,
-        average_rate: Number((inrAmt / inAmt).toFixed(2)),
-      }));
-    }
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -157,9 +131,6 @@ export default function GatewayModal({
       const payload = {
         name: formData.name.trim(),
         currency_code: formData.currency_code.trim().toUpperCase(),
-        total_incoming_amount: Number(formData.total_incoming_amount) || 0,
-        total_equivalent_inr: Number(formData.total_equivalent_inr) || 0,
-        average_rate: Number(formData.average_rate) || 0,
         gateway_note: formData.gateway_note || "",
         is_active: formData.is_active ?? true,
       };
@@ -176,6 +147,25 @@ export default function GatewayModal({
       setErrorMsg(err.message || "Failed to save payment gateway.");
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!initialData?.id) return;
+    setDeleting(true);
+    setErrorMsg("");
+    try {
+      if (onDelete) {
+        await onDelete(initialData);
+      } else {
+        await api.delete(`/gateways/${initialData.id}`);
+      }
+      onSuccess();
+      onClose();
+    } catch (err: any) {
+      setErrorMsg(err.message || "Failed to delete payment gateway.");
+      setDeleting(false);
+      setConfirmDelete(false);
     }
   };
 
@@ -197,7 +187,7 @@ export default function GatewayModal({
         className="finance-panel animate-fade-in"
         style={{
           width: "100%",
-          maxWidth: "600px",
+          maxWidth: "580px",
           background: "var(--bg-surface)",
           border: "1px solid var(--border-subtle)",
           borderRadius: "var(--radius-md)",
@@ -239,7 +229,7 @@ export default function GatewayModal({
                 {initialData ? "Edit Payment Gateway" : "Add Payment Gateway"}
               </h2>
               <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>
-                Configure settlement currency, conversion rates, and invoice remittance instructions
+                Configure settlement gateway and invoice remittance instructions
               </span>
             </div>
           </div>
@@ -310,68 +300,49 @@ export default function GatewayModal({
             </div>
           </div>
 
-          {/* Row 2: Incoming Amount, Equivalent INR, Average Rate */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "12px" }}>
-            <div>
-              <label style={{ display: "block", fontSize: "11px", color: "var(--text-muted)", marginBottom: "4px" }}>
-                Total Incoming ({formData.currency_code})
-              </label>
-              <input
-                type="number"
-                step="any"
-                min="0"
-                value={formData.total_incoming_amount}
-                onChange={(e) => handleInputChange("total_incoming_amount", e.target.value)}
-                className="finance-input mono"
-                placeholder="0.00"
-                style={{ height: "34px", fontSize: "12px" }}
-              />
-            </div>
-
-            <div>
-              <label style={{ display: "block", fontSize: "11px", color: "var(--text-muted)", marginBottom: "4px" }}>
-                Total Equivalent INR (₹)
-              </label>
-              <input
-                type="number"
-                step="any"
-                min="0"
-                value={formData.total_equivalent_inr}
-                onChange={(e) => handleInputChange("total_equivalent_inr", e.target.value)}
-                className="finance-input mono"
-                placeholder="0.00"
-                style={{ height: "34px", fontSize: "12px", color: "var(--accent-emerald)" }}
-              />
-            </div>
-
-            <div>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
-                <label style={{ fontSize: "11px", color: "var(--text-muted)" }}>
-                  Avg Rate (₹/{formData.currency_code})
-                </label>
-                <button
-                  type="button"
-                  onClick={calculateAutoRate}
-                  title="Auto-calculate INR / Incoming"
-                  style={{ background: "none", border: "none", cursor: "pointer", color: "var(--accent-blue)", padding: 0 }}
-                >
-                  <RefreshCw size={11} />
-                </button>
+          {/* Live Auto-Calculated Metrics (Read-only banner when editing existing gateway) */}
+          {initialData && (
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr 1fr",
+                gap: "8px",
+                padding: "10px 12px",
+                background: "var(--bg-surface-subtle)",
+                borderRadius: "var(--radius-xs)",
+                border: "1px solid var(--border-subtle)",
+              }}
+            >
+              <div>
+                <div style={{ fontSize: "10px", color: "var(--text-dim)", textTransform: "uppercase" }}>
+                  Total Incoming
+                </div>
+                <div className="mono" style={{ fontSize: "12px", fontWeight: 700, marginTop: "2px" }}>
+                  {initialData.currency_code} {initialData.total_incoming_amount.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                </div>
               </div>
-              <input
-                type="number"
-                step="any"
-                min="0"
-                value={formData.average_rate}
-                onChange={(e) => handleInputChange("average_rate", e.target.value)}
-                className="finance-input mono"
-                placeholder="0.00"
-                style={{ height: "34px", fontSize: "12px" }}
-              />
-            </div>
-          </div>
 
-          {/* Row 3: Multiline Gateway Note */}
+              <div>
+                <div style={{ fontSize: "10px", color: "var(--text-dim)", textTransform: "uppercase" }}>
+                  Total Equiv. INR
+                </div>
+                <div className="mono" style={{ fontSize: "12px", fontWeight: 700, marginTop: "2px", color: "var(--accent-emerald)" }}>
+                  ₹{initialData.total_equivalent_inr.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
+                </div>
+              </div>
+
+              <div>
+                <div style={{ fontSize: "10px", color: "var(--text-dim)", textTransform: "uppercase" }}>
+                  Average Rate
+                </div>
+                <div className="mono" style={{ fontSize: "12px", fontWeight: 700, marginTop: "2px", color: "var(--accent-blue)" }}>
+                  ₹{initialData.average_rate.toFixed(2)}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Row 2: Multiline Gateway Note */}
           <div>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
               <label style={{ fontSize: "12px", fontWeight: 600, color: "var(--text-main)" }}>
@@ -382,7 +353,7 @@ export default function GatewayModal({
               </span>
             </div>
             <textarea
-              rows={6}
+              rows={7}
               value={formData.gateway_note}
               onChange={(e) => handleInputChange("gateway_note", e.target.value)}
               placeholder="Enter bank wire details, account number, IFSC, SWIFT/BIC code, PayPal email, or payment link instructions..."
@@ -394,8 +365,8 @@ export default function GatewayModal({
             </span>
           </div>
 
-          {/* Row 4: Status Checkbox */}
-          <div style={{ display: "flex", alignItems: "center", gap: "8px", paddingTop: "4px" }}>
+          {/* Row 3: Status Checkbox */}
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", paddingTop: "2px" }}>
             <input
               type="checkbox"
               id="is_active_toggle"
@@ -408,34 +379,91 @@ export default function GatewayModal({
             </label>
           </div>
 
-          {/* Modal Footer */}
+          {/* Modal Footer with Delete option in edit window */}
           <div
             style={{
               display: "flex",
-              justifyContent: "flex-end",
-              gap: "10px",
+              justifyContent: initialData ? "space-between" : "flex-end",
+              alignItems: "center",
               paddingTop: "14px",
               borderTop: "1px solid var(--border-subtle)",
               marginTop: "4px",
             }}
           >
-            <button
-              type="button"
-              onClick={onClose}
-              disabled={submitting}
-              className="finance-button-secondary"
-              style={{ height: "34px", padding: "0 14px", fontSize: "12px" }}
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={submitting}
-              className="finance-button-primary"
-              style={{ height: "34px", padding: "0 16px", fontSize: "12px", width: "auto" }}
-            >
-              <span>{submitting ? "Saving..." : initialData ? "Update Gateway" : "Add Gateway"}</span>
-            </button>
+            {initialData && (
+              <div>
+                {!confirmDelete ? (
+                  <button
+                    type="button"
+                    onClick={() => setConfirmDelete(true)}
+                    disabled={submitting || deleting}
+                    className="finance-button-secondary"
+                    style={{
+                      color: "var(--accent-rose)",
+                      borderColor: "rgba(244, 63, 94, 0.2)",
+                      height: "32px",
+                      padding: "0 10px",
+                      fontSize: "12px",
+                      gap: "5px",
+                    }}
+                  >
+                    <Trash2 size={13} />
+                    <span>Delete</span>
+                  </button>
+                ) : (
+                  <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                    <button
+                      type="button"
+                      onClick={handleDelete}
+                      disabled={deleting}
+                      className="finance-button-primary"
+                      style={{
+                        background: "var(--accent-rose)",
+                        borderColor: "var(--accent-rose)",
+                        color: "#fff",
+                        height: "32px",
+                        padding: "0 10px",
+                        fontSize: "12px",
+                        gap: "5px",
+                        width: "auto",
+                      }}
+                    >
+                      <Trash2 size={13} />
+                      <span>{deleting ? "Deleting..." : "Confirm Delete?"}</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setConfirmDelete(false)}
+                      disabled={deleting}
+                      className="finance-button-secondary"
+                      style={{ height: "32px", padding: "0 8px", fontSize: "12px" }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+
+            <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+              <button
+                type="button"
+                onClick={onClose}
+                disabled={submitting || deleting}
+                className="finance-button-secondary"
+                style={{ height: "34px", padding: "0 14px", fontSize: "12px" }}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={submitting || deleting}
+                className="finance-button-primary"
+                style={{ height: "34px", padding: "0 16px", fontSize: "12px", width: "auto" }}
+              >
+                <span>{submitting ? "Saving..." : initialData ? "Update Gateway" : "Add Gateway"}</span>
+              </button>
+            </div>
           </div>
         </form>
       </div>
