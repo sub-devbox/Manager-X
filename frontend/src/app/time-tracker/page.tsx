@@ -4,20 +4,19 @@ import React, { useState, useEffect, useCallback, useMemo } from "react";
 import AppShell from "@/components/layout/AppShell";
 import TimeEntryTable from "@/components/modules/time/TimeEntryTable";
 import ManualTimeModal from "@/components/modules/time/ManualTimeModal";
+import StartTimerModal from "@/components/modules/time/StartTimerModal";
 import { api } from "@/lib/api-client";
 import { TimeEntryData } from "@/types/time";
-import { TaskData } from "@/types/project";
+import { TaskData, ProjectData } from "@/types/project";
 import {
   Clock,
   Play,
-  Plus,
+  Square,
   Search,
-  Filter,
   DollarSign,
   Briefcase,
   AlertCircle,
   CheckCircle2,
-  Calendar,
 } from "lucide-react";
 
 type PeriodFilter = "all" | "today" | "this_week" | "this_month";
@@ -25,65 +24,90 @@ type PeriodFilter = "all" | "today" | "this_week" | "this_month";
 export default function TimeTrackerPage() {
   const [entries, setEntries] = useState<TimeEntryData[]>([]);
   const [tasks, setTasks] = useState<TaskData[]>([]);
+  const [projects, setProjects] = useState<ProjectData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [actionMsg, setActionMsg] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   // Filters
   const [periodFilter, setPeriodFilter] = useState<PeriodFilter>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [selectedTaskFilter, setSelectedTaskFilter] = useState<string>("all");
 
-  // Manual Log & Edit Modal state
+  // Modals state
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isStartModalOpen, setIsStartModalOpen] = useState<boolean>(false);
   const [editingEntry, setEditingEntry] = useState<TimeEntryData | null>(null);
 
-  // Active session selector state for top bar
-  const [selectedLauncherTaskId, setSelectedLauncherTaskId] = useState<string>("");
+  // Active Live Timer State
+  const [isTimerRunning, setIsTimerRunning] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const saved = localStorage.getItem("mx_active_timer");
+        if (saved) return Boolean(JSON.parse(saved)?.isRunning);
+      } catch {}
+    }
+    return false;
+  });
 
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      const [entryData, taskData] = await Promise.all([
+      const [entryData, taskData, projectData] = await Promise.all([
         api.get<TimeEntryData[]>("/time-entries"),
         api.get<TaskData[]>("/tasks"),
+        api.get<ProjectData[]>("/projects"),
       ]);
       setEntries(Array.isArray(entryData) ? entryData : []);
-      const taskList = Array.isArray(taskData) ? taskData : [];
-      setTasks(taskList);
-      if (taskList.length > 0 && !selectedLauncherTaskId) {
-        setSelectedLauncherTaskId(taskList[0].id);
-      }
+      setTasks(Array.isArray(taskData) ? taskData : []);
+      setProjects(Array.isArray(projectData) ? projectData : []);
     } catch (err: any) {
       setActionMsg({ type: "error", text: err.message || "Failed to load time tracking records." });
     } finally {
       setLoading(false);
     }
-  }, [selectedLauncherTaskId]);
+  }, []);
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
-  // Listen for timer events saved from GlobalTimerBar or elsewhere
+  // Listen for timer events saved or state changes from GlobalTimerBar
   useEffect(() => {
     const handleTimerSaved = () => {
       fetchData();
+      setIsTimerRunning(false);
       setActionMsg({ type: "success", text: "Time session recorded successfully!" });
       setTimeout(() => setActionMsg(null), 4000);
     };
 
+    const handleTimerStateChange = (e: Event) => {
+      const customEvent = e as CustomEvent<{ isRunning?: boolean }>;
+      if (customEvent.detail) {
+        setIsTimerRunning(Boolean(customEvent.detail.isRunning));
+      }
+    };
+
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === "mx_active_timer" && e.newValue) {
+        try {
+          const parsed = JSON.parse(e.newValue);
+          setIsTimerRunning(Boolean(parsed.isRunning));
+        } catch {}
+      }
+    };
+
     window.addEventListener("mx_timer_saved", handleTimerSaved);
-    return () => window.removeEventListener("mx_timer_saved", handleTimerSaved);
+    window.addEventListener("mx_timer_state_change", handleTimerStateChange);
+    window.addEventListener("storage", handleStorage);
+
+    return () => {
+      window.removeEventListener("mx_timer_saved", handleTimerSaved);
+      window.removeEventListener("mx_timer_state_change", handleTimerStateChange);
+      window.removeEventListener("storage", handleStorage);
+    };
   }, [fetchData]);
 
-  // Start timer from top bar
-  const handleStartSession = () => {
-    const task = tasks.find((t) => t.id === selectedLauncherTaskId);
-    if (!task) {
-      setActionMsg({ type: "error", text: "Please select a task to track." });
-      return;
-    }
-
+  // Start timer from modal
+  const handleStartTimer = (task: TaskData, note?: string) => {
     window.dispatchEvent(
       new CustomEvent("mx_start_timer", {
         detail: {
@@ -94,6 +118,8 @@ export default function TimeTrackerPage() {
         },
       })
     );
+
+    setIsTimerRunning(true);
 
     // If task is in backlog, update status to in_progress
     if (task.status === "backlog") {
@@ -110,6 +136,17 @@ export default function TimeTrackerPage() {
     setActionMsg({
       type: "success",
       text: `Live timer started for task: "${task.title}". Ticking in the bottom dock!`,
+    });
+    setTimeout(() => setActionMsg(null), 4000);
+  };
+
+  // Stop timer from top bar
+  const handleStopTimer = () => {
+    window.dispatchEvent(new CustomEvent("mx_stop_timer"));
+    setIsTimerRunning(false);
+    setActionMsg({
+      type: "success",
+      text: "Stopping live timer and saving session...",
     });
     setTimeout(() => setActionMsg(null), 4000);
   };
@@ -182,11 +219,6 @@ export default function TimeTrackerPage() {
         if (entryDate < firstOfMonth) return false;
       }
 
-      // Task filter
-      if (selectedTaskFilter !== "all" && entry.task_id !== selectedTaskFilter) {
-        return false;
-      }
-
       // Search query filter
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase();
@@ -199,7 +231,7 @@ export default function TimeTrackerPage() {
 
       return true;
     });
-  }, [entries, periodFilter, selectedTaskFilter, searchQuery]);
+  }, [entries, periodFilter, searchQuery]);
 
   // Aggregate stats
   const totalSeconds = useMemo(() => {
@@ -236,7 +268,7 @@ export default function TimeTrackerPage() {
           </div>
         )}
 
-        {/* Top Control Panel: Fast Task Launcher & Manual Entry Action */}
+        {/* Top Control Panel: Active Task Tracker & Relocated Timer Button */}
         <div
           className="finance-panel"
           style={{
@@ -248,62 +280,47 @@ export default function TimeTrackerPage() {
             gap: "16px",
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <span style={{ fontSize: "11px", fontWeight: 600, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.5px" }}>
-                Active Task Tracker
-              </span>
-              <span style={{ fontSize: "14px", fontWeight: 600, color: "var(--text-main)" }}>
-                Track Time Directly on Tasks
-              </span>
-            </div>
-
-            {/* Task Quick Selector */}
-            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <select
-                value={selectedLauncherTaskId}
-                onChange={(e) => setSelectedLauncherTaskId(e.target.value)}
-                className="finance-input"
-                style={{ height: "34px", fontSize: "12.5px", minWidth: "240px", maxWidth: "340px" }}
-              >
-                {tasks.length === 0 ? (
-                  <option value="">No tasks found</option>
-                ) : (
-                  tasks.map((t) => (
-                    <option key={t.id} value={t.id}>
-                      {t.title} {t.project_name ? `• ${t.project_name}` : ""}
-                    </option>
-                  ))
-                )}
-              </select>
-
-              <button
-                type="button"
-                onClick={handleStartSession}
-                disabled={!selectedLauncherTaskId || tasks.length === 0}
-                className="finance-button-primary"
-                style={{ height: "34px", padding: "0 14px", gap: "6px" }}
-                title="Start tracking time on selected task"
-              >
-                <Play size={13} />
-                <span>Start Timer</span>
-              </button>
-            </div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <span style={{ fontSize: "11px", fontWeight: 600, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+              Active Task Tracker
+            </span>
+            <span style={{ fontSize: "14px", fontWeight: 600, color: "var(--text-main)" }}>
+              Track Time Directly on Tasks
+            </span>
           </div>
 
-          {/* Manual Entry Button */}
-          <button
-            type="button"
-            onClick={() => {
-              setEditingEntry(null);
-              setIsModalOpen(true);
-            }}
-            className="finance-button-secondary"
-            style={{ height: "34px", padding: "0 14px", gap: "6px" }}
-          >
-            <Plus size={13} />
-            <span>Log Time Manually</span>
-          </button>
+          {/* Dynamic Start / Stop Timer Action */}
+          {isTimerRunning ? (
+            <button
+              type="button"
+              onClick={handleStopTimer}
+              className="finance-button-primary"
+              style={{
+                height: "36px",
+                padding: "0 16px",
+                gap: "8px",
+                background: "rgba(244, 63, 94, 0.15)",
+                color: "var(--accent-rose)",
+                border: "1px solid var(--accent-rose)",
+                fontWeight: 600,
+              }}
+              title="Stop active timer session and save entry"
+            >
+              <Square size={13} style={{ fill: "currentColor" }} />
+              <span>Stop Timer</span>
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setIsStartModalOpen(true)}
+              className="finance-button-primary"
+              style={{ height: "36px", padding: "0 16px", gap: "8px", fontWeight: 600 }}
+              title="Start a live tracking session"
+            >
+              <Play size={13} style={{ fill: "currentColor" }} />
+              <span>Start Timer</span>
+            </button>
+          )}
         </div>
 
         {/* Stats Summary Bar */}
@@ -456,20 +473,6 @@ export default function TimeTrackerPage() {
                 style={{ paddingLeft: "30px", height: "32px", fontSize: "12px", width: "220px" }}
               />
             </div>
-
-            <select
-              value={selectedTaskFilter}
-              onChange={(e) => setSelectedTaskFilter(e.target.value)}
-              className="finance-input"
-              style={{ height: "32px", fontSize: "12px", maxWidth: "180px" }}
-            >
-              <option value="all">All Tasks</option>
-              {tasks.map((t) => (
-                <option key={t.id} value={t.id}>
-                  {t.title}
-                </option>
-              ))}
-            </select>
           </div>
         </div>
 
@@ -496,6 +499,15 @@ export default function TimeTrackerPage() {
             onDeleteEntry={handleDeleteEntry}
           />
         )}
+
+        {/* Start Live Timer Modal */}
+        <StartTimerModal
+          isOpen={isStartModalOpen}
+          onClose={() => setIsStartModalOpen(false)}
+          projects={projects}
+          tasks={tasks}
+          onStart={handleStartTimer}
+        />
 
         {/* Manual Time & Edit Modal */}
         <ManualTimeModal

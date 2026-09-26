@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Play, Pause, Square, Clock, ChevronDown, ChevronUp } from "lucide-react";
 
 interface TimerState {
@@ -36,10 +36,16 @@ export default function GlobalTimerBar() {
 
   const [minimized, setMinimized] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const timerStateRef = useRef<TimerState>(timerState);
 
-  // Sync with localStorage
+  useEffect(() => {
+    timerStateRef.current = timerState;
+  }, [timerState]);
+
+  // Sync with localStorage and notify components
   useEffect(() => {
     localStorage.setItem("mx_active_timer", JSON.stringify(timerState));
+    window.dispatchEvent(new CustomEvent("mx_timer_state_change", { detail: timerState }));
   }, [timerState]);
 
   // Client-side ticking when running
@@ -113,18 +119,19 @@ export default function GlobalTimerBar() {
   };
 
   const stopTimer = async () => {
-    if (timerState.taskId && timerState.seconds >= 5) {
+    const current = timerStateRef.current;
+    if (current.taskId && current.seconds >= 5) {
       setIsSaving(true);
       try {
         const { api } = await import("@/lib/api-client");
-        const startTime = timerState.startTime || new Date(Date.now() - timerState.seconds * 1000).toISOString();
+        const startTime = current.startTime || new Date(Date.now() - current.seconds * 1000).toISOString();
         await api.post("/time-entries", {
-          task_id: timerState.taskId,
-          project_id: timerState.projectId || undefined,
-          description: timerState.description || `Logged via stopwatch for ${timerState.taskTitle}`,
+          task_id: current.taskId,
+          project_id: current.projectId || undefined,
+          description: current.description || `Logged via stopwatch for ${current.taskTitle}`,
           start_time: startTime,
           end_time: new Date().toISOString(),
-          duration_seconds: timerState.seconds,
+          duration_seconds: current.seconds,
           is_billable: true,
         });
 
@@ -148,9 +155,16 @@ export default function GlobalTimerBar() {
       description: "",
     };
     setTimerState(resetState);
-
-
   };
+
+  // Listen for remote stop requests (e.g. from TimeTrackerPage)
+  useEffect(() => {
+    const handleStop = () => {
+      stopTimer();
+    };
+    window.addEventListener("mx_stop_timer", handleStop);
+    return () => window.removeEventListener("mx_stop_timer", handleStop);
+  }, []);
 
   return (
     <div className="global-timer-bar finance-panel" style={{ zIndex: 60 }}>
