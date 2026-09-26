@@ -76,7 +76,55 @@ async def test_payment_gateways_lifecycle(client: AsyncClient):
     assert toggle_back.status_code == 200
     assert toggle_back.json()["is_active"] is True
 
-    # 8. Delete gateway
+    # 8. Test deletion guard: create client & invoice assigned to this gateway
+    from app.models.settings_models import Currency
+    from conftest import TestSessionLocal
+    async with TestSessionLocal() as session:
+        session.add(Currency(code="USD", symbol="$", name="US Dollar", is_base_currency=False, is_active=True))
+        await session.commit()
+
+    c_res = await client.post(
+        "/api/v1/clients",
+        json={
+            "company_name": "Acme Holdings",
+            "contact_person": "Jane Acme",
+            "email": "jane@acme.com",
+            "address_line1": "100 Market St",
+            "city": "Dallas",
+            "state": "Texas",
+            "postal_code": "75001",
+            "country": "United States",
+            "currency_code": "USD",
+        },
+    )
+    assert c_res.status_code == 201
+    client_id = c_res.json()["id"]
+
+    inv_res = await client.post(
+        "/api/v1/invoices",
+        json={
+            "client_id": client_id,
+            "payment_gateway": "Custom Corporate SWIFT Wire",
+            "currency_code": "USD",
+            "issue_date": "2026-09-26",
+            "due_date": "2026-10-10",
+            "items": [{"description": "Dev Ops", "quantity": 1, "unit_price": 500.0, "total": 500.0}],
+            "subtotal": 500.0,
+            "final_amount": 500.0,
+        },
+    )
+    assert inv_res.status_code == 201
+    inv_id = inv_res.json()["id"]
+
+    # Attempt to delete gateway while assigned to invoice -> must fail with 409
+    del_blocked = await client.delete(f"/api/v1/gateways/{gw_id}")
+    assert del_blocked.status_code == 409
+    assert "cannot be deleted because it is assigned to 1 invoice(s)" in del_blocked.json()["detail"]
+
+    # Delete invoice first
+    await client.delete(f"/api/v1/invoices/{inv_id}")
+
+    # Now deletion of gateway succeeds
     del_res = await client.delete(f"/api/v1/gateways/{gw_id}")
     assert del_res.status_code == 200
 

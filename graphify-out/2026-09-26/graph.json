@@ -253,7 +253,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "clients.py"
     },
     {
@@ -264,7 +264,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_py_get",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "get"
     },
     {
@@ -275,7 +275,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_list_clients",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "list_clients()"
     },
     {
@@ -286,7 +286,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_py_asyncsession",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "asyncsession"
     },
     {
@@ -297,7 +297,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_list_clients_summary",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "list_clients_summary()"
     },
     {
@@ -308,7 +308,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_py_post",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "post"
     },
     {
@@ -319,7 +319,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_create_client",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "create_client()"
     },
     {
@@ -330,7 +330,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_get_client",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "get_client()"
     },
     {
@@ -341,7 +341,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_py_put",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "put"
     },
     {
@@ -352,7 +352,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_update_client",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "update_client()"
     },
     {
@@ -363,7 +363,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_py_patch",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "patch"
     },
     {
@@ -374,7 +374,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_toggle_client_status",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "toggle_client_status()"
     },
     {
@@ -385,7 +385,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_py_delete",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "delete"
     },
     {
@@ -396,7 +396,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_delete_client",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "delete_client()"
     },
     {
@@ -406,31 +406,20 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways",
-      "community": 34,
-      "community_name": "User",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": "gateways.py"
     },
     {
-      "label": "get",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "backend_app_api_v1_endpoints_gateways_py_get",
-      "community": 34,
-      "community_name": "User",
-      "norm_label": "get"
-    },
-    {
-      "label": "list_gateways()",
+      "label": "build_gateway_response()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
       "source_location": "L20",
       "_origin": "ast",
-      "id": "backend_app_api_v1_endpoints_gateways_list_gateways",
-      "community": 34,
-      "community_name": "User",
-      "norm_label": "list_gateways()"
+      "id": "backend_app_api_v1_endpoints_gateways_build_gateway_response",
+      "community": 36,
+      "community_name": "gateways.py",
+      "norm_label": "build_gateway_response()"
     },
     {
       "label": "AsyncSession",
@@ -439,9 +428,31 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_py_asyncsession",
-      "community": 34,
-      "community_name": "User",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": "asyncsession"
+    },
+    {
+      "label": "get",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "backend_app_api_v1_endpoints_gateways_py_get",
+      "community": 36,
+      "community_name": "gateways.py",
+      "norm_label": "get"
+    },
+    {
+      "label": "list_gateways()",
+      "file_type": "code",
+      "source_file": "backend/app/api/v1/endpoints/gateways.py",
+      "source_location": "L51",
+      "_origin": "ast",
+      "id": "backend_app_api_v1_endpoints_gateways_list_gateways",
+      "community": 36,
+      "community_name": "gateways.py",
+      "norm_label": "list_gateways()"
     },
     {
       "label": "post",
@@ -450,30 +461,30 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_py_post",
-      "community": 34,
-      "community_name": "User",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": "post"
     },
     {
       "label": "create_gateway()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L84",
+      "source_location": "L80",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_create_gateway",
-      "community": 34,
-      "community_name": "User",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": "create_gateway()"
     },
     {
       "label": "get_gateway()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L119",
+      "source_location": "L111",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_get_gateway",
-      "community": 34,
-      "community_name": "User",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": "get_gateway()"
     },
     {
@@ -483,19 +494,19 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_py_put",
-      "community": 34,
-      "community_name": "User",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": "put"
     },
     {
       "label": "update_gateway()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L136",
+      "source_location": "L128",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_update_gateway",
-      "community": 34,
-      "community_name": "User",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": "update_gateway()"
     },
     {
@@ -505,19 +516,19 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_py_patch",
-      "community": 34,
-      "community_name": "User",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": "patch"
     },
     {
       "label": "toggle_gateway_status()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L188",
+      "source_location": "L171",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_toggle_gateway_status",
-      "community": 34,
-      "community_name": "User",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": "toggle_gateway_status()"
     },
     {
@@ -527,20 +538,31 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_py_delete",
-      "community": 34,
-      "community_name": "User",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": "delete"
     },
     {
       "label": "delete_gateway()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L209",
+      "source_location": "L192",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_delete_gateway",
-      "community": 34,
-      "community_name": "User",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": "delete_gateway()"
+    },
+    {
+      "label": "Helper to auto-calculate incoming amounts, equivalent INR, and realized average\u2026",
+      "file_type": "rationale",
+      "source_file": "backend/app/api/v1/endpoints/gateways.py",
+      "source_location": "L21",
+      "_origin": "ast",
+      "id": "backend_app_api_v1_endpoints_gateways_rationale_21",
+      "community": 36,
+      "community_name": "gateways.py",
+      "norm_label": "helper to auto-calculate incoming amounts, equivalent inr, and realized average..."
     },
     {
       "label": "invoices.py",
@@ -550,7 +572,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "invoices.py"
     },
     {
@@ -561,7 +583,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_get_company_profile_dict",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "get_company_profile_dict()"
     },
     {
@@ -572,7 +594,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_py_asyncsession",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "asyncsession"
     },
     {
@@ -583,7 +605,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_py_any",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "any"
     },
     {
@@ -594,7 +616,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_extract_company_initials",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "extract_company_initials()"
     },
     {
@@ -605,7 +627,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_get_next_invoice_number",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "get_next_invoice_number()"
     },
     {
@@ -616,7 +638,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_py_get",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "get"
     },
     {
@@ -627,7 +649,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_calculate_next_invoice_number",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "calculate_next_invoice_number()"
     },
     {
@@ -638,7 +660,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_get_unbilled_tasks",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "get_unbilled_tasks()"
     },
     {
@@ -649,7 +671,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_list_invoices",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "list_invoices()"
     },
     {
@@ -660,7 +682,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_py_post",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "post"
     },
     {
@@ -671,7 +693,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_create_invoice",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "create_invoice()"
     },
     {
@@ -682,7 +704,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_get_invoice",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "get_invoice()"
     },
     {
@@ -693,7 +715,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_py_put",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "put"
     },
     {
@@ -704,7 +726,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_update_invoice",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "update_invoice()"
     },
     {
@@ -715,7 +737,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_record_invoice_payment",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "record_invoice_payment()"
     },
     {
@@ -726,7 +748,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_reconcile_invoice",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "reconcile_invoice()"
     },
     {
@@ -737,7 +759,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_py_delete",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "delete"
     },
     {
@@ -748,7 +770,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_delete_invoice",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "delete_invoice()"
     },
     {
@@ -759,7 +781,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_download_invoice_pdf",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "download_invoice_pdf()"
     },
     {
@@ -770,7 +792,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_render_custom_invoice_pdf",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "render_custom_invoice_pdf()"
     },
     {
@@ -1418,8 +1440,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_time_entries",
-      "community": 36,
-      "community_name": "time_entries.py",
+      "community": 6,
+      "community_name": "Base",
       "norm_label": "time_entries.py"
     },
     {
@@ -1429,8 +1451,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_time_entries_format_time_entry_response",
-      "community": 36,
-      "community_name": "time_entries.py",
+      "community": 6,
+      "community_name": "Base",
       "norm_label": "_format_time_entry_response()"
     },
     {
@@ -1440,8 +1462,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_time_entries_py_get",
-      "community": 36,
-      "community_name": "time_entries.py",
+      "community": 6,
+      "community_name": "Base",
       "norm_label": "get"
     },
     {
@@ -1451,8 +1473,8 @@
       "source_location": "L76",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_time_entries_list_time_entries",
-      "community": 36,
-      "community_name": "time_entries.py",
+      "community": 6,
+      "community_name": "Base",
       "norm_label": "list_time_entries()"
     },
     {
@@ -1462,8 +1484,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_time_entries_py_asyncsession",
-      "community": 36,
-      "community_name": "time_entries.py",
+      "community": 6,
+      "community_name": "Base",
       "norm_label": "asyncsession"
     },
     {
@@ -1473,8 +1495,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_time_entries_py_post",
-      "community": 36,
-      "community_name": "time_entries.py",
+      "community": 6,
+      "community_name": "Base",
       "norm_label": "post"
     },
     {
@@ -1484,8 +1506,8 @@
       "source_location": "L126",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_time_entries_create_time_entry",
-      "community": 36,
-      "community_name": "time_entries.py",
+      "community": 6,
+      "community_name": "Base",
       "norm_label": "create_time_entry()"
     },
     {
@@ -1495,8 +1517,8 @@
       "source_location": "L186",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_time_entries_get_time_entry",
-      "community": 36,
-      "community_name": "time_entries.py",
+      "community": 6,
+      "community_name": "Base",
       "norm_label": "get_time_entry()"
     },
     {
@@ -1506,8 +1528,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_time_entries_py_patch",
-      "community": 36,
-      "community_name": "time_entries.py",
+      "community": 6,
+      "community_name": "Base",
       "norm_label": "patch"
     },
     {
@@ -1517,8 +1539,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_time_entries_py_put",
-      "community": 36,
-      "community_name": "time_entries.py",
+      "community": 6,
+      "community_name": "Base",
       "norm_label": "put"
     },
     {
@@ -1528,8 +1550,8 @@
       "source_location": "L202",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_time_entries_update_time_entry",
-      "community": 36,
-      "community_name": "time_entries.py",
+      "community": 6,
+      "community_name": "Base",
       "norm_label": "update_time_entry()"
     },
     {
@@ -1539,8 +1561,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_time_entries_py_delete",
-      "community": 36,
-      "community_name": "time_entries.py",
+      "community": 6,
+      "community_name": "Base",
       "norm_label": "delete"
     },
     {
@@ -1550,8 +1572,8 @@
       "source_location": "L258",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_time_entries_delete_time_entry",
-      "community": 36,
-      "community_name": "time_entries.py",
+      "community": 6,
+      "community_name": "Base",
       "norm_label": "delete_time_entry()"
     },
     {
@@ -1561,8 +1583,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_api_v1_router",
-      "community": 6,
-      "community_name": "Base",
+      "community": 41,
+      "community_name": "FastAPI",
       "norm_label": "router.py"
     },
     {
@@ -1704,8 +1726,8 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "backend_app_core_database_get_db",
-      "community": 34,
-      "community_name": "User",
+      "community": 6,
+      "community_name": "Base",
       "norm_label": "get_db()"
     },
     {
@@ -1715,8 +1737,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_core_database_py_asyncsession",
-      "community": 34,
-      "community_name": "User",
+      "community": 6,
+      "community_name": "Base",
       "norm_label": "asyncsession"
     },
     {
@@ -1803,8 +1825,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "timedelta",
-      "community": 36,
-      "community_name": "time_entries.py",
+      "community": 6,
+      "community_name": "Base",
       "norm_label": "timedelta"
     },
     {
@@ -1902,8 +1924,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_main",
-      "community": 6,
-      "community_name": "Base",
+      "community": 41,
+      "community_name": "FastAPI",
       "norm_label": "main.py"
     },
     {
@@ -1913,8 +1935,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "backend_app_main_securityheadersmiddleware",
-      "community": 6,
-      "community_name": "Base",
+      "community": 41,
+      "community_name": "FastAPI",
       "norm_label": "securityheadersmiddleware"
     },
     {
@@ -1924,8 +1946,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "basehttpmiddleware",
-      "community": 6,
-      "community_name": "Base",
+      "community": 41,
+      "community_name": "FastAPI",
       "norm_label": "basehttpmiddleware"
     },
     {
@@ -1935,8 +1957,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "backend_app_main_securityheadersmiddleware_dispatch",
-      "community": 6,
-      "community_name": "Base",
+      "community": 41,
+      "community_name": "FastAPI",
       "norm_label": ".dispatch()"
     },
     {
@@ -1946,8 +1968,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_main_py_request",
-      "community": 6,
-      "community_name": "Base",
+      "community": 41,
+      "community_name": "FastAPI",
       "norm_label": "request"
     },
     {
@@ -1957,8 +1979,8 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "backend_app_main_lifespan",
-      "community": 6,
-      "community_name": "Base",
+      "community": 41,
+      "community_name": "FastAPI",
       "norm_label": "lifespan()"
     },
     {
@@ -1968,8 +1990,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "fastapi",
-      "community": 6,
-      "community_name": "Base",
+      "community": 41,
+      "community_name": "FastAPI",
       "norm_label": "fastapi"
     },
     {
@@ -1979,19 +2001,19 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_main_py_get",
-      "community": 6,
-      "community_name": "Base",
+      "community": 41,
+      "community_name": "FastAPI",
       "norm_label": "get"
     },
     {
       "label": "health_check()",
       "file_type": "code",
       "source_file": "backend/app/main.py",
-      "source_location": "L151",
+      "source_location": "L86",
       "_origin": "ast",
       "id": "backend_app_main_health_check",
-      "community": 6,
-      "community_name": "Base",
+      "community": 41,
+      "community_name": "FastAPI",
       "norm_label": "health_check()"
     },
     {
@@ -2013,7 +2035,7 @@
       "_origin": "ast",
       "id": "backend_app_models_client_model_client",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "client"
     },
     {
@@ -2034,8 +2056,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "backend_app_models_gateway_model_paymentgateway",
-      "community": 34,
-      "community_name": "User",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": "paymentgateway"
     },
     {
@@ -2056,8 +2078,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "backend_app_models_invoice_model_invoice",
-      "community": 39,
-      "community_name": "invoices.py",
+      "community": 6,
+      "community_name": "Base",
       "norm_label": "invoice"
     },
     {
@@ -2068,7 +2090,7 @@
       "_origin": "ast",
       "id": "backend_app_models_invoice_model_invoiceitem",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "invoiceitem"
     },
     {
@@ -2111,8 +2133,8 @@
       "source_location": "L96",
       "_origin": "ast",
       "id": "backend_app_models_project_models_timeentry",
-      "community": 36,
-      "community_name": "time_entries.py",
+      "community": 6,
+      "community_name": "Base",
       "norm_label": "timeentry"
     },
     {
@@ -2199,7 +2221,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "backend_app_models_user_models_user",
-      "community": 34,
+      "community": 39,
       "community_name": "User",
       "norm_label": "user"
     },
@@ -2210,8 +2232,8 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "backend_app_models_user_models_usersession",
-      "community": 6,
-      "community_name": "Base",
+      "community": 1,
+      "community_name": "auth.py",
       "norm_label": "usersession"
     },
     {
@@ -2321,7 +2343,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "client_schemas.py"
     },
     {
@@ -2332,7 +2354,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_currencynested",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "currencynested"
     },
     {
@@ -2343,7 +2365,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_py_basemodel",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "basemodel"
     },
     {
@@ -2354,7 +2376,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_clientbase",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "clientbase"
     },
     {
@@ -2365,7 +2387,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_clientcreate",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "clientcreate"
     },
     {
@@ -2376,7 +2398,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_clientupdate",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "clientupdate"
     },
     {
@@ -2387,7 +2409,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_clientresponse",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "clientresponse"
     },
     {
@@ -2398,7 +2420,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_clientsummary",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "norm_label": "clientsummary"
     },
     {
@@ -2408,8 +2430,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_schemas_gateway_schemas",
-      "community": 34,
-      "community_name": "User",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": "gateway_schemas.py"
     },
     {
@@ -2419,8 +2441,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "backend_app_schemas_gateway_schemas_gatewaybase",
-      "community": 34,
-      "community_name": "User",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": "gatewaybase"
     },
     {
@@ -2430,41 +2452,41 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_schemas_gateway_schemas_py_basemodel",
-      "community": 34,
-      "community_name": "User",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": "basemodel"
     },
     {
       "label": "GatewayCreate",
       "file_type": "code",
       "source_file": "backend/app/schemas/gateway_schemas.py",
-      "source_location": "L14",
+      "source_location": "L11",
       "_origin": "ast",
       "id": "backend_app_schemas_gateway_schemas_gatewaycreate",
-      "community": 34,
-      "community_name": "User",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": "gatewaycreate"
     },
     {
       "label": "GatewayUpdate",
       "file_type": "code",
       "source_file": "backend/app/schemas/gateway_schemas.py",
-      "source_location": "L17",
+      "source_location": "L14",
       "_origin": "ast",
       "id": "backend_app_schemas_gateway_schemas_gatewayupdate",
-      "community": 34,
-      "community_name": "User",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": "gatewayupdate"
     },
     {
       "label": "GatewayResponse",
       "file_type": "code",
       "source_file": "backend/app/schemas/gateway_schemas.py",
-      "source_location": "L26",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "backend_app_schemas_gateway_schemas_gatewayresponse",
-      "community": 34,
-      "community_name": "User",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": "gatewayresponse"
     },
     {
@@ -2475,7 +2497,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "invoice_schemas.py"
     },
     {
@@ -2486,7 +2508,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoiceitembase",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "invoiceitembase"
     },
     {
@@ -2497,7 +2519,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_py_basemodel",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "basemodel"
     },
     {
@@ -2508,7 +2530,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoiceitemcreate",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "invoiceitemcreate"
     },
     {
@@ -2519,7 +2541,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoiceitemresponse",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "invoiceitemresponse"
     },
     {
@@ -2530,7 +2552,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_clientsummary",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "clientsummary"
     },
     {
@@ -2541,7 +2563,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoicebase",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "invoicebase"
     },
     {
@@ -2552,7 +2574,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoicecreate",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "invoicecreate"
     },
     {
@@ -2563,7 +2585,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoiceupdate",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "invoiceupdate"
     },
     {
@@ -2574,7 +2596,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_recordpaymentrequest",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "recordpaymentrequest"
     },
     {
@@ -2585,7 +2607,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_reconcilerequest",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "reconcilerequest"
     },
     {
@@ -2596,7 +2618,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoiceresponse",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "invoiceresponse"
     },
     {
@@ -2607,7 +2629,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_unbilledtaskout",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "unbilledtaskout"
     },
     {
@@ -2947,8 +2969,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_schemas_time_schemas",
-      "community": 36,
-      "community_name": "time_entries.py",
+      "community": 6,
+      "community_name": "Base",
       "norm_label": "time_schemas.py"
     },
     {
@@ -2958,8 +2980,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "backend_app_schemas_time_schemas_timeentrybase",
-      "community": 36,
-      "community_name": "time_entries.py",
+      "community": 6,
+      "community_name": "Base",
       "norm_label": "timeentrybase"
     },
     {
@@ -2969,8 +2991,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_schemas_time_schemas_py_basemodel",
-      "community": 36,
-      "community_name": "time_entries.py",
+      "community": 6,
+      "community_name": "Base",
       "norm_label": "basemodel"
     },
     {
@@ -2980,8 +3002,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "backend_app_schemas_time_schemas_timeentrycreate",
-      "community": 36,
-      "community_name": "time_entries.py",
+      "community": 6,
+      "community_name": "Base",
       "norm_label": "timeentrycreate"
     },
     {
@@ -2991,8 +3013,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "backend_app_schemas_time_schemas_timeentryupdate",
-      "community": 36,
-      "community_name": "time_entries.py",
+      "community": 6,
+      "community_name": "Base",
       "norm_label": "timeentryupdate"
     },
     {
@@ -3002,8 +3024,8 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "backend_app_schemas_time_schemas_timeentryresponse",
-      "community": 36,
-      "community_name": "time_entries.py",
+      "community": 6,
+      "community_name": "Base",
       "norm_label": "timeentryresponse"
     },
     {
@@ -3014,7 +3036,7 @@
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "invoice_pdf.py"
     },
     {
@@ -3025,7 +3047,7 @@
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_pushtobottom",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "pushtobottom"
     },
     {
@@ -3036,7 +3058,7 @@
       "_origin": "ast",
       "id": "flowable",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "flowable"
     },
     {
@@ -3047,7 +3069,7 @@
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_pushtobottom_init",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": ".__init__()"
     },
     {
@@ -3058,7 +3080,7 @@
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_pushtobottom_wrap",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": ".wrap()"
     },
     {
@@ -3069,7 +3091,7 @@
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_pushtobottom_draw",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": ".draw()"
     },
     {
@@ -3080,7 +3102,7 @@
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_format_money",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "format_money()"
     },
     {
@@ -3091,7 +3113,7 @@
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_build_invoice_pdf",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "build_invoice_pdf()"
     },
     {
@@ -3102,7 +3124,7 @@
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_py_any",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "any"
     },
     {
@@ -3113,7 +3135,7 @@
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_rationale_20",
       "community": 39,
-      "community_name": "invoices.py",
+      "community_name": "User",
       "norm_label": "dynamically absorbs unused vertical space on the current page, pushing target..."
     },
     {
@@ -4033,7 +4055,7 @@
       "label": "GatewaysPage()",
       "file_type": "code",
       "source_file": "frontend/src/app/gateways/page.tsx",
-      "source_location": "L22",
+      "source_location": "L19",
       "_origin": "ast",
       "id": "frontend_src_app_gateways_page_gatewayspage",
       "community": 37,
@@ -4069,8 +4091,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_itr_helper_page",
-      "community": 41,
-      "community_name": "time-tracker/page.tsx",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "itr-helper/page.tsx"
     },
     {
@@ -4080,8 +4102,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "frontend_src_app_itr_helper_page_itrhelperpage",
-      "community": 41,
-      "community_name": "time-tracker/page.tsx",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "itrhelperpage()"
     },
     {
@@ -4124,8 +4146,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_page",
-      "community": 41,
-      "community_name": "time-tracker/page.tsx",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "app/page.tsx"
     },
     {
@@ -4135,8 +4157,8 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "frontend_src_app_page_overviewpage",
-      "community": 41,
-      "community_name": "time-tracker/page.tsx",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "overviewpage()"
     },
     {
@@ -4146,7 +4168,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_projects_page",
-      "community": 35,
+      "community": 44,
       "community_name": "projects/page.tsx",
       "norm_label": "projects/page.tsx"
     },
@@ -4157,7 +4179,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "frontend_src_app_projects_page_projectspage",
-      "community": 35,
+      "community": 44,
       "community_name": "projects/page.tsx",
       "norm_label": "projectspage()"
     },
@@ -4168,8 +4190,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_tasks_page",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 46,
+      "community_name": "tasks/page.tsx",
       "norm_label": "tasks/page.tsx"
     },
     {
@@ -4179,8 +4201,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "frontend_src_app_tasks_page_periodfilter",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 46,
+      "community_name": "tasks/page.tsx",
       "norm_label": "periodfilter"
     },
     {
@@ -4190,8 +4212,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "frontend_src_app_tasks_page_taskspage",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 46,
+      "community_name": "tasks/page.tsx",
       "norm_label": "taskspage()"
     },
     {
@@ -4201,8 +4223,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_time_tracker_page",
-      "community": 41,
-      "community_name": "time-tracker/page.tsx",
+      "community": 35,
+      "community_name": "project.ts",
       "norm_label": "time-tracker/page.tsx"
     },
     {
@@ -4212,8 +4234,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "frontend_src_app_time_tracker_page_periodfilter",
-      "community": 41,
-      "community_name": "time-tracker/page.tsx",
+      "community": 35,
+      "community_name": "project.ts",
       "norm_label": "periodfilter"
     },
     {
@@ -4223,8 +4245,8 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "frontend_src_app_time_tracker_page_timetrackerpage",
-      "community": 41,
-      "community_name": "time-tracker/page.tsx",
+      "community": 35,
+      "community_name": "project.ts",
       "norm_label": "timetrackerpage()"
     },
     {
@@ -4234,8 +4256,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_wealth_page",
-      "community": 41,
-      "community_name": "time-tracker/page.tsx",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "wealth/page.tsx"
     },
     {
@@ -4245,8 +4267,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "frontend_src_app_wealth_page_wealthpage",
-      "community": 41,
-      "community_name": "time-tracker/page.tsx",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "wealthpage()"
     },
     {
@@ -4399,8 +4421,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "frontend_src_components_layout_appshell_appshell",
-      "community": 41,
-      "community_name": "time-tracker/page.tsx",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "appshell()"
     },
     {
@@ -4411,7 +4433,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_layout_globaltimerbar",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "globaltimerbar.tsx"
     },
     {
@@ -4422,7 +4444,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_layout_globaltimerbar_timerstate",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "timerstate"
     },
     {
@@ -4432,8 +4454,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "frontend_src_components_layout_globaltimerbar_globaltimerbar",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "globaltimerbar()"
     },
     {
@@ -4583,7 +4605,7 @@
       "label": "CurrencyOption",
       "file_type": "code",
       "source_file": "frontend/src/components/modules/gateways/GatewayModal.tsx",
-      "source_location": "L16",
+      "source_location": "L17",
       "_origin": "ast",
       "id": "frontend_src_components_modules_gateways_gatewaymodal_currencyoption",
       "community": 37,
@@ -4594,7 +4616,7 @@
       "label": "COMMON_CURRENCIES",
       "file_type": "code",
       "source_file": "frontend/src/components/modules/gateways/GatewayModal.tsx",
-      "source_location": "L22",
+      "source_location": "L23",
       "_origin": "ast",
       "id": "frontend_src_components_modules_gateways_gatewaymodal_common_currencies",
       "community": 37,
@@ -4605,7 +4627,7 @@
       "label": "GatewayModal()",
       "file_type": "code",
       "source_file": "frontend/src/components/modules/gateways/GatewayModal.tsx",
-      "source_location": "L33",
+      "source_location": "L34",
       "_origin": "ast",
       "id": "frontend_src_components_modules_gateways_gatewaymodal_gatewaymodal",
       "community": 37,
@@ -4635,21 +4657,10 @@
       "norm_label": "invoicemodalprops"
     },
     {
-      "label": "GATEWAY_OPTIONS",
-      "file_type": "code",
-      "source_file": "frontend/src/components/modules/invoices/InvoiceModal.tsx",
-      "source_location": "L40",
-      "_origin": "ast",
-      "id": "frontend_src_components_modules_invoices_invoicemodal_gateway_options",
-      "community": 38,
-      "community_name": "InvoiceModal.tsx",
-      "norm_label": "gateway_options"
-    },
-    {
       "label": "InvoiceModal()",
       "file_type": "code",
       "source_file": "frontend/src/components/modules/invoices/InvoiceModal.tsx",
-      "source_location": "L50",
+      "source_location": "L40",
       "_origin": "ast",
       "id": "frontend_src_components_modules_invoices_invoicemodal_invoicemodal",
       "community": 38,
@@ -4741,7 +4752,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectmodal",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectmodal.tsx"
     },
     {
@@ -4752,7 +4763,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectmodal_clientoption",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "clientoption"
     },
     {
@@ -4763,7 +4774,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectmodal_projectmodalprops",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectmodalprops"
     },
     {
@@ -4774,7 +4785,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectmodal_projectmodal",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectmodal()"
     },
     {
@@ -4784,8 +4795,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 38,
+      "community_name": "InvoiceModal.tsx",
       "norm_label": "projecttable.tsx"
     },
     {
@@ -4795,8 +4806,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable_projecttableprops",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 38,
+      "community_name": "InvoiceModal.tsx",
       "norm_label": "projecttableprops"
     },
     {
@@ -4806,8 +4817,8 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable_sortfield",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 38,
+      "community_name": "InvoiceModal.tsx",
       "norm_label": "sortfield"
     },
     {
@@ -4817,8 +4828,8 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable_sortdirection",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 38,
+      "community_name": "InvoiceModal.tsx",
       "norm_label": "sortdirection"
     },
     {
@@ -4828,8 +4839,8 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable_default_project_widths",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 38,
+      "community_name": "InvoiceModal.tsx",
       "norm_label": "default_project_widths"
     },
     {
@@ -4839,8 +4850,8 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable_min_project_widths",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 38,
+      "community_name": "InvoiceModal.tsx",
       "norm_label": "min_project_widths"
     },
     {
@@ -4850,8 +4861,8 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable_projecttable",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 38,
+      "community_name": "InvoiceModal.tsx",
       "norm_label": "projecttable()"
     },
     {
@@ -4861,7 +4872,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttasksmodal",
-      "community": 35,
+      "community": 44,
       "community_name": "projects/page.tsx",
       "norm_label": "projecttasksmodal.tsx"
     },
@@ -4872,7 +4883,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttasksmodal_projecttasksmodalprops",
-      "community": 35,
+      "community": 44,
       "community_name": "projects/page.tsx",
       "norm_label": "projecttasksmodalprops"
     },
@@ -4883,7 +4894,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttasksmodal_projecttasksmodal",
-      "community": 35,
+      "community": 44,
       "community_name": "projects/page.tsx",
       "norm_label": "projecttasksmodal()"
     },
@@ -4894,7 +4905,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_taskmodal",
-      "community": 35,
+      "community": 44,
       "community_name": "projects/page.tsx",
       "norm_label": "taskmodal.tsx"
     },
@@ -4905,7 +4916,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_taskmodal_projectoption",
-      "community": 35,
+      "community": 44,
       "community_name": "projects/page.tsx",
       "norm_label": "projectoption"
     },
@@ -4916,7 +4927,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_taskmodal_taskmodalprops",
-      "community": 35,
+      "community": 44,
       "community_name": "projects/page.tsx",
       "norm_label": "taskmodalprops"
     },
@@ -4927,7 +4938,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_taskmodal_taskmodal",
-      "community": 35,
+      "community": 44,
       "community_name": "projects/page.tsx",
       "norm_label": "taskmodal()"
     },
@@ -4938,8 +4949,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 46,
+      "community_name": "tasks/page.tsx",
       "norm_label": "tasktable.tsx"
     },
     {
@@ -4949,7 +4960,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_tasktableprops",
-      "community": 35,
+      "community": 44,
       "community_name": "projects/page.tsx",
       "norm_label": "tasktableprops"
     },
@@ -4960,8 +4971,8 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_sortfield",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 46,
+      "community_name": "tasks/page.tsx",
       "norm_label": "sortfield"
     },
     {
@@ -4971,8 +4982,8 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_sortdirection",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 46,
+      "community_name": "tasks/page.tsx",
       "norm_label": "sortdirection"
     },
     {
@@ -4982,8 +4993,8 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_default_task_widths",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 46,
+      "community_name": "tasks/page.tsx",
       "norm_label": "default_task_widths"
     },
     {
@@ -4993,8 +5004,8 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_min_task_widths",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 46,
+      "community_name": "tasks/page.tsx",
       "norm_label": "min_task_widths"
     },
     {
@@ -5004,8 +5015,8 @@
       "source_location": "L55",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_tasktable",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 46,
+      "community_name": "tasks/page.tsx",
       "norm_label": "tasktable()"
     },
     {
@@ -5015,8 +5026,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 45,
+      "community_name": "ManualTimeModal.tsx",
       "norm_label": "manualtimemodal.tsx"
     },
     {
@@ -5026,8 +5037,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_manualtimemodalprops",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 45,
+      "community_name": "ManualTimeModal.tsx",
       "norm_label": "manualtimemodalprops"
     },
     {
@@ -5037,8 +5048,8 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_tolocaldatestr",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 45,
+      "community_name": "ManualTimeModal.tsx",
       "norm_label": "tolocaldatestr()"
     },
     {
@@ -5048,8 +5059,8 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_tolocaltimestr",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 45,
+      "community_name": "ManualTimeModal.tsx",
       "norm_label": "tolocaltimestr()"
     },
     {
@@ -5059,8 +5070,8 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_timetominutes",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 45,
+      "community_name": "ManualTimeModal.tsx",
       "norm_label": "timetominutes()"
     },
     {
@@ -5070,8 +5081,8 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_minutestotime",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 45,
+      "community_name": "ManualTimeModal.tsx",
       "norm_label": "minutestotime()"
     },
     {
@@ -5081,8 +5092,8 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_manualtimemodal",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 45,
+      "community_name": "ManualTimeModal.tsx",
       "norm_label": "manualtimemodal()"
     },
     {
@@ -5093,7 +5104,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_starttimermodal",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "starttimermodal.tsx"
     },
     {
@@ -5104,7 +5115,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_starttimermodal_starttimermodalprops",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "starttimermodalprops"
     },
     {
@@ -5115,7 +5126,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_starttimermodal_starttimermodal",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "starttimermodal()"
     },
     {
@@ -5125,8 +5136,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 38,
+      "community_name": "InvoiceModal.tsx",
       "norm_label": "timeentrytable.tsx"
     },
     {
@@ -5136,8 +5147,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_timeentrytableprops",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 38,
+      "community_name": "InvoiceModal.tsx",
       "norm_label": "timeentrytableprops"
     },
     {
@@ -5147,8 +5158,8 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_sortfield",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 38,
+      "community_name": "InvoiceModal.tsx",
       "norm_label": "sortfield"
     },
     {
@@ -5158,8 +5169,8 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_sortdirection",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 38,
+      "community_name": "InvoiceModal.tsx",
       "norm_label": "sortdirection"
     },
     {
@@ -5169,8 +5180,8 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_default_time_widths",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 38,
+      "community_name": "InvoiceModal.tsx",
       "norm_label": "default_time_widths"
     },
     {
@@ -5180,8 +5191,8 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_min_time_widths",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 38,
+      "community_name": "InvoiceModal.tsx",
       "norm_label": "min_time_widths"
     },
     {
@@ -5191,8 +5202,8 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_timeentrytable",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 38,
+      "community_name": "InvoiceModal.tsx",
       "norm_label": "timeentrytable()"
     },
     {
@@ -5279,8 +5290,8 @@
       "source_location": "L85",
       "_origin": "ast",
       "id": "frontend_src_context_authcontext_useauth",
-      "community": 41,
-      "community_name": "time-tracker/page.tsx",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "useauth()"
     },
     {
@@ -5290,8 +5301,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_hooks_useresizablecolumns",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 38,
+      "community_name": "InvoiceModal.tsx",
       "norm_label": "useresizablecolumns.tsx"
     },
     {
@@ -5301,8 +5312,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "frontend_src_hooks_useresizablecolumns_useresizablecolumns",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 38,
+      "community_name": "InvoiceModal.tsx",
       "norm_label": "useresizablecolumns()"
     },
     {
@@ -5312,8 +5323,8 @@
       "source_location": "L77",
       "_origin": "ast",
       "id": "frontend_src_hooks_useresizablecolumns_resizehandle",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 38,
+      "community_name": "InvoiceModal.tsx",
       "norm_label": "resizehandle()"
     },
     {
@@ -5375,7 +5386,7 @@
       "label": "GatewayUpdatePayload",
       "file_type": "code",
       "source_file": "frontend/src/types/gateway.ts",
-      "source_location": "L24",
+      "source_location": "L21",
       "_origin": "ast",
       "id": "frontend_src_types_gateway_gatewayupdatepayload",
       "community": 37,
@@ -5500,7 +5511,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "project.ts"
     },
     {
@@ -5510,7 +5521,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_types_project_taskstatus",
-      "community": 35,
+      "community": 44,
       "community_name": "projects/page.tsx",
       "norm_label": "taskstatus"
     },
@@ -5522,7 +5533,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_taskpriority",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "taskpriority"
     },
     {
@@ -5532,7 +5543,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "frontend_src_types_project_checklistitem",
-      "community": 35,
+      "community": 44,
       "community_name": "projects/page.tsx",
       "norm_label": "checklistitem"
     },
@@ -5543,7 +5554,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "frontend_src_types_project_taskdata",
-      "community": 35,
+      "community": 44,
       "community_name": "projects/page.tsx",
       "norm_label": "taskdata"
     },
@@ -5555,7 +5566,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_projectbillingtype",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectbillingtype"
     },
     {
@@ -5566,7 +5577,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_projectstatus",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectstatus"
     },
     {
@@ -5577,7 +5588,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_projectclientinfo",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectclientinfo"
     },
     {
@@ -5588,7 +5599,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_projectdata",
       "community": 35,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectdata"
     },
     {
@@ -5598,8 +5609,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_types_time",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 45,
+      "community_name": "ManualTimeModal.tsx",
       "norm_label": "time.ts"
     },
     {
@@ -5609,8 +5620,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_types_time_timeentrydata",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 45,
+      "community_name": "ManualTimeModal.tsx",
       "norm_label": "timeentrydata"
     },
     {
@@ -5620,8 +5631,8 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "frontend_src_types_time_timeentrycreatepayload",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 45,
+      "community_name": "ManualTimeModal.tsx",
       "norm_label": "timeentrycreatepayload"
     },
     {
@@ -5631,8 +5642,8 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "frontend_src_types_time_timeentryupdatepayload",
-      "community": 35,
-      "community_name": "projects/page.tsx",
+      "community": 45,
+      "community_name": "ManualTimeModal.tsx",
       "norm_label": "timeentryupdatepayload"
     },
     {
@@ -7137,8 +7148,8 @@
     },
     {
       "label": "uuid",
-      "community": 1,
-      "community_name": "auth.py",
+      "community": 6,
+      "community_name": "Base",
       "external": true,
       "file_type": "concept",
       "norm_label": "uuid",
@@ -7197,8 +7208,8 @@
     },
     {
       "label": "sqlalchemy_ext_asyncio",
-      "community": 2,
-      "community_name": "Currency",
+      "community": 6,
+      "community_name": "Base",
       "external": true,
       "file_type": "concept",
       "norm_label": "sqlalchemy_ext_asyncio",
@@ -7233,8 +7244,8 @@
     },
     {
       "label": "typing",
-      "community": 39,
-      "community_name": "invoices.py",
+      "community": 9,
+      "community_name": "projects.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "typing",
@@ -7258,7 +7269,7 @@
     {
       "label": "pydantic",
       "community": 34,
-      "community_name": "User",
+      "community_name": "clients.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "pydantic",
@@ -7269,8 +7280,8 @@
     },
     {
       "label": "contextlib",
-      "community": 6,
-      "community_name": "Base",
+      "community": 41,
+      "community_name": "FastAPI",
       "external": true,
       "file_type": "concept",
       "norm_label": "contextlib",
@@ -7281,8 +7292,8 @@
     },
     {
       "label": "fastapi_middleware_cors",
-      "community": 6,
-      "community_name": "Base",
+      "community": 41,
+      "community_name": "FastAPI",
       "external": true,
       "file_type": "concept",
       "norm_label": "fastapi_middleware_cors",
@@ -7293,8 +7304,8 @@
     },
     {
       "label": "starlette_middleware_base",
-      "community": 6,
-      "community_name": "Base",
+      "community": 41,
+      "community_name": "FastAPI",
       "external": true,
       "file_type": "concept",
       "norm_label": "starlette_middleware_base",
@@ -9146,7 +9157,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L84",
+      "source_location": "L20",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_gateways",
+      "target": "backend_app_api_v1_endpoints_gateways_build_gateway_response",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/gateways.py",
+      "source_location": "L80",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_gateways",
@@ -9157,7 +9179,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L209",
+      "source_location": "L192",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_gateways",
@@ -9168,7 +9190,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L119",
+      "source_location": "L111",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_gateways",
@@ -9179,7 +9201,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L20",
+      "source_location": "L51",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_gateways",
@@ -9190,7 +9212,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L188",
+      "source_location": "L171",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_gateways",
@@ -9201,7 +9223,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L136",
+      "source_location": "L128",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_gateways",
@@ -9342,37 +9364,13 @@
     },
     {
       "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L118",
-      "weight": 1.0,
-      "context": "decorator",
-      "_origin": "ast",
-      "source": "backend_app_api_v1_endpoints_gateways_get_gateway",
-      "target": "backend_app_api_v1_endpoints_gateways_py_get",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L19",
-      "weight": 1.0,
-      "context": "decorator",
-      "_origin": "ast",
-      "source": "backend_app_api_v1_endpoints_gateways_list_gateways",
-      "target": "backend_app_api_v1_endpoints_gateways_py_get",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
       "source_location": "L20",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "backend_app_api_v1_endpoints_gateways_list_gateways",
+      "source": "backend_app_api_v1_endpoints_gateways_build_gateway_response",
       "target": "backend_app_api_v1_endpoints_gateways_py_asyncsession",
       "confidence_score": 1.0
     },
@@ -9384,28 +9382,99 @@
       "source_location": "L20",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "backend_app_api_v1_endpoints_gateways_list_gateways",
-      "target": "backend_app_models_user_models_user",
+      "source": "backend_app_api_v1_endpoints_gateways_build_gateway_response",
+      "target": "backend_app_models_gateway_model_paymentgateway",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/gateways.py",
+      "source_location": "L20",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_gateways_build_gateway_response",
+      "target": "backend_app_schemas_gateway_schemas_gatewayresponse",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L78",
+      "source_location": "L107",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_gateways_create_gateway",
+      "target": "backend_app_api_v1_endpoints_gateways_build_gateway_response",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/gateways.py",
+      "source_location": "L124",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_gateways_get_gateway",
+      "target": "backend_app_api_v1_endpoints_gateways_build_gateway_response",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/gateways.py",
+      "source_location": "L76",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_gateways_list_gateways",
-      "target": "backend_app_schemas_gateway_schemas_gatewayresponse"
+      "target": "backend_app_api_v1_endpoints_gateways_build_gateway_response",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/gateways.py",
+      "source_location": "L21",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_gateways_rationale_21",
+      "target": "backend_app_api_v1_endpoints_gateways_build_gateway_response",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/gateways.py",
+      "source_location": "L188",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_gateways_toggle_gateway_status",
+      "target": "backend_app_api_v1_endpoints_gateways_build_gateway_response",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/gateways.py",
+      "source_location": "L167",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_gateways_update_gateway",
+      "target": "backend_app_api_v1_endpoints_gateways_build_gateway_response",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L84",
+      "source_location": "L80",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_gateways_create_gateway",
@@ -9417,7 +9486,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L209",
+      "source_location": "L192",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_gateways_delete_gateway",
@@ -9429,7 +9498,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L119",
+      "source_location": "L111",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_gateways_get_gateway",
@@ -9441,7 +9510,19 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L188",
+      "source_location": "L51",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_gateways_list_gateways",
+      "target": "backend_app_api_v1_endpoints_gateways_py_asyncsession",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/gateways.py",
+      "source_location": "L171",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_gateways_toggle_gateway_status",
@@ -9453,7 +9534,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L136",
+      "source_location": "L128",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_gateways_update_gateway",
@@ -9464,7 +9545,43 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L83",
+      "source_location": "L110",
+      "weight": 1.0,
+      "context": "decorator",
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_gateways_get_gateway",
+      "target": "backend_app_api_v1_endpoints_gateways_py_get",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/gateways.py",
+      "source_location": "L50",
+      "weight": 1.0,
+      "context": "decorator",
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_gateways_list_gateways",
+      "target": "backend_app_api_v1_endpoints_gateways_py_get",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/gateways.py",
+      "source_location": "L51",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_gateways_list_gateways",
+      "target": "backend_app_models_user_models_user",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/gateways.py",
+      "source_location": "L79",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -9476,20 +9593,20 @@
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L103",
+      "source_location": "L95",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_gateways_create_gateway",
-      "target": "backend_app_models_gateway_model_paymentgateway"
+      "target": "backend_app_models_gateway_model_paymentgateway",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L84",
+      "source_location": "L80",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_gateways_create_gateway",
@@ -9501,7 +9618,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L84",
+      "source_location": "L80",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_gateways_create_gateway",
@@ -9513,7 +9630,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L119",
+      "source_location": "L111",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_gateways_get_gateway",
@@ -9524,7 +9641,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L135",
+      "source_location": "L127",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -9537,7 +9654,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L136",
+      "source_location": "L128",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_gateways_update_gateway",
@@ -9549,7 +9666,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L136",
+      "source_location": "L128",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_gateways_update_gateway",
@@ -9560,7 +9677,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L187",
+      "source_location": "L170",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -9573,7 +9690,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L188",
+      "source_location": "L171",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_gateways_toggle_gateway_status",
@@ -9585,7 +9702,7 @@
       "context": "decorator",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L208",
+      "source_location": "L191",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_gateways_delete_gateway",
@@ -9597,7 +9714,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/gateways.py",
-      "source_location": "L209",
+      "source_location": "L192",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_gateways_delete_gateway",
@@ -14714,7 +14831,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/main.py",
-      "source_location": "L151",
+      "source_location": "L86",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_main",
@@ -14853,7 +14970,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/main.py",
-      "source_location": "L150",
+      "source_location": "L85",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -15737,7 +15854,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/schemas/gateway_schemas.py",
-      "source_location": "L14",
+      "source_location": "L11",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_schemas_gateway_schemas",
@@ -15748,7 +15865,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/schemas/gateway_schemas.py",
-      "source_location": "L26",
+      "source_location": "L20",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_schemas_gateway_schemas",
@@ -15759,7 +15876,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/schemas/gateway_schemas.py",
-      "source_location": "L17",
+      "source_location": "L14",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_schemas_gateway_schemas",
@@ -15817,7 +15934,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/schemas/gateway_schemas.py",
-      "source_location": "L14",
+      "source_location": "L11",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_schemas_gateway_schemas_gatewaycreate",
@@ -15828,7 +15945,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/schemas/gateway_schemas.py",
-      "source_location": "L26",
+      "source_location": "L20",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_schemas_gateway_schemas_gatewayresponse",
@@ -15839,7 +15956,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/schemas/gateway_schemas.py",
-      "source_location": "L17",
+      "source_location": "L14",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_schemas_gateway_schemas_gatewayupdate",
@@ -18210,7 +18327,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/gateways/page.tsx",
-      "source_location": "L22",
+      "source_location": "L19",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_app_gateways_page",
@@ -19713,7 +19830,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/gateways/GatewayModal.tsx",
-      "source_location": "L22",
+      "source_location": "L23",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_gateways_gatewaymodal",
@@ -19724,7 +19841,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/gateways/GatewayModal.tsx",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_gateways_gatewaymodal",
@@ -19735,7 +19852,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/gateways/GatewayModal.tsx",
-      "source_location": "L33",
+      "source_location": "L34",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_gateways_gatewaymodal",
@@ -19806,17 +19923,6 @@
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/invoices/InvoiceModal.tsx",
       "source_location": "L40",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "frontend_src_components_modules_invoices_invoicemodal",
-      "target": "frontend_src_components_modules_invoices_invoicemodal_gateway_options",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/components/modules/invoices/InvoiceModal.tsx",
-      "source_location": "L50",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_invoices_invoicemodal",
@@ -21299,7 +21405,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/types/gateway.ts",
-      "source_location": "L24",
+      "source_location": "L21",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_types_gateway",
@@ -22845,5 +22951,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "d21287ca2d788c9fe417ea5bac8f03c70da62f7c"
+  "built_at_commit": "834825ae1d50abff86db48acf8111cb7ffba6164"
 }

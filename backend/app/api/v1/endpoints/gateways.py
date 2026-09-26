@@ -203,6 +203,25 @@ async def delete_gateway(
             detail=f"Gateway with ID '{gateway_id}' not found.",
         )
 
+    # Prevent deletion if assigned to any invoice
+    inv_check = await db.execute(
+        select(func.count(Invoice.id)).where(
+            or_(
+                Invoice.payment_gateway == gw.name,
+                Invoice.payment_gateway == gw.id,
+            )
+        )
+    )
+    linked_invoices_count = inv_check.scalar_one()
+    if linked_invoices_count > 0:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=(
+                f"Payment Gateway '{gw.name}' cannot be deleted because it is assigned to "
+                f"{linked_invoices_count} invoice(s). You can archive it instead."
+            ),
+        )
+
     await db.delete(gw)
     await db.commit()
     return {"message": f"Payment Gateway '{gw.name}' deleted successfully."}

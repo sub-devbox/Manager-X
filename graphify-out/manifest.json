@@ -500,8 +500,8 @@
     "semantic_hash": ""
   },
   "backend/app/api/v1/endpoints/gateways.py": {
-    "mtime": 1790443779.5017407,
-    "ast_hash": "2344c6851dc9afa2f4a97d98391570d5",
+    "mtime": 1790444134.1049447,
+    "ast_hash": "c8f1eaca493010e117cabc9ea98c53f3",
     "semantic_hash": ""
   },
   "backend/app/models/gateway_model.py": {
@@ -515,8 +515,8 @@
     "semantic_hash": ""
   },
   "backend/tests/test_gateways_api.py": {
-    "mtime": 1790443920.6554062,
-    "ast_hash": "fdf035bded62243404858033c8df5ffe",
+    "mtime": 1790444158.4920382,
+    "ast_hash": "b47c8085fab315f2c6d62a5c1c778bf7",
     "semantic_hash": ""
   },
   "frontend/src/app/gateways/page.tsx": {

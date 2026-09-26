@@ -1,16 +1,16 @@
 # Graph Report - Manager-X  (2026-09-26)
 
 ## Corpus Check
-- 106 files · ~76,973 words
+- 106 files · ~77,185 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 681 nodes · 1330 edges · 47 communities (39 shown, 8 thin omitted)
+- 681 nodes · 1332 edges · 44 communities (36 shown, 8 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 19 edges (avg confidence: 0.56)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `834825ae`
+- Built from commit: `10aa0358`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -54,18 +54,15 @@
 - GatewayModal.tsx
 - InvoiceModal.tsx
 - User
-- AuthContext.tsx
 - FastAPI
-- clients/page.tsx
-- SettingsModal.tsx
 - projects/page.tsx
 - ManualTimeModal.tsx
-- tasks/page.tsx
+- TaskTable.tsx
 
 ## God Nodes (most connected - your core abstractions)
 1. `User` - 71 edges
 2. `Base` - 23 edges
-3. `Currency` - 18 edges
+3. `Currency` - 20 edges
 4. `login()` - 16 edges
 5. `compilerOptions` - 16 edges
 6. `TaskData` - 15 edges
@@ -89,7 +86,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (47 total, 8 thin omitted)
+## Communities (44 total, 8 thin omitted)
 
 ### Community 0 - "devDependencies"
 Cohesion: 0.06
@@ -132,8 +129,8 @@ Cohesion: 0.09
 Nodes (47): create_project(), delete_project(), _format_project_response(), get_project(), list_projects(), list_projects_summary(), AsyncSession, delete (+39 more)
 
 ### Community 10 - "AppShell.tsx"
-Cohesion: 0.14
-Nodes (9): OverviewPage(), AppShell(), AppShellProps, GlobalTimerBar(), Header(), HeaderProps, Sidebar(), SidebarProps (+1 more)
+Cohesion: 0.06
+Nodes (25): frontend_src_app_globals, metadata, OverviewPage(), AppShellProps, GlobalTimerBar(), Header(), HeaderProps, Sidebar() (+17 more)
 
 ### Community 11 - "Ponytail"
 Cohesion: 0.22
@@ -196,8 +193,8 @@ Cohesion: 0.15
 Nodes (22): create_client(), delete_client(), get_client(), list_clients(), list_clients_summary(), AsyncSession, delete, get (+14 more)
 
 ### Community 35 - "project.ts"
-Cohesion: 0.19
-Nodes (12): PeriodFilter, TimerState, ClientOption, ProjectModal(), ProjectModalProps, StartTimerModal(), StartTimerModalProps, ProjectBillingType (+4 more)
+Cohesion: 0.20
+Nodes (13): PeriodFilter, TimerState, ClientOption, ProjectModal(), ProjectModalProps, StartTimerModal(), StartTimerModalProps, ProjectBillingType (+5 more)
 
 ### Community 36 - "gateways.py"
 Cohesion: 0.19
@@ -208,40 +205,28 @@ Cohesion: 0.29
 Nodes (7): COMMON_CURRENCIES, CurrencyOption, GatewayModal(), GatewayModalProps, GatewayCreatePayload, GatewayData, GatewayUpdatePayload
 
 ### Community 38 - "InvoiceModal.tsx"
-Cohesion: 0.07
-Nodes (35): ClientOption, SearchableClientSelect(), SearchableClientSelectProps, InvoiceModal(), InvoiceModalProps, DEFAULT_INVOICE_WIDTHS, InvoiceTable(), InvoiceTableProps (+27 more)
+Cohesion: 0.15
+Nodes (17): InvoiceModal(), InvoiceModalProps, DEFAULT_INVOICE_WIDTHS, InvoiceTableProps, MIN_INVOICE_WIDTHS, SortDirection, SortField, ClientData (+9 more)
 
 ### Community 39 - "User"
 Cohesion: 0.10
 Nodes (40): calculate_next_invoice_number(), create_invoice(), delete_invoice(), download_invoice_pdf(), extract_company_initials(), get_company_profile_dict(), get_invoice(), get_next_invoice_number() (+32 more)
 
-### Community 40 - "AuthContext.tsx"
-Cohesion: 0.22
-Nodes (7): frontend_src_app_globals, metadata, QueryProvider(), AuthContext, AuthContextType, AuthProvider(), AuthUser
-
 ### Community 41 - "FastAPI"
 Cohesion: 0.17
 Nodes (10): health_check(), lifespan(), get, Request, SecurityHeadersMiddleware, BaseHTTPMiddleware, contextlib, FastAPI (+2 more)
 
-### Community 42 - "clients/page.tsx"
-Cohesion: 0.38
-Nodes (4): ClientData, ClientModal(), ClientModalProps, CurrencyOption
-
-### Community 43 - "SettingsModal.tsx"
-Cohesion: 0.29
-Nodes (6): BackupInfo, CompanyProfile, Currency, PRESET_COLORS, SettingsModal(), SettingsModalProps
-
 ### Community 44 - "projects/page.tsx"
-Cohesion: 0.29
-Nodes (9): ProjectTasksModal(), ProjectTasksModalProps, ProjectOption, TaskModal(), TaskModalProps, TaskTableProps, ChecklistItem, TaskData (+1 more)
+Cohesion: 0.18
+Nodes (12): PeriodFilter, ClientOption, SearchableClientSelect(), SearchableClientSelectProps, AppShell(), ProjectTasksModal(), ProjectTasksModalProps, ProjectOption (+4 more)
 
 ### Community 45 - "ManualTimeModal.tsx"
-Cohesion: 0.29
-Nodes (9): ManualTimeModal(), ManualTimeModalProps, minutesToTime(), timeToMinutes(), toLocalDateStr(), toLocalTimeStr(), TimeEntryCreatePayload, TimeEntryData (+1 more)
+Cohesion: 0.26
+Nodes (10): ManualTimeModal(), ManualTimeModalProps, minutesToTime(), timeToMinutes(), toLocalDateStr(), toLocalTimeStr(), TimeEntryTableProps, TimeEntryCreatePayload (+2 more)
 
-### Community 46 - "tasks/page.tsx"
-Cohesion: 0.25
-Nodes (6): PeriodFilter, DEFAULT_TASK_WIDTHS, MIN_TASK_WIDTHS, SortDirection, SortField, TaskTable()
+### Community 46 - "TaskTable.tsx"
+Cohesion: 0.12
+Nodes (20): InvoiceTable(), DEFAULT_PROJECT_WIDTHS, MIN_PROJECT_WIDTHS, ProjectTable(), ProjectTableProps, SortDirection, SortField, DEFAULT_TASK_WIDTHS (+12 more)
 
 ## Knowledge Gaps
 - **174 isolated node(s):** `eslintConfig`, `nextConfig`, `name`, `version`, `private` (+169 more)
@@ -252,11 +237,11 @@ Nodes (6): PeriodFilter, DEFAULT_TASK_WIDTHS, MIN_TASK_WIDTHS, SortDirection, So
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `User` connect `User` to `auth.py`, `clients.py`, `settings.py`, `gateways.py`, `Currency`, `Base`, `projects.py`?**
-  _High betweenness centrality (0.106) - this node is a cross-community bridge._
+  _High betweenness centrality (0.105) - this node is a cross-community bridge._
 - **Why does `Currency` connect `Currency` to `clients.py`, `settings.py`, `Base`?**
-  _High betweenness centrality (0.021) - this node is a cross-community bridge._
+  _High betweenness centrality (0.026) - this node is a cross-community bridge._
 - **Why does `Base` connect `Base` to `auth.py`, `clients.py`, `Currency`, `gateways.py`, `User`, `FastAPI`, `projects.py`?**
-  _High betweenness centrality (0.020) - this node is a cross-community bridge._
+  _High betweenness centrality (0.021) - this node is a cross-community bridge._
 - **Are the 13 inferred relationships involving `Base` (e.g. with `SecurityHeadersMiddleware` and `Client`) actually correct?**
   _`Base` has 13 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 2 inferred relationships involving `Currency` (e.g. with `Client` and `Base`) actually correct?**

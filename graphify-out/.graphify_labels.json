@@ -39,11 +39,8 @@
   "37": "GatewayModal.tsx",
   "38": "InvoiceModal.tsx",
   "39": "User",
-  "40": "AuthContext.tsx",
   "41": "FastAPI",
-  "42": "clients/page.tsx",
-  "43": "SettingsModal.tsx",
   "44": "projects/page.tsx",
   "45": "ManualTimeModal.tsx",
-  "46": "tasks/page.tsx"
+  "46": "TaskTable.tsx"
 }
