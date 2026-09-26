@@ -24,6 +24,7 @@ interface TaskModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSuccess: () => void;
+  onDelete?: (task: TaskData) => void | Promise<void>;
   initialData?: TaskData | null;
   defaultProjectId?: string;
   defaultStatus?: TaskStatus;
@@ -33,6 +34,7 @@ export default function TaskModal({
   isOpen,
   onClose,
   onSuccess,
+  onDelete,
   initialData,
   defaultProjectId,
   defaultStatus = "backlog",
@@ -41,6 +43,8 @@ export default function TaskModal({
   const [projects, setProjects] = useState<ProjectOption[]>([]);
   const [loadingProjects, setLoadingProjects] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
   const [formData, setFormData] = useState({
@@ -72,6 +76,8 @@ export default function TaskModal({
     if (isOpen) {
       setErrorMsg("");
       setNewItemText("");
+      setConfirmDelete(false);
+      setDeleting(false);
       loadProjects();
 
       if (initialData) {
@@ -179,6 +185,25 @@ export default function TaskModal({
       setErrorMsg(err.message || "Failed to save task.");
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!initialData) return;
+    setErrorMsg("");
+    setDeleting(true);
+    try {
+      if (onDelete) {
+        await onDelete(initialData);
+      } else {
+        await api.delete(`/tasks/${initialData.id}`);
+        onSuccess();
+      }
+      onClose();
+    } catch (err: any) {
+      setErrorMsg(err.message || "Failed to delete task.");
+      setDeleting(false);
+      setConfirmDelete(false);
     }
   };
 
@@ -572,29 +597,88 @@ export default function TaskModal({
           <div
             style={{
               display: "flex",
-              justifyContent: "flex-end",
+              justifyContent: initialData ? "space-between" : "flex-end",
+              alignItems: "center",
               gap: "10px",
               paddingTop: "12px",
               borderTop: "1px solid var(--border-subtle)",
               marginTop: "4px",
             }}
           >
-            <button
-              type="button"
-              onClick={onClose}
-              className="finance-button-secondary"
-              disabled={submitting}
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="finance-button-primary"
-              disabled={submitting}
-              style={{ width: "auto", minWidth: "120px" }}
-            >
-              {submitting ? "Saving..." : initialData ? "Save Changes" : "Create Task"}
-            </button>
+            {initialData && (
+              <div>
+                {!confirmDelete ? (
+                  <button
+                    type="button"
+                    onClick={() => setConfirmDelete(true)}
+                    className="finance-button-secondary"
+                    disabled={submitting || deleting}
+                    style={{
+                      color: "var(--accent-rose)",
+                      borderColor: "rgba(244, 63, 94, 0.25)",
+                      gap: "6px",
+                      height: "36px",
+                      padding: "0 12px",
+                      fontSize: "12.5px",
+                    }}
+                    title="Delete this task"
+                  >
+                    <Trash2 size={13} />
+                    <span>Delete Task</span>
+                  </button>
+                ) : (
+                  <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                    <button
+                      type="button"
+                      onClick={handleDelete}
+                      disabled={deleting}
+                      className="finance-button-primary"
+                      style={{
+                        background: "var(--accent-rose)",
+                        borderColor: "var(--accent-rose)",
+                        color: "#fff",
+                        height: "36px",
+                        padding: "0 12px",
+                        fontSize: "12px",
+                        gap: "6px",
+                        width: "auto",
+                      }}
+                    >
+                      <Trash2 size={12} />
+                      <span>{deleting ? "Deleting..." : "Confirm Delete?"}</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setConfirmDelete(false)}
+                      disabled={deleting}
+                      className="finance-button-secondary"
+                      style={{ height: "36px", padding: "0 10px", fontSize: "12px" }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+
+            <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+              <button
+                type="button"
+                onClick={onClose}
+                className="finance-button-secondary"
+                disabled={submitting || deleting}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="finance-button-primary"
+                disabled={submitting || deleting}
+                style={{ width: "auto", minWidth: "120px" }}
+              >
+                {submitting ? "Saving..." : initialData ? "Save Changes" : "Create Task"}
+              </button>
+            </div>
           </div>
         </form>
       </div>

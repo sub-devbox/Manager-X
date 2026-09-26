@@ -11,7 +11,6 @@ import {
   Play,
   Square,
   Pencil,
-  Trash2,
   ChevronDown,
   ChevronUp,
   ArrowUpDown,
@@ -700,16 +699,6 @@ export default function TaskTable({
                         title="Edit Task"
                       >
                         <Pencil size={11} />
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={() => onDeleteTask && onDeleteTask(task)}
-                        className="finance-button-secondary"
-                        style={{ padding: "3px 6px", color: "var(--accent-rose)" }}
-                        title="Delete Task"
-                      >
-                        <Trash2 size={11} />
                       </button>
                     </div>
                   </td>

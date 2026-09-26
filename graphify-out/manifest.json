@@ -155,8 +155,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/projects/page.tsx": {
-    "mtime": 1790426627.9481356,
-    "ast_hash": "c7be16bab02ee37d4ccca62f7a889891",
+    "mtime": 1790429083.4931538,
+    "ast_hash": "8bb6abf84b333098c1e0ab5fb06a8e63",
     "semantic_hash": ""
   },
   "frontend/src/app/time-tracker/page.tsx": {
@@ -380,8 +380,8 @@
     "semantic_hash": ""
   },
   "frontend/src/components/modules/projects/TaskModal.tsx": {
-    "mtime": 1790411964.5150619,
-    "ast_hash": "b948d8b5fae17811e1baaeed3dfc7dfa",
+    "mtime": 1790429006.2598786,
+    "ast_hash": "6efdcc34f1360e16566b7d61e0253d2f",
     "semantic_hash": ""
   },
   "frontend/src/types/project.ts": {
@@ -395,8 +395,8 @@
     "semantic_hash": ""
   },
   "frontend/src/components/modules/projects/TaskTable.tsx": {
-    "mtime": 1790427208.5324986,
-    "ast_hash": "719aaaac7fa92b04fde53d6d587430a5",
+    "mtime": 1790429040.0507991,
+    "ast_hash": "de3a053d76260d39119c160ac604f0db",
     "semantic_hash": ""
   },
   "backend/app/api/v1/endpoints/time_entries.py": {
@@ -435,8 +435,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/tasks/page.tsx": {
-    "mtime": 1790427674.9804385,
-    "ast_hash": "f5bc9d1bf916bde9bfefbf6ee76bb655",
+    "mtime": 1790429064.430011,
+    "ast_hash": "2f5f18459805a8fba74dc7e618b7452c",
     "semantic_hash": ""
   },
   "frontend/src/hooks/useResizableColumns.tsx": {

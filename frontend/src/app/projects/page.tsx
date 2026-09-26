@@ -106,7 +106,6 @@ export default function ProjectsPage() {
   };
 
   const handleDeleteTask = async (task: TaskData) => {
-    if (!confirm(`Delete task "${task.title}"?`)) return;
     setActionMsg(null);
     try {
       await api.delete(`/tasks/${task.id}`);
@@ -114,6 +113,7 @@ export default function ProjectsPage() {
       fetchData();
     } catch (err: any) {
       setActionMsg({ type: "error", text: err.message || "Failed to delete task." });
+      throw err;
     }
   };
 
@@ -459,6 +459,7 @@ export default function ProjectsPage() {
           isOpen={isTaskModalOpen}
           onClose={() => setIsTaskModalOpen(false)}
           onSuccess={fetchData}
+          onDelete={handleDeleteTask}
           initialData={editingTask}
           defaultProjectId={taskDefaultProjectId}
           defaultStatus={taskDefaultStatus}
