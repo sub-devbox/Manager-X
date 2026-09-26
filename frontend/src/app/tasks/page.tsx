@@ -20,7 +20,7 @@ import {
 type PeriodFilter = "today" | "this_week" | "this_month" | "custom";
 
 export default function TasksPage() {
-  const [periodFilter, setPeriodFilter] = useState<PeriodFilter>("this_week");
+  const [periodFilter, setPeriodFilter] = useState<PeriodFilter>("this_month");
   const [customStartDate, setCustomStartDate] = useState<string>(() => {
     const d = new Date();
     d.setDate(d.getDate() - 7);

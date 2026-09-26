@@ -435,8 +435,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/tasks/page.tsx": {
-    "mtime": 1790429064.430011,
-    "ast_hash": "2f5f18459805a8fba74dc7e618b7452c",
+    "mtime": 1790434366.420812,
+    "ast_hash": "15395872a305dfd62d22edc2348555c4",
     "semantic_hash": ""
   },
   "frontend/src/hooks/useResizableColumns.tsx": {
