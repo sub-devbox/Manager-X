@@ -13,6 +13,7 @@ import {
   AlertCircle,
   Clock,
   Layers,
+  Trash2,
 } from "lucide-react";
 
 interface ClientOption {
@@ -26,6 +27,7 @@ interface ProjectModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSuccess: () => void;
+  onDelete?: (project: ProjectData) => Promise<void> | void;
   initialData?: ProjectData | null;
   defaultClientId?: string;
 }
@@ -34,6 +36,7 @@ export default function ProjectModal({
   isOpen,
   onClose,
   onSuccess,
+  onDelete,
   initialData,
   defaultClientId,
 }: ProjectModalProps) {
@@ -41,6 +44,8 @@ export default function ProjectModal({
   const [clients, setClients] = useState<ClientOption[]>([]);
   const [loadingClients, setLoadingClients] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
   const [formData, setFormData] = useState({
@@ -58,6 +63,12 @@ export default function ProjectModal({
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    setConfirmDelete(false);
+    setDeleting(false);
+    setErrorMsg("");
+  }, [isOpen, initialData]);
 
   // Close on Escape key
   useEffect(() => {
@@ -194,6 +205,19 @@ export default function ProjectModal({
       setErrorMsg(err.message || "Failed to save project.");
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!initialData || !onDelete) return;
+    setDeleting(true);
+    setErrorMsg("");
+    try {
+      await onDelete(initialData);
+      onClose();
+    } catch (err: any) {
+      setErrorMsg(err.message || "Failed to delete project.");
+      setDeleting(false);
     }
   };
 
@@ -531,29 +555,91 @@ export default function ProjectModal({
           <div
             style={{
               display: "flex",
-              justifyContent: "flex-end",
+              justifyContent: initialData && onDelete ? "space-between" : "flex-end",
+              alignItems: "center",
               gap: "10px",
               paddingTop: "12px",
               borderTop: "1px solid var(--border-subtle)",
               marginTop: "4px",
             }}
           >
-            <button
-              type="button"
-              onClick={onClose}
-              className="finance-button-secondary"
-              disabled={submitting}
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="finance-button-primary"
-              disabled={submitting}
-              style={{ width: "auto", minWidth: "120px" }}
-            >
-              {submitting ? "Saving..." : initialData ? "Save Changes" : "Create Project"}
-            </button>
+            {initialData && onDelete && (
+              <div>
+                {!confirmDelete ? (
+                  <button
+                    type="button"
+                    onClick={() => setConfirmDelete(true)}
+                    disabled={submitting || deleting}
+                    className="finance-button-secondary"
+                    style={{
+                      color: "var(--accent-rose)",
+                      borderColor: "rgba(244, 63, 94, 0.2)",
+                      height: "36px",
+                      padding: "0 12px",
+                      fontSize: "12px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                    }}
+                  >
+                    <Trash2 size={12} />
+                    <span>Delete Project</span>
+                  </button>
+                ) : (
+                  <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                    <button
+                      type="button"
+                      onClick={handleDelete}
+                      disabled={deleting}
+                      className="finance-button-primary"
+                      style={{
+                        background: "var(--accent-rose)",
+                        borderColor: "var(--accent-rose)",
+                        color: "#fff",
+                        height: "36px",
+                        padding: "0 12px",
+                        fontSize: "12px",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "6px",
+                        width: "auto",
+                      }}
+                    >
+                      <Trash2 size={12} />
+                      <span>{deleting ? "Deleting..." : "Confirm Delete?"}</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setConfirmDelete(false)}
+                      disabled={deleting}
+                      className="finance-button-secondary"
+                      style={{ height: "36px", padding: "0 10px", fontSize: "12px" }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+
+            <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+              <button
+                type="button"
+                onClick={onClose}
+                className="finance-button-secondary"
+                disabled={submitting || deleting}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="finance-button-primary"
+                disabled={submitting || deleting}
+                style={{ width: "auto", minWidth: "120px" }}
+              >
+                {submitting ? "Saving..." : initialData ? "Save Changes" : "Create Project"}
+              </button>
+            </div>
           </div>
         </form>
       </div>

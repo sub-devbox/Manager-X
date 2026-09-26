@@ -70,8 +70,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/page.tsx": {
-    "mtime": 1790424626.0129814,
-    "ast_hash": "88304edf1f9c3e0b741cf8b3568e8adc",
+    "mtime": 1790434309.6937664,
+    "ast_hash": "88e7eec6fa151e1aa6578d6f897f0f20",
     "semantic_hash": ""
   },
   "frontend/tsconfig.json": {
@@ -155,8 +155,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/projects/page.tsx": {
-    "mtime": 1790429083.4931538,
-    "ast_hash": "8bb6abf84b333098c1e0ab5fb06a8e63",
+    "mtime": 1790431833.2967021,
+    "ast_hash": "552411b7c9d7ee3611dfd314f3eb5ba7",
     "semantic_hash": ""
   },
   "frontend/src/app/time-tracker/page.tsx": {
@@ -390,8 +390,8 @@
     "semantic_hash": ""
   },
   "frontend/src/components/modules/projects/ProjectTable.tsx": {
-    "mtime": 1790424947.3536594,
-    "ast_hash": "cf4799654fc7d8950c56a10a4f607855",
+    "mtime": 1790431702.0431576,
+    "ast_hash": "571ec6cd11deee17f90401cd7c2c41cd",
     "semantic_hash": ""
   },
   "frontend/src/components/modules/projects/TaskTable.tsx": {
@@ -435,8 +435,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/tasks/page.tsx": {
-    "mtime": 1790429064.430011,
-    "ast_hash": "2f5f18459805a8fba74dc7e618b7452c",
+    "mtime": 1790434366.420812,
+    "ast_hash": "15395872a305dfd62d22edc2348555c4",
     "semantic_hash": ""
   },
   "frontend/src/hooks/useResizableColumns.tsx": {
@@ -447,6 +447,11 @@
   "frontend/src/components/common/SearchableClientSelect.tsx": {
     "mtime": 1790426656.6354387,
     "ast_hash": "532a8df9805f1eea16d03b882598c1ba",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/modules/projects/ProjectTasksModal.tsx": {
+    "mtime": 1790431652.7478888,
+    "ast_hash": "ba9864a1c4604b6fb3c49054e7ee488d",
     "semantic_hash": ""
   }
 }

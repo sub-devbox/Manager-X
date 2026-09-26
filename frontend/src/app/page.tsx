@@ -314,7 +314,7 @@ export default function OverviewPage() {
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <span style={{ fontSize: "12px", color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.4px" }}>
-                Total Projects Completed This Month
+                Projects this Month
               </span>
               <FolderKanban size={14} style={{ color: "var(--text-dim)" }} />
             </div>

@@ -117,7 +117,6 @@ export default function ProjectsPage() {
   };
 
   const handleDeleteProject = async (proj: ProjectData) => {
-    if (!confirm(`Delete project "${proj.name}"? This cannot be undone.`)) return;
     setActionMsg(null);
     try {
       await api.delete(`/projects/${proj.id}`);
@@ -125,6 +124,7 @@ export default function ProjectsPage() {
       fetchData();
     } catch (err: any) {
       setActionMsg({ type: "error", text: err.message || "Failed to delete project." });
+      throw err;
     }
   };
 
@@ -620,7 +620,6 @@ export default function ProjectsPage() {
           timeSpentByProject={timeSpentByProject}
           onSelectProject={(proj) => setSelectedProjectForTasks(proj)}
           onEditProject={handleOpenEditProject}
-          onDeleteProject={handleDeleteProject}
         />
 
         {/* Project Edit Modal */}
@@ -628,6 +627,7 @@ export default function ProjectsPage() {
           isOpen={isProjectModalOpen}
           onClose={() => setIsProjectModalOpen(false)}
           onSuccess={fetchData}
+          onDelete={handleDeleteProject}
           initialData={editingProject}
         />
 

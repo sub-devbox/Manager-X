@@ -7,7 +7,6 @@ import {
   Building2,
   Calendar,
   Pencil,
-  Trash2,
   ArrowUpDown,
   ArrowUp,
   ArrowDown,
@@ -22,7 +21,7 @@ interface ProjectTableProps {
   timeSpentByProject?: Record<string, number>;
   onSelectProject: (project: ProjectData) => void;
   onEditProject: (project: ProjectData) => void;
-  onDeleteProject: (project: ProjectData) => void;
+  onDeleteProject?: (project: ProjectData) => void;
 }
 
 type SortField = "name" | "client" | "due_date" | "time_spent" | "completion";
@@ -502,15 +501,6 @@ export default function ProjectTable({
                         title="Edit Project Details"
                       >
                         <Pencil size={11} />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => onDeleteProject(proj)}
-                        className="finance-button-secondary"
-                        style={{ padding: "3px 5px", color: "var(--accent-rose)" }}
-                        title="Delete Project"
-                      >
-                        <Trash2 size={11} />
                       </button>
                     </div>
                   </td>
