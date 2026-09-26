@@ -311,37 +311,40 @@ export default function TimeTrackerPage() {
           </div>
 
           {/* Dynamic Start / Stop Timer Action */}
-          {isTimerRunning ? (
-            <button
-              type="button"
-              onClick={handleStopTimer}
-              className="finance-button-primary"
-              style={{
-                height: "36px",
-                padding: "0 16px",
-                gap: "8px",
-                background: "rgba(244, 63, 94, 0.15)",
-                color: "var(--accent-rose)",
-                border: "1px solid var(--accent-rose)",
-                fontWeight: 600,
-              }}
-              title="Stop active timer session and save entry"
-            >
-              <Square size={13} style={{ fill: "currentColor" }} />
-              <span>Stop Timer</span>
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={() => setIsStartModalOpen(true)}
-              className="finance-button-primary"
-              style={{ height: "36px", padding: "0 16px", gap: "8px", fontWeight: 600 }}
-              title="Start a live tracking session"
-            >
-              <Play size={13} style={{ fill: "currentColor" }} />
-              <span>Start Timer</span>
-            </button>
-          )}
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            {isTimerRunning ? (
+              <button
+                type="button"
+                onClick={handleStopTimer}
+                className="finance-button-primary"
+                style={{
+                  height: "36px",
+                  padding: "0 16px",
+                  gap: "8px",
+                  background: "rgba(244, 63, 94, 0.15)",
+                  color: "var(--accent-rose)",
+                  border: "1px solid var(--accent-rose)",
+                  fontWeight: 600,
+                  width: "auto",
+                }}
+                title="Stop active timer session and save entry"
+              >
+                <Square size={13} style={{ fill: "currentColor" }} />
+                <span>Stop Timer</span>
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setIsStartModalOpen(true)}
+                className="finance-button-primary"
+                style={{ height: "36px", padding: "0 16px", gap: "8px", fontWeight: 600, width: "auto" }}
+                title="Start a live tracking session"
+              >
+                <Play size={13} style={{ fill: "currentColor" }} />
+                <span>Start Timer</span>
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Stats Summary Bar */}

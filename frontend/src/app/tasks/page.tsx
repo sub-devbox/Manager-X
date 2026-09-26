@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, useMemo } from "react";
-import Link from "next/link";
 import AppShell from "@/components/layout/AppShell";
 import TaskModal from "@/components/modules/projects/TaskModal";
 import TaskTable from "@/components/modules/projects/TaskTable";
@@ -11,7 +10,6 @@ import { TaskData, TaskStatus, ProjectData } from "@/types/project";
 import { TimeEntryData } from "@/types/time";
 import {
   CheckSquare,
-  FolderKanban,
   Plus,
   Search,
   AlertCircle,
@@ -301,26 +299,11 @@ export default function TasksPage() {
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <Link
-              href="/projects"
-              className="finance-button-secondary"
-              style={{
-                height: "36px",
-                padding: "0 14px",
-                textDecoration: "none",
-                gap: "6px",
-                fontSize: "12.5px",
-              }}
-            >
-              <FolderKanban size={14} style={{ color: "var(--accent-blue)" }} />
-              <span>Projects Sheet</span>
-            </Link>
-
             <button
               type="button"
               onClick={() => handleOpenNewTask()}
               className="finance-button-primary"
-              style={{ height: "36px", padding: "0 16px", gap: "8px", fontWeight: 600 }}
+              style={{ height: "36px", padding: "0 16px", gap: "8px", fontWeight: 600, width: "auto" }}
             >
               <Plus size={13} />
               <span>New Task</span>
