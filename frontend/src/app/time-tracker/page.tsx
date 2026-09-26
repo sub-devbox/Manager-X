@@ -19,7 +19,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 
-type PeriodFilter = "all" | "today" | "this_week" | "this_month";
+type PeriodFilter = "today" | "this_week" | "this_month" | "custom";
 
 export default function TimeTrackerPage() {
   const [entries, setEntries] = useState<TimeEntryData[]>([]);
@@ -28,8 +28,16 @@ export default function TimeTrackerPage() {
   const [loading, setLoading] = useState<boolean>(true);
   const [actionMsg, setActionMsg] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
-  // Filters
-  const [periodFilter, setPeriodFilter] = useState<PeriodFilter>("all");
+  // Filters (today by default)
+  const [periodFilter, setPeriodFilter] = useState<PeriodFilter>("today");
+  const [customStartDate, setCustomStartDate] = useState<string>(() => {
+    const d = new Date();
+    d.setDate(d.getDate() - 7);
+    return d.toISOString().slice(0, 10);
+  });
+  const [customEndDate, setCustomEndDate] = useState<string>(() => {
+    return new Date().toISOString().slice(0, 10);
+  });
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   // Modals state
@@ -211,12 +219,17 @@ export default function TimeTrackerPage() {
     return entries.filter((entry) => {
       // Period filter
       const entryDate = new Date(entry.start_time);
+      const entryDateStr = entry.start_time.slice(0, 10);
+
       if (periodFilter === "today") {
-        if (entry.start_time.slice(0, 10) !== todayStr) return false;
+        if (entryDateStr !== todayStr) return false;
       } else if (periodFilter === "this_week") {
         if (entryDate < monday) return false;
       } else if (periodFilter === "this_month") {
         if (entryDate < firstOfMonth) return false;
+      } else if (periodFilter === "custom") {
+        if (customStartDate && entryDateStr < customStartDate) return false;
+        if (customEndDate && entryDateStr > customEndDate) return false;
       }
 
       // Search query filter
@@ -231,7 +244,7 @@ export default function TimeTrackerPage() {
 
       return true;
     });
-  }, [entries, periodFilter, searchQuery]);
+  }, [entries, periodFilter, customStartDate, customEndDate, searchQuery]);
 
   // Aggregate stats
   const totalSeconds = useMemo(() => {
@@ -443,42 +456,78 @@ export default function TimeTrackerPage() {
           }}
         >
           {/* Quick Period Selector */}
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              background: "var(--bg-surface-subtle)",
-              padding: "3px",
-              borderRadius: "var(--radius-sm)",
-              border: "1px solid var(--border-subtle)",
-            }}
-          >
-            {(
-              [
-                { id: "all", label: "All Logs" },
-                { id: "today", label: "Today" },
-                { id: "this_week", label: "This Week" },
-                { id: "this_month", label: "This Month" },
-              ] as const
-            ).map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setPeriodFilter(tab.id)}
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                background: "var(--bg-surface-subtle)",
+                padding: "3px",
+                borderRadius: "var(--radius-sm)",
+                border: "1px solid var(--border-subtle)",
+              }}
+            >
+              {(
+                [
+                  { id: "today", label: "Today" },
+                  { id: "this_week", label: "This week" },
+                  { id: "this_month", label: "This month" },
+                  { id: "custom", label: "Custom" },
+                ] as const
+              ).map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setPeriodFilter(tab.id)}
+                  style={{
+                    padding: "5px 12px",
+                    fontSize: "12px",
+                    fontWeight: periodFilter === tab.id ? 600 : 400,
+                    color: periodFilter === tab.id ? "var(--text-main)" : "var(--text-dim)",
+                    background: periodFilter === tab.id ? "var(--bg-surface)" : "transparent",
+                    border: periodFilter === tab.id ? "1px solid var(--border-subtle)" : "1px solid transparent",
+                    borderRadius: "var(--radius-xs)",
+                    cursor: "pointer",
+                    transition: "all 0.15s ease",
+                  }}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Custom Date Range Picker */}
+            {periodFilter === "custom" && (
+              <div
                 style={{
-                  padding: "5px 12px",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  background: "var(--bg-surface-subtle)",
+                  padding: "3px 8px",
+                  borderRadius: "var(--radius-sm)",
+                  border: "1px solid var(--border-subtle)",
                   fontSize: "12px",
-                  fontWeight: periodFilter === tab.id ? 600 : 400,
-                  color: periodFilter === tab.id ? "var(--text-main)" : "var(--text-dim)",
-                  background: periodFilter === tab.id ? "var(--bg-surface)" : "transparent",
-                  border: periodFilter === tab.id ? "1px solid var(--border-subtle)" : "1px solid transparent",
-                  borderRadius: "var(--radius-xs)",
-                  cursor: "pointer",
-                  transition: "all 0.15s ease",
                 }}
               >
-                {tab.label}
-              </button>
-            ))}
+                <input
+                  type="date"
+                  value={customStartDate}
+                  onChange={(e) => setCustomStartDate(e.target.value)}
+                  className="finance-input"
+                  style={{ height: "26px", fontSize: "11.5px", padding: "0 6px" }}
+                  title="Start Date"
+                />
+                <span style={{ color: "var(--text-dim)", fontSize: "11px" }}>to</span>
+                <input
+                  type="date"
+                  value={customEndDate}
+                  onChange={(e) => setCustomEndDate(e.target.value)}
+                  className="finance-input"
+                  style={{ height: "26px", fontSize: "11.5px", padding: "0 6px" }}
+                  title="End Date"
+                />
+              </div>
+            )}
           </div>
 
           {/* Search & Task Filter */}

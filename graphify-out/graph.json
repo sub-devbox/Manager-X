@@ -4011,7 +4011,7 @@
       "label": "MIN_TIME_WIDTHS",
       "file_type": "code",
       "source_file": "frontend/src/components/modules/time/TimeEntryTable.tsx",
-      "source_location": "L43",
+      "source_location": "L41",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_min_time_widths",
       "community": 35,
@@ -4022,7 +4022,7 @@
       "label": "TimeEntryTable()",
       "file_type": "code",
       "source_file": "frontend/src/components/modules/time/TimeEntryTable.tsx",
-      "source_location": "L53",
+      "source_location": "L49",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_timeentrytable",
       "community": 35,
@@ -16236,7 +16236,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/time/TimeEntryTable.tsx",
-      "source_location": "L43",
+      "source_location": "L41",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_time_timeentrytable",
@@ -16269,7 +16269,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/time/TimeEntryTable.tsx",
-      "source_location": "L53",
+      "source_location": "L49",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_time_timeentrytable",
@@ -16365,7 +16365,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/modules/time/TimeEntryTable.tsx",
-      "source_location": "L62",
+      "source_location": "L58",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_time_timeentrytable_timeentrytable",
@@ -17888,5 +17888,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "aa14e6a1ab0b00b3b99e4f6cbd1db8c8b82c15f4"
+  "built_at_commit": "6ab25c23bf5ca70b36eb0b78716394cbba3e3f18"
 }

@@ -25,28 +25,24 @@ interface TimeEntryTableProps {
   onDeleteEntry?: (entry: TimeEntryData) => void;
 }
 
-type SortField = "date" | "task" | "project" | "client" | "duration" | "amount";
+type SortField = "date" | "project_task" | "client" | "duration";
 type SortDirection = "asc" | "desc";
 
 const PAGE_SIZE = 50;
 
 const DEFAULT_TIME_WIDTHS = {
-  task: 260,
-  project: 180,
-  client: 160,
-  date: 130,
-  duration: 110,
-  amount: 130,
-  actions: 90,
+  date: 160,
+  project_task: 360,
+  client: 180,
+  duration: 150,
+  actions: 80,
 };
 
 const MIN_TIME_WIDTHS = {
-  task: 140,
-  project: 120,
+  date: 120,
+  project_task: 180,
   client: 110,
-  date: 100,
-  duration: 90,
-  amount: 90,
+  duration: 100,
   actions: 70,
 };
 
@@ -90,16 +86,10 @@ export default function TimeEntryTable({
           comparison = dateA - dateB;
           break;
         }
-        case "task": {
-          const taskA = a.task_title || "";
-          const taskB = b.task_title || "";
-          comparison = taskA.localeCompare(taskB, undefined, { sensitivity: "base" });
-          break;
-        }
-        case "project": {
-          const projA = a.project_name || "";
-          const projB = b.project_name || "";
-          comparison = projA.localeCompare(projB, undefined, { sensitivity: "base" });
+        case "project_task": {
+          const valA = `${a.project_name || ""} ${a.task_title || ""}`;
+          const valB = `${b.project_name || ""} ${b.task_title || ""}`;
+          comparison = valA.localeCompare(valB, undefined, { sensitivity: "base" });
           break;
         }
         case "client": {
@@ -110,10 +100,6 @@ export default function TimeEntryTable({
         }
         case "duration": {
           comparison = a.duration_seconds - b.duration_seconds;
-          break;
-        }
-        case "amount": {
-          comparison = a.billable_amount - b.billable_amount;
           break;
         }
         default:
@@ -231,82 +217,10 @@ export default function TimeEntryTable({
               style={{
                 background: "var(--bg-surface-subtle)",
                 borderBottom: "1px solid var(--border-subtle)",
-                height: "32px",
+                height: "34px",
               }}
             >
-              {/* Task Title */}
-              <th
-                onClick={() => handleSort("task")}
-                style={{
-                  position: "relative",
-                  width: `${widths.task}px`,
-                  minWidth: `${MIN_TIME_WIDTHS.task}px`,
-                  padding: "6px 12px",
-                  fontWeight: 600,
-                  color: sortField === "task" ? "var(--text-main)" : "var(--text-dim)",
-                  cursor: "pointer",
-                  userSelect: "none",
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                }}
-              >
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                  <span>Task</span>
-                  {renderSortIndicator("task")}
-                </div>
-                <ResizeHandle onMouseDown={(e) => startResize("task", e)} />
-              </th>
-
-              {/* Project */}
-              <th
-                onClick={() => handleSort("project")}
-                style={{
-                  position: "relative",
-                  width: `${widths.project}px`,
-                  minWidth: `${MIN_TIME_WIDTHS.project}px`,
-                  padding: "6px 12px",
-                  fontWeight: 600,
-                  color: sortField === "project" ? "var(--text-main)" : "var(--text-dim)",
-                  cursor: "pointer",
-                  userSelect: "none",
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                }}
-              >
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                  <span>Project</span>
-                  {renderSortIndicator("project")}
-                </div>
-                <ResizeHandle onMouseDown={(e) => startResize("project", e)} />
-              </th>
-
-              {/* Client */}
-              <th
-                onClick={() => handleSort("client")}
-                style={{
-                  position: "relative",
-                  width: `${widths.client}px`,
-                  minWidth: `${MIN_TIME_WIDTHS.client}px`,
-                  padding: "6px 12px",
-                  fontWeight: 600,
-                  color: sortField === "client" ? "var(--text-main)" : "var(--text-dim)",
-                  cursor: "pointer",
-                  userSelect: "none",
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                }}
-              >
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                  <span>Client</span>
-                  {renderSortIndicator("client")}
-                </div>
-                <ResizeHandle onMouseDown={(e) => startResize("client", e)} />
-              </th>
-
-              {/* Date */}
+              {/* 1. Date */}
               <th
                 onClick={() => handleSort("date")}
                 style={{
@@ -330,7 +244,55 @@ export default function TimeEntryTable({
                 <ResizeHandle onMouseDown={(e) => startResize("date", e)} />
               </th>
 
-              {/* Duration */}
+              {/* 2. Project Name & Task */}
+              <th
+                onClick={() => handleSort("project_task")}
+                style={{
+                  position: "relative",
+                  width: `${widths.project_task}px`,
+                  minWidth: `${MIN_TIME_WIDTHS.project_task}px`,
+                  padding: "6px 12px",
+                  fontWeight: 600,
+                  color: sortField === "project_task" ? "var(--text-main)" : "var(--text-dim)",
+                  cursor: "pointer",
+                  userSelect: "none",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                  <span>Project Name & Task</span>
+                  {renderSortIndicator("project_task")}
+                </div>
+                <ResizeHandle onMouseDown={(e) => startResize("project_task", e)} />
+              </th>
+
+              {/* 3. Client */}
+              <th
+                onClick={() => handleSort("client")}
+                style={{
+                  position: "relative",
+                  width: `${widths.client}px`,
+                  minWidth: `${MIN_TIME_WIDTHS.client}px`,
+                  padding: "6px 12px",
+                  fontWeight: 600,
+                  color: sortField === "client" ? "var(--text-main)" : "var(--text-dim)",
+                  cursor: "pointer",
+                  userSelect: "none",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                  <span>Client</span>
+                  {renderSortIndicator("client")}
+                </div>
+                <ResizeHandle onMouseDown={(e) => startResize("client", e)} />
+              </th>
+
+              {/* 4. Duration */}
               <th
                 onClick={() => handleSort("duration")}
                 style={{
@@ -354,31 +316,7 @@ export default function TimeEntryTable({
                 <ResizeHandle onMouseDown={(e) => startResize("duration", e)} />
               </th>
 
-              {/* Billable Value */}
-              <th
-                onClick={() => handleSort("amount")}
-                style={{
-                  position: "relative",
-                  width: `${widths.amount}px`,
-                  minWidth: `${MIN_TIME_WIDTHS.amount}px`,
-                  padding: "6px 12px",
-                  fontWeight: 600,
-                  color: sortField === "amount" ? "var(--text-main)" : "var(--text-dim)",
-                  cursor: "pointer",
-                  userSelect: "none",
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                }}
-              >
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                  <span>Billable</span>
-                  {renderSortIndicator("amount")}
-                </div>
-                <ResizeHandle onMouseDown={(e) => startResize("amount", e)} />
-              </th>
-
-              {/* Actions */}
+              {/* 5. Actions */}
               <th
                 style={{
                   position: "relative",
@@ -409,32 +347,78 @@ export default function TimeEntryTable({
                   }}
                   className="table-row-hover"
                 >
-                  {/* Task Column + Notes */}
-                  <td style={{ padding: "6px 12px" }}>
+                  {/* 1. Date */}
+                  <td
+                    style={{
+                      padding: "6px 12px",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                    className="mono"
+                  >
                     <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
-                      <span
-                        style={{
-                          fontWeight: 500,
-                          fontSize: "12.5px",
-                          color: "var(--text-main)",
-                          maxWidth: "260px",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                        }}
-                        title={entry.task_title || "Unnamed Task"}
-                      >
-                        {entry.task_title || "Task"}
+                      <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+                        <Calendar size={12} style={{ color: "var(--text-dim)", flexShrink: 0 }} />
+                        <span style={{ fontSize: "12px", fontWeight: 500, color: "var(--text-main)" }}>
+                          {formatDate(entry.start_time)}
+                        </span>
+                      </div>
+                      <span style={{ fontSize: "10.5px", color: "var(--text-dim)", paddingLeft: "17px" }}>
+                        {formatTimeRange(entry.start_time, entry.end_time)}
                       </span>
+                    </div>
+                  </td>
+
+                  {/* 2. Project Name & Task */}
+                  <td
+                    style={{
+                      padding: "6px 12px",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    <div style={{ display: "flex", flexDirection: "column", gap: "2px", minWidth: 0 }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                        <FolderKanban size={13} style={{ color: "var(--accent-blue)", flexShrink: 0 }} />
+                        <span
+                          style={{
+                            fontWeight: 600,
+                            fontSize: "12.5px",
+                            color: "var(--text-main)",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          }}
+                          title={entry.project_name || "Internal Project"}
+                        >
+                          {entry.project_name || "Internal Project"}
+                        </span>
+                        <span style={{ color: "var(--text-dim)", fontSize: "11px" }}>›</span>
+                        <span
+                          style={{
+                            fontWeight: 500,
+                            fontSize: "12px",
+                            color: "var(--text-muted)",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          }}
+                          title={entry.task_title || "Task"}
+                        >
+                          {entry.task_title || "Task"}
+                        </span>
+                      </div>
                       {entry.description && (
                         <span
                           style={{
                             fontSize: "11px",
                             color: "var(--text-dim)",
-                            maxWidth: "260px",
                             overflow: "hidden",
                             textOverflow: "ellipsis",
                             whiteSpace: "nowrap",
+                            paddingLeft: "19px",
                           }}
                           title={entry.description}
                         >
@@ -444,42 +428,19 @@ export default function TimeEntryTable({
                     </div>
                   </td>
 
-                  {/* Project */}
-                  <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
-                    {entry.project_name ? (
-                      <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                        <FolderKanban size={12} style={{ color: "var(--text-dim)", flexShrink: 0 }} />
-                        <span
-                          style={{
-                            color: "var(--text-main)",
-                            maxWidth: "160px",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                          }}
-                          title={entry.project_name}
-                        >
-                          {entry.project_name}
-                        </span>
-                      </div>
-                    ) : (
-                      <span style={{ color: "var(--text-dim)" }}>—</span>
-                    )}
-                  </td>
-
-                  {/* Client */}
-                  <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
+                  {/* 3. Client */}
+                  <td
+                    style={{
+                      padding: "6px 12px",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
                     {entry.client_name ? (
                       <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                         <Building2 size={12} style={{ color: "var(--text-dim)", flexShrink: 0 }} />
-                        <span
-                          style={{
-                            color: "var(--text-muted)",
-                            maxWidth: "140px",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                          }}
-                          title={entry.client_name}
-                        >
+                        <span style={{ color: "var(--text-main)", fontSize: "12px" }}>
                           {entry.client_name}
                         </span>
                       </div>
@@ -488,64 +449,60 @@ export default function TimeEntryTable({
                     )}
                   </td>
 
-                  {/* Date & Time Range */}
-                  <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "5px", color: "var(--text-main)", fontSize: "12px", fontWeight: 500 }}>
-                        <Calendar size={11} style={{ color: "var(--text-dim)" }} />
-                        <span>{formatDate(entry.start_time)}</span>
+                  {/* 4. Duration */}
+                  <td
+                    style={{
+                      padding: "6px 12px",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                    className="mono"
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+                        <Clock size={12} style={{ color: "var(--text-dim)", flexShrink: 0 }} />
+                        <span style={{ fontWeight: 600, fontSize: "12px", color: "var(--text-main)" }}>
+                          {formatDuration(entry.duration_seconds)}
+                        </span>
                       </div>
-                      <span className="mono" style={{ fontSize: "10.5px", color: "var(--text-dim)" }}>
-                        {formatTimeRange(entry.start_time, entry.end_time)}
-                      </span>
+                      {entry.is_billable && entry.billable_amount > 0 && (
+                        <span
+                          style={{
+                            fontSize: "10.5px",
+                            color: "var(--accent-emerald)",
+                            fontWeight: 600,
+                            background: "rgba(16, 185, 129, 0.1)",
+                            padding: "1px 6px",
+                            borderRadius: "var(--radius-xs)",
+                            border: "1px solid rgba(16, 185, 129, 0.2)",
+                          }}
+                          title={`Billable: ${(entry.currency_code || "USD").toUpperCase()} ${entry.billable_amount.toFixed(2)}`}
+                        >
+                          {(entry.currency_code || "USD").toUpperCase() === "USD"
+                            ? "$"
+                            : (entry.currency_code || "USD").toUpperCase() === "INR"
+                            ? "₹"
+                            : (entry.currency_code || "USD").toUpperCase() === "GBP"
+                            ? "£"
+                            : (entry.currency_code || "USD").toUpperCase() === "EUR"
+                            ? "€"
+                            : ""}{entry.billable_amount.toFixed(2)}
+                        </span>
+                      )}
                     </div>
                   </td>
 
-                  {/* Duration */}
-                  <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
-                    <span
-                      className="mono"
-                      style={{
-                        fontWeight: 600,
-                        color: "var(--text-main)",
-                        background: "var(--bg-surface-subtle)",
-                        padding: "2px 6px",
-                        borderRadius: "var(--radius-xs)",
-                        border: "1px solid var(--border-subtle)",
-                      }}
-                    >
-                      {formatDuration(entry.duration_seconds)}
-                    </span>
-                  </td>
-
-                  {/* Billable Amount */}
-                  <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
-                    {entry.is_billable ? (
-                      <span className="mono" style={{ color: "var(--accent-emerald)", fontWeight: 500 }}>
-                        {(() => {
-                          const curr = (entry.currency_code || "USD").toUpperCase();
-                          const sym =
-                            curr === "USD" ? "$" : curr === "GBP" ? "£" : curr === "INR" ? "₹" : curr === "EUR" ? "€" : "";
-                          return `${sym}${entry.billable_amount.toFixed(2)}`;
-                        })()}{" "}
-                        <span style={{ fontSize: "10.5px", color: "var(--text-dim)" }}>
-                          {entry.currency_code || "USD"}
-                        </span>
-                      </span>
-                    ) : (
-                      <span style={{ fontSize: "11px", color: "var(--text-dim)" }}>Non-billable</span>
-                    )}
-                  </td>
-
-                  {/* Actions */}
+                  {/* 5. Actions */}
                   <td style={{ padding: "6px 12px", textAlign: "right", whiteSpace: "nowrap" }}>
-                    <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                    <div style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
                       <button
                         type="button"
                         onClick={() => onEditEntry && onEditEntry(entry)}
+                        disabled={entry.invoiced}
                         className="finance-button-secondary"
                         style={{ padding: "3px 6px" }}
-                        title="Edit time entry"
+                        title={entry.invoiced ? "Invoiced entry cannot be modified" : "Edit time entry"}
                       >
                         <Pencil size={11} />
                       </button>
