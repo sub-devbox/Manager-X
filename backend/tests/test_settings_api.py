@@ -117,3 +117,8 @@ async def test_settings_lifecycle(client: AsyncClient):
         add_country_res = await client.post("/api/v1/settings/countries", json={"country": "Iceland"})
         assert add_country_res.status_code == 200
         assert "Iceland" in add_country_res.json()
+
+        # Delete country
+        del_country_res = await client.delete("/api/v1/settings/countries/Iceland")
+        assert del_country_res.status_code == 200
+        assert "Iceland" not in del_country_res.json()

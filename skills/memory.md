@@ -42,8 +42,8 @@ It combines 7 pillars into a cohesive platform:
    - Any master data, lookup item, or configuration entity (Currencies, Clients, Tax Schemes, Accounts, Categories, Projects, Tasks) **CANNOT be deleted if it is already referenced or used** by any other entity or transaction. Deletion attempts on in-use entities must be rejected with an explicit error. Entities should be marked inactive (`is_active = false`) instead of deleted.
 7. **Currencies & Dynamic FX**:
    - Currency definitions only store metadata (`code`, `symbol`, `name`, `is_base_currency`, `is_active`). Fixed "Exchange Rate to Base" is completely removed from currency models and settings, as FX rates are dynamic and determined at invoice/transaction execution time.
-8. **Git Version Control Workflow**:
-   - Do NOT commit small incremental edits. Only commit when explicitly prompted/requested by the user.
+8. **Automatic Git Version Control**:
+   - Automatically stage (`git add .`) and git-commit every single atomic change in code upon verification. Never leave uncommitted code changes.
 
 ---
 

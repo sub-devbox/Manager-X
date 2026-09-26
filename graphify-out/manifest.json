@@ -80,13 +80,13 @@
     "semantic_hash": "ee17fd1c97c735e9f3564e3f5251f125"
   },
   "skills/architecture.md": {
-    "mtime": 1790401395.7647488,
-    "ast_hash": "d07fccf956d4043908dea45704c9ff19",
+    "mtime": 1790407239.9170542,
+    "ast_hash": "121c44d4f13088e8d451c9be6e38f73d",
     "semantic_hash": ""
   },
   "skills/prd.md": {
-    "mtime": 1790401395.7657917,
-    "ast_hash": "eedae95c63ef1c1a94b3ad2cdfb5a12a",
+    "mtime": 1790407229.320634,
+    "ast_hash": "be3cd0e4d4906d716461f2f0a1b03670",
     "semantic_hash": ""
   },
   "skills/product.md": {
@@ -105,8 +105,8 @@
     "semantic_hash": ""
   },
   "backend/app/api/v1/endpoints/settings.py": {
-    "mtime": 1790406955.0520363,
-    "ast_hash": "642394910164838d81f30510e0c4ea51",
+    "mtime": 1790407336.8781817,
+    "ast_hash": "8d1d54dce340388cd25cc9f42d4887ca",
     "semantic_hash": ""
   },
   "backend/app/core/cuid.py": {
@@ -130,8 +130,8 @@
     "semantic_hash": ""
   },
   "backend/tests/test_settings_api.py": {
-    "mtime": 1790407036.354124,
-    "ast_hash": "fb01873ade67dd4c90ee151db5c85e39",
+    "mtime": 1790407515.3797162,
+    "ast_hash": "35f9e621bc18442f0d6c798309e9d503",
     "semantic_hash": ""
   },
   "frontend/src/app/assets/page.tsx": {
@@ -170,8 +170,8 @@
     "semantic_hash": ""
   },
   "frontend/src/components/SettingsModal.tsx": {
-    "mtime": 1790401395.763697,
-    "ast_hash": "d073cec7443f31f4926be1813b79eb73",
+    "mtime": 1790407471.4040508,
+    "ast_hash": "6f18f9bdaa5a779430f7f0d1a35cb901",
     "semantic_hash": ""
   },
   "frontend/src/components/layout/AppShell.tsx": {
@@ -245,8 +245,8 @@
     "semantic_hash": ""
   },
   ".agents/rules/manager_x.md": {
-    "mtime": 1790401395.7609859,
-    "ast_hash": "250a7f69994d33f4f70722caf9062d6f",
+    "mtime": 1790407200.913268,
+    "ast_hash": "081cdbb6e7ca4a34c4e384bf4ddc132d",
     "semantic_hash": ""
   },
   ".agents/rules/ponytail.md": {
@@ -290,8 +290,8 @@
     "semantic_hash": ""
   },
   "AGENTS.md": {
-    "mtime": 1790263855.958317,
-    "ast_hash": "2d922daa034b7081de0bcd1a1fd01040",
+    "mtime": 1790407218.778517,
+    "ast_hash": "925103a6fc810e8ade89fd13fea4c4ed",
     "semantic_hash": ""
   },
   "backend/requirements.txt": {
@@ -315,8 +315,8 @@
     "semantic_hash": ""
   },
   "skills/memory.md": {
-    "mtime": 1790404808.3442657,
-    "ast_hash": "d78e8a7af6978f629c7593c3145a515f",
+    "mtime": 1790407574.1596973,
+    "ast_hash": "aca836778c09cbdb26eac8c6a4895e6c",
     "semantic_hash": ""
   },
   "backend/app/api/v1/endpoints/clients.py": {

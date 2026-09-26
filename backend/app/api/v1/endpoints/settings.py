@@ -178,6 +178,52 @@ async def add_country(
 
     return sorted(countries)
 
+@router.delete("/countries/{country_name}", response_model=List[str])
+async def delete_country(
+    country_name: str,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    target = country_name.strip()
+    # Referential integrity check: check if any client uses this country
+    try:
+        usage_res = await db.execute(
+            text("SELECT count(*) FROM clients WHERE country = :c"),
+            {"c": target},
+        )
+        if usage_res.scalar_one() > 0:
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail=f"Cannot delete country '{target}' because it is in use by registered clients.",
+            )
+    except HTTPException:
+        raise
+    except Exception:
+        pass
+
+    stmt = select(SystemSetting).where(SystemSetting.key == "supported_countries")
+    res = await db.execute(stmt)
+    setting = res.scalar_one_or_none()
+
+    if setting:
+        try:
+            countries = json.loads(setting.value)
+        except Exception:
+            countries = list(DEFAULT_COUNTRIES)
+    else:
+        countries = list(DEFAULT_COUNTRIES)
+
+    if target in countries:
+        countries = [c for c in countries if c != target]
+        countries_json = json.dumps(sorted(countries))
+        if setting:
+            setting.value = countries_json
+        else:
+            db.add(SystemSetting(key="supported_countries", value=countries_json, category="general"))
+        await db.commit()
+
+    return sorted(countries)
+
 # -------------------------------------------------------------
 # CURRENCIES
 # -------------------------------------------------------------

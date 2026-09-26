@@ -105,8 +105,8 @@
     "semantic_hash": ""
   },
   "backend/app/api/v1/endpoints/settings.py": {
-    "mtime": 1790269673.5364904,
-    "ast_hash": "c6f45fd0ccc10959614091db2190b9e1",
+    "mtime": 1790406955.0520363,
+    "ast_hash": "642394910164838d81f30510e0c4ea51",
     "semantic_hash": ""
   },
   "backend/app/core/cuid.py": {
@@ -130,8 +130,8 @@
     "semantic_hash": ""
   },
   "backend/tests/test_settings_api.py": {
-    "mtime": 1790269684.9126515,
-    "ast_hash": "0b6d039257340e0f15e6e53bbce82900",
+    "mtime": 1790407036.354124,
+    "ast_hash": "fb01873ade67dd4c90ee151db5c85e39",
     "semantic_hash": ""
   },
   "frontend/src/app/assets/page.tsx": {
@@ -345,8 +345,8 @@
     "semantic_hash": ""
   },
   "frontend/src/components/modules/clients/ClientModal.tsx": {
-    "mtime": 1790405732.6843674,
-    "ast_hash": "d69e5a4bd4c287e2d68bd60b40ef1945",
+    "mtime": 1790407017.0388298,
+    "ast_hash": "cb8ea2ead8266869a7cf0a8c7a4ab176",
     "semantic_hash": ""
   }
 }

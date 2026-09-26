@@ -1,10 +1,12 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   X,
   Building,
   Coins,
+  Globe,
+  Search,
   Palette,
   Database,
   Download,
@@ -59,7 +61,7 @@ const PRESET_COLORS = [
 ];
 
 export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
-  const [activeTab, setActiveTab] = useState<"company" | "currencies" | "theme" | "backup">("company");
+  const [activeTab, setActiveTab] = useState<"company" | "currencies" | "countries" | "theme" | "backup">("company");
   const [loading, setLoading] = useState(false);
   const [statusMsg, setStatusMsg] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
@@ -85,10 +87,16 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   const [editingCurrency, setEditingCurrency] = useState<Currency | null>(null);
   const [showAddCurrency, setShowAddCurrency] = useState(false);
 
-  // 3. Theme State
+  // 3. Countries State
+  const [countries, setCountries] = useState<string[]>([]);
+  const [newCountryName, setNewCountryName] = useState("");
+  const [countrySearch, setCountrySearch] = useState("");
+  const [countryLoading, setCountryLoading] = useState(false);
+
+  // 4. Theme State
   const [accentColor, setAccentColor] = useState("#ffffff");
 
-  // 4. Backup State
+  // 5. Backup State
   const [backups, setBackups] = useState<BackupInfo[]>([]);
 
   useEffect(() => {
@@ -108,6 +116,10 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       // Currencies
       const currRes = await fetch("/api/v1/settings/currencies", { credentials: "include" });
       if (currRes.ok) setCurrencies(await currRes.json());
+
+      // Countries
+      const countRes = await fetch("/api/v1/settings/countries", { credentials: "include" });
+      if (countRes.ok) setCountries(await countRes.json());
 
       // Theme
       const themeRes = await fetch("/api/v1/settings/theme", { credentials: "include" });
@@ -242,6 +254,57 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       setStatusMsg({ type: "error", text: err.message });
     }
   };
+
+  const handleAddCountry = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const trimmed = newCountryName.trim();
+    if (!trimmed) return;
+    setStatusMsg(null);
+    setCountryLoading(true);
+    try {
+      const res = await fetch("/api/v1/settings/countries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ country: trimmed }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Failed to add country.");
+      setCountries(data);
+      setNewCountryName("");
+      setStatusMsg({ type: "success", text: `Country "${trimmed}" added.` });
+    } catch (err: any) {
+      setStatusMsg({ type: "error", text: err.message });
+    } finally {
+      setCountryLoading(false);
+    }
+  };
+
+  const handleDeleteCountry = async (countryName: string) => {
+    if (!confirm(`Remove "${countryName}" from supported countries?`)) return;
+    setStatusMsg(null);
+    setCountryLoading(true);
+    try {
+      const res = await fetch(`/api/v1/settings/countries/${encodeURIComponent(countryName)}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Failed to delete country.");
+      setCountries(data);
+      setStatusMsg({ type: "success", text: `Country "${countryName}" removed.` });
+    } catch (err: any) {
+      setStatusMsg({ type: "error", text: err.message });
+    } finally {
+      setCountryLoading(false);
+    }
+  };
+
+  const filteredCountries = useMemo(() => {
+    if (!countrySearch.trim()) return countries;
+    const q = countrySearch.toLowerCase().trim();
+    return countries.filter((c) => c.toLowerCase().includes(q));
+  }, [countries, countrySearch]);
 
   const handleSelectAccent = async (hex: string) => {
     setAccentColor(hex);
@@ -403,6 +466,7 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
             {[
               { id: "company", label: "Company Profile", icon: Building },
               { id: "currencies", label: "Currencies", icon: Coins },
+              { id: "countries", label: "Countries", icon: Globe },
               { id: "theme", label: "Accent Color", icon: Palette },
               { id: "backup", label: "Backup & Restore", icon: Database },
             ].map((tab) => {
@@ -815,7 +879,181 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
               </div>
             )}
 
-            {/* 3. THEME & ACCENT COLOR TAB */}
+            {/* 3. COUNTRIES TAB */}
+            {activeTab === "countries" && (
+              <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                  <div>
+                    <h3 style={{ fontSize: "14px", fontWeight: 600 }}>Supported Countries</h3>
+                    <p style={{ fontSize: "12px", color: "var(--text-muted)", marginTop: "2px" }}>
+                      Manage the list of countries available across client records, invoices, and tax setups.
+                    </p>
+                  </div>
+                  <span
+                    className="mono"
+                    style={{
+                      fontSize: "11px",
+                      padding: "3px 8px",
+                      borderRadius: "var(--radius-xs)",
+                      background: "var(--bg-surface-subtle)",
+                      border: "1px solid var(--border-subtle)",
+                      color: "var(--text-dim)",
+                    }}
+                  >
+                    {countries.length} total
+                  </span>
+                </div>
+
+                {/* Add Country Form */}
+                <form
+                  onSubmit={handleAddCountry}
+                  style={{
+                    display: "flex",
+                    gap: "8px",
+                    background: "var(--bg-surface-subtle)",
+                    border: "1px solid var(--border-subtle)",
+                    borderRadius: "var(--radius-sm)",
+                    padding: "10px",
+                  }}
+                >
+                  <input
+                    type="text"
+                    placeholder="Enter country name (e.g. Germany, Japan, Singapore)..."
+                    value={newCountryName}
+                    onChange={(e) => setNewCountryName(e.target.value)}
+                    className="finance-input"
+                    style={{ flex: 1 }}
+                    disabled={countryLoading}
+                  />
+                  <button
+                    type="submit"
+                    className="finance-button-primary"
+                    disabled={countryLoading || !newCountryName.trim()}
+                    style={{ width: "auto", whiteSpace: "nowrap" }}
+                  >
+                    <Plus size={14} />
+                    <span>Add Country</span>
+                  </button>
+                </form>
+
+                {/* Search & Filter Header */}
+                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                  <div style={{ position: "relative", flex: 1 }}>
+                    <Search
+                      size={14}
+                      style={{
+                        position: "absolute",
+                        left: "10px",
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        color: "var(--text-dim)",
+                      }}
+                    />
+                    <input
+                      type="text"
+                      placeholder="Filter countries..."
+                      value={countrySearch}
+                      onChange={(e) => setCountrySearch(e.target.value)}
+                      className="finance-input"
+                      style={{ paddingLeft: "32px", fontSize: "12px" }}
+                    />
+                  </div>
+                  {countrySearch && (
+                    <button
+                      type="button"
+                      onClick={() => setCountrySearch("")}
+                      className="finance-button-secondary"
+                      style={{ padding: "6px 10px", fontSize: "11px" }}
+                    >
+                      Clear
+                    </button>
+                  )}
+                </div>
+
+                {/* Countries Table */}
+                <div
+                  style={{
+                    border: "1px solid var(--border-subtle)",
+                    borderRadius: "var(--radius-sm)",
+                    overflow: "hidden",
+                  }}
+                >
+                  <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "13px" }}>
+                    <thead>
+                      <tr
+                        style={{
+                          background: "var(--bg-surface-subtle)",
+                          borderBottom: "1px solid var(--border-subtle)",
+                          textAlign: "left",
+                        }}
+                      >
+                        <th style={{ padding: "8px 12px", fontWeight: 500, color: "var(--text-dim)" }}>
+                          Country Name ({filteredCountries.length})
+                        </th>
+                        <th style={{ padding: "8px 12px", fontWeight: 500, color: "var(--text-dim)", textAlign: "right" }}>
+                          Actions
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredCountries.length === 0 ? (
+                        <tr>
+                          <td
+                            colSpan={2}
+                            style={{
+                              padding: "24px 12px",
+                              textAlign: "center",
+                              color: "var(--text-dim)",
+                              fontSize: "12px",
+                            }}
+                          >
+                            {countrySearch
+                              ? `No countries matching "${countrySearch}"`
+                              : "No supported countries found. Add one above."}
+                          </td>
+                        </tr>
+                      ) : (
+                        filteredCountries.map((c) => (
+                          <tr
+                            key={c}
+                            style={{
+                              borderBottom: "1px solid var(--border-subtle)",
+                              transition: "background 0.15s ease",
+                            }}
+                          >
+                            <td style={{ padding: "8px 12px", fontWeight: 500 }}>
+                              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                <Globe size={13} style={{ color: "var(--text-dim)", flexShrink: 0 }} />
+                                <span>{c}</span>
+                              </div>
+                            </td>
+                            <td style={{ padding: "8px 12px", textAlign: "right" }}>
+                              <button
+                                onClick={() => handleDeleteCountry(c)}
+                                className="finance-button-secondary"
+                                style={{
+                                  padding: "4px 8px",
+                                  fontSize: "11px",
+                                  color: "var(--accent-rose)",
+                                  borderColor: "rgba(244, 63, 94, 0.3)",
+                                }}
+                                title={`Delete ${c}`}
+                                disabled={countryLoading}
+                              >
+                                <Trash2 size={12} />
+                                <span>Remove</span>
+                              </button>
+                            </td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* 4. THEME & ACCENT COLOR TAB */}
             {activeTab === "theme" && (
               <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
                 <div>
