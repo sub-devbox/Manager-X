@@ -395,8 +395,8 @@
     "semantic_hash": ""
   },
   "frontend/src/components/modules/projects/TaskTable.tsx": {
-    "mtime": 1790425913.5171661,
-    "ast_hash": "12bd92ac70c9031c34936538ea5488bf",
+    "mtime": 1790426885.6671095,
+    "ast_hash": "4226bcf894e34670b2192ec9ce83e674",
     "semantic_hash": ""
   },
   "backend/app/api/v1/endpoints/time_entries.py": {
