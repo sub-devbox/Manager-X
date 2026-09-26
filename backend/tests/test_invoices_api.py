@@ -111,10 +111,36 @@ async def test_invoice_lifecycle_and_numbering(client: AsyncClient):
     assert list_res.status_code == 200
     assert len(list_res.json()) >= 1
 
-    # 9. Delete Invoice
+    # 9. Test ReportLab PDF Download Endpoint
+    pdf_res = await client.get(f"/api/v1/invoices/{inv_id}/pdf")
+    assert pdf_res.status_code == 200
+    assert pdf_res.headers["content-type"] == "application/pdf"
+    assert "INV-2026-09-ADL.1.pdf" in pdf_res.headers.get("content-disposition", "")
+    assert pdf_res.content.startswith(b"%PDF")
+    assert len(pdf_res.content) > 1000
+
+    # 10. Test Custom On-The-Fly ReportLab PDF Render Endpoint
+    custom_render_res = await client.post(
+        "/api/v1/invoices/render-pdf",
+        json={
+            "invoice_number": "INV-2026-09-CUSTOM.1",
+            "client_id": client_id,
+            "currency_code": "USD",
+            "items": [
+                {"description": "Design Audit", "quantity": 1, "unit_price": 400.0, "total": 400.0}
+            ],
+            "subtotal": 400.0,
+            "final_amount": 400.0,
+        },
+    )
+    assert custom_render_res.status_code == 200
+    assert custom_render_res.headers["content-type"] == "application/pdf"
+    assert custom_render_res.content.startswith(b"%PDF")
+
+    # 11. Delete Invoice
     del_res = await client.delete(f"/api/v1/invoices/{inv_id}")
     assert del_res.status_code == 200
 
-    # 10. Verify Deletion
+    # 12. Verify Deletion
     del_check = await client.get(f"/api/v1/invoices/{inv_id}")
     assert del_check.status_code == 404

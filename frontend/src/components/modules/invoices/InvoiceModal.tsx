@@ -93,6 +93,7 @@ export default function InvoiceModal({
   const [discountValue, setDiscountValue] = useState<number>(0);
   const [roundOff, setRoundOff] = useState<number>(0);
   const [gatewayNotes, setGatewayNotes] = useState<string>("");
+  const [downloadingPdf, setDownloadingPdf] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -484,66 +485,55 @@ export default function InvoiceModal({
     }, 250);
   };
 
-  // One-click PDF download using hidden iframe (no popup tab left open)
-  const handleDownloadPDF = () => {
-    const printContent = document.getElementById("invoice-letter-sheet");
-    if (!printContent) return;
+  // One-click PDF download using backend ReportLab generation with print fallback
+  const handleDownloadPDF = async () => {
+    setDownloadingPdf(true);
+    try {
+      const payload = {
+        invoice_number: invoiceNumber || "Invoice",
+        issue_date: issueDate,
+        due_date: dueDate,
+        status: status,
+        client_id: clientId,
+        payment_gateway: paymentGateway,
+        currency_code: currencyCode,
+        gateway_notes: gatewayNotes,
+        subtotal: subtotal,
+        discount_type: discountType,
+        discount_value: discountValue,
+        discount_amount: discountAmount,
+        round_off: roundOff,
+        final_amount: finalAmount,
+        items: items,
+      };
 
-    const iframe = document.createElement("iframe");
-    iframe.style.position = "fixed";
-    iframe.style.right = "0";
-    iframe.style.bottom = "0";
-    iframe.style.width = "0";
-    iframe.style.height = "0";
-    iframe.style.border = "0";
-    document.body.appendChild(iframe);
+      const res = await fetch("/api/v1/invoices/render-pdf", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
 
-    const doc = iframe.contentWindow?.document;
-    if (!doc) return;
+      if (!res.ok) {
+        throw new Error("ReportLab generation failed");
+      }
 
-    doc.open();
-    doc.write(`
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <title>${invoiceNumber || "Invoice"}</title>
-          <style>
-            @page {
-              size: letter portrait;
-              margin: 10mm 12mm;
-            }
-            * { box-sizing: border-box; }
-            body {
-              font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-              color: #0f172a;
-              background: #ffffff;
-              margin: 0;
-              padding: 0;
-              -webkit-print-color-adjust: exact;
-              print-color-adjust: exact;
-            }
-            .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
-            table { width: 100%; border-collapse: collapse; font-size: 11px; }
-            th { border-bottom: 2px solid #cbd5e1; padding: 8px 6px; text-align: left; font-weight: 600; }
-            td { border-bottom: 1px solid #e2e8f0; padding: 8px 6px; }
-          </style>
-        </head>
-        <body>
-          ${printContent.innerHTML}
-        </body>
-      </html>
-    `);
-    doc.close();
-
-    iframe.contentWindow?.focus();
-    setTimeout(() => {
-      iframe.contentWindow?.print();
-      setTimeout(() => {
-        if (document.body.contains(iframe)) {
-          document.body.removeChild(iframe);
-        }
-      }, 3000);
-    }, 250);
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${invoiceNumber || "Invoice"}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (err) {
+      console.error("ReportLab PDF generation error, falling back to print:", err);
+      handlePrint();
+    } finally {
+      setDownloadingPdf(false);
+    }
   };
 
   if (!isOpen || !mounted) return null;
@@ -644,6 +634,7 @@ export default function InvoiceModal({
             <button
               type="button"
               onClick={handleDownloadPDF}
+              disabled={downloadingPdf || submitting || deleting}
               className="finance-button-primary"
               style={{
                 background: "var(--accent-emerald)",
@@ -655,10 +646,10 @@ export default function InvoiceModal({
                 fontSize: "12px",
                 width: "auto",
               }}
-              title="Download or save Letter PDF in one click"
+              title="Download ReportLab generated Letter PDF"
             >
               <Download size={13} />
-              <span>Download PDF</span>
+              <span>{downloadingPdf ? "Generating..." : "Download PDF"}</span>
             </button>
 
             <button

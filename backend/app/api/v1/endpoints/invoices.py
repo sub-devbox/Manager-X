@@ -1,7 +1,8 @@
+import json
 import re
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 from datetime import datetime, timezone
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status, Response
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func, and_, or_
 from sqlalchemy.orm import selectinload
@@ -12,6 +13,8 @@ from app.models.user_models import User
 from app.models.invoice_model import Invoice, InvoiceItem
 from app.models.client_model import Client
 from app.models.project_models import Project, Task, TimeEntry
+from app.models.settings_models import SystemSetting
+from app.services.invoice_pdf import build_invoice_pdf
 from app.schemas.invoice_schemas import (
     InvoiceCreate,
     InvoiceUpdate,
@@ -20,6 +23,17 @@ from app.schemas.invoice_schemas import (
 )
 
 router = APIRouter(prefix="/invoices", tags=["Invoices"])
+
+async def get_company_profile_dict(db: AsyncSession) -> Dict[str, Any]:
+    stmt = select(SystemSetting).where(SystemSetting.key == "company_profile")
+    res = await db.execute(stmt)
+    setting = res.scalar_one_or_none()
+    if setting and setting.value:
+        try:
+            return json.loads(setting.value)
+        except Exception:
+            pass
+    return {}
 
 def extract_company_initials(company_name: str) -> str:
     words = [w for w in re.split(r"[^a-zA-Z0-9]+", company_name) if w]
@@ -363,3 +377,114 @@ async def delete_invoice(
     await db.delete(invoice)
     await db.commit()
     return {"message": f"Invoice {invoice.invoice_number} deleted successfully"}
+
+@router.get("/{invoice_id}/pdf")
+async def download_invoice_pdf(
+    invoice_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user: Optional[User] = Depends(get_optional_user),
+):
+    stmt = (
+        select(Invoice)
+        .options(selectinload(Invoice.client), selectinload(Invoice.items))
+        .where(Invoice.id == invoice_id)
+    )
+    res = await db.execute(stmt)
+    invoice = res.scalar_one_or_none()
+    if not invoice:
+        raise HTTPException(status_code=404, detail="Invoice not found")
+
+    company_profile = await get_company_profile_dict(db)
+
+    inv_data = {
+        "invoice_number": invoice.invoice_number,
+        "issue_date": invoice.issue_date,
+        "due_date": invoice.due_date,
+        "status": invoice.status,
+        "currency_code": invoice.currency_code,
+        "payment_gateway": invoice.payment_gateway,
+        "gateway_notes": invoice.gateway_notes,
+        "subtotal": invoice.subtotal,
+        "discount_type": invoice.discount_type,
+        "discount_value": invoice.discount_value,
+        "discount_amount": invoice.discount_amount,
+        "round_off": invoice.round_off,
+        "final_amount": invoice.final_amount,
+        "items": [
+            {
+                "description": itm.description,
+                "hsn_sac": itm.hsn_sac,
+                "quantity": itm.quantity,
+                "unit_price": itm.unit_price,
+                "total": itm.total,
+            }
+            for itm in invoice.items
+        ],
+    }
+
+    client_data = {}
+    if invoice.client:
+        client_data = {
+            "company_name": invoice.client.company_name,
+            "contact_person": invoice.client.contact_person,
+            "address_line1": invoice.client.address_line1,
+            "address_line2": invoice.client.address_line2,
+            "city": invoice.client.city,
+            "state": invoice.client.state,
+            "postal_code": invoice.client.postal_code,
+            "country": invoice.client.country,
+            "tax_id": invoice.client.tax_id,
+            "email": invoice.client.email,
+        }
+
+    pdf_bytes = build_invoice_pdf(inv_data, client_data, company_profile)
+    filename = f"{invoice.invoice_number or 'Invoice'}.pdf"
+
+    return Response(
+        content=pdf_bytes,
+        media_type="application/pdf",
+        headers={
+            "Content-Disposition": f'attachment; filename="{filename}"',
+            "Access-Control-Expose-Headers": "Content-Disposition",
+        },
+    )
+
+@router.post("/render-pdf")
+async def render_custom_invoice_pdf(
+    payload: Dict[str, Any],
+    db: AsyncSession = Depends(get_db),
+    current_user: Optional[User] = Depends(get_optional_user),
+):
+    company_profile = await get_company_profile_dict(db)
+
+    client_id = payload.get("client_id")
+    client_data = payload.get("client") or {}
+    if client_id and not client_data:
+        c_stmt = select(Client).where(Client.id == client_id)
+        c_res = await db.execute(c_stmt)
+        client = c_res.scalar_one_or_none()
+        if client:
+            client_data = {
+                "company_name": client.company_name,
+                "contact_person": client.contact_person,
+                "address_line1": client.address_line1,
+                "address_line2": client.address_line2,
+                "city": client.city,
+                "state": client.state,
+                "postal_code": client.postal_code,
+                "country": client.country,
+                "tax_id": client.tax_id,
+                "email": client.email,
+            }
+
+    pdf_bytes = build_invoice_pdf(payload, client_data, company_profile)
+    filename = f"{payload.get('invoice_number', 'Invoice')}.pdf"
+
+    return Response(
+        content=pdf_bytes,
+        media_type="application/pdf",
+        headers={
+            "Content-Disposition": f'attachment; filename="{filename}"',
+            "Access-Control-Expose-Headers": "Content-Disposition",
+        },
+    )

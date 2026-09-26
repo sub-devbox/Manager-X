@@ -14,6 +14,7 @@ import {
   ChevronRight,
   FileText,
   DollarSign,
+  Download,
 } from "lucide-react";
 
 interface InvoiceTableProps {
@@ -171,6 +172,25 @@ export default function InvoiceTable({
       const symbol =
         code === "USD" ? "$" : code === "INR" ? "₹" : code === "EUR" ? "€" : code === "GBP" ? "£" : "";
       return `${symbol}${amount.toFixed(2)}`;
+    }
+  };
+
+  const handleDownloadPdf = async (inv: InvoiceData, e: React.MouseEvent) => {
+    e.stopPropagation();
+    try {
+      const res = await fetch(`/api/v1/invoices/${inv.id}/pdf`);
+      if (!res.ok) throw new Error("Failed to download PDF");
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${inv.invoice_number || "Invoice"}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (err) {
+      console.error("PDF download failed:", err);
     }
   };
 
@@ -471,6 +491,15 @@ export default function InvoiceTable({
                       style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}
                       onClick={(e) => e.stopPropagation()}
                     >
+                      <button
+                        type="button"
+                        onClick={(e) => handleDownloadPdf(inv, e)}
+                        className="finance-button-secondary"
+                        style={{ padding: "3px 6px" }}
+                        title="Download PDF (ReportLab)"
+                      >
+                        <Download size={11} />
+                      </button>
                       <button
                         type="button"
                         onClick={() => onEditInvoice(inv)}
