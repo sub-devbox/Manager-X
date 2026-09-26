@@ -17,6 +17,7 @@ import {
   Plus,
   Trash2,
   Printer,
+  Download,
   Building2,
   Calendar,
   CreditCard,
@@ -206,16 +207,7 @@ export default function InvoiceModal({
       setGatewayNotes(
         "Payment terms: Net 15 days.\nPlease remit via Razorpay link or SWIFT wire transfer.\nInclude Invoice number as payment reference."
       );
-      setItems([
-        {
-          description: "Consulting & Technical Deliverables",
-          hsn_sac: "998311",
-          price: 100,
-          quantity: 1,
-          unit_price: 100,
-          total: 100,
-        },
-      ]);
+      setItems([]);
 
       if (firstClient) {
         const client = clients.find((c) => c.id === firstClient);
@@ -492,6 +484,68 @@ export default function InvoiceModal({
     }, 250);
   };
 
+  // One-click PDF download using hidden iframe (no popup tab left open)
+  const handleDownloadPDF = () => {
+    const printContent = document.getElementById("invoice-letter-sheet");
+    if (!printContent) return;
+
+    const iframe = document.createElement("iframe");
+    iframe.style.position = "fixed";
+    iframe.style.right = "0";
+    iframe.style.bottom = "0";
+    iframe.style.width = "0";
+    iframe.style.height = "0";
+    iframe.style.border = "0";
+    document.body.appendChild(iframe);
+
+    const doc = iframe.contentWindow?.document;
+    if (!doc) return;
+
+    doc.open();
+    doc.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>${invoiceNumber || "Invoice"}</title>
+          <style>
+            @page {
+              size: letter portrait;
+              margin: 10mm 12mm;
+            }
+            * { box-sizing: border-box; }
+            body {
+              font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+              color: #0f172a;
+              background: #ffffff;
+              margin: 0;
+              padding: 0;
+              -webkit-print-color-adjust: exact;
+              print-color-adjust: exact;
+            }
+            .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+            table { width: 100%; border-collapse: collapse; font-size: 11px; }
+            th { border-bottom: 2px solid #cbd5e1; padding: 8px 6px; text-align: left; font-weight: 600; }
+            td { border-bottom: 1px solid #e2e8f0; padding: 8px 6px; }
+          </style>
+        </head>
+        <body>
+          ${printContent.innerHTML}
+        </body>
+      </html>
+    `);
+    doc.close();
+
+    iframe.contentWindow?.focus();
+    setTimeout(() => {
+      iframe.contentWindow?.print();
+      setTimeout(() => {
+        if (document.body.contains(iframe)) {
+          document.body.removeChild(iframe);
+        }
+      }, 3000);
+    }, 250);
+  };
+
   if (!isOpen || !mounted) return null;
 
   const modalContent = (
@@ -506,9 +560,6 @@ export default function InvoiceModal({
         alignItems: "center",
         justifyContent: "center",
         padding: "16px",
-      }}
-      onClick={(e) => {
-        if (e.target === e.currentTarget && !submitting && !deleting) onClose();
       }}
     >
       <div
@@ -590,6 +641,26 @@ export default function InvoiceModal({
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <button
+              type="button"
+              onClick={handleDownloadPDF}
+              className="finance-button-primary"
+              style={{
+                background: "var(--accent-emerald)",
+                borderColor: "var(--accent-emerald)",
+                color: "#ffffff",
+                height: "32px",
+                padding: "0 12px",
+                gap: "6px",
+                fontSize: "12px",
+                width: "auto",
+              }}
+              title="Download or save Letter PDF in one click"
+            >
+              <Download size={13} />
+              <span>Download PDF</span>
+            </button>
+
             <button
               type="button"
               onClick={handlePrint}
@@ -896,68 +967,84 @@ export default function InvoiceModal({
                     </tr>
                   </thead>
                   <tbody>
-                    {items.map((item, idx) => (
-                      <tr key={idx} style={{ borderBottom: "1px solid var(--border-subtle)" }}>
-                        <td style={{ padding: "4px 6px" }}>
-                          <input
-                            type="text"
-                            value={item.description}
-                            onChange={(e) => handleUpdateItem(idx, "description", e.target.value)}
-                            placeholder="Deliverable description..."
-                            className="finance-input"
-                            style={{ height: "28px", fontSize: "11.5px", width: "100%" }}
-                          />
-                        </td>
-                        <td style={{ padding: "4px 6px" }}>
-                          <input
-                            type="text"
-                            value={item.hsn_sac || ""}
-                            onChange={(e) => handleUpdateItem(idx, "hsn_sac", e.target.value)}
-                            placeholder="998311"
-                            className="finance-input mono"
-                            style={{ height: "28px", fontSize: "11px", width: "100%" }}
-                          />
-                        </td>
-                        <td style={{ padding: "4px 6px" }}>
-                          <input
-                            type="number"
-                            min="0"
-                            step="any"
-                            value={item.quantity}
-                            onChange={(e) => handleUpdateItem(idx, "quantity", e.target.value)}
-                            className="finance-input mono"
-                            style={{ height: "28px", fontSize: "11.5px", width: "100%" }}
-                          />
-                        </td>
-                        <td style={{ padding: "4px 6px" }}>
-                          <input
-                            type="number"
-                            min="0"
-                            step="any"
-                            value={item.unit_price}
-                            onChange={(e) => handleUpdateItem(idx, "unit_price", e.target.value)}
-                            className="finance-input mono"
-                            style={{ height: "28px", fontSize: "11.5px", width: "100%" }}
-                          />
-                        </td>
-                        <td style={{ padding: "4px 8px", textAlign: "right" }} className="mono">
-                          <span style={{ fontWeight: 600 }}>{formatCurrency(item.total)}</span>
-                        </td>
-                        <td style={{ padding: "4px 4px", textAlign: "center" }}>
-                          <button
-                            type="button"
-                            onClick={() => handleRemoveItem(idx)}
-                            className="finance-button-secondary"
-                            style={{ padding: "2px 4px", border: "none", color: "var(--text-dim)" }}
-                            onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent-rose)")}
-                            onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-dim)")}
-                            title="Remove line"
-                          >
-                            <Trash2 size={12} />
-                          </button>
+                    {items.length === 0 ? (
+                      <tr>
+                        <td
+                          colSpan={6}
+                          style={{
+                            padding: "20px 12px",
+                            textAlign: "center",
+                            color: "var(--text-dim)",
+                            fontSize: "12px",
+                          }}
+                        >
+                          No line items added yet. Click &quot;+ Add Line Item&quot; or import unbilled tasks above.
                         </td>
                       </tr>
-                    ))}
+                    ) : (
+                      items.map((item, idx) => (
+                        <tr key={idx} style={{ borderBottom: "1px solid var(--border-subtle)" }}>
+                          <td style={{ padding: "4px 6px" }}>
+                            <input
+                              type="text"
+                              value={item.description}
+                              onChange={(e) => handleUpdateItem(idx, "description", e.target.value)}
+                              placeholder="Deliverable description..."
+                              className="finance-input"
+                              style={{ height: "28px", fontSize: "11.5px", width: "100%" }}
+                            />
+                          </td>
+                          <td style={{ padding: "4px 6px" }}>
+                            <input
+                              type="text"
+                              value={item.hsn_sac || ""}
+                              onChange={(e) => handleUpdateItem(idx, "hsn_sac", e.target.value)}
+                              placeholder="998311"
+                              className="finance-input mono"
+                              style={{ height: "28px", fontSize: "11px", width: "100%" }}
+                            />
+                          </td>
+                          <td style={{ padding: "4px 6px" }}>
+                            <input
+                              type="number"
+                              min="0"
+                              step="any"
+                              value={item.quantity}
+                              onChange={(e) => handleUpdateItem(idx, "quantity", e.target.value)}
+                              className="finance-input mono"
+                              style={{ height: "28px", fontSize: "11.5px", width: "100%" }}
+                            />
+                          </td>
+                          <td style={{ padding: "4px 6px" }}>
+                            <input
+                              type="number"
+                              min="0"
+                              step="any"
+                              value={item.unit_price}
+                              onChange={(e) => handleUpdateItem(idx, "unit_price", e.target.value)}
+                              className="finance-input mono"
+                              style={{ height: "28px", fontSize: "11.5px", width: "100%" }}
+                            />
+                          </td>
+                          <td style={{ padding: "4px 8px", textAlign: "right" }} className="mono">
+                            <span style={{ fontWeight: 600 }}>{formatCurrency(item.total)}</span>
+                          </td>
+                          <td style={{ padding: "4px 4px", textAlign: "center" }}>
+                            <button
+                              type="button"
+                              onClick={() => handleRemoveItem(idx)}
+                              className="finance-button-secondary"
+                              style={{ padding: "2px 4px", border: "none", color: "var(--text-dim)" }}
+                              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent-rose)")}
+                              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-dim)")}
+                              title="Remove line"
+                            >
+                              <Trash2 size={12} />
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    )}
                   </tbody>
                 </table>
               </div>
@@ -1286,25 +1373,42 @@ export default function InvoiceModal({
                       </tr>
                     </thead>
                     <tbody>
-                      {items.map((item, idx) => (
-                        <tr key={idx} style={{ borderBottom: "1px solid #f1f5f9" }}>
-                          <td style={{ padding: "8px 6px", color: "#0f172a" }}>
-                            <div style={{ fontWeight: 600 }}>{item.description || "Deliverable item"}</div>
-                          </td>
-                          <td style={{ padding: "8px 6px", color: "#64748b" }} className="mono">
-                            {item.hsn_sac || "—"}
-                          </td>
-                          <td style={{ padding: "8px 6px", textAlign: "right", color: "#0f172a" }} className="mono">
-                            {item.quantity}
-                          </td>
-                          <td style={{ padding: "8px 6px", textAlign: "right", color: "#0f172a" }} className="mono">
-                            {formatCurrency(item.unit_price)}
-                          </td>
-                          <td style={{ padding: "8px 6px", textAlign: "right", fontWeight: 700, color: "#0f172a" }} className="mono">
-                            {formatCurrency(item.total)}
+                      {items.length === 0 ? (
+                        <tr>
+                          <td
+                            colSpan={5}
+                            style={{
+                              padding: "24px 6px",
+                              textAlign: "center",
+                              color: "#94a3b8",
+                              fontStyle: "italic",
+                              fontSize: "11px",
+                            }}
+                          >
+                            No deliverables added yet. Use the editor on the left to add line items.
                           </td>
                         </tr>
-                      ))}
+                      ) : (
+                        items.map((item, idx) => (
+                          <tr key={idx} style={{ borderBottom: "1px solid #f1f5f9" }}>
+                            <td style={{ padding: "8px 6px", color: "#0f172a" }}>
+                              <div style={{ fontWeight: 600 }}>{item.description || "Deliverable item"}</div>
+                            </td>
+                            <td style={{ padding: "8px 6px", color: "#64748b" }} className="mono">
+                              {item.hsn_sac || "—"}
+                            </td>
+                            <td style={{ padding: "8px 6px", textAlign: "right", color: "#0f172a" }} className="mono">
+                              {item.quantity}
+                            </td>
+                            <td style={{ padding: "8px 6px", textAlign: "right", color: "#0f172a" }} className="mono">
+                              {formatCurrency(item.unit_price)}
+                            </td>
+                            <td style={{ padding: "8px 6px", textAlign: "right", fontWeight: 700, color: "#0f172a" }} className="mono">
+                              {formatCurrency(item.total)}
+                            </td>
+                          </tr>
+                        ))
+                      )}
                     </tbody>
                   </table>
                 </div>
@@ -1314,8 +1418,8 @@ export default function InvoiceModal({
               <div style={{ borderTop: "2px solid #0f172a", paddingTop: "14px", marginTop: "24px" }}>
                 <div style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: "24px" }}>
                   {/* Left: 10 lines of Payment Gateway / Remittance Notes */}
-                  <div style={{ fontSize: "10.5px", color: "#334155" }}>
-                    <div style={{ fontSize: "10px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.5px", color: "#64748b", marginBottom: "4px" }}>
+                  <div style={{ fontSize: "8.5px", color: "#334155" }}>
+                    <div style={{ fontSize: "8.5px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.5px", color: "#64748b", marginBottom: "4px" }}>
                       Payment Instructions ({paymentGateway})
                     </div>
                     <div
@@ -1324,12 +1428,12 @@ export default function InvoiceModal({
                         background: "#f8fafc",
                         border: "1px solid #e2e8f0",
                         borderRadius: "4px",
-                        padding: "8px 10px",
-                        minHeight: "105px",
+                        padding: "6px 8px",
+                        minHeight: "75px",
                         whiteSpace: "pre-wrap",
-                        fontSize: "10px",
-                        lineHeight: "1.4",
-                        color: "#334155",
+                        fontSize: "8.5px",
+                        lineHeight: "1.3",
+                        color: "#475569",
                       }}
                     >
                       {gatewayNotes || "Direct Bank Wire or Gateway payment accepted.\nRemittance details provided upon request."}

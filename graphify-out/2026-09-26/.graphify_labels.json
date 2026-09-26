@@ -1,7 +1,7 @@
 {
   "0": "devDependencies",
   "1": "auth.py",
-  "2": "Base",
+  "2": "Currency",
   "3": "settings.py",
   "4": "compilerOptions",
   "5": "Ponytail",
@@ -35,5 +35,7 @@
   "33": "CLAUDE.md",
   "34": "User",
   "35": "projects/page.tsx",
-  "36": "time_entries.py"
+  "36": "time_entries.py",
+  "37": "invoices.py",
+  "38": "InvoiceModal.tsx"
 }

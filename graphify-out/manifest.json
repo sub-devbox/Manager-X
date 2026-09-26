@@ -475,8 +475,8 @@
     "semantic_hash": ""
   },
   "frontend/src/components/modules/invoices/InvoiceModal.tsx": {
-    "mtime": 1790437616.8618584,
-    "ast_hash": "b6ce4a4f3a608d351e473ce1da621531",
+    "mtime": 1790438504.002849,
+    "ast_hash": "e73d309ae7b27a4dd0f743c10209b075",
     "semantic_hash": ""
   },
   "frontend/src/components/modules/invoices/InvoiceTable.tsx": {
