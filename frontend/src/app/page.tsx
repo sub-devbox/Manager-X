@@ -23,15 +23,24 @@ import {
 export default function OverviewPage() {
   const { user } = useAuth();
   const [clientStats, setClientStats] = useState<{ total: number; active: number } | null>(null);
-  const [projectStats, setProjectStats] = useState<{ total: number; active: number } | null>(null);
+  const [projectStats, setProjectStats] = useState<{ total: number; thisMonth: number } | null>(null);
+  const [timeSpentMonth, setTimeSpentMonth] = useState<number | null>(null);
+
+  const formatDuration = (totalSeconds: number) => {
+    if (!totalSeconds || totalSeconds <= 0) return "0h 00m";
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    return `${hours}h ${String(minutes).padStart(2, "0")}m`;
+  };
 
   useEffect(() => {
     let isMounted = true;
     async function loadStats() {
       try {
-        const [clientRes, projectRes] = await Promise.allSettled([
+        const [clientRes, projectRes, timeRes] = await Promise.allSettled([
           api.get<{ is_active: boolean }[]>("/clients"),
-          api.get<{ status: string }[]>("/projects"),
+          api.get<{ id: string; status: string; end_date?: string | null; created_at?: string }[]>("/projects"),
+          api.get<{ start_time: string; duration_seconds: number; project_id?: string }[]>("/time-entries"),
         ]);
 
         if (isMounted) {
@@ -44,25 +53,63 @@ export default function OverviewPage() {
             setClientStats({ total: 0, active: 0 });
           }
 
-          if (projectRes.status === "fulfilled" && Array.isArray(projectRes.value)) {
-            setProjectStats({
-              total: projectRes.value.length,
-              active: projectRes.value.filter((p) => p.status === "active").length,
-            });
+          const now = new Date();
+          const firstOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+          const lastOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
+
+          let monthSeconds = 0;
+          const projectIdsWithTimeInMonth = new Set<string>();
+
+          if (timeRes.status === "fulfilled" && Array.isArray(timeRes.value)) {
+            for (const entry of timeRes.value) {
+              const entryDate = entry.start_time ? new Date(entry.start_time) : null;
+              if (entryDate && entryDate >= firstOfMonth && entryDate <= lastOfMonth) {
+                monthSeconds += entry.duration_seconds || 0;
+                if (entry.project_id) {
+                  projectIdsWithTimeInMonth.add(entry.project_id);
+                }
+              }
+            }
+            setTimeSpentMonth(monthSeconds);
           } else {
-            setProjectStats({ total: 0, active: 0 });
+            setTimeSpentMonth(0);
+          }
+
+          if (projectRes.status === "fulfilled" && Array.isArray(projectRes.value)) {
+            const total = projectRes.value.length;
+            const thisMonth = projectRes.value.filter((p) => {
+              if (projectIdsWithTimeInMonth.has(p.id)) return true;
+              if (p.status === "active") return true;
+              const pDateStr = p.end_date || p.created_at || "";
+              if (pDateStr) {
+                const pDate = new Date(pDateStr);
+                if (pDate >= firstOfMonth && pDate <= lastOfMonth) return true;
+              }
+              return false;
+            }).length;
+            setProjectStats({ total, thisMonth });
+          } else {
+            setProjectStats({ total: 0, thisMonth: 0 });
           }
         }
       } catch {
         if (isMounted) {
           setClientStats({ total: 0, active: 0 });
-          setProjectStats({ total: 0, active: 0 });
+          setProjectStats({ total: 0, thisMonth: 0 });
+          setTimeSpentMonth(0);
         }
       }
     }
     loadStats();
+
+    const handleTimerSaved = () => {
+      loadStats();
+    };
+    window.addEventListener("mx_timer_saved", handleTimerSaved);
+
     return () => {
       isMounted = false;
+      window.removeEventListener("mx_timer_saved", handleTimerSaved);
     };
   }, []);
 
@@ -239,7 +286,7 @@ export default function OverviewPage() {
             </div>
           </Link>
 
-          {/* Active Engagements Card */}
+          {/* Total Projects This Month Card */}
           <Link
             href="/projects"
             className="finance-panel"
@@ -256,20 +303,48 @@ export default function OverviewPage() {
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <span style={{ fontSize: "12px", color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.4px" }}>
-                Active Engagements
+                Total Projects This Month
               </span>
               <FolderKanban size={14} style={{ color: "var(--text-dim)" }} />
             </div>
             <div style={{ fontSize: "24px", fontWeight: 600, marginTop: "8px", letterSpacing: "-0.5px" }} className="mono">
-              {projectStats !== null ? `${projectStats.active} Projects` : "—"}
+              {projectStats !== null ? projectStats.thisMonth : "—"}
             </div>
             <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px" }}>
-              {projectStats !== null ? `${projectStats.total} Total Registered` : "Operational Pipeline"}
+              {projectStats !== null ? `${projectStats.total} total registered project${projectStats.total === 1 ? "" : "s"}` : "—"}
+            </div>
+          </Link>
+
+          {/* Time Spent This Month Card */}
+          <Link
+            href="/time-tracker"
+            className="finance-panel"
+            style={{
+              padding: "16px",
+              background: "var(--bg-surface)",
+              textDecoration: "none",
+              color: "inherit",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              transition: "border-color 0.15s ease",
+            }}
+          >
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span style={{ fontSize: "12px", color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.4px" }}>
+                Time Spent This Month
+              </span>
+              <Clock size={14} style={{ color: "var(--text-dim)" }} />
+            </div>
+            <div style={{ fontSize: "24px", fontWeight: 600, marginTop: "8px", letterSpacing: "-0.5px" }} className="mono">
+              {timeSpentMonth !== null ? formatDuration(timeSpentMonth) : "—"}
+            </div>
+            <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px" }}>
+              Logged across all tasks
             </div>
           </Link>
 
           {[
-            { label: "Billable Unbilled Time", val: "0h 00m", sub: "Ready for Invoicing" },
             { label: "Outstanding Receivables", val: "₹0.00", sub: "Unpaid Invoices" },
             { label: "Cash & Liquid Balance", val: "₹0.00", sub: "Across All Accounts" },
           ].map((kpi, idx) => (
