@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { TimeEntryData } from "@/types/time";
 import { TaskData } from "@/types/project";
 import { X, Clock, Calendar, ArrowRight, DollarSign } from "lucide-react";
@@ -89,7 +90,24 @@ export default function ManualTimeModal({
     setErrorMsg(null);
   }, [initialEntry, isOpen, tasks]);
 
-  if (!isOpen) return null;
+  const [mounted, setMounted] = useState<boolean>(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Close on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
+
+  if (!isOpen || !mounted) return null;
 
   // 1. User changes Time Start: recalculate duration based on stopTime
   const handleStartTimeChange = (newStart: string) => {
@@ -163,30 +181,36 @@ export default function ManualTimeModal({
     }
   };
 
-  return (
+  const modalContent = (
     <div
       style={{
         position: "fixed",
         inset: 0,
-        backgroundColor: "rgba(0, 0, 0, 0.65)",
-        backdropFilter: "blur(2px)",
+        backgroundColor: "rgba(0, 0, 0, 0.75)",
+        backdropFilter: "blur(4px)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         zIndex: 9999,
         padding: "16px",
       }}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
     >
       <div
-        className="finance-panel"
+        className="finance-panel animate-fade-in"
         style={{
           width: "100%",
           maxWidth: "500px",
+          maxHeight: "90vh",
+          overflowY: "auto",
           background: "var(--bg-surface)",
           border: "1px solid var(--border-subtle)",
           borderRadius: "var(--radius-md)",
-          overflow: "hidden",
-          boxShadow: "0 20px 40px rgba(0,0,0,0.4)",
+          boxShadow: "0 20px 40px rgba(0,0,0,0.5)",
+          display: "flex",
+          flexDirection: "column",
         }}
       >
         {/* Header */}
@@ -428,4 +452,6 @@ export default function ManualTimeModal({
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, useRef } from "react";
+import { createPortal } from "react-dom";
 import { ProjectData, TaskData } from "@/types/project";
 import { X, Play, Search, Folder, CheckSquare, ChevronDown, Clock, AlertCircle } from "lucide-react";
 
@@ -27,6 +28,22 @@ export default function StartTimerModal({
   const [isProjectOpen, setIsProjectOpen] = useState<boolean>(false);
   const [isTaskOpen, setIsTaskOpen] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [mounted, setMounted] = useState<boolean>(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Close on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
 
   const projectDropdownRef = useRef<HTMLDivElement>(null);
   const taskDropdownRef = useRef<HTMLDivElement>(null);
@@ -136,18 +153,23 @@ export default function StartTimerModal({
     onClose();
   };
 
-  return (
+  if (!isOpen || !mounted) return null;
+
+  const modalContent = (
     <div
       style={{
         position: "fixed",
         inset: 0,
-        backgroundColor: "rgba(0, 0, 0, 0.7)",
-        backdropFilter: "blur(3px)",
+        backgroundColor: "rgba(0, 0, 0, 0.75)",
+        backdropFilter: "blur(4px)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         zIndex: 9999,
         padding: "16px",
+      }}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
       }}
     >
       <div
@@ -588,4 +610,6 @@ export default function StartTimerModal({
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 }

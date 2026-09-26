@@ -28,8 +28,8 @@ export default function TimeTrackerPage() {
   const [loading, setLoading] = useState<boolean>(true);
   const [actionMsg, setActionMsg] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
-  // Filters (today by default)
-  const [periodFilter, setPeriodFilter] = useState<PeriodFilter>("today");
+  // Filters (this_month by default)
+  const [periodFilter, setPeriodFilter] = useState<PeriodFilter>("this_month");
   const [customStartDate, setCustomStartDate] = useState<string>(() => {
     const d = new Date();
     d.setDate(d.getDate() - 7);
