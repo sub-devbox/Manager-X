@@ -6,8 +6,12 @@ import { Play, Pause, Square, Clock, ChevronDown, ChevronUp } from "lucide-react
 interface TimerState {
   isRunning: boolean;
   seconds: number;
+  taskId: string | null;
   taskTitle: string;
+  projectId: string | null;
   projectTitle: string;
+  startTime: string | null;
+  description: string;
 }
 
 export default function GlobalTimerBar() {
@@ -21,12 +25,17 @@ export default function GlobalTimerBar() {
     return {
       isRunning: false,
       seconds: 0,
-      taskTitle: "Ad-hoc Session",
-      projectTitle: "General",
+      taskId: null,
+      taskTitle: "No task selected",
+      projectId: null,
+      projectTitle: "Idle",
+      startTime: null,
+      description: "",
     };
   });
 
   const [minimized, setMinimized] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const wsRef = useRef<WebSocket | null>(null);
 
   // Sync with localStorage
@@ -42,6 +51,33 @@ export default function GlobalTimerBar() {
     }, 1000);
     return () => clearInterval(interval);
   }, [timerState.isRunning]);
+
+  // Listen for task start timer events from TaskTable or TimeTracker
+  useEffect(() => {
+    const handleStartTask = (e: Event) => {
+      const customEvent = e as CustomEvent<{
+        taskId: string;
+        taskTitle: string;
+        projectId?: string;
+        projectTitle?: string;
+      }>;
+      if (customEvent.detail) {
+        setTimerState({
+          isRunning: true,
+          seconds: 0,
+          taskId: customEvent.detail.taskId,
+          taskTitle: customEvent.detail.taskTitle,
+          projectId: customEvent.detail.projectId || null,
+          projectTitle: customEvent.detail.projectTitle || "Active Project",
+          startTime: new Date().toISOString(),
+          description: "",
+        });
+      }
+    };
+
+    window.addEventListener("mx_start_timer", handleStartTask);
+    return () => window.removeEventListener("mx_start_timer", handleStartTask);
+  }, []);
 
   // WebSocket sync for multi-tab consistency
   useEffect(() => {
@@ -60,28 +96,25 @@ export default function GlobalTimerBar() {
           try {
             const data = JSON.parse(event.data);
             if (data.type === "TIMER_SYNC") {
-              setTimerState({
+              setTimerState((prev) => ({
+                ...prev,
                 isRunning: Boolean(data.isRunning),
-                seconds: Number(data.seconds) || 0,
-                taskTitle: data.taskTitle || "Ad-hoc Session",
-                projectTitle: data.projectTitle || "General",
-              });
+                seconds: Number(data.seconds) || prev.seconds,
+                taskTitle: data.taskTitle || prev.taskTitle,
+                projectTitle: data.projectTitle || prev.projectTitle,
+              }));
             }
           } catch {}
         };
 
         socket.onerror = () => {
-          // Fallback to local timer without spamming console
           socket?.close();
         };
 
         socket.onclose = () => {
-          // Reconnect attempt every 15s in background
           reconnectTimeout = setTimeout(connect, 15000);
         };
-      } catch {
-        // WebSocket unavailable, local client state holds
-      }
+      } catch {}
     }
 
     connect();
@@ -102,7 +135,12 @@ export default function GlobalTimerBar() {
 
   const toggleRun = () => {
     setTimerState((prev) => {
-      const next = { ...prev, isRunning: !prev.isRunning };
+      const willRun = !prev.isRunning;
+      const next = {
+        ...prev,
+        isRunning: willRun,
+        startTime: willRun && !prev.startTime ? new Date().toISOString() : prev.startTime,
+      };
       if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
         wsRef.current.send(JSON.stringify({ type: "TIMER_TOGGLE", ...next }));
       }
@@ -110,14 +148,46 @@ export default function GlobalTimerBar() {
     });
   };
 
-  const stopTimer = () => {
-    setTimerState((prev) => {
-      const next = { ...prev, isRunning: false, seconds: 0 };
-      if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
-        wsRef.current.send(JSON.stringify({ type: "TIMER_STOP", ...next }));
+  const stopTimer = async () => {
+    if (timerState.taskId && timerState.seconds >= 5) {
+      setIsSaving(true);
+      try {
+        const { api } = await import("@/lib/api-client");
+        const startTime = timerState.startTime || new Date(Date.now() - timerState.seconds * 1000).toISOString();
+        await api.post("/time-entries", {
+          task_id: timerState.taskId,
+          project_id: timerState.projectId || undefined,
+          description: timerState.description || `Logged via stopwatch for ${timerState.taskTitle}`,
+          start_time: startTime,
+          end_time: new Date().toISOString(),
+          duration_seconds: timerState.seconds,
+          is_billable: true,
+        });
+
+        // Notify other components (e.g. TimeTrackerPage) to re-fetch
+        window.dispatchEvent(new CustomEvent("mx_timer_saved"));
+      } catch (err) {
+        console.error("Failed to automatically save time entry:", err);
+      } finally {
+        setIsSaving(false);
       }
-      return next;
-    });
+    }
+
+    const resetState: TimerState = {
+      isRunning: false,
+      seconds: 0,
+      taskId: null,
+      taskTitle: "No task selected",
+      projectId: null,
+      projectTitle: "Idle",
+      startTime: null,
+      description: "",
+    };
+    setTimerState(resetState);
+
+    if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+      wsRef.current.send(JSON.stringify({ type: "TIMER_STOP", ...resetState }));
+    }
   };
 
   return (
@@ -182,9 +252,15 @@ export default function GlobalTimerBar() {
         {timerState.seconds > 0 && (
           <button
             onClick={stopTimer}
+            disabled={isSaving}
             className="finance-button-secondary"
-            style={{ padding: "5px 8px", color: "var(--accent-rose)" }}
-            title="Stop & Reset timer"
+            style={{
+              padding: "5px 8px",
+              color: "var(--accent-rose)",
+              opacity: isSaving ? 0.6 : 1,
+              cursor: isSaving ? "wait" : "pointer",
+            }}
+            title={timerState.taskId ? "Stop & Save time entry to task" : "Stop & Reset timer"}
           >
             <Square size={13} />
           </button>

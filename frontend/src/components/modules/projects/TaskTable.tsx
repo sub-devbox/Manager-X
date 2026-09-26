@@ -7,6 +7,7 @@ import {
   FolderKanban,
   Building2,
   Clock,
+  Play,
   Pencil,
   Trash2,
   ChevronDown,
@@ -409,13 +410,36 @@ export default function TaskTable({
 
                   {/* Actions */}
                   <td style={{ padding: "6px 12px", textAlign: "right", whiteSpace: "nowrap" }}>
-                    <div
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "6px",
-                      }}
-                    >
+                      <div
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: "6px",
+                        }}
+                      >
+                        <button
+                        type="button"
+                        onClick={() => {
+                          window.dispatchEvent(
+                            new CustomEvent("mx_start_timer", {
+                              detail: {
+                                taskId: task.id,
+                                taskTitle: task.title,
+                                projectId: task.project_id,
+                                projectTitle: task.project_name || "Project",
+                              },
+                            })
+                          );
+                          if (task.status === "backlog" && onTaskStatusChange) {
+                            onTaskStatusChange(task.id, "in_progress");
+                          }
+                        }}
+                        className="finance-button-secondary"
+                        style={{ padding: "3px 6px", color: "var(--accent-emerald)" }}
+                        title="Start Tracking Time on this Task"
+                      >
+                        <Play size={11} />
+                      </button>
                       <button
                         type="button"
                         onClick={() => onEditTask && onEditTask(task)}
