@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Play, Pause, Square, Clock, ChevronDown, ChevronUp } from "lucide-react";
 
 interface TimerState {
@@ -36,7 +36,6 @@ export default function GlobalTimerBar() {
 
   const [minimized, setMinimized] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const wsRef = useRef<WebSocket | null>(null);
 
   // Sync with localStorage
   useEffect(() => {
@@ -79,50 +78,17 @@ export default function GlobalTimerBar() {
     return () => window.removeEventListener("mx_start_timer", handleStartTask);
   }, []);
 
-  // WebSocket sync for multi-tab consistency
+  // Cross-tab sync using native window storage events
   useEffect(() => {
-    const wsUrl =
-      process.env.NEXT_PUBLIC_WS_TIMER_URL || "ws://localhost:8000/ws/timer";
-
-    let socket: WebSocket | null = null;
-    let reconnectTimeout: any = null;
-
-    function connect() {
-      try {
-        socket = new WebSocket(wsUrl);
-        wsRef.current = socket;
-
-        socket.onmessage = (event) => {
-          try {
-            const data = JSON.parse(event.data);
-            if (data.type === "TIMER_SYNC") {
-              setTimerState((prev) => ({
-                ...prev,
-                isRunning: Boolean(data.isRunning),
-                seconds: Number(data.seconds) || prev.seconds,
-                taskTitle: data.taskTitle || prev.taskTitle,
-                projectTitle: data.projectTitle || prev.projectTitle,
-              }));
-            }
-          } catch {}
-        };
-
-        socket.onerror = () => {
-          socket?.close();
-        };
-
-        socket.onclose = () => {
-          reconnectTimeout = setTimeout(connect, 15000);
-        };
-      } catch {}
-    }
-
-    connect();
-
-    return () => {
-      if (reconnectTimeout) clearTimeout(reconnectTimeout);
-      if (socket) socket.close();
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === "mx_active_timer" && e.newValue) {
+        try {
+          setTimerState(JSON.parse(e.newValue));
+        } catch {}
+      }
     };
+    window.addEventListener("storage", handleStorage);
+    return () => window.removeEventListener("storage", handleStorage);
   }, []);
 
   const formatTime = (totalSeconds: number) => {
@@ -141,9 +107,7 @@ export default function GlobalTimerBar() {
         isRunning: willRun,
         startTime: willRun && !prev.startTime ? new Date().toISOString() : prev.startTime,
       };
-      if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
-        wsRef.current.send(JSON.stringify({ type: "TIMER_TOGGLE", ...next }));
-      }
+
       return next;
     });
   };
@@ -185,9 +149,7 @@ export default function GlobalTimerBar() {
     };
     setTimerState(resetState);
 
-    if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
-      wsRef.current.send(JSON.stringify({ type: "TIMER_STOP", ...resetState }));
-    }
+
   };
 
   return (
