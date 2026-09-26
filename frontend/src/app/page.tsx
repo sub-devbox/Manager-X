@@ -75,7 +75,7 @@ export default function OverviewPage() {
     },
     {
       title: "Project Manager",
-      desc: "Client engagements, sprint milestones, and ticket Kanban board.",
+      desc: "Client engagements, deliverables, milestones, and nested task tracking.",
       href: "/projects",
       icon: FolderKanban,
       badge: "Ops",

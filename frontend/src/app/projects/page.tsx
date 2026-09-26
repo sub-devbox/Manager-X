@@ -4,7 +4,6 @@ import React, { useState, useEffect, useCallback } from "react";
 import AppShell from "@/components/layout/AppShell";
 import ProjectModal from "@/components/modules/projects/ProjectModal";
 import TaskModal from "@/components/modules/projects/TaskModal";
-import KanbanBoard from "@/components/modules/projects/KanbanBoard";
 import ProjectTable from "@/components/modules/projects/ProjectTable";
 import { api } from "@/lib/api-client";
 import { ProjectData, TaskData, TaskStatus, ProjectStatus } from "@/types/project";
@@ -22,13 +21,9 @@ import {
   Trash2,
   DollarSign,
   TrendingUp,
-  LayoutGrid,
-  Columns,
-  Table,
 } from "lucide-react";
 
 export default function ProjectsPage() {
-  const [activeView, setActiveView] = useState<"projects" | "kanban">("projects");
   const [projects, setProjects] = useState<ProjectData[]>([]);
   const [tasks, setTasks] = useState<TaskData[]>([]);
   const [clients, setClients] = useState<{ id: string; company_name: string }[]>([]);
@@ -148,18 +143,6 @@ export default function ProjectsPage() {
     return matchesSearch && matchesClient && matchesStatus;
   });
 
-  const filteredTasks = tasks.filter((t) => {
-    const matchesSearch =
-      !searchQuery.trim() ||
-      t.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (t.description && t.description.toLowerCase().includes(searchQuery.toLowerCase()));
-
-    const prj = projects.find((p) => p.id === t.project_id);
-    const matchesClient = clientFilter === "all" || (prj && prj.client_id === clientFilter);
-
-    return matchesSearch && matchesClient;
-  });
-
   // Aggregate stats
   const totalProjects = projects.length;
   const activeProjects = projects.filter((p) => p.status === "active").length;
@@ -214,68 +197,14 @@ export default function ProjectsPage() {
         >
           <div>
             <h2 style={{ fontSize: "16px", fontWeight: 600, letterSpacing: "-0.3px", margin: 0 }}>
-              Operational Deliverables & Kanban Sprints
+              Projects & Deliverables
             </h2>
             <p style={{ fontSize: "13px", color: "var(--text-muted)", marginTop: "2px", margin: 0 }}>
-              Organize engagements, sprint milestones, and billable work packages.
+              Organize engagements, deliverables, milestones, and billable work packages.
             </p>
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            {/* View Mode Toggle */}
-            <div
-              style={{
-                display: "flex",
-                background: "var(--bg-surface-subtle)",
-                border: "1px solid var(--border-subtle)",
-                borderRadius: "var(--radius-xs)",
-                padding: "2px",
-              }}
-            >
-              <button
-                type="button"
-                onClick={() => setActiveView("projects")}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "6px",
-                  padding: "6px 12px",
-                  fontSize: "12px",
-                  fontWeight: 500,
-                  borderRadius: "var(--radius-xs)",
-                  border: "none",
-                  cursor: "pointer",
-                  background: activeView === "projects" ? "var(--bg-surface)" : "transparent",
-                  color: activeView === "projects" ? "var(--text-main)" : "var(--text-muted)",
-                  transition: "all 0.15s ease",
-                }}
-              >
-                <Table size={13} />
-                <span>Table</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setActiveView("kanban")}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "6px",
-                  padding: "6px 12px",
-                  fontSize: "12px",
-                  fontWeight: 500,
-                  borderRadius: "var(--radius-xs)",
-                  border: "none",
-                  cursor: "pointer",
-                  background: activeView === "kanban" ? "var(--bg-surface)" : "transparent",
-                  color: activeView === "kanban" ? "var(--text-main)" : "var(--text-muted)",
-                  transition: "all 0.15s ease",
-                }}
-              >
-                <Columns size={13} />
-                <span>Kanban Board</span>
-              </button>
-            </div>
-
             <button
               type="button"
               onClick={() => handleOpenNewTask()}
@@ -378,7 +307,7 @@ export default function ProjectsPage() {
             />
             <input
               type="text"
-              placeholder={activeView === "projects" ? "Search projects..." : "Search tasks..."}
+              placeholder="Search projects or clients..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="finance-input"
@@ -401,21 +330,19 @@ export default function ProjectsPage() {
             ))}
           </select>
 
-          {/* Status Filter (Projects View) */}
-          {activeView === "projects" && (
-            <select
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-              className="finance-input"
-              style={{ width: "auto", minWidth: "140px" }}
-            >
-              <option value="all">All Statuses</option>
-              <option value="active">Active</option>
-              <option value="completed">Completed</option>
-              <option value="on_hold">On Hold</option>
-              <option value="archived">Archived</option>
-            </select>
-          )}
+          {/* Status Filter */}
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="finance-input"
+            style={{ width: "auto", minWidth: "140px" }}
+          >
+            <option value="all">All Statuses</option>
+            <option value="active">Active</option>
+            <option value="completed">Completed</option>
+            <option value="on_hold">On Hold</option>
+            <option value="archived">Archived</option>
+          </select>
 
           {(searchQuery || clientFilter !== "all" || statusFilter !== "all") && (
             <button
@@ -433,30 +360,16 @@ export default function ProjectsPage() {
           )}
         </div>
 
-        {/* View Content: Projects Tabular View OR Kanban Board */}
-        {activeView === "projects" ? (
-          <ProjectTable
-            projects={filteredProjects}
-            onEditProject={handleOpenEditProject}
-            onDeleteProject={handleDeleteProject}
-            onAddTask={(projId) => handleOpenNewTask(projId)}
-            onEditTask={handleOpenEditTask}
-            onDeleteTask={handleDeleteTask}
-            onTaskStatusChange={handleTaskStatusChange}
-          />
-        ) : (
-          /* Kanban Board View */
-          <div>
-            <KanbanBoard
-              tasks={filteredTasks}
-              projects={projects}
-              onStatusChange={handleTaskStatusChange}
-              onEditTask={handleOpenEditTask}
-              onDeleteTask={handleDeleteTask}
-              onAddTaskToColumn={(col) => handleOpenNewTask(undefined, col)}
-            />
-          </div>
-        )}
+        {/* Tabular Projects & Nested Tasks View */}
+        <ProjectTable
+          projects={filteredProjects}
+          onEditProject={handleOpenEditProject}
+          onDeleteProject={handleDeleteProject}
+          onAddTask={(projId) => handleOpenNewTask(projId)}
+          onEditTask={handleOpenEditTask}
+          onDeleteTask={handleDeleteTask}
+          onTaskStatusChange={handleTaskStatusChange}
+        />
 
         {/* Project Modal */}
         <ProjectModal

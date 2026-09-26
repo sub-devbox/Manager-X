@@ -253,7 +253,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients",
       "community": 34,
-      "community_name": "clients.py",
+      "community_name": "User",
       "norm_label": "clients.py"
     },
     {
@@ -264,7 +264,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_py_get",
       "community": 34,
-      "community_name": "clients.py",
+      "community_name": "User",
       "norm_label": "get"
     },
     {
@@ -275,7 +275,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_list_clients",
       "community": 34,
-      "community_name": "clients.py",
+      "community_name": "User",
       "norm_label": "list_clients()"
     },
     {
@@ -286,7 +286,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_py_asyncsession",
       "community": 34,
-      "community_name": "clients.py",
+      "community_name": "User",
       "norm_label": "asyncsession"
     },
     {
@@ -297,7 +297,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_list_clients_summary",
       "community": 34,
-      "community_name": "clients.py",
+      "community_name": "User",
       "norm_label": "list_clients_summary()"
     },
     {
@@ -308,7 +308,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_py_post",
       "community": 34,
-      "community_name": "clients.py",
+      "community_name": "User",
       "norm_label": "post"
     },
     {
@@ -319,7 +319,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_create_client",
       "community": 34,
-      "community_name": "clients.py",
+      "community_name": "User",
       "norm_label": "create_client()"
     },
     {
@@ -330,7 +330,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_get_client",
       "community": 34,
-      "community_name": "clients.py",
+      "community_name": "User",
       "norm_label": "get_client()"
     },
     {
@@ -341,7 +341,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_py_put",
       "community": 34,
-      "community_name": "clients.py",
+      "community_name": "User",
       "norm_label": "put"
     },
     {
@@ -352,7 +352,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_update_client",
       "community": 34,
-      "community_name": "clients.py",
+      "community_name": "User",
       "norm_label": "update_client()"
     },
     {
@@ -363,7 +363,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_py_patch",
       "community": 34,
-      "community_name": "clients.py",
+      "community_name": "User",
       "norm_label": "patch"
     },
     {
@@ -374,7 +374,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_toggle_client_status",
       "community": 34,
-      "community_name": "clients.py",
+      "community_name": "User",
       "norm_label": "toggle_client_status()"
     },
     {
@@ -385,7 +385,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_py_delete",
       "community": 34,
-      "community_name": "clients.py",
+      "community_name": "User",
       "norm_label": "delete"
     },
     {
@@ -396,7 +396,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_delete_client",
       "community": 34,
-      "community_name": "clients.py",
+      "community_name": "User",
       "norm_label": "delete_client()"
     },
     {
@@ -572,7 +572,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "settings.py"
     },
     {
@@ -583,7 +583,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_py_get",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "get"
     },
     {
@@ -594,7 +594,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_get_company_profile",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "get_company_profile()"
     },
     {
@@ -605,7 +605,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_py_asyncsession",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "asyncsession"
     },
     {
@@ -616,7 +616,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_py_put",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "put"
     },
     {
@@ -627,7 +627,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_update_company_profile",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "update_company_profile()"
     },
     {
@@ -638,7 +638,7 @@
       "_origin": "ast",
       "id": "companyprofile",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "companyprofile"
     },
     {
@@ -649,7 +649,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_get_theme_settings",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "get_theme_settings()"
     },
     {
@@ -660,7 +660,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_update_theme_settings",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "update_theme_settings()"
     },
     {
@@ -671,7 +671,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_get_countries",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "get_countries()"
     },
     {
@@ -682,7 +682,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_py_post",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "post"
     },
     {
@@ -693,7 +693,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_add_country",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "add_country()"
     },
     {
@@ -704,7 +704,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_py_delete",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "delete"
     },
     {
@@ -715,7 +715,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_delete_country",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "delete_country()"
     },
     {
@@ -726,7 +726,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_ensure_default_currencies",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "ensure_default_currencies()"
     },
     {
@@ -737,7 +737,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_list_currencies",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "list_currencies()"
     },
     {
@@ -748,7 +748,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_create_currency",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "create_currency()"
     },
     {
@@ -759,7 +759,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_update_currency",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "update_currency()"
     },
     {
@@ -770,7 +770,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_delete_currency",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "delete_currency()"
     },
     {
@@ -781,7 +781,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_format_size",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "_format_size()"
     },
     {
@@ -792,7 +792,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_list_backups",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "list_backups()"
     },
     {
@@ -803,7 +803,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_create_backup_snapshot",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "create_backup_snapshot()"
     },
     {
@@ -814,7 +814,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_download_database",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "download_database()"
     },
     {
@@ -825,7 +825,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_restore_database",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "restore_database()"
     },
     {
@@ -836,7 +836,7 @@
       "_origin": "ast",
       "id": "uploadfile",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "uploadfile"
     },
     {
@@ -847,7 +847,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_rationale_232",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "seed standard currencies if none exist."
     },
     {
@@ -858,7 +858,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_rationale_397",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "download a live, wal-consistent copy of the sqlite database."
     },
     {
@@ -869,7 +869,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_rationale_421",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "restore database from an existing snapshot or an uploaded .db file."
     },
     {
@@ -1033,8 +1033,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_core_config",
-      "community": 36,
-      "community_name": "Base",
+      "community": 3,
+      "community_name": "settings.py",
       "norm_label": "config.py"
     },
     {
@@ -1044,8 +1044,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "backend_app_core_config_settings",
-      "community": 36,
-      "community_name": "Base",
+      "community": 3,
+      "community_name": "settings.py",
       "norm_label": "settings"
     },
     {
@@ -1055,8 +1055,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "basesettings",
-      "community": 36,
-      "community_name": "Base",
+      "community": 3,
+      "community_name": "settings.py",
       "norm_label": "basesettings"
     },
     {
@@ -1066,7 +1066,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_core_cuid",
-      "community": 36,
+      "community": 2,
       "community_name": "Base",
       "norm_label": "cuid.py"
     },
@@ -1077,7 +1077,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "backend_app_core_cuid_to_base36",
-      "community": 36,
+      "community": 2,
       "community_name": "Base",
       "norm_label": "to_base36()"
     },
@@ -1088,7 +1088,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "backend_app_core_cuid_generate_cuid",
-      "community": 36,
+      "community": 2,
       "community_name": "Base",
       "norm_label": "generate_cuid()"
     },
@@ -1099,7 +1099,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "backend_app_core_cuid_rationale_17",
-      "community": 36,
+      "community": 2,
       "community_name": "Base",
       "norm_label": "generate a collision-resistant unique identifier (cuid). structure: prefix (1)..."
     },
@@ -1143,7 +1143,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "backend_app_core_database_base",
-      "community": 36,
+      "community": 2,
       "community_name": "Base",
       "norm_label": "base"
     },
@@ -1154,7 +1154,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "declarativebase",
-      "community": 36,
+      "community": 2,
       "community_name": "Base",
       "norm_label": "declarativebase"
     },
@@ -1462,7 +1462,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_models_client_model",
-      "community": 36,
+      "community": 2,
       "community_name": "Base",
       "norm_label": "client_model.py"
     },
@@ -1474,7 +1474,7 @@
       "_origin": "ast",
       "id": "backend_app_models_client_model_client",
       "community": 34,
-      "community_name": "clients.py",
+      "community_name": "User",
       "norm_label": "client"
     },
     {
@@ -1484,7 +1484,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_models_project_models",
-      "community": 36,
+      "community": 2,
       "community_name": "Base",
       "norm_label": "project_models.py"
     },
@@ -1495,7 +1495,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "backend_app_models_project_models_project",
-      "community": 36,
+      "community": 2,
       "community_name": "Base",
       "norm_label": "project"
     },
@@ -1506,7 +1506,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "backend_app_models_project_models_task",
-      "community": 36,
+      "community": 2,
       "community_name": "Base",
       "norm_label": "task"
     },
@@ -1517,7 +1517,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_models_settings_models",
-      "community": 36,
+      "community": 2,
       "community_name": "Base",
       "norm_label": "settings_models.py"
     },
@@ -1529,7 +1529,7 @@
       "_origin": "ast",
       "id": "backend_app_models_settings_models_systemsetting",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "systemsetting"
     },
     {
@@ -1540,7 +1540,7 @@
       "_origin": "ast",
       "id": "backend_app_models_settings_models_currency",
       "community": 2,
-      "community_name": "conftest.py",
+      "community_name": "Base",
       "norm_label": "currency"
     },
     {
@@ -1550,7 +1550,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_models_user_models",
-      "community": 36,
+      "community": 2,
       "community_name": "Base",
       "norm_label": "user_models.py"
     },
@@ -1561,7 +1561,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "backend_app_models_user_models_generate_uuid",
-      "community": 36,
+      "community": 2,
       "community_name": "Base",
       "norm_label": "generate_uuid()"
     },
@@ -1572,7 +1572,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "backend_app_models_user_models_utc_now",
-      "community": 36,
+      "community": 2,
       "community_name": "Base",
       "norm_label": "utc_now()"
     },
@@ -1583,7 +1583,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_models_user_models_py_datetime",
-      "community": 36,
+      "community": 2,
       "community_name": "Base",
       "norm_label": "datetime"
     },
@@ -1594,7 +1594,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "backend_app_models_user_models_user",
-      "community": 3,
+      "community": 34,
       "community_name": "User",
       "norm_label": "user"
     },
@@ -1605,7 +1605,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "backend_app_models_user_models_usersession",
-      "community": 36,
+      "community": 2,
       "community_name": "Base",
       "norm_label": "usersession"
     },
@@ -1716,7 +1716,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas",
       "community": 34,
-      "community_name": "clients.py",
+      "community_name": "User",
       "norm_label": "client_schemas.py"
     },
     {
@@ -1727,7 +1727,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_currencynested",
       "community": 34,
-      "community_name": "clients.py",
+      "community_name": "User",
       "norm_label": "currencynested"
     },
     {
@@ -1738,7 +1738,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_py_basemodel",
       "community": 34,
-      "community_name": "clients.py",
+      "community_name": "User",
       "norm_label": "basemodel"
     },
     {
@@ -1749,7 +1749,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_clientbase",
       "community": 34,
-      "community_name": "clients.py",
+      "community_name": "User",
       "norm_label": "clientbase"
     },
     {
@@ -1760,7 +1760,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_clientcreate",
       "community": 34,
-      "community_name": "clients.py",
+      "community_name": "User",
       "norm_label": "clientcreate"
     },
     {
@@ -1771,7 +1771,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_clientupdate",
       "community": 34,
-      "community_name": "clients.py",
+      "community_name": "User",
       "norm_label": "clientupdate"
     },
     {
@@ -1782,7 +1782,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_clientresponse",
       "community": 34,
-      "community_name": "clients.py",
+      "community_name": "User",
       "norm_label": "clientresponse"
     },
     {
@@ -1793,7 +1793,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_clientsummary",
       "community": 34,
-      "community_name": "clients.py",
+      "community_name": "User",
       "norm_label": "clientsummary"
     },
     {
@@ -1969,7 +1969,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_settings_schemas",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "settings_schemas.py"
     },
     {
@@ -1980,7 +1980,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_settings_schemas_companyprofile",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "companyprofile"
     },
     {
@@ -1991,7 +1991,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_settings_schemas_py_basemodel",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "basemodel"
     },
     {
@@ -2002,7 +2002,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_settings_schemas_themesettings",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "themesettings"
     },
     {
@@ -2013,7 +2013,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_settings_schemas_currencybase",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "currencybase"
     },
     {
@@ -2024,7 +2024,7 @@
       "_origin": "ast",
       "id": "field_validator",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "field_validator"
     },
     {
@@ -2035,7 +2035,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_settings_schemas_currencybase_uppercase_code",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": ".uppercase_code()"
     },
     {
@@ -2046,7 +2046,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_settings_schemas_currencycreate",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "currencycreate"
     },
     {
@@ -2057,7 +2057,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_settings_schemas_currencyupdate",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "currencyupdate"
     },
     {
@@ -2068,7 +2068,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_settings_schemas_currencyout",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "currencyout"
     },
     {
@@ -2079,7 +2079,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_settings_schemas_backupinfo",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "backupinfo"
     },
     {
@@ -2090,7 +2090,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_settings_schemas_messageresponse",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "messageresponse"
     },
     {
@@ -2101,7 +2101,7 @@
       "_origin": "ast",
       "id": "backend_tests_conftest",
       "community": 2,
-      "community_name": "conftest.py",
+      "community_name": "Base",
       "norm_label": "conftest.py"
     },
     {
@@ -2112,7 +2112,7 @@
       "_origin": "ast",
       "id": "backend_tests_conftest_override_get_db",
       "community": 2,
-      "community_name": "conftest.py",
+      "community_name": "Base",
       "norm_label": "override_get_db()"
     },
     {
@@ -2123,7 +2123,7 @@
       "_origin": "ast",
       "id": "fixture",
       "community": 2,
-      "community_name": "conftest.py",
+      "community_name": "Base",
       "norm_label": "fixture"
     },
     {
@@ -2134,7 +2134,7 @@
       "_origin": "ast",
       "id": "backend_tests_conftest_prepare_database",
       "community": 2,
-      "community_name": "conftest.py",
+      "community_name": "Base",
       "norm_label": "prepare_database()"
     },
     {
@@ -2145,7 +2145,7 @@
       "_origin": "ast",
       "id": "backend_tests_conftest_client",
       "community": 2,
-      "community_name": "conftest.py",
+      "community_name": "Base",
       "norm_label": "client()"
     },
     {
@@ -2156,7 +2156,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_auth_api",
       "community": 2,
-      "community_name": "conftest.py",
+      "community_name": "Base",
       "norm_label": "test_auth_api.py"
     },
     {
@@ -2167,7 +2167,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_auth_api_py_asyncio",
       "community": 2,
-      "community_name": "conftest.py",
+      "community_name": "Base",
       "norm_label": "asyncio"
     },
     {
@@ -2178,7 +2178,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_auth_api_test_full_security_and_auth_lifecycle",
       "community": 2,
-      "community_name": "conftest.py",
+      "community_name": "Base",
       "norm_label": "test_full_security_and_auth_lifecycle()"
     },
     {
@@ -2189,7 +2189,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_auth_api_py_asyncclient",
       "community": 2,
-      "community_name": "conftest.py",
+      "community_name": "Base",
       "norm_label": "asyncclient"
     },
     {
@@ -2244,7 +2244,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_clients_api",
       "community": 2,
-      "community_name": "conftest.py",
+      "community_name": "Base",
       "norm_label": "test_clients_api.py"
     },
     {
@@ -2255,7 +2255,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_clients_api_py_asyncio",
       "community": 2,
-      "community_name": "conftest.py",
+      "community_name": "Base",
       "norm_label": "asyncio"
     },
     {
@@ -2266,7 +2266,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_clients_api_test_client_lifecycle_and_address_validation",
       "community": 2,
-      "community_name": "conftest.py",
+      "community_name": "Base",
       "norm_label": "test_client_lifecycle_and_address_validation()"
     },
     {
@@ -2277,7 +2277,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_clients_api_py_asyncclient",
       "community": 2,
-      "community_name": "conftest.py",
+      "community_name": "Base",
       "norm_label": "asyncclient"
     },
     {
@@ -2288,7 +2288,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_projects_and_tasks_api",
       "community": 2,
-      "community_name": "conftest.py",
+      "community_name": "Base",
       "norm_label": "test_projects_and_tasks_api.py"
     },
     {
@@ -2299,7 +2299,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_projects_and_tasks_api_py_asyncio",
       "community": 2,
-      "community_name": "conftest.py",
+      "community_name": "Base",
       "norm_label": "asyncio"
     },
     {
@@ -2310,7 +2310,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_projects_and_tasks_api_test_projects_and_tasks_lifecycle",
       "community": 2,
-      "community_name": "conftest.py",
+      "community_name": "Base",
       "norm_label": "test_projects_and_tasks_lifecycle()"
     },
     {
@@ -2321,7 +2321,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_projects_and_tasks_api_py_asyncclient",
       "community": 2,
-      "community_name": "conftest.py",
+      "community_name": "Base",
       "norm_label": "asyncclient"
     },
     {
@@ -2332,7 +2332,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_settings_api",
       "community": 2,
-      "community_name": "conftest.py",
+      "community_name": "Base",
       "norm_label": "test_settings_api.py"
     },
     {
@@ -2343,7 +2343,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_settings_api_py_asyncio",
       "community": 2,
-      "community_name": "conftest.py",
+      "community_name": "Base",
       "norm_label": "asyncio"
     },
     {
@@ -2354,7 +2354,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_settings_api_test_settings_lifecycle",
       "community": 2,
-      "community_name": "conftest.py",
+      "community_name": "Base",
       "norm_label": "test_settings_lifecycle()"
     },
     {
@@ -2365,7 +2365,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_settings_api_py_asyncclient",
       "community": 2,
-      "community_name": "conftest.py",
+      "community_name": "Base",
       "norm_label": "asyncclient"
     },
     {
@@ -3384,7 +3384,7 @@
       "label": "ProjectTableProps",
       "file_type": "code",
       "source_file": "frontend/src/components/modules/projects/ProjectTable.tsx",
-      "source_location": "L19",
+      "source_location": "L22",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable_projecttableprops",
       "community": 35,
@@ -3395,7 +3395,7 @@
       "label": "SortField",
       "file_type": "code",
       "source_file": "frontend/src/components/modules/projects/ProjectTable.tsx",
-      "source_location": "L26",
+      "source_location": "L32",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable_sortfield",
       "community": 35,
@@ -3406,7 +3406,7 @@
       "label": "SortDirection",
       "file_type": "code",
       "source_file": "frontend/src/components/modules/projects/ProjectTable.tsx",
-      "source_location": "L27",
+      "source_location": "L33",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable_sortdirection",
       "community": 35,
@@ -3414,10 +3414,21 @@
       "norm_label": "sortdirection"
     },
     {
+      "label": "getPriorityBadgeStyle()",
+      "file_type": "code",
+      "source_file": "frontend/src/components/modules/projects/ProjectTable.tsx",
+      "source_location": "L37",
+      "_origin": "ast",
+      "id": "frontend_src_components_modules_projects_projecttable_getprioritybadgestyle",
+      "community": 35,
+      "community_name": "projects/page.tsx",
+      "norm_label": "getprioritybadgestyle()"
+    },
+    {
       "label": "ProjectTable()",
       "file_type": "code",
       "source_file": "frontend/src/components/modules/projects/ProjectTable.tsx",
-      "source_location": "L31",
+      "source_location": "L66",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable_projecttable",
       "community": 35,
@@ -5112,7 +5123,7 @@
     {
       "label": "pytest",
       "community": 2,
-      "community_name": "conftest.py",
+      "community_name": "Base",
       "external": true,
       "file_type": "concept",
       "norm_label": "pytest",
@@ -5135,7 +5146,7 @@
     },
     {
       "label": "uuid",
-      "community": 36,
+      "community": 2,
       "community_name": "Base",
       "external": true,
       "file_type": "concept",
@@ -5160,7 +5171,7 @@
     {
       "label": "httpx",
       "community": 2,
-      "community_name": "conftest.py",
+      "community_name": "Base",
       "external": true,
       "file_type": "concept",
       "norm_label": "httpx",
@@ -5172,7 +5183,7 @@
     {
       "label": "pytest_asyncio",
       "community": 2,
-      "community_name": "conftest.py",
+      "community_name": "Base",
       "external": true,
       "file_type": "concept",
       "norm_label": "pytest_asyncio",
@@ -5183,7 +5194,7 @@
     },
     {
       "label": "sqlalchemy",
-      "community": 36,
+      "community": 2,
       "community_name": "Base",
       "external": true,
       "file_type": "concept",
@@ -5207,7 +5218,7 @@
     },
     {
       "label": "sqlalchemy_orm",
-      "community": 36,
+      "community": 2,
       "community_name": "Base",
       "external": true,
       "file_type": "concept",
@@ -5243,8 +5254,8 @@
     },
     {
       "label": "datetime",
-      "community": 36,
-      "community_name": "Base",
+      "community": 1,
+      "community_name": "auth.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "datetime",
@@ -5255,7 +5266,7 @@
     },
     {
       "label": "pydantic",
-      "community": 3,
+      "community": 34,
       "community_name": "User",
       "external": true,
       "file_type": "concept",
@@ -5471,8 +5482,8 @@
     },
     {
       "label": "os",
-      "community": 36,
-      "community_name": "Base",
+      "community": 3,
+      "community_name": "settings.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "os",
@@ -5483,8 +5494,8 @@
     },
     {
       "label": "pathlib",
-      "community": 36,
-      "community_name": "Base",
+      "community": 3,
+      "community_name": "settings.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "pathlib",
@@ -5495,8 +5506,8 @@
     },
     {
       "label": "pydantic_settings",
-      "community": 36,
-      "community_name": "Base",
+      "community": 3,
+      "community_name": "settings.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "pydantic_settings",
@@ -5507,8 +5518,8 @@
     },
     {
       "label": "secrets",
-      "community": 36,
-      "community_name": "Base",
+      "community": 3,
+      "community_name": "settings.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "secrets",
@@ -13685,7 +13696,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/projects/ProjectTable.tsx",
-      "source_location": "L31",
+      "source_location": "L37",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_components_modules_projects_projecttable",
+      "target": "frontend_src_components_modules_projects_projecttable_getprioritybadgestyle",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/modules/projects/ProjectTable.tsx",
+      "source_location": "L66",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_projects_projecttable",
@@ -13696,7 +13718,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/projects/ProjectTable.tsx",
-      "source_location": "L19",
+      "source_location": "L22",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_projects_projecttable",
@@ -13707,7 +13729,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/projects/ProjectTable.tsx",
-      "source_location": "L27",
+      "source_location": "L33",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_projects_projecttable",
@@ -13718,7 +13740,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/projects/ProjectTable.tsx",
-      "source_location": "L26",
+      "source_location": "L32",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_projects_projecttable",
@@ -13750,15 +13772,75 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/modules/projects/ProjectTable.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_components_modules_projects_projecttable",
+      "target": "frontend_src_types_project_taskdata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/modules/projects/ProjectTable.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_components_modules_projects_projecttable",
+      "target": "frontend_src_types_project_taskstatus",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "references",
       "context": "field",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/projects/ProjectTable.tsx",
-      "source_location": "L20",
+      "source_location": "L23",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_projects_projecttable_projecttableprops",
       "target": "frontend_src_types_project_projectdata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/modules/projects/ProjectTable.tsx",
+      "source_location": "L27",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_components_modules_projects_projecttable_projecttableprops",
+      "target": "frontend_src_types_project_taskdata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/modules/projects/ProjectTable.tsx",
+      "source_location": "L29",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_components_modules_projects_projecttable_projecttableprops",
+      "target": "frontend_src_types_project_taskstatus",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/modules/projects/ProjectTable.tsx",
+      "source_location": "L648",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_components_modules_projects_projecttable_projecttable",
+      "target": "frontend_src_components_modules_projects_projecttable_getprioritybadgestyle",
       "confidence_score": 1.0
     },
     {
@@ -15317,5 +15399,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "6544bff2554f12205a4006a12e33d14ee2512f50"
+  "built_at_commit": "63cef05940524b7aeda7a9864308c731ceb7ee8f"
 }

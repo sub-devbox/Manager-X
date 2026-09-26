@@ -10,7 +10,7 @@
 Manager X is an integrated, local-first enterprise and life resource planning application built for independent professionals, consultants, and founders.
 
 It combines 7 pillars into a cohesive platform:
-1. **Project Manager**: Clients, milestones, tasks, boards.
+1. **Project Manager**: Clients, milestones, deliverables, nested tasks.
 2. **Time Tracker**: Real-time billable tracking, project-linked logs, unbilled hour sync.
 3. **Invoice Generator**: Multi-currency, GST/tax-compliant PDF generation, payment recording.
 4. **Finance Manager**: Double-entry/multi-account cashflow, expense categories, P&L.
@@ -90,12 +90,12 @@ It combines 7 pillars into a cohesive platform:
     - [x] REST API endpoints (`GET /clients`, `POST /clients`, `GET /clients/{id}`, `PUT /clients/{id}`, `PATCH /clients/{id}/toggle-status`, `DELETE /clients/{id}` with referential deletion protection).
     - [x] 100% passing automated test suite (`backend/tests/test_clients_api.py` & `backend/tests/test_settings_api.py`).
     - [x] Frontend Client Directory (`/clients`), search & status filters, and ClientModal with dynamic combobox/datalist for country selection without hardcoding.
-  - [x] Project CRUD & Kanban Board:
+  - [x] Project & Task Management (Tabular & Nested):
     - [x] Database models (`Project` with CUID `prj_`, `Task` with CUID `tsk_`) with foreign keys and cascade protections.
     - [x] Pydantic schemas (`ProjectCreate`, `ProjectUpdate`, `ProjectResponse`, `TaskCreate`, `TaskUpdate`, `TaskStatusUpdate`, `TaskResponse`).
-    - [x] REST API endpoints (`/projects` and `/tasks`) with automatic hourly rate inheritance, Kanban status transitions, and referential deletion protection.
+    - [x] REST API endpoints (`/projects` and `/tasks`) with automatic hourly rate inheritance, status transitions, and referential deletion protection.
     - [x] 100% passing automated test suite (`backend/tests/test_projects_and_tasks_api.py`).
-    - [x] Frontend UI: `ProjectModal` and `TaskModal` with Rule 5 backdrop protection, full Projects directory view, and 4-column interactive `KanbanBoard`.
+    - [x] Frontend UI: `ProjectModal` and `TaskModal` with backdrop form protection, sleek tabular `ProjectTable` with 50-interval pagination, column sorting, search/client/status filters, and expandable nested tasks with inline status updates. (Kanban board completely removed per user request).
     - [x] Overview Dashboard: Linked `Active Engagements` KPI card to live database project metrics.
   - [ ] Live Timer with WebSocket sync + Manual time logging.
   - [ ] Invoice creation wizard, tax calculation, and PDF generator.

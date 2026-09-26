@@ -301,7 +301,7 @@ export default function TaskModal({
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
             <div>
               <label style={{ display: "block", fontSize: "12px", color: "var(--text-muted)", marginBottom: "4px" }}>
-                Kanban Status
+                Task Status
               </label>
               <select
                 value={formData.status}
