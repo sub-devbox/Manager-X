@@ -1,16 +1,16 @@
 # Graph Report - Manager-X  (2026-09-26)
 
 ## Corpus Check
-- 86 files · ~50,121 words
+- 86 files · ~50,332 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 546 nodes · 979 edges · 38 communities (30 shown, 8 thin omitted)
+- 546 nodes · 984 edges · 38 communities (30 shown, 8 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 16 edges (avg confidence: 0.57)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `20ff61f7`
+- Built from commit: `8e7d707c`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -59,8 +59,8 @@
 3. `login()` - 16 edges
 4. `compilerOptions` - 16 edges
 5. `Currency` - 14 edges
-6. `get_current_user()` - 13 edges
-7. `TaskData` - 13 edges
+6. `TaskData` - 14 edges
+7. `get_current_user()` - 13 edges
 8. `register_first_user()` - 12 edges
 9. `logout()` - 12 edges
 10. `AppShell()` - 11 edges
@@ -124,7 +124,7 @@ Nodes (47): create_project(), delete_project(), _format_project_response(), get_
 
 ### Community 10 - "AppShell.tsx"
 Cohesion: 0.06
-Nodes (27): frontend_src_app_globals, metadata, OverviewPage(), AppShell(), AppShellProps, GlobalTimerBar(), TimerState, Header() (+19 more)
+Nodes (26): frontend_src_app_globals, metadata, OverviewPage(), AppShell(), AppShellProps, GlobalTimerBar(), Header(), HeaderProps (+18 more)
 
 ### Community 11 - "Ponytail"
 Cohesion: 0.22
@@ -187,8 +187,8 @@ Cohesion: 0.17
 Nodes (22): create_client(), delete_client(), get_client(), list_clients(), list_clients_summary(), AsyncSession, delete, get (+14 more)
 
 ### Community 35 - "project.ts"
-Cohesion: 0.09
-Nodes (36): PeriodFilter, ClientOption, ProjectModal(), ProjectModalProps, ProjectTable(), ProjectTableProps, SortDirection, SortField (+28 more)
+Cohesion: 0.08
+Nodes (37): PeriodFilter, TimerState, ClientOption, ProjectModal(), ProjectModalProps, ProjectTable(), ProjectTableProps, SortDirection (+29 more)
 
 ### Community 36 - "time_entries.py"
 Cohesion: 0.19

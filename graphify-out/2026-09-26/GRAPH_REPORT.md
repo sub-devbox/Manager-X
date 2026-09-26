@@ -1,7 +1,7 @@
 # Graph Report - Manager-X  (2026-09-26)
 
 ## Corpus Check
-- 86 files · ~49,782 words
+- 86 files · ~50,121 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `21d6656a`
+- Built from commit: `20ff61f7`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 

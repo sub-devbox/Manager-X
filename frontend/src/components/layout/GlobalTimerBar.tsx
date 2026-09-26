@@ -2,6 +2,9 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { Play, Pause, Square, Clock, ChevronDown, ChevronUp } from "lucide-react";
+import { ProjectData, TaskData } from "@/types/project";
+import StartTimerModal from "@/components/modules/time/StartTimerModal";
+import { api } from "@/lib/api-client";
 
 interface TimerState {
   isRunning: boolean;
@@ -36,6 +39,9 @@ export default function GlobalTimerBar() {
 
   const [minimized, setMinimized] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [projects, setProjects] = useState<ProjectData[]>([]);
+  const [tasks, setTasks] = useState<TaskData[]>([]);
   const timerStateRef = useRef<TimerState>(timerState);
 
   useEffect(() => {
@@ -105,17 +111,61 @@ export default function GlobalTimerBar() {
     return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
   };
 
-  const toggleRun = () => {
-    setTimerState((prev) => {
-      const willRun = !prev.isRunning;
-      const next = {
-        ...prev,
-        isRunning: willRun,
-        startTime: willRun && !prev.startTime ? new Date().toISOString() : prev.startTime,
-      };
+  const openStartModal = async () => {
+    setIsModalOpen(true);
+    try {
+      const [projectData, taskData] = await Promise.all([
+        api.get<ProjectData[]>("/projects"),
+        api.get<TaskData[]>("/tasks"),
+      ]);
+      setProjects(Array.isArray(projectData) ? projectData : []);
+      setTasks(Array.isArray(taskData) ? taskData : []);
+    } catch (err) {
+      console.error("Failed to load projects/tasks for timer modal:", err);
+    }
+  };
 
-      return next;
+  const handleStartFromModal = (task: TaskData, note?: string) => {
+    const proj = projects.find((p) => p.id === task.project_id);
+    const projName = proj?.name || task.project_name || "Active Project";
+
+    setTimerState({
+      isRunning: true,
+      seconds: 0,
+      taskId: task.id,
+      taskTitle: task.title,
+      projectId: task.project_id || null,
+      projectTitle: projName,
+      startTime: new Date().toISOString(),
+      description: note || "",
     });
+
+    if (task.status === "backlog") {
+      api.patch(`/tasks/${task.id}/status`, { status: "in_progress" }).catch(() => {});
+    }
+
+    setIsModalOpen(false);
+  };
+
+  const handlePlayClick = () => {
+    if (timerState.isRunning) {
+      // Pause running timer
+      setTimerState((prev) => ({
+        ...prev,
+        isRunning: false,
+      }));
+    } else {
+      // If task already selected and has seconds, resume; otherwise open selection modal
+      if (timerState.taskId && timerState.seconds > 0) {
+        setTimerState((prev) => ({
+          ...prev,
+          isRunning: true,
+          startTime: prev.startTime || new Date().toISOString(),
+        }));
+      } else {
+        openStartModal();
+      }
+    }
   };
 
   const stopTimer = async () => {
@@ -123,7 +173,6 @@ export default function GlobalTimerBar() {
     if (current.taskId && current.seconds >= 5) {
       setIsSaving(true);
       try {
-        const { api } = await import("@/lib/api-client");
         const startTime = current.startTime || new Date(Date.now() - current.seconds * 1000).toISOString();
         await api.post("/time-entries", {
           task_id: current.taskId,
@@ -167,90 +216,109 @@ export default function GlobalTimerBar() {
   }, []);
 
   return (
-    <div className="global-timer-bar finance-panel" style={{ zIndex: 60 }}>
-      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        {timerState.isRunning ? (
-          <span className="pulse-indicator" />
-        ) : (
-          <Clock size={15} style={{ color: "var(--text-dim)" }} />
-        )}
+    <>
+      <div className="global-timer-bar finance-panel" style={{ zIndex: 60 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          {timerState.isRunning ? (
+            <span className="pulse-indicator" />
+          ) : (
+            <Clock size={15} style={{ color: "var(--text-dim)" }} />
+          )}
 
-        <span className="timer-digits">{formatTime(timerState.seconds)}</span>
+          <span className="timer-digits">{formatTime(timerState.seconds)}</span>
 
-        {!minimized && (
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              marginLeft: "4px",
-              maxWidth: "140px",
-            }}
-          >
-            <span
+          {!minimized && (
+            <div
+              onClick={!timerState.isRunning && !timerState.taskId ? openStartModal : undefined}
               style={{
-                fontSize: "12px",
-                fontWeight: 500,
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                whiteSpace: "nowrap",
+                display: "flex",
+                flexDirection: "column",
+                marginLeft: "4px",
+                maxWidth: "140px",
+                cursor: !timerState.isRunning && !timerState.taskId ? "pointer" : "default",
               }}
+              title={!timerState.isRunning && !timerState.taskId ? "Click to select a task & start timer" : undefined}
             >
-              {timerState.taskTitle}
-            </span>
-            <span
-              style={{
-                fontSize: "10px",
-                color: "var(--text-dim)",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {timerState.projectTitle}
-            </span>
-          </div>
-        )}
-      </div>
+              <span
+                style={{
+                  fontSize: "12px",
+                  fontWeight: 500,
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {timerState.taskTitle}
+              </span>
+              <span
+                style={{
+                  fontSize: "10px",
+                  color: "var(--text-dim)",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {timerState.projectTitle}
+              </span>
+            </div>
+          )}
+        </div>
 
-      <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-        <button
-          onClick={toggleRun}
-          className="finance-button-secondary"
-          style={{
-            padding: "5px 8px",
-            color: timerState.isRunning ? "var(--accent-amber)" : "var(--accent-emerald)",
-          }}
-          title={timerState.isRunning ? "Pause timer" : "Start timer"}
-        >
-          {timerState.isRunning ? <Pause size={13} /> : <Play size={13} />}
-        </button>
-
-        {timerState.seconds > 0 && (
+        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
           <button
-            onClick={stopTimer}
-            disabled={isSaving}
+            onClick={handlePlayClick}
             className="finance-button-secondary"
             style={{
               padding: "5px 8px",
-              color: "var(--accent-rose)",
-              opacity: isSaving ? 0.6 : 1,
-              cursor: isSaving ? "wait" : "pointer",
+              color: timerState.isRunning ? "var(--accent-amber)" : "var(--accent-emerald)",
             }}
-            title={timerState.taskId ? "Stop & Save time entry to task" : "Stop & Reset timer"}
+            title={
+              timerState.isRunning
+                ? "Pause timer"
+                : timerState.taskId && timerState.seconds > 0
+                ? "Resume timer"
+                : "Start timer"
+            }
           >
-            <Square size={13} />
+            {timerState.isRunning ? <Pause size={13} /> : <Play size={13} />}
           </button>
-        )}
 
-        <button
-          onClick={() => setMinimized(!minimized)}
-          className="finance-button-secondary"
-          style={{ padding: "5px 6px" }}
-          title={minimized ? "Expand" : "Minimize"}
-        >
-          {minimized ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
-        </button>
+          {timerState.seconds > 0 && (
+            <button
+              onClick={stopTimer}
+              disabled={isSaving}
+              className="finance-button-secondary"
+              style={{
+                padding: "5px 8px",
+                color: "var(--accent-rose)",
+                opacity: isSaving ? 0.6 : 1,
+                cursor: isSaving ? "wait" : "pointer",
+              }}
+              title={timerState.taskId ? "Stop & Save time entry to task" : "Stop & Reset timer"}
+            >
+              <Square size={13} />
+            </button>
+          )}
+
+          <button
+            onClick={() => setMinimized(!minimized)}
+            className="finance-button-secondary"
+            style={{ padding: "5px 6px" }}
+            title={minimized ? "Expand" : "Minimize"}
+          >
+            {minimized ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
+          </button>
+        </div>
       </div>
-    </div>
+
+      <StartTimerModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        projects={projects}
+        tasks={tasks}
+        onStart={handleStartFromModal}
+      />
+    </>
   );
 }
