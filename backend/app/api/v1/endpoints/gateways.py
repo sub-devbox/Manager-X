@@ -23,7 +23,10 @@ async def build_gateway_response(gw: PaymentGateway, db: AsyncSession) -> Gatewa
         func.coalesce(func.sum(Invoice.final_amount), 0.0),
         func.coalesce(func.sum(Invoice.received_amount_inr), 0.0),
     ).where(
-        Invoice.payment_gateway == gw.name,
+        or_(
+            Invoice.payment_gateway == gw.name,
+            Invoice.payment_gateway_id == gw.id,
+        ),
         Invoice.status == "paid",
     )
     inv_res = await db.execute(inv_stmt)
@@ -153,7 +156,24 @@ async def update_gateway(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=f"Another Payment Gateway with name '{clean_name}' already exists.",
             )
+        old_name = gw.name
         gw.name = clean_name
+
+        # Cascade rename to all linked invoices so historical records, PDFs, and metrics stay perfectly in sync
+        from sqlalchemy import update
+        await db.execute(
+            update(Invoice)
+            .where(
+                or_(
+                    Invoice.payment_gateway == old_name,
+                    Invoice.payment_gateway_id == gateway_id,
+                )
+            )
+            .values(
+                payment_gateway=clean_name,
+                payment_gateway_id=gateway_id,
+            )
+        )
 
     if payload.currency_code is not None:
         gw.currency_code = payload.currency_code.upper().strip()

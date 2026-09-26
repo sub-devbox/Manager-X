@@ -9,9 +9,9 @@ from sqlalchemy.orm import selectinload
 
 from app.core.database import get_db
 from app.api.v1.endpoints.auth import get_optional_user
-from app.models.user_models import User
 from app.models.invoice_model import Invoice, InvoiceItem
 from app.models.client_model import Client
+from app.models.gateway_model import PaymentGateway
 from app.models.project_models import Project, Task, TimeEntry
 from app.models.settings_models import SystemSetting
 from app.services.invoice_pdf import build_invoice_pdf
@@ -258,13 +258,30 @@ async def create_invoice(
 
     currency = payload.currency_code or client.currency_code or "USD"
 
+    gw_id = payload.payment_gateway_id
+    gw_name = payload.payment_gateway
+    if gw_name or gw_id:
+        gw_check = await db.execute(
+            select(PaymentGateway).where(
+                or_(
+                    PaymentGateway.id == gw_id,
+                    func.lower(PaymentGateway.name) == (gw_name or "").lower(),
+                )
+            )
+        )
+        found_gw = gw_check.scalar_one_or_none()
+        if found_gw:
+            gw_id = found_gw.id
+            gw_name = found_gw.name
+
     invoice = Invoice(
         invoice_number=inv_number,
         client_id=payload.client_id,
         status=payload.status or "draft",
         issue_date=payload.issue_date,
         due_date=payload.due_date,
-        payment_gateway=payload.payment_gateway or "Razorpay",
+        payment_gateway=gw_name,
+        payment_gateway_id=gw_id,
         subtotal=subtotal,
         discount_type=payload.discount_type,
         discount_value=payload.discount_value,
@@ -366,8 +383,28 @@ async def update_invoice(
         invoice.issue_date = payload.issue_date
     if payload.due_date is not None:
         invoice.due_date = payload.due_date
-    if payload.payment_gateway is not None:
-        invoice.payment_gateway = payload.payment_gateway
+    if payload.payment_gateway is not None or payload.payment_gateway_id is not None:
+        gw_name = payload.payment_gateway
+        gw_id = payload.payment_gateway_id
+        if gw_name or gw_id:
+            gw_check = await db.execute(
+                select(PaymentGateway).where(
+                    or_(
+                        PaymentGateway.id == gw_id,
+                        func.lower(PaymentGateway.name) == (gw_name or "").lower(),
+                    )
+                )
+            )
+            found_gw = gw_check.scalar_one_or_none()
+            if found_gw:
+                invoice.payment_gateway = found_gw.name
+                invoice.payment_gateway_id = found_gw.id
+            else:
+                invoice.payment_gateway = gw_name
+                invoice.payment_gateway_id = gw_id
+        else:
+            invoice.payment_gateway = None
+            invoice.payment_gateway_id = None
     if payload.currency_code is not None:
         invoice.currency_code = payload.currency_code
     if payload.gateway_notes is not None:

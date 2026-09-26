@@ -52,6 +52,8 @@ async def lifespan(app: FastAPI):
                     cur.execute("ALTER TABLE invoices ADD COLUMN is_reconciled BOOLEAN DEFAULT 0")
                 if "bank_transaction_id" not in inv_cols:
                     cur.execute("ALTER TABLE invoices ADD COLUMN bank_transaction_id VARCHAR(64)")
+                if "payment_gateway_id" not in inv_cols:
+                    cur.execute("ALTER TABLE invoices ADD COLUMN payment_gateway_id VARCHAR(32) REFERENCES payment_gateways(id) ON DELETE SET NULL")
 
         await conn.run_sync(_migrate)
     yield

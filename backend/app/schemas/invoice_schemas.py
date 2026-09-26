@@ -42,7 +42,8 @@ class InvoiceBase(BaseModel):
     client_id: str
     issue_date: str
     due_date: str
-    payment_gateway: Optional[str] = "Razorpay"
+    payment_gateway: Optional[str] = None
+    payment_gateway_id: Optional[str] = None
     status: str = "draft"
     discount_type: str = "fixed"
     discount_value: float = 0.0
@@ -68,6 +69,7 @@ class InvoiceUpdate(BaseModel):
     issue_date: Optional[str] = None
     due_date: Optional[str] = None
     payment_gateway: Optional[str] = None
+    payment_gateway_id: Optional[str] = None
     subtotal: Optional[float] = None
     discount_type: Optional[str] = None
     discount_value: Optional[float] = None

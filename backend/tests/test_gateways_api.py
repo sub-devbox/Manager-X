@@ -121,6 +121,19 @@ async def test_payment_gateways_lifecycle(client: AsyncClient):
     assert del_blocked.status_code == 409
     assert "cannot be deleted because it is assigned to 1 invoice(s)" in del_blocked.json()["detail"]
 
+    # Test Rename Cascade: Rename gateway from "Custom Corporate SWIFT Wire" -> "Renamed Global Wire"
+    rename_res = await client.put(
+        f"/api/v1/gateways/{gw_id}",
+        json={"name": "Renamed Global Wire"},
+    )
+    assert rename_res.status_code == 200
+    assert rename_res.json()["name"] == "Renamed Global Wire"
+
+    # Verify linked invoice automatically updated its payment_gateway to "Renamed Global Wire"
+    inv_check = await client.get(f"/api/v1/invoices/{inv_id}")
+    assert inv_check.status_code == 200
+    assert inv_check.json()["payment_gateway"] == "Renamed Global Wire"
+
     # Delete invoice first
     await client.delete(f"/api/v1/invoices/{inv_id}")
 

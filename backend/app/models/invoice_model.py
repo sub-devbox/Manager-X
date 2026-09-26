@@ -26,7 +26,12 @@ class Invoice(Base):
     )  # 'draft', 'sent', 'paid', 'overdue', 'void'
     issue_date: Mapped[str] = mapped_column(String(20), nullable=False)
     due_date: Mapped[str] = mapped_column(String(20), nullable=False)
-    payment_gateway: Mapped[str | None] = mapped_column(String(50), nullable=True, default="Razorpay")
+    payment_gateway: Mapped[str | None] = mapped_column(String(100), nullable=True, default=None)
+    payment_gateway_id: Mapped[str | None] = mapped_column(
+        String(32),
+        ForeignKey("payment_gateways.id", ondelete="SET NULL"),
+        nullable=True,
+    )
 
     subtotal: Mapped[float] = mapped_column(Float, default=0.0, nullable=False)
     discount_type: Mapped[str] = mapped_column(String(10), default="fixed", nullable=False)  # 'fixed', 'percentage'
