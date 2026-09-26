@@ -160,8 +160,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/time-tracker/page.tsx": {
-    "mtime": 1790429331.4358125,
-    "ast_hash": "d960914141c7d1cc1f89811293b95d94",
+    "mtime": 1790429844.4707532,
+    "ast_hash": "a9a8fe9770f1dae1a7c0bf35f076c504",
     "semantic_hash": ""
   },
   "frontend/src/app/wealth/page.tsx": {
@@ -415,13 +415,13 @@
     "semantic_hash": ""
   },
   "frontend/src/components/modules/time/ManualTimeModal.tsx": {
-    "mtime": 1790429363.988646,
-    "ast_hash": "d06f470338eb616cc289be5d99fae287",
+    "mtime": 1790429868.093896,
+    "ast_hash": "e15b16bccc832eee4ad2777f130603cb",
     "semantic_hash": ""
   },
   "frontend/src/components/modules/time/TimeEntryTable.tsx": {
-    "mtime": 1790425468.5563374,
-    "ast_hash": "ce9c28562fd2f824723cf86e3b4c0caa",
+    "mtime": 1790429816.1389973,
+    "ast_hash": "49a0fe05d5d5cca89a964803aa5687f1",
     "semantic_hash": ""
   },
   "frontend/src/types/time.ts": {

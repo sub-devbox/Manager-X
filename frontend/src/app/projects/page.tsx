@@ -1,17 +1,18 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, useMemo } from "react";
-import Link from "next/link";
 import AppShell from "@/components/layout/AppShell";
 import ProjectModal from "@/components/modules/projects/ProjectModal";
 import TaskModal from "@/components/modules/projects/TaskModal";
 import ProjectTable from "@/components/modules/projects/ProjectTable";
+import ProjectTasksModal from "@/components/modules/projects/ProjectTasksModal";
 import SearchableClientSelect from "@/components/common/SearchableClientSelect";
 import { api } from "@/lib/api-client";
 import { ProjectData, TaskData, TaskStatus } from "@/types/project";
+import { TimeEntryData } from "@/types/time";
 import {
   FolderKanban,
-  CheckSquare,
+  Clock,
   Plus,
   Search,
   AlertCircle,
@@ -21,19 +22,26 @@ import {
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<ProjectData[]>([]);
   const [tasks, setTasks] = useState<TaskData[]>([]);
+  const [entries, setEntries] = useState<TimeEntryData[]>([]);
   const [clients, setClients] = useState<{ id: string; company_name: string }[]>([]);
   const [loading, setLoading] = useState(true);
   const [actionMsg, setActionMsg] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
-  // Filters
+  // Period & Filter State (Default: this_month, matching tasks and time-tracker)
+  const [periodFilter, setPeriodFilter] = useState<"today" | "this_week" | "this_month" | "custom">("this_month");
+  const [customStartDate, setCustomStartDate] = useState("");
+  const [customEndDate, setCustomEndDate] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [clientFilter, setClientFilter] = useState("all");
-  const [statusFilter, setStatusFilter] = useState("all");
 
   // Modals state
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [editingProject, setEditingProject] = useState<ProjectData | null>(null);
 
+  // Project Tasks Modal (Clicking on project row)
+  const [selectedProjectForTasks, setSelectedProjectForTasks] = useState<ProjectData | null>(null);
+
+  // Task Edit Modal
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   const [editingTask, setEditingTask] = useState<TaskData | null>(null);
   const [taskDefaultProjectId, setTaskDefaultProjectId] = useState<string | undefined>();
@@ -42,10 +50,11 @@ export default function ProjectsPage() {
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      const [projData, taskData, clientData] = await Promise.all([
+      const [projData, taskData, clientData, timeData] = await Promise.all([
         api.get<ProjectData[]>("/projects"),
         api.get<TaskData[]>("/tasks"),
         api.get<{ id: string; company_name: string }[]>("/clients"),
+        api.get<TimeEntryData[]>("/time-entries"),
       ]);
 
       const rawProjects = Array.isArray(projData) ? projData : [];
@@ -56,6 +65,7 @@ export default function ProjectsPage() {
       setProjects(processedProjects);
       setTasks(Array.isArray(taskData) ? taskData : []);
       setClients(Array.isArray(clientData) ? clientData : []);
+      setEntries(Array.isArray(timeData) ? timeData : []);
     } catch (err: any) {
       setActionMsg({ type: "error", text: err.message || "Failed to load project records." });
     } finally {
@@ -65,7 +75,35 @@ export default function ProjectsPage() {
 
   useEffect(() => {
     fetchData();
+
+    const handleTimerSaved = () => {
+      fetchData();
+    };
+    window.addEventListener("mx_timer_saved", handleTimerSaved);
+    return () => window.removeEventListener("mx_timer_saved", handleTimerSaved);
   }, [fetchData]);
+
+  // Total time spent per project ID
+  const timeSpentByProject = useMemo(() => {
+    const map: Record<string, number> = {};
+    for (const entry of entries) {
+      if (entry.project_id) {
+        map[entry.project_id] = (map[entry.project_id] || 0) + (entry.duration_seconds || 0);
+      }
+    }
+    return map;
+  }, [entries]);
+
+  // Total time spent per task ID
+  const timeTrackedByTask = useMemo(() => {
+    const map: Record<string, number> = {};
+    for (const entry of entries) {
+      if (entry.task_id) {
+        map[entry.task_id] = (map[entry.task_id] || 0) + (entry.duration_seconds || 0);
+      }
+    }
+    return map;
+  }, [entries]);
 
   // Project Actions
   const handleOpenNewProject = () => {
@@ -119,7 +157,7 @@ export default function ProjectsPage() {
 
   const handleTaskStatusChange = async (taskId: string, newStatus: TaskStatus) => {
     try {
-      // Optimistic update in both tasks state and projects.tasks nested state
+      // Optimistic update in both tasks state and projects nested state
       setTasks((prev) =>
         prev.map((t) => (t.id === taskId ? { ...t, status: newStatus } : t))
       );
@@ -150,9 +188,79 @@ export default function ProjectsPage() {
     }
   };
 
-  // Filtered Projects for Projects Table
+  // Filtered Projects based on period, client, and search
   const filteredProjects = useMemo(() => {
+    const now = new Date();
+    const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+
+    // Monday of this week in local time
+    const dayOfWeek = now.getDay() || 7;
+    const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - (dayOfWeek - 1));
+    const sunday = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + 6, 23, 59, 59, 999);
+
+    // First and last day of this month in local time
+    const firstOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const lastOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
+
+    // Set of project IDs with time entries inside the period
+    const projectIdsWithTimeInPeriod = new Set<string>();
+    for (const entry of entries) {
+      if (!entry.project_id) continue;
+      const entryDateStr = entry.start_time ? entry.start_time.slice(0, 10) : "";
+      const entryDate = entry.start_time ? new Date(entry.start_time) : null;
+      let inPeriod = false;
+
+      if (periodFilter === "today") {
+        inPeriod = entryDateStr === todayStr;
+      } else if (periodFilter === "this_week") {
+        inPeriod = entryDate ? entryDate >= monday && entryDate <= sunday : false;
+      } else if (periodFilter === "this_month") {
+        inPeriod = entryDate ? entryDate >= firstOfMonth && entryDate <= lastOfMonth : false;
+      } else if (periodFilter === "custom") {
+        const afterStart = !customStartDate || entryDateStr >= customStartDate;
+        const beforeEnd = !customEndDate || entryDateStr <= customEndDate;
+        inPeriod = afterStart && beforeEnd;
+      }
+
+      if (inPeriod) {
+        projectIdsWithTimeInPeriod.add(entry.project_id);
+      }
+    }
+
     return projects.filter((p) => {
+      // 1. Period View Filter
+      const hasTimeInPeriod = projectIdsWithTimeInPeriod.has(p.id);
+      let matchesPeriod = hasTimeInPeriod;
+
+      if (!matchesPeriod) {
+        const projDateStr = p.end_date ? p.end_date.slice(0, 10) : (p.updated_at || p.created_at || "").slice(0, 10);
+        const projDate = projDateStr ? new Date(projDateStr) : null;
+
+        if (periodFilter === "today") {
+          matchesPeriod = projDateStr === todayStr || (p.status === "active" && (p.updated_at || "").slice(0, 10) === todayStr);
+        } else if (periodFilter === "this_week") {
+          if (!projDate) matchesPeriod = true;
+          else if (p.end_date) matchesPeriod = projDate >= monday && projDate <= sunday;
+          else matchesPeriod = projDate >= monday;
+        } else if (periodFilter === "this_month") {
+          // In "this month", active projects or projects with activity/due this month are visible
+          if (!projDate) matchesPeriod = true;
+          else if (p.status === "active") matchesPeriod = true;
+          else if (p.end_date) matchesPeriod = projDate >= firstOfMonth && projDate <= lastOfMonth;
+          else matchesPeriod = projDate >= firstOfMonth;
+        } else if (periodFilter === "custom") {
+          if (!projDateStr) matchesPeriod = true;
+          else {
+            const afterStart = !customStartDate || projDateStr >= customStartDate;
+            const beforeEnd = !customEndDate || projDateStr <= customEndDate;
+            matchesPeriod = afterStart && beforeEnd;
+          }
+        }
+      }
+
+      if (!matchesPeriod) return false;
+
+      // 2. Search query filter
       const q = searchQuery.trim().toLowerCase();
       const matchesSearch =
         !q ||
@@ -160,18 +268,19 @@ export default function ProjectsPage() {
         (p.description && p.description.toLowerCase().includes(q)) ||
         (p.client?.company_name && p.client.company_name.toLowerCase().includes(q));
 
+      if (!matchesSearch) return false;
+
+      // 3. Client filter
       const matchesClient = clientFilter === "all" || p.client_id === clientFilter;
-      const matchesStatus = statusFilter === "all" || p.status === statusFilter;
 
-      return matchesSearch && matchesClient && matchesStatus;
+      return matchesClient;
     });
-  }, [projects, searchQuery, clientFilter, statusFilter]);
+  }, [projects, entries, periodFilter, customStartDate, customEndDate, searchQuery, clientFilter]);
 
-  // Aggregate stats
-  const totalProjects = projects.length;
-  const activeProjects = projects.filter((p) => p.status === "active").length;
-  const completedProjects = projects.filter((p) => p.status === "completed").length;
-  const totalTasks = tasks.length;
+  // Aggregate stats (KPIs)
+  const totalFilteredProjects = filteredProjects.length;
+  const activeProjects = filteredProjects.filter((p) => p.status === "active").length;
+  const completedProjects = filteredProjects.filter((p) => p.status === "completed").length;
 
   return (
     <AppShell title="Projects">
@@ -207,20 +316,75 @@ export default function ProjectsPage() {
           </div>
         )}
 
-        {/* Header Bar */}
+        {/* Top Control Panel (matching tasks sheet presentation) */}
         <div
           className="finance-panel"
           style={{
             padding: "16px 20px",
             display: "flex",
+            flexWrap: "wrap",
             justifyContent: "space-between",
             alignItems: "center",
-            flexWrap: "wrap",
-            gap: "14px",
+            gap: "16px",
           }}
         >
-          {/* Header Title with Badge */}
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <span
+              style={{
+                fontSize: "11px",
+                fontWeight: 600,
+                color: "var(--text-muted)",
+                textTransform: "uppercase",
+                letterSpacing: "0.5px",
+              }}
+            >
+              Engagements & Projects
+            </span>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "2px" }}>
+              <span style={{ fontSize: "14px", fontWeight: 600, color: "var(--text-main)" }}>
+                Projects Sheet
+              </span>
+              <span
+                className="mono"
+                style={{
+                  fontSize: "11px",
+                  padding: "1px 7px",
+                  borderRadius: "10px",
+                  background: "var(--bg-surface-subtle)",
+                  border: "1px solid var(--border-subtle)",
+                  color: "var(--text-dim)",
+                }}
+              >
+                {projects.length} total
+              </span>
+            </div>
+          </div>
+
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <button
+              type="button"
+              onClick={handleOpenNewProject}
+              className="finance-button-primary"
+              style={{ height: "36px", padding: "0 16px", gap: "8px", fontWeight: 600, width: "auto" }}
+            >
+              <Plus size={13} />
+              <span>New Project</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Stats KPI Summary Bar (matching tasks and time-tracker presentation) */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+            gap: "12px",
+          }}
+        >
+          <div
+            className="finance-panel"
+            style={{ padding: "14px 18px", display: "flex", alignItems: "center", gap: "12px" }}
+          >
             <div
               style={{
                 width: "36px",
@@ -236,172 +400,185 @@ export default function ProjectsPage() {
               <FolderKanban size={18} />
             </div>
             <div>
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                <h2 style={{ fontSize: "16px", fontWeight: 600, color: "var(--text-main)" }}>
-                  Projects Sheet
-                </h2>
-                <span
-                  className="mono"
-                  style={{
-                    fontSize: "11px",
-                    padding: "2px 8px",
-                    borderRadius: "10px",
-                    background: "var(--bg-surface-subtle)",
-                    border: "1px solid var(--border-subtle)",
-                    color: "var(--text-dim)",
-                  }}
-                >
-                  {totalProjects} total
-                </span>
+              <div style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 500 }}>
+                Total Projects
               </div>
-              <p style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "2px" }}>
-                Manage client engagements, milestones, and deliverable pipelines
-              </p>
+              <div
+                className="mono"
+                style={{ fontSize: "18px", fontWeight: 700, color: "var(--text-main)" }}
+              >
+                {totalFilteredProjects}
+              </div>
             </div>
           </div>
 
-          {/* Action Buttons */}
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <Link
-              href="/tasks"
-              className="finance-button-secondary"
-              style={{ textDecoration: "none", gap: "6px", fontSize: "12.5px" }}
-            >
-              <CheckSquare size={14} style={{ color: "var(--accent-emerald)" }} />
-              <span>Tasks Sheet</span>
-            </Link>
-
-            <button
-              type="button"
-              onClick={handleOpenNewProject}
-              className="finance-button-primary"
-              style={{ width: "auto" }}
-            >
-              <Plus size={14} />
-              <span>New Project</span>
-            </button>
-          </div>
-        </div>
-
-        {/* KPI Counter Cards */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-            gap: "12px",
-          }}
-        >
-          <div className="finance-panel" style={{ padding: "16px", background: "var(--bg-surface)" }}>
-            <div style={{ fontSize: "11px", color: "var(--text-dim)", textTransform: "uppercase" }}>
-              Total Projects
-            </div>
-            <div style={{ fontSize: "22px", fontWeight: 600, marginTop: "6px" }} className="mono">
-              {totalProjects}
-            </div>
-            <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px" }}>
-              Across all clients
-            </div>
-          </div>
-
-          <div className="finance-panel" style={{ padding: "16px", background: "var(--bg-surface)" }}>
-            <div style={{ fontSize: "11px", color: "var(--text-dim)", textTransform: "uppercase" }}>
-              Active Projects
-            </div>
+          <div
+            className="finance-panel"
+            style={{ padding: "14px 18px", display: "flex", alignItems: "center", gap: "12px" }}
+          >
             <div
-              style={{ fontSize: "22px", fontWeight: 600, marginTop: "6px", color: "var(--accent-emerald)" }}
-              className="mono"
+              style={{
+                width: "36px",
+                height: "36px",
+                borderRadius: "var(--radius-xs)",
+                background: "rgba(245, 158, 11, 0.12)",
+                color: "var(--accent-amber)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
             >
-              {activeProjects}
+              <Clock size={18} />
             </div>
-            <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px" }}>
-              In active execution
+            <div>
+              <div style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 500 }}>
+                Active & In Progress
+              </div>
+              <div
+                className="mono"
+                style={{ fontSize: "18px", fontWeight: 700, color: "var(--accent-amber)" }}
+              >
+                {activeProjects}
+              </div>
             </div>
           </div>
 
-          <div className="finance-panel" style={{ padding: "16px", background: "var(--bg-surface)" }}>
-            <div style={{ fontSize: "11px", color: "var(--text-dim)", textTransform: "uppercase" }}>
-              Completed Projects
-            </div>
+          <div
+            className="finance-panel"
+            style={{ padding: "14px 18px", display: "flex", alignItems: "center", gap: "12px" }}
+          >
             <div
-              style={{ fontSize: "22px", fontWeight: 600, marginTop: "6px", color: "var(--accent-blue)" }}
-              className="mono"
+              style={{
+                width: "36px",
+                height: "36px",
+                borderRadius: "var(--radius-xs)",
+                background: "rgba(16, 185, 129, 0.12)",
+                color: "var(--accent-emerald)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
             >
-              {completedProjects}
+              <CheckCircle2 size={18} />
             </div>
-            <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px" }}>
-              100% deliverables done
-            </div>
-          </div>
-
-          <div className="finance-panel" style={{ padding: "16px", background: "var(--bg-surface)" }}>
-            <div style={{ fontSize: "11px", color: "var(--text-dim)", textTransform: "uppercase" }}>
-              Total Deliverables
-            </div>
-            <div style={{ fontSize: "22px", fontWeight: 600, marginTop: "6px" }} className="mono">
-              {totalTasks}
-            </div>
-            <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px" }}>
-              Tracked across projects
+            <div>
+              <div style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 500 }}>
+                Completed Projects
+              </div>
+              <div
+                className="mono"
+                style={{ fontSize: "18px", fontWeight: 700, color: "var(--accent-emerald)" }}
+              >
+                {completedProjects}
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Filter Controls Bar */}
-        {/* Filter Controls Bar: Status View (Left) | Client Filter (Middle) | Search Bar (Right) */}
+        {/* Period Filter Tabs & Search Controls (matching tasks and time-tracker presentation) */}
         <div
           style={{
             display: "flex",
-            gap: "12px",
+            justifyContent: "space-between",
             alignItems: "center",
             flexWrap: "wrap",
-            justifyContent: "space-between",
+            gap: "12px",
           }}
         >
-          {/* LEFT: Status Filter */}
-          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <select
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-              className="finance-input"
-              style={{ width: "150px", height: "36px", fontSize: "12.5px" }}
+          {/* Quick Period Selector (Left) */}
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                background: "var(--bg-surface-subtle)",
+                padding: "3px",
+                borderRadius: "var(--radius-sm)",
+                border: "1px solid var(--border-subtle)",
+              }}
             >
-              <option value="all">All Statuses</option>
-              <option value="active">Active</option>
-              <option value="in_progress">In Progress</option>
-              <option value="on_hold">On Hold</option>
-              <option value="completed">Completed</option>
-              <option value="archived">Archived</option>
-            </select>
+              {(
+                [
+                  { id: "today", label: "Today" },
+                  { id: "this_week", label: "This week" },
+                  { id: "this_month", label: "This month" },
+                  { id: "custom", label: "Custom" },
+                ] as const
+              ).map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setPeriodFilter(tab.id)}
+                  style={{
+                    padding: "5px 12px",
+                    fontSize: "12px",
+                    fontWeight: periodFilter === tab.id ? 600 : 400,
+                    color: periodFilter === tab.id ? "var(--text-main)" : "var(--text-dim)",
+                    background: periodFilter === tab.id ? "var(--bg-surface)" : "transparent",
+                    border:
+                      periodFilter === tab.id
+                        ? "1px solid var(--border-subtle)"
+                        : "1px solid transparent",
+                    borderRadius: "var(--radius-xs)",
+                    cursor: "pointer",
+                    transition: "all 0.15s ease",
+                  }}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Custom Date Range Picker */}
+            {periodFilter === "custom" && (
+              <div
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  background: "var(--bg-surface-subtle)",
+                  padding: "3px 8px",
+                  borderRadius: "var(--radius-sm)",
+                  border: "1px solid var(--border-subtle)",
+                  fontSize: "12px",
+                }}
+              >
+                <input
+                  type="date"
+                  value={customStartDate}
+                  onChange={(e) => setCustomStartDate(e.target.value)}
+                  className="finance-input"
+                  style={{ height: "26px", fontSize: "11.5px", padding: "0 6px" }}
+                  title="Start Date"
+                />
+                <span style={{ color: "var(--text-dim)", fontSize: "11px" }}>to</span>
+                <input
+                  type="date"
+                  value={customEndDate}
+                  onChange={(e) => setCustomEndDate(e.target.value)}
+                  className="finance-input"
+                  style={{ height: "26px", fontSize: "11.5px", padding: "0 6px" }}
+                  title="End Date"
+                />
+              </div>
+            )}
           </div>
 
-          {/* MIDDLE: Searchable Client Filter Dropdown */}
-          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          {/* Search & Client Filter (Right) */}
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
             <SearchableClientSelect
               clients={clients}
               value={clientFilter}
               onChange={setClientFilter}
               placeholder="All Clients"
-              width="210px"
+              width="180px"
             />
-          </div>
 
-          {/* RIGHT: Search Box + Reset */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-              flex: "1 1 240px",
-              maxWidth: "340px",
-              marginLeft: "auto",
-            }}
-          >
-            <div style={{ position: "relative", width: "100%" }}>
+            <div style={{ position: "relative", width: "240px" }}>
               <Search
                 size={14}
                 style={{
                   position: "absolute",
-                  left: "12px",
+                  left: "10px",
                   top: "50%",
                   transform: "translateY(-50%)",
                   color: "var(--text-dim)",
@@ -409,25 +586,27 @@ export default function ProjectsPage() {
               />
               <input
                 type="text"
-                placeholder="Search projects by name, description, client..."
+                placeholder="Search projects..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="finance-input"
-                style={{ paddingLeft: "34px", width: "100%", height: "36px", fontSize: "12.5px" }}
+                style={{ paddingLeft: "30px", width: "100%", height: "32px", fontSize: "12px" }}
               />
             </div>
 
-            {(searchQuery || clientFilter !== "all" || statusFilter !== "all") && (
+            {(searchQuery || clientFilter !== "all" || periodFilter !== "this_month") && (
               <button
                 type="button"
                 onClick={() => {
                   setSearchQuery("");
                   setClientFilter("all");
-                  setStatusFilter("all");
+                  setPeriodFilter("this_month");
+                  setCustomStartDate("");
+                  setCustomEndDate("");
                 }}
                 className="finance-button-secondary"
-                style={{ padding: "8px 12px", fontSize: "12px", whiteSpace: "nowrap" }}
-                title="Reset search and filters"
+                style={{ padding: "0 10px", height: "32px", fontSize: "12px", whiteSpace: "nowrap" }}
+                title="Reset filters"
               >
                 Reset
               </button>
@@ -438,15 +617,13 @@ export default function ProjectsPage() {
         {/* View Content: Tabular Projects Sheet */}
         <ProjectTable
           projects={filteredProjects}
+          timeSpentByProject={timeSpentByProject}
+          onSelectProject={(proj) => setSelectedProjectForTasks(proj)}
           onEditProject={handleOpenEditProject}
           onDeleteProject={handleDeleteProject}
-          onAddTask={(projId) => handleOpenNewTask(projId)}
-          onEditTask={handleOpenEditTask}
-          onDeleteTask={handleDeleteTask}
-          onTaskStatusChange={handleTaskStatusChange}
         />
 
-        {/* Project Modal */}
+        {/* Project Edit Modal */}
         <ProjectModal
           isOpen={isProjectModalOpen}
           onClose={() => setIsProjectModalOpen(false)}
@@ -454,7 +631,20 @@ export default function ProjectsPage() {
           initialData={editingProject}
         />
 
-        {/* Task Modal */}
+        {/* Clicking on Project Row Opens All Tasks in a Popup Modal */}
+        <ProjectTasksModal
+          isOpen={Boolean(selectedProjectForTasks)}
+          onClose={() => setSelectedProjectForTasks(null)}
+          project={selectedProjectForTasks}
+          tasks={tasks}
+          timeTrackedMap={timeTrackedByTask}
+          onAddTask={(projId) => handleOpenNewTask(projId)}
+          onEditTask={handleOpenEditTask}
+          onTaskStatusChange={handleTaskStatusChange}
+          onTimerNotice={setActionMsg}
+        />
+
+        {/* Task Modal (Used for adding new tasks or editing tasks from the popup) */}
         <TaskModal
           isOpen={isTaskModalOpen}
           onClose={() => setIsTaskModalOpen(false)}
