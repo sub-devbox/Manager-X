@@ -24,9 +24,17 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Initialize SQLite database schema
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+
+        def _migrate(sync_conn):
+            cur = sync_conn.connection.cursor()
+            cur.execute("PRAGMA table_info(tasks)")
+            cols = [r[1] for r in cur.fetchall()]
+            if cols and "checklist" not in cols:
+                cur.execute("ALTER TABLE tasks ADD COLUMN checklist JSON DEFAULT '[]'")
+
+        await conn.run_sync(_migrate)
     yield
     # Shutdown connection pool
     await engine.dispose()

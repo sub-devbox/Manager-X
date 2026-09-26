@@ -1,6 +1,6 @@
 from datetime import datetime
-from typing import Literal
-from pydantic import BaseModel, Field, ConfigDict
+from typing import Literal, List
+from pydantic import BaseModel, Field, ConfigDict, field_validator
 
 # ==========================================
 # Task Schemas
@@ -9,6 +9,11 @@ from pydantic import BaseModel, Field, ConfigDict
 TaskStatus = Literal["backlog", "in_progress", "review", "done"]
 TaskPriority = Literal["low", "medium", "high", "urgent"]
 
+class ChecklistItem(BaseModel):
+    id: str
+    text: str
+    completed: bool = False
+
 class TaskBase(BaseModel):
     title: str = Field(..., min_length=1, max_length=255)
     description: str | None = None
@@ -16,6 +21,14 @@ class TaskBase(BaseModel):
     priority: TaskPriority = "medium"
     estimated_hours: float = Field(default=0.0, ge=0.0)
     due_date: str | None = None
+    checklist: List[ChecklistItem] = Field(default_factory=list)
+
+    @field_validator("checklist", mode="before")
+    @classmethod
+    def ensure_checklist(cls, v):
+        if v is None:
+            return []
+        return v
 
 class TaskCreate(TaskBase):
     project_id: str = Field(..., min_length=1, max_length=32)
@@ -27,6 +40,7 @@ class TaskUpdate(BaseModel):
     priority: TaskPriority | None = None
     estimated_hours: float | None = Field(default=None, ge=0.0)
     due_date: str | None = None
+    checklist: List[ChecklistItem] | None = None
 
 class TaskStatusUpdate(BaseModel):
     status: TaskStatus

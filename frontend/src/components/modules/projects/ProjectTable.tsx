@@ -34,35 +34,6 @@ type SortDirection = "asc" | "desc";
 
 const PAGE_SIZE = 50;
 
-const getPriorityBadgeStyle = (priority: string) => {
-  switch (priority) {
-    case "urgent":
-      return {
-        bg: "rgba(244, 63, 94, 0.12)",
-        text: "var(--accent-rose)",
-        border: "rgba(244, 63, 94, 0.3)",
-      };
-    case "high":
-      return {
-        bg: "rgba(245, 158, 11, 0.12)",
-        text: "var(--accent-amber)",
-        border: "rgba(245, 158, 11, 0.3)",
-      };
-    case "medium":
-      return {
-        bg: "rgba(59, 130, 246, 0.12)",
-        text: "var(--accent-blue)",
-        border: "rgba(59, 130, 246, 0.3)",
-      };
-    default:
-      return {
-        bg: "rgba(148, 163, 184, 0.1)",
-        text: "var(--text-muted)",
-        border: "var(--border-subtle)",
-      };
-  }
-};
-
 export default function ProjectTable({
   projects,
   onEditProject,
@@ -629,14 +600,11 @@ export default function ProjectTable({
                                     <th style={{ padding: "4px 10px", fontWeight: 600, color: "var(--text-dim)", width: "130px" }}>
                                       Status
                                     </th>
-                                    <th style={{ padding: "4px 10px", fontWeight: 600, color: "var(--text-dim)", width: "90px" }}>
-                                      Priority
+                                    <th style={{ padding: "4px 10px", fontWeight: 600, color: "var(--text-dim)", width: "160px" }}>
+                                      Checklist
                                     </th>
                                     <th style={{ padding: "4px 10px", fontWeight: 600, color: "var(--text-dim)", width: "90px" }}>
                                       Est. Hours
-                                    </th>
-                                    <th style={{ padding: "4px 10px", fontWeight: 600, color: "var(--text-dim)", width: "100px" }}>
-                                      Due Date
                                     </th>
                                     <th style={{ padding: "4px 10px", fontWeight: 600, color: "var(--text-dim)", textAlign: "right", width: "80px" }}>
                                       Actions
@@ -645,7 +613,10 @@ export default function ProjectTable({
                                 </thead>
                                 <tbody>
                                   {tasks.map((task) => {
-                                    const pStyle = getPriorityBadgeStyle(task.priority);
+                                    const checklist = task.checklist || [];
+                                    const completedItems = checklist.filter((i) => i.completed).length;
+                                    const totalItems = checklist.length;
+                                    const allCompleted = totalItems > 0 && completedItems === totalItems;
 
                                     return (
                                       <tr
@@ -655,25 +626,9 @@ export default function ProjectTable({
                                           height: "32px",
                                         }}
                                       >
-                                        {/* Task Title + Description */}
+                                        {/* Task Title */}
                                         <td style={{ padding: "4px 10px", fontWeight: 500 }}>
-                                          <div style={{ display: "flex", flexDirection: "column" }}>
-                                            <span style={{ color: "var(--text-main)" }}>{task.title}</span>
-                                            {task.description && (
-                                              <span
-                                                style={{
-                                                  fontSize: "10.5px",
-                                                  color: "var(--text-dim)",
-                                                  maxWidth: "320px",
-                                                  overflow: "hidden",
-                                                  textOverflow: "ellipsis",
-                                                  whiteSpace: "nowrap",
-                                                }}
-                                              >
-                                                {task.description}
-                                              </span>
-                                            )}
-                                          </div>
+                                          <span style={{ color: "var(--text-main)" }}>{task.title}</span>
                                         </td>
 
                                         {/* Status Dropdown */}
@@ -700,22 +655,46 @@ export default function ProjectTable({
                                           </select>
                                         </td>
 
-                                        {/* Priority Badge */}
+                                        {/* Checklist Summary */}
                                         <td style={{ padding: "4px 10px" }}>
-                                          <span
-                                            style={{
-                                              fontSize: "10px",
-                                              fontWeight: 600,
-                                              padding: "1px 6px",
-                                              borderRadius: "var(--radius-xs)",
-                                              background: pStyle.bg,
-                                              color: pStyle.text,
-                                              border: `1px solid ${pStyle.border}`,
-                                              textTransform: "uppercase",
-                                            }}
-                                          >
-                                            {task.priority}
-                                          </span>
+                                          {totalItems > 0 ? (
+                                            <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                                              <CheckSquare
+                                                size={12}
+                                                style={{
+                                                  color: allCompleted
+                                                    ? "var(--accent-emerald)"
+                                                    : "var(--accent-blue)",
+                                                }}
+                                              />
+                                              <span
+                                                className="mono"
+                                                style={{
+                                                  fontSize: "10.5px",
+                                                  padding: "1px 6px",
+                                                  borderRadius: "var(--radius-xs)",
+                                                  background: allCompleted
+                                                    ? "rgba(16, 185, 129, 0.15)"
+                                                    : "var(--bg-surface-subtle)",
+                                                  color: allCompleted
+                                                    ? "var(--accent-emerald)"
+                                                    : "var(--text-muted)",
+                                                  border: `1px solid ${
+                                                    allCompleted
+                                                      ? "var(--accent-emerald)"
+                                                      : "var(--border-subtle)"
+                                                  }`,
+                                                }}
+                                              >
+                                                {completedItems}/{totalItems}
+                                              </span>
+                                              <span style={{ fontSize: "10.5px", color: "var(--text-dim)" }}>
+                                                {allCompleted ? "Done" : `${totalItems - completedItems} left`}
+                                              </span>
+                                            </div>
+                                          ) : (
+                                            <span style={{ color: "var(--text-dim)", fontSize: "11px" }}>—</span>
+                                          )}
                                         </td>
 
                                         {/* Estimated Hours */}
@@ -728,11 +707,6 @@ export default function ProjectTable({
                                           ) : (
                                             <span style={{ color: "var(--text-dim)" }}>—</span>
                                           )}
-                                        </td>
-
-                                        {/* Due Date */}
-                                        <td style={{ padding: "4px 10px" }} className="mono">
-                                          {task.due_date || <span style={{ color: "var(--text-dim)" }}>—</span>}
                                         </td>
 
                                         {/* Task Actions */}

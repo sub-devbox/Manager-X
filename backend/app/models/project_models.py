@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from sqlalchemy import String, Boolean, Float, Integer, DateTime, Text, ForeignKey
+from sqlalchemy import String, Boolean, Float, Integer, DateTime, Text, ForeignKey, JSON
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.database import Base
@@ -76,6 +76,7 @@ class Task(Base):
     )  # 'low', 'medium', 'high', 'urgent'
     estimated_hours: Mapped[float] = mapped_column(Float, default=0.0, nullable=False)
     due_date: Mapped[str | None] = mapped_column(String(20), nullable=True)
+    checklist: Mapped[list[dict] | None] = mapped_column(JSON, default=list, nullable=True)
 
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),

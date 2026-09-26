@@ -1,15 +1,22 @@
 export type TaskStatus = "backlog" | "in_progress" | "review" | "done";
 export type TaskPriority = "low" | "medium" | "high" | "urgent";
 
+export interface ChecklistItem {
+  id: string;
+  text: string;
+  completed: boolean;
+}
+
 export interface TaskData {
   id: string;
   project_id: string;
   title: string;
   description?: string | null;
   status: TaskStatus;
-  priority: TaskPriority;
+  priority?: TaskPriority;
   estimated_hours: number;
   due_date?: string | null;
+  checklist?: ChecklistItem[];
   created_at: string;
   updated_at: string;
 }

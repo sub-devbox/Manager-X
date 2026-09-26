@@ -72,17 +72,18 @@ async def test_projects_and_tasks_lifecycle(client: AsyncClient):
     assert proj_data["hourly_rate"] == 150.0
     assert proj_data["name"] == "Robotics Vision Platform"
 
-    # 4. Create Tasks under the Project
+    # 4. Create Tasks under the Project (including simple checklist)
     task1_res = await client.post(
         "/api/v1/tasks",
         json={
             "project_id": project_id,
             "title": "Camera Calibration Module",
-            "description": "Intrinsic & extrinsic matrix calibration routine.",
             "status": "backlog",
-            "priority": "high",
             "estimated_hours": 12.5,
-            "due_date": "2026-10-15",
+            "checklist": [
+                {"id": "chk_1", "text": "Collect checkerboard images", "completed": True},
+                {"id": "chk_2", "text": "Compute intrinsic parameters", "completed": False},
+            ],
         },
     )
     assert task1_res.status_code == 201
@@ -90,17 +91,32 @@ async def test_projects_and_tasks_lifecycle(client: AsyncClient):
     task1_id = task1_data["id"]
     assert task1_id.startswith("tsk_")
     assert task1_data["status"] == "backlog"
+    assert len(task1_data["checklist"]) == 2
+    assert task1_data["checklist"][0]["completed"] is True
+    assert task1_data["checklist"][1]["completed"] is False
+
+    # Update task checklist
+    task1_update = await client.put(
+        f"/api/v1/tasks/{task1_id}",
+        json={
+            "checklist": [
+                {"id": "chk_1", "text": "Collect checkerboard images", "completed": True},
+                {"id": "chk_2", "text": "Compute intrinsic parameters", "completed": True},
+                {"id": "chk_3", "text": "Export reprojection error report", "completed": False},
+            ]
+        },
+    )
+    assert task1_update.status_code == 200
+    assert len(task1_update.json()["checklist"]) == 3
+    assert task1_update.json()["checklist"][1]["completed"] is True
 
     task2_res = await client.post(
         "/api/v1/tasks",
         json={
             "project_id": project_id,
             "title": "Edge Inference Engine",
-            "description": "ONNX Runtime on embedded hardware.",
             "status": "in_progress",
-            "priority": "urgent",
             "estimated_hours": 20.0,
-            "due_date": "2026-10-25",
         },
     )
     assert task2_res.status_code == 201

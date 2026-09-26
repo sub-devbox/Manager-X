@@ -3,15 +3,15 @@
 import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { api } from "@/lib/api-client";
-import { TaskData, TaskStatus, TaskPriority } from "@/types/project";
+import { TaskData, TaskStatus, ChecklistItem } from "@/types/project";
 import {
   X,
   CheckSquare,
   FolderKanban,
   Clock,
-  Calendar,
   AlertCircle,
-  Flag,
+  Plus,
+  Trash2,
 } from "lucide-react";
 
 interface ProjectOption {
@@ -46,12 +46,12 @@ export default function TaskModal({
   const [formData, setFormData] = useState({
     title: "",
     project_id: "",
-    description: "",
     status: "backlog" as TaskStatus,
-    priority: "medium" as TaskPriority,
     estimated_hours: 0,
-    due_date: "",
+    checklist: [] as ChecklistItem[],
   });
+
+  const [newItemText, setNewItemText] = useState("");
 
   useEffect(() => {
     setMounted(true);
@@ -71,27 +71,24 @@ export default function TaskModal({
   useEffect(() => {
     if (isOpen) {
       setErrorMsg("");
+      setNewItemText("");
       loadProjects();
 
       if (initialData) {
         setFormData({
           title: initialData.title,
           project_id: initialData.project_id,
-          description: initialData.description || "",
           status: initialData.status,
-          priority: initialData.priority,
           estimated_hours: initialData.estimated_hours || 0,
-          due_date: initialData.due_date || "",
+          checklist: Array.isArray(initialData.checklist) ? [...initialData.checklist] : [],
         });
       } else {
         setFormData({
           title: "",
           project_id: defaultProjectId || "",
-          description: "",
           status: defaultStatus,
-          priority: "medium",
           estimated_hours: 0,
-          due_date: "",
+          checklist: [],
         });
       }
     }
@@ -114,6 +111,39 @@ export default function TaskModal({
     }
   };
 
+  const handleAddChecklistItem = () => {
+    const text = newItemText.trim();
+    if (!text) return;
+
+    const newItem: ChecklistItem = {
+      id: `chk_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+      text,
+      completed: false,
+    };
+
+    setFormData((prev) => ({
+      ...prev,
+      checklist: [...prev.checklist, newItem],
+    }));
+    setNewItemText("");
+  };
+
+  const handleToggleChecklistItem = (id: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      checklist: prev.checklist.map((item) =>
+        item.id === id ? { ...item, completed: !item.completed } : item
+      ),
+    }));
+  };
+
+  const handleDeleteChecklistItem = (id: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      checklist: prev.checklist.filter((item) => item.id !== id),
+    }));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg("");
@@ -132,11 +162,9 @@ export default function TaskModal({
       const payload = {
         title: formData.title.trim(),
         project_id: formData.project_id,
-        description: formData.description.trim() || null,
         status: formData.status,
-        priority: formData.priority,
         estimated_hours: Number(formData.estimated_hours) || 0,
-        due_date: formData.due_date || null,
+        checklist: formData.checklist,
       };
 
       if (initialData) {
@@ -156,6 +184,9 @@ export default function TaskModal({
 
   if (!isOpen || !mounted) return null;
 
+  const completedCount = formData.checklist.filter((i) => i.completed).length;
+  const totalCount = formData.checklist.length;
+
   const modalContent = (
     <div
       style={{
@@ -174,7 +205,7 @@ export default function TaskModal({
         className="finance-panel animate-fade-in"
         style={{
           width: "100%",
-          maxWidth: "560px",
+          maxWidth: "520px",
           maxHeight: "90vh",
           background: "var(--bg-surface)",
           border: "1px solid var(--border-subtle)",
@@ -243,7 +274,7 @@ export default function TaskModal({
             </div>
           )}
 
-          {/* Project Selection */}
+          {/* Target Project */}
           <div>
             <label style={{ display: "block", fontSize: "12px", color: "var(--text-muted)", marginBottom: "4px" }}>
               Target Project <span style={{ color: "var(--accent-rose)" }}>*</span>
@@ -289,7 +320,7 @@ export default function TaskModal({
             <input
               type="text"
               required
-              placeholder="e.g. Design DB Schema / Implement OAuth2 Handshake"
+              placeholder="e.g. Design DB Schema / Configure CI pipeline"
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               className="finance-input"
@@ -297,7 +328,7 @@ export default function TaskModal({
             />
           </div>
 
-          {/* Status & Priority */}
+          {/* Task Status & Estimated Hours */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
             <div>
               <label style={{ display: "block", fontSize: "12px", color: "var(--text-muted)", marginBottom: "4px" }}>
@@ -315,25 +346,6 @@ export default function TaskModal({
               </select>
             </div>
 
-            <div>
-              <label style={{ display: "block", fontSize: "12px", color: "var(--text-muted)", marginBottom: "4px" }}>
-                Priority Level
-              </label>
-              <select
-                value={formData.priority}
-                onChange={(e) => setFormData({ ...formData, priority: e.target.value as TaskPriority })}
-                className="finance-input"
-              >
-                <option value="low">Low Priority</option>
-                <option value="medium">Medium Priority</option>
-                <option value="high">High Priority</option>
-                <option value="urgent">Urgent</option>
-              </select>
-            </div>
-          </div>
-
-          {/* Estimated Hours & Due Date */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
             <div>
               <label style={{ display: "block", fontSize: "12px", color: "var(--text-muted)", marginBottom: "4px" }}>
                 Estimated Hours
@@ -365,33 +377,195 @@ export default function TaskModal({
                 </span>
               </div>
             </div>
-
-            <div>
-              <label style={{ display: "block", fontSize: "12px", color: "var(--text-muted)", marginBottom: "4px" }}>
-                Due Date
-              </label>
-              <input
-                type="date"
-                value={formData.due_date}
-                onChange={(e) => setFormData({ ...formData, due_date: e.target.value })}
-                className="finance-input mono"
-              />
-            </div>
           </div>
 
-          {/* Description */}
-          <div>
-            <label style={{ display: "block", fontSize: "12px", color: "var(--text-muted)", marginBottom: "4px" }}>
-              Task Details & Acceptance Criteria
-            </label>
-            <textarea
-              rows={3}
-              placeholder="Technical specs, acceptance checklist, or PR links..."
-              value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              className="finance-input"
-              style={{ resize: "vertical" }}
-            />
+          {/* Simple Checklist Section */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "8px",
+              paddingTop: "6px",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <label
+                style={{
+                  fontSize: "12px",
+                  fontWeight: 600,
+                  color: "var(--text-main)",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  margin: 0,
+                }}
+              >
+                <span>Checklist</span>
+              </label>
+              {totalCount > 0 && (
+                <span
+                  className="mono"
+                  style={{
+                    fontSize: "11px",
+                    padding: "2px 8px",
+                    borderRadius: "var(--radius-xs)",
+                    background:
+                      completedCount === totalCount
+                        ? "rgba(16, 185, 129, 0.15)"
+                        : "var(--bg-surface-subtle)",
+                    color:
+                      completedCount === totalCount
+                        ? "var(--accent-emerald)"
+                        : "var(--text-muted)",
+                    border: `1px solid ${
+                      completedCount === totalCount
+                        ? "var(--accent-emerald)"
+                        : "var(--border-subtle)"
+                    }`,
+                  }}
+                >
+                  {completedCount}/{totalCount} completed
+                </span>
+              )}
+            </div>
+
+            {/* Checklist Items Container */}
+            <div
+              style={{
+                background: "var(--bg-surface-subtle)",
+                border: "1px solid var(--border-subtle)",
+                borderRadius: "var(--radius-sm)",
+                padding: "8px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "6px",
+                minHeight: "44px",
+              }}
+            >
+              {formData.checklist.length === 0 ? (
+                <div
+                  style={{
+                    padding: "10px",
+                    textAlign: "center",
+                    color: "var(--text-dim)",
+                    fontSize: "12px",
+                  }}
+                >
+                  No items in checklist yet. Add steps below.
+                </div>
+              ) : (
+                formData.checklist.map((item) => (
+                  <div
+                    key={item.id}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      gap: "8px",
+                      padding: "6px 10px",
+                      background: "var(--bg-surface)",
+                      border: "1px solid var(--border-subtle)",
+                      borderRadius: "var(--radius-xs)",
+                    }}
+                  >
+                    <label
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "8px",
+                        cursor: "pointer",
+                        flex: 1,
+                        margin: 0,
+                        userSelect: "none",
+                      }}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={item.completed}
+                        onChange={() => handleToggleChecklistItem(item.id)}
+                        style={{
+                          accentColor: "var(--accent-emerald)",
+                          cursor: "pointer",
+                          width: "14px",
+                          height: "14px",
+                        }}
+                      />
+                      <span
+                        style={{
+                          fontSize: "12.5px",
+                          color: item.completed ? "var(--text-dim)" : "var(--text-main)",
+                          textDecoration: item.completed ? "line-through" : "none",
+                          transition: "color 0.15s ease",
+                        }}
+                      >
+                        {item.text}
+                      </span>
+                    </label>
+
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteChecklistItem(item.id)}
+                      className="finance-button-secondary"
+                      style={{
+                        padding: "2px 5px",
+                        color: "var(--text-dim)",
+                        border: "none",
+                        background: "transparent",
+                      }}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent-rose)")}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-dim)")}
+                      title="Remove item"
+                    >
+                      <Trash2 size={12} />
+                    </button>
+                  </div>
+                ))
+              )}
+
+              {/* Add New Item Input */}
+              <div
+                style={{
+                  display: "flex",
+                  gap: "6px",
+                  marginTop: formData.checklist.length > 0 ? "4px" : "0",
+                }}
+              >
+                <input
+                  type="text"
+                  placeholder="Add item (press Enter)..."
+                  value={newItemText}
+                  onChange={(e) => setNewItemText(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleAddChecklistItem();
+                    }
+                  }}
+                  className="finance-input"
+                  style={{ fontSize: "12px", padding: "6px 10px" }}
+                />
+                <button
+                  type="button"
+                  onClick={handleAddChecklistItem}
+                  className="finance-button-secondary"
+                  style={{
+                    padding: "6px 12px",
+                    fontSize: "12px",
+                    width: "auto",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  <Plus size={12} />
+                  <span>Add</span>
+                </button>
+              </div>
+            </div>
           </div>
 
           {/* Action Buttons */}
