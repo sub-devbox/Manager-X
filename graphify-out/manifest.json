@@ -70,8 +70,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/page.tsx": {
-    "mtime": 1790434134.6538186,
-    "ast_hash": "1206b60d50c48a57fb7ac2757908cf91",
+    "mtime": 1790434309.6937664,
+    "ast_hash": "88e7eec6fa151e1aa6578d6f897f0f20",
     "semantic_hash": ""
   },
   "frontend/tsconfig.json": {

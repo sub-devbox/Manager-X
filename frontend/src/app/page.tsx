@@ -23,7 +23,7 @@ import {
 export default function OverviewPage() {
   const { user } = useAuth();
   const [clientStats, setClientStats] = useState<{ total: number; involved: number } | null>(null);
-  const [projectStats, setProjectStats] = useState<{ total: number; thisMonth: number } | null>(null);
+  const [projectStats, setProjectStats] = useState<{ total: number; completedThisMonth: number } | null>(null);
   const [timeSpentMonth, setTimeSpentMonth] = useState<number | null>(null);
 
   const formatDuration = (totalSeconds: number) => {
@@ -83,27 +83,22 @@ export default function OverviewPage() {
 
           if (projectRes.status === "fulfilled" && Array.isArray(projectRes.value)) {
             const total = projectRes.value.length;
-            const thisMonth = projectRes.value.filter((p: any) => {
-              const isThisMonth =
-                projectIdsWithTimeInMonth.has(p.id) ||
-                p.status === "active" ||
-                (() => {
-                  const pDateStr = p.end_date || p.created_at || "";
-                  if (pDateStr) {
-                    const pDate = new Date(pDateStr);
-                    return pDate >= firstOfMonth && pDate <= lastOfMonth;
-                  }
-                  return false;
-                })();
+            const completedThisMonth = projectRes.value.filter((p: any) => {
+              const isCompleted =
+                p.status === "completed" ||
+                (p.task_count > 0 && p.completed_task_count === p.task_count && p.status !== "archived");
+              if (!isCompleted) return false;
 
-              if (isThisMonth && p.client_id) {
-                involvedClientIds.add(p.client_id);
+              const compDateStr = p.updated_at || p.end_date || p.created_at || "";
+              if (compDateStr) {
+                const compDate = new Date(compDateStr);
+                return compDate >= firstOfMonth && compDate <= lastOfMonth;
               }
-              return isThisMonth;
+              return true;
             }).length;
-            setProjectStats({ total, thisMonth });
+            setProjectStats({ total, completedThisMonth });
           } else {
-            setProjectStats({ total: 0, thisMonth: 0 });
+            setProjectStats({ total: 0, completedThisMonth: 0 });
           }
 
           if (clientRes.status === "fulfilled" && Array.isArray(clientRes.value)) {
@@ -120,7 +115,7 @@ export default function OverviewPage() {
       } catch {
         if (isMounted) {
           setClientStats({ total: 0, involved: 0 });
-          setProjectStats({ total: 0, thisMonth: 0 });
+          setProjectStats({ total: 0, completedThisMonth: 0 });
           setTimeSpentMonth(0);
         }
       }
@@ -302,7 +297,7 @@ export default function OverviewPage() {
             </div>
           </Link>
 
-          {/* Total Projects This Month Card */}
+          {/* Total Projects Completed This Month Card */}
           <Link
             href="/projects"
             className="finance-panel"
@@ -319,15 +314,15 @@ export default function OverviewPage() {
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <span style={{ fontSize: "12px", color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.4px" }}>
-                Total Projects This Month
+                Total Projects Completed This Month
               </span>
               <FolderKanban size={14} style={{ color: "var(--text-dim)" }} />
             </div>
             <div style={{ fontSize: "24px", fontWeight: 600, marginTop: "8px", letterSpacing: "-0.5px" }} className="mono">
-              {projectStats !== null ? projectStats.thisMonth : "—"}
+              {projectStats !== null ? projectStats.completedThisMonth : "—"}
             </div>
             <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px" }}>
-              {projectStats !== null ? `${projectStats.total} total registered project${projectStats.total === 1 ? "" : "s"}` : "—"}
+              {projectStats !== null ? `${projectStats.total} total project${projectStats.total === 1 ? "" : "s"}` : "—"}
             </div>
           </Link>
 
