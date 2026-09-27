@@ -3,7 +3,7 @@ using ManagerX.Services;
 
 namespace ManagerX;
 
-public partial class App : Application
+public partial class App : System.Windows.Application
 {
     public static ApiClient ApiClient { get; private set; } = null!;
     public static AuthService AuthService { get; private set; } = null!;

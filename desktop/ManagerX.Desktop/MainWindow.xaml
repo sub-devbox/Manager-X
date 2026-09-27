@@ -4,42 +4,210 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Manager-X Desktop" 
-        Height="680" 
-        Width="440" 
-        MinHeight="500" 
-        MinWidth="380"
+        Title="Manager X - Time Tracker" 
+        Icon="app.ico"
+        Height="720" 
+        Width="460" 
+        MinHeight="68" 
+        MinWidth="340"
+        WindowStyle="None"
+        AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
-        Background="{StaticResource BgAppBrush}">
-    <Grid>
-        <!-- Dynamic View Content -->
-        <ContentControl x:Name="MainContent" />
+        Background="Transparent">
 
-        <!-- Startup / Loading Overlay -->
-        <Grid x:Name="LoadingOverlay" Background="{StaticResource BgAppBrush}" Visibility="Visible">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="MANAGER-X" 
-                           FontSize="24" 
-                           FontWeight="Bold" 
-                           Foreground="{StaticResource TextMainBrush}" 
-                           HorizontalAlignment="Center" />
-                <TextBlock Text="Desktop Time Tracker" 
-                           FontSize="12" 
-                           Foreground="{StaticResource TextMutedBrush}" 
-                           HorizontalAlignment="Center" 
-                           Margin="0,6,0,24" />
-                <ProgressBar IsIndeterminate="True" 
-                             Width="160" 
-                             Height="4" 
-                             Foreground="{StaticResource AccentBlueBrush}" 
-                             Background="{StaticResource BgSurfaceBrush}" 
-                             BorderThickness="0" />
-                <TextBlock Text="Connecting to backend..." 
-                           FontSize="11" 
-                           Foreground="{StaticResource TextDimBrush}" 
-                           HorizontalAlignment="Center" 
-                           Margin="0,12,0,0" />
-            </StackPanel>
+    <Border x:Name="RootWindowBorder"
+            Background="{StaticResource BgAppBrush}"
+            BorderBrush="{StaticResource BorderSubtleBrush}"
+            BorderThickness="1"
+            CornerRadius="10"
+            SnapsToDevicePixels="True">
+        <Grid>
+            <!-- 1. FULL APPLICATION MODE -->
+            <Grid x:Name="FullModeContainer" Visibility="Visible">
+                <Grid.RowDefinitions>
+                    <!-- Custom Frameless Titlebar -->
+                    <RowDefinition Height="36" />
+                    <!-- Body Content -->
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- Custom Modern Titlebar -->
+                <Border Grid.Row="0"
+                        Background="{StaticResource BgSurfaceBrush}"
+                        BorderBrush="{StaticResource BorderSubtleBrush}"
+                        BorderThickness="0,0,0,1"
+                        CornerRadius="9,9,0,0"
+                        MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+                    <Grid Margin="12,0,8,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- App Icon & Title -->
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image Source="app.ico" Width="16" Height="16" Margin="0,0,8,0" />
+                            <TextBlock Text="Manager X - Time Tracker"
+                                       FontSize="12"
+                                       FontWeight="SemiBold"
+                                       Foreground="{StaticResource TextMainBrush}"
+                                       VerticalAlignment="Center" />
+                        </StackPanel>
+
+                        <!-- Titlebar Control Buttons -->
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                            <!-- Pin / Always on Top -->
+                            <Button x:Name="TitlePinButton"
+                                    Content="📌"
+                                    Width="26" Height="24"
+                                    Background="Transparent"
+                                    Foreground="{StaticResource TextMutedBrush}"
+                                    BorderThickness="0"
+                                    Cursor="Hand"
+                                    Click="TitlePinButton_Click"
+                                    ToolTip="Toggle Always on Top" />
+
+                            <!-- Minimize to Tray -->
+                            <Button Content="🗕"
+                                    Width="26" Height="24"
+                                    Background="Transparent"
+                                    Foreground="{StaticResource TextMutedBrush}"
+                                    BorderThickness="0"
+                                    Cursor="Hand"
+                                    Click="TitleMinimize_Click"
+                                    ToolTip="Minimize to System Tray" />
+
+                            <!-- Close / Hide -->
+                            <Button Content="✕"
+                                    Width="26" Height="24"
+                                    Background="Transparent"
+                                    Foreground="{StaticResource TextMutedBrush}"
+                                    BorderThickness="0"
+                                    Cursor="Hand"
+                                    Click="TitleClose_Click"
+                                    ToolTip="Close to Tray" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Main View Content -->
+                <ContentControl Grid.Row="1" x:Name="MainContent" />
+
+                <!-- Startup Loading Overlay -->
+                <Grid Grid.Row="1" x:Name="LoadingOverlay" Background="{StaticResource BgAppBrush}" Visibility="Visible">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Image Source="app.ico" Width="48" Height="48" Margin="0,0,0,16" HorizontalAlignment="Center" />
+                        <TextBlock Text="MANAGER X" 
+                                   FontSize="20" 
+                                   FontWeight="Bold" 
+                                   Foreground="{StaticResource TextMainBrush}" 
+                                   HorizontalAlignment="Center" />
+                        <TextBlock Text="Time Tracker" 
+                                   FontSize="12" 
+                                   Foreground="{StaticResource TextMutedBrush}" 
+                                   HorizontalAlignment="Center" 
+                                   Margin="0,4,0,20" />
+                        <ProgressBar IsIndeterminate="True" 
+                                     Width="140" 
+                                     Height="3" 
+                                     Foreground="{StaticResource AccentBlueBrush}" 
+                                     Background="{StaticResource BgSurfaceBrush}" 
+                                     BorderThickness="0" />
+                        <TextBlock Text="Connecting..." 
+                                   FontSize="11" 
+                                   Foreground="{StaticResource TextDimBrush}" 
+                                   HorizontalAlignment="Center" 
+                                   Margin="0,10,0,0" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+            <!-- 2. COMPACT FLOATING MINI-WIDGET MODE (50% Opacity) -->
+            <Grid x:Name="MiniWidgetContainer" 
+                  Visibility="Collapsed" 
+                  MouseLeftButtonDown="MiniWidget_MouseLeftButtonDown"
+                  Background="Transparent">
+                <Border Background="{StaticResource BgSurfaceBrush}"
+                        BorderBrush="{StaticResource BorderSubtleBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Padding="10,6">
+                    <Grid VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <!-- Drag Grip -->
+                            <ColumnDefinition Width="Auto" />
+                            <!-- Digits -->
+                            <ColumnDefinition Width="Auto" />
+                            <!-- Task & Project Info -->
+                            <ColumnDefinition Width="*" />
+                            <!-- Actions -->
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Grip Handle -->
+                        <TextBlock Grid.Column="0" 
+                                   Text="⋮⋮" 
+                                   FontSize="14" 
+                                   Foreground="{StaticResource TextDimBrush}" 
+                                   VerticalAlignment="Center" 
+                                   Margin="0,0,8,0" 
+                                   Cursor="SizeAll" />
+
+                        <!-- Stopwatch Digits -->
+                        <TextBlock Grid.Column="1" 
+                                   x:Name="MiniDigitsText" 
+                                   Text="00:00:00" 
+                                   FontFamily="Consolas, Cascadia Code" 
+                                   FontSize="18" 
+                                   FontWeight="Bold" 
+                                   Foreground="{StaticResource AccentEmeraldBrush}" 
+                                   VerticalAlignment="Center" 
+                                   Margin="0,0,10,0" />
+
+                        <!-- Task & Project Title (Truncated) -->
+                        <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="0,0,10,0">
+                            <TextBlock x:Name="MiniTaskTitle" 
+                                       Text="Active Task" 
+                                       FontSize="11" 
+                                       FontWeight="SemiBold" 
+                                       Foreground="{StaticResource TextMainBrush}" 
+                                       TextTrimming="CharacterEllipsis" />
+                            <TextBlock x:Name="MiniProjectTitle" 
+                                       Text="Project" 
+                                       FontSize="9.5" 
+                                       Foreground="{StaticResource TextDimBrush}" 
+                                       TextTrimming="CharacterEllipsis" />
+                        </StackPanel>
+
+                        <!-- Controls: Pause, Stop, Reset, Expand -->
+                        <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center">
+                            <Button x:Name="MiniPauseButton" 
+                                    Content="⏸" 
+                                    Width="26" Height="26" 
+                                    Style="{StaticResource SecondaryButton}" 
+                                    Padding="0" 
+                                    Margin="0,0,4,0" 
+                                    Click="MiniPauseButton_Click" 
+                                    ToolTip="Pause / Resume Timer" />
+                            <Button x:Name="MiniStopButton" 
+                                    Content="■" 
+                                    Width="26" Height="26" 
+                                    Style="{StaticResource SecondaryButton}" 
+                                    Foreground="{StaticResource AccentRoseBrush}" 
+                                    Padding="0" 
+                                    Margin="0,0,4,0" 
+                                    Click="MiniStopButton_Click" 
+                                    ToolTip="Stop &amp; Log Time" />
+                            <Button Content="⤢" 
+                                    Width="26" Height="26" 
+                                    Style="{StaticResource SecondaryButton}" 
+                                    Padding="0" 
+                                    Click="MiniExpandButton_Click" 
+                                    ToolTip="Restore Full Window" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
         </Grid>
-    </Grid>
+    </Border>
 </Window>

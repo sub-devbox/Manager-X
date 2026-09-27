@@ -69,3 +69,15 @@ public class TimeEntryCreateRequest
     [JsonPropertyName("is_billable")]
     public bool IsBillable { get; set; } = true;
 }
+
+public class TimeEntryUpdateRequest
+{
+    [JsonPropertyName("description")]
+    public string? Description { get; set; }
+
+    [JsonPropertyName("duration_seconds")]
+    public int? DurationSeconds { get; set; }
+
+    [JsonPropertyName("is_billable")]
+    public bool? IsBillable { get; set; }
+}

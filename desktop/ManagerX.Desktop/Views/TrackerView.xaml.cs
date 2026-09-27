@@ -5,17 +5,31 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using ManagerX.Models;
 using ManagerX.Services;
+using UserControl = System.Windows.Controls.UserControl;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using Button = System.Windows.Controls.Button;
+using Brush = System.Windows.Media.Brush;
+using Color = System.Windows.Media.Color;
+using MessageBox = System.Windows.MessageBox;
+using MessageBoxButton = System.Windows.MessageBoxButton;
+using MessageBoxResult = System.Windows.MessageBoxResult;
+using MessageBoxImage = System.Windows.MessageBoxImage;
 
 namespace ManagerX.Views;
 
 public partial class TrackerView : UserControl
 {
+    public event Action? RequestMiniMode;
+
     private List<ProjectDto> _allProjects = new();
     private List<TaskDto> _allTasks = new();
-    private bool _isPinned = false;
+    private List<ClientDto> _allClients = new();
+    private List<TimeEntryDto> _todayEntries = new();
+    private TimeEntryDto? _editingEntry;
 
     public TrackerView()
     {
@@ -29,13 +43,8 @@ public partial class TrackerView : UserControl
         App.TimerService.Ticked += OnTimerTicked;
         App.TimerService.StateChanged += OnTimerStateChanged;
 
-        if (App.AuthService.CurrentUser != null)
-        {
-            UserEmailText.Text = App.AuthService.CurrentUser.FullName ?? App.AuthService.CurrentUser.Email;
-        }
-
         UpdateTimerUi(App.TimerService.ElapsedSeconds, App.TimerService.IsRunning);
-        _ = LoadDataAsync();
+        _ = LoadInitialDataAsync();
     }
 
     private void TrackerView_Unloaded(object sender, RoutedEventArgs e)
@@ -73,6 +82,7 @@ public partial class TrackerView : UserControl
 
             StartPauseButton.Content = "⏸ Pause";
             StartPauseButton.Style = (Style)FindResource("SecondaryButton");
+            StartPauseButton.IsEnabled = true;
             StopSaveButton.IsEnabled = seconds > 0;
             ResetButton.IsEnabled = true;
             ActiveTaskLabel.Text = $"{App.TimerService.TaskTitle} • {App.TimerService.ProjectTitle}";
@@ -86,6 +96,7 @@ public partial class TrackerView : UserControl
 
             StartPauseButton.Content = "▶ Resume";
             StartPauseButton.Style = (Style)FindResource("PrimaryButton");
+            StartPauseButton.IsEnabled = true;
             StopSaveButton.IsEnabled = true;
             ResetButton.IsEnabled = true;
             ActiveTaskLabel.Text = $"{App.TimerService.TaskTitle} • {App.TimerService.ProjectTitle}";
@@ -99,86 +110,205 @@ public partial class TrackerView : UserControl
 
             StartPauseButton.Content = "▶ Start Timer";
             StartPauseButton.Style = (Style)FindResource("PrimaryButton");
+
+            // Strictly require both Project and Task to be selected
+            var hasTask = (TaskCombo.SelectedItem as TaskDto) != null;
+            StartPauseButton.IsEnabled = hasTask;
             StopSaveButton.IsEnabled = false;
             ResetButton.IsEnabled = false;
-            ActiveTaskLabel.Text = "Select a task below and press Start";
+            ActiveTaskLabel.Text = hasTask ? "Ready to start timer" : "Select a project and task to start timer";
         }
     }
 
-    private async Task LoadDataAsync()
+    private async Task LoadInitialDataAsync()
     {
         try
         {
-            var projectsTask = App.ApiClient.GetAsync<List<ProjectDto>>("/projects");
-            var tasksTask = App.ApiClient.GetAsync<List<TaskDto>>("/tasks");
+            var projTask = App.ApiClient.GetAsync<List<ProjectDto>>("/projects");
+            var taskTask = App.ApiClient.GetAsync<List<TaskDto>>("/tasks");
+            var clientsTask = App.ApiClient.GetAsync<List<ClientDto>>("/clients");
             var entriesTask = App.ApiClient.GetAsync<List<TimeEntryDto>>("/time-entries");
 
-            await Task.WhenAll(projectsTask, tasksTask, entriesTask);
+            await Task.WhenAll(projTask, taskTask, clientsTask, entriesTask);
 
-            _allProjects = projectsTask.Result ?? new List<ProjectDto>();
-            _allTasks = tasksTask.Result ?? new List<TaskDto>();
+            _allProjects = projTask.Result ?? new List<ProjectDto>();
+            _allTasks = taskTask.Result ?? new List<TaskDto>();
+            _allClients = clientsTask.Result ?? new List<ClientDto>();
             var entries = entriesTask.Result ?? new List<TimeEntryDto>();
 
-            // Populate Projects dropdown
-            ProjectCombo.Items.Clear();
-            var allProjectsOption = new ProjectDto { Id = "", Name = "-- All Projects --" };
-            ProjectCombo.Items.Add(allProjectsOption);
-            foreach (var p in _allProjects)
-            {
-                ProjectCombo.Items.Add(p);
-            }
-            ProjectCombo.SelectedIndex = 0;
-
-            RefreshTasksList();
-            PopulateTodayEntries(entries);
+            PopulateProjectsCombo();
+            RefreshScheduleAndMetrics(entries);
         }
         catch (Exception ex)
         {
-            ShowNotice($"Failed to refresh data: {ex.Message}", isError: true);
+            ShowNotice($"Failed to load data: {ex.Message}", isError: true);
         }
+    }
+
+    private void PopulateProjectsCombo(string? filter = null)
+    {
+        ProjectCombo.Items.Clear();
+
+        IEnumerable<ProjectDto> matches = _allProjects;
+        if (!string.IsNullOrWhiteSpace(filter))
+        {
+            matches = _allProjects.Where(p => p.Name.Contains(filter, StringComparison.OrdinalIgnoreCase));
+        }
+
+        var list = matches.ToList();
+        foreach (var p in list)
+        {
+            ProjectCombo.Items.Add(p);
+        }
+
+        // Quick create if typed query does not match any project
+        if (!string.IsNullOrWhiteSpace(filter) && !list.Any(p => p.Name.Equals(filter, StringComparison.OrdinalIgnoreCase)))
+        {
+            var createPlaceholder = new ProjectDto { Id = "__CREATE__", Name = $"➕ Create \"{filter}\"" };
+            ProjectCombo.Items.Add(createPlaceholder);
+        }
+    }
+
+    private void ProjectCombo_KeyUp(object sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Enter || e.Key == Key.Down || e.Key == Key.Up) return;
+        var text = ProjectCombo.Text.Trim();
+        PopulateProjectsCombo(text);
+        ProjectCombo.IsDropDownOpen = true;
     }
 
     private void ProjectCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        RefreshTasksList();
+        var selected = ProjectCombo.SelectedItem as ProjectDto;
+        if (selected == null)
+        {
+            TaskCombo.IsEnabled = false;
+            NewTaskHeaderButton.IsEnabled = false;
+            TaskCombo.Items.Clear();
+            UpdateTimerUi(App.TimerService.ElapsedSeconds, App.TimerService.IsRunning);
+            return;
+        }
+
+        if (selected.Id == "__CREATE__")
+        {
+            var nameToCreate = selected.Name.Replace("➕ Create \"", "").TrimEnd('"');
+            OpenNewProjectModal(nameToCreate);
+            return;
+        }
+
+        // Enable Task Selection
+        TaskCombo.IsEnabled = true;
+        NewTaskHeaderButton.IsEnabled = true;
+        PopulateTasksCombo();
     }
 
-    private void RefreshTasksList()
+    private void PopulateTasksCombo(string? filter = null)
     {
         var selectedProject = ProjectCombo.SelectedItem as ProjectDto;
+        if (selectedProject == null) return;
+
         TaskCombo.Items.Clear();
+        var projectTasks = _allTasks.Where(t => t.ProjectId == selectedProject.Id);
 
-        IEnumerable<TaskDto> filtered = _allTasks;
-        if (selectedProject != null && !string.IsNullOrEmpty(selectedProject.Id))
+        if (!string.IsNullOrWhiteSpace(filter))
         {
-            filtered = _allTasks.Where(t => t.ProjectId == selectedProject.Id);
+            projectTasks = projectTasks.Where(t => t.Title.Contains(filter, StringComparison.OrdinalIgnoreCase));
         }
 
-        foreach (var task in filtered)
+        var list = projectTasks.ToList();
+        foreach (var t in list)
         {
-            TaskCombo.Items.Add(task);
+            TaskCombo.Items.Add(t);
         }
 
-        if (TaskCombo.Items.Count > 0)
+        // Quick create task option if typed query has no match
+        if (!string.IsNullOrWhiteSpace(filter) && !list.Any(t => t.Title.Equals(filter, StringComparison.OrdinalIgnoreCase)))
+        {
+            var createPlaceholder = new TaskDto { Id = "__CREATE__", Title = $"➕ Create \"{filter}\"" };
+            TaskCombo.Items.Add(createPlaceholder);
+        }
+
+        if (TaskCombo.Items.Count > 0 && string.IsNullOrWhiteSpace(filter))
         {
             TaskCombo.SelectedIndex = 0;
         }
+
+        UpdateTimerUi(App.TimerService.ElapsedSeconds, App.TimerService.IsRunning);
     }
 
-    private void PopulateTodayEntries(List<TimeEntryDto> entries)
+    private void TaskCombo_KeyUp(object sender, KeyEventArgs e)
     {
-        var todayStr = DateTime.UtcNow.ToString("yyyy-MM-dd");
-        var todayEntries = entries
-            .Where(e => !string.IsNullOrEmpty(e.StartTime) && e.StartTime.StartsWith(todayStr))
-            .OrderByDescending(e => e.StartTime)
-            .ToList();
+        if (e.Key == Key.Enter || e.Key == Key.Down || e.Key == Key.Up) return;
+        var text = TaskCombo.Text.Trim();
+        PopulateTasksCombo(text);
+        TaskCombo.IsDropDownOpen = true;
+    }
 
-        RecentEntriesList.ItemsSource = todayEntries;
-        NoEntriesText.Visibility = todayEntries.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+    private void TaskCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var selected = TaskCombo.SelectedItem as TaskDto;
+        if (selected != null && selected.Id == "__CREATE__")
+        {
+            var titleToCreate = selected.Title.Replace("➕ Create \"", "").TrimEnd('"');
+            OpenNewTaskModal(titleToCreate);
+            return;
+        }
 
-        var totalSeconds = todayEntries.Sum(e => e.DurationSeconds);
-        var totalHours = totalSeconds / 3600.0;
-        TodayTotalHoursText.Text = $"Total: {totalHours:F1} hrs";
+        UpdateTimerUi(App.TimerService.ElapsedSeconds, App.TimerService.IsRunning);
+    }
+
+    private void RefreshScheduleAndMetrics(List<TimeEntryDto>? entries = null)
+    {
+        if (entries != null)
+        {
+            var todayStr = DateTime.UtcNow.ToString("yyyy-MM-dd");
+            _todayEntries = entries
+                .Where(e => !string.IsNullOrEmpty(e.StartTime) && e.StartTime.StartsWith(todayStr))
+                .OrderByDescending(e => e.StartTime)
+                .ToList();
+        }
+
+        var today = DateTime.UtcNow.ToString("yyyy-MM-dd");
+        var scheduledToday = _allTasks.Where(t => !string.IsNullOrEmpty(t.DueDate) && t.DueDate.StartsWith(today)).ToList();
+
+        // 1. Metrics
+        var totalEstHours = scheduledToday.Sum(t => t.EstimatedHours);
+        var totalTrackedSeconds = _todayEntries.Sum(e => e.DurationSeconds);
+        var totalTrackedHours = totalTrackedSeconds / 3600.0;
+
+        EstTimeTodayText.Text = $"{totalEstHours:F1} hrs";
+        TrackedTodayText.Text = $"{totalTrackedHours:F1} hrs";
+
+        // 2. Today's Schedule List
+        TodayScheduleList.ItemsSource = scheduledToday;
+        ScheduleCountText.Text = $"{scheduledToday.Count} task(s) due";
+        NoScheduleText.Visibility = scheduledToday.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+
+        // 3. Activity Button Label
+        ViewTodayActivityButton.Content = $"📋 View Today's Activity & Logs ({_todayEntries.Count})";
+        ModalEntriesList.ItemsSource = _todayEntries;
+        NoModalEntriesText.Visibility = _todayEntries.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+    }
+
+    private void StartScheduledTask_Click(object sender, RoutedEventArgs e)
+    {
+        var button = sender as Button;
+        var task = button?.Tag as TaskDto;
+        if (task == null) return;
+
+        // Auto select project
+        var proj = _allProjects.FirstOrDefault(p => p.Id == task.ProjectId);
+        if (proj != null)
+        {
+            ProjectCombo.SelectedItem = proj;
+            TaskCombo.SelectedItem = task;
+        }
+
+        // Start Timer immediately and request mini-mode
+        var projName = proj?.Name ?? task.ProjectName ?? "Active Project";
+        App.TimerService.Start(task.Id, task.ProjectId, task.Title, projName);
+        ShowNotice($"Timer started for {task.Title}");
+        RequestMiniMode?.Invoke();
     }
 
     private void StartPauseButton_Click(object sender, RoutedEventArgs e)
@@ -190,24 +320,27 @@ public partial class TrackerView : UserControl
         else if (App.TimerService.ElapsedSeconds > 0)
         {
             App.TimerService.Resume();
+            RequestMiniMode?.Invoke();
         }
         else
         {
-            // Start new timer session
             var selectedTask = TaskCombo.SelectedItem as TaskDto;
-            if (selectedTask == null)
+            var selectedProject = ProjectCombo.SelectedItem as ProjectDto;
+            if (selectedTask == null || selectedProject == null)
             {
-                ShowNotice("Please select a task first.", isError: true);
-                TaskCombo.Focus();
+                ShowNotice("Please select a project and a task before starting.", isError: true);
                 return;
             }
 
-            var proj = _allProjects.FirstOrDefault(p => p.Id == selectedTask.ProjectId);
-            var projName = proj?.Name ?? selectedTask.ProjectName ?? "Active Project";
-
-            App.TimerService.Start(selectedTask.Id, selectedTask.ProjectId, selectedTask.Title, projName);
+            App.TimerService.Start(selectedTask.Id, selectedProject.Id, selectedTask.Title, selectedProject.Name);
             ShowNotice($"Timer started for {selectedTask.Title}");
+            RequestMiniMode?.Invoke();
         }
+    }
+
+    public void TriggerStopAndLog()
+    {
+        StopSaveButton_Click(this, new RoutedEventArgs());
     }
 
     private async void StopSaveButton_Click(object sender, RoutedEventArgs e)
@@ -244,7 +377,7 @@ public partial class TrackerView : UserControl
             {
                 TaskId = taskId,
                 ProjectId = projectId,
-                Description = string.IsNullOrEmpty(description) ? $"Logged via Manager-X Desktop" : description,
+                Description = string.IsNullOrEmpty(description) ? "Logged via Manager X Desktop" : description,
                 StartTime = startUtc.ToString("o"),
                 EndTime = DateTime.UtcNow.ToString("o"),
                 DurationSeconds = seconds,
@@ -255,8 +388,8 @@ public partial class TrackerView : UserControl
             App.TimerService.Reset();
             DescriptionInput.Text = "";
 
-            ShowNotice($"Logged {FormatSeconds(seconds)} to task successfully!");
-            await LoadDataAsync();
+            ShowNotice($"Logged {FormatSeconds(seconds)} successfully!");
+            await ReloadEntriesAsync();
         }
         catch (Exception ex)
         {
@@ -270,98 +403,257 @@ public partial class TrackerView : UserControl
 
     private void ResetButton_Click(object sender, RoutedEventArgs e)
     {
-        if (MessageBox.Show("Are you sure you want to discard this timer?", "Discard Timer", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+        if (MessageBox.Show("Are you sure you want to discard this timer session?", "Reset Timer", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
         {
             App.TimerService.Reset();
             ShowNotice("Timer reset.");
         }
     }
 
-    private async void ManualLogButton_Click(object sender, RoutedEventArgs e)
+    private async Task ReloadEntriesAsync()
     {
-        var selectedTask = TaskCombo.SelectedItem as TaskDto;
-        if (selectedTask == null)
-        {
-            ShowNotice("Please select a task first.", isError: true);
-            TaskCombo.Focus();
-            return;
-        }
-
-        var input = ManualHoursInput.Text.Trim();
-        if (!double.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out var hours) || hours <= 0)
-        {
-            ShowNotice("Please enter a valid positive number of hours (e.g. 1.5).", isError: true);
-            ManualHoursInput.Focus();
-            return;
-        }
-
-        var seconds = (int)(hours * 3600);
-        var description = DescriptionInput.Text.Trim();
-        var now = DateTime.UtcNow;
-
-        ManualLogButton.IsEnabled = false;
         try
         {
-            var payload = new TimeEntryCreateRequest
+            var entries = await App.ApiClient.GetAsync<List<TimeEntryDto>>("/time-entries");
+            RefreshScheduleAndMetrics(entries);
+        }
+        catch {}
+    }
+
+    // --- TODAY'S ACTIVITY MODAL ---
+    private void ViewTodayActivityButton_Click(object sender, RoutedEventArgs e)
+    {
+        ActivityModalOverlay.Visibility = Visibility.Visible;
+    }
+
+    private void CloseActivityModal_Click(object sender, RoutedEventArgs e)
+    {
+        ActivityModalOverlay.Visibility = Visibility.Collapsed;
+    }
+
+    private void EditEntry_Click(object sender, RoutedEventArgs e)
+    {
+        var button = sender as Button;
+        var entry = button?.Tag as TimeEntryDto;
+        if (entry == null) return;
+
+        _editingEntry = entry;
+        EditDurationMinutesInput.Text = (entry.DurationSeconds / 60).ToString();
+        EditDescriptionInput.Text = entry.Description ?? "";
+        EditEntryOverlay.Visibility = Visibility.Visible;
+    }
+
+    private void CancelEditEntry_Click(object sender, RoutedEventArgs e)
+    {
+        _editingEntry = null;
+        EditEntryOverlay.Visibility = Visibility.Collapsed;
+    }
+
+    private async void SaveEditEntry_Click(object sender, RoutedEventArgs e)
+    {
+        if (_editingEntry == null) return;
+
+        if (!int.TryParse(EditDurationMinutesInput.Text.Trim(), out var minutes) || minutes < 0)
+        {
+            ShowNotice("Please enter a valid duration in minutes.", isError: true);
+            return;
+        }
+
+        try
+        {
+            var payload = new TimeEntryUpdateRequest
             {
-                TaskId = selectedTask.Id,
-                ProjectId = selectedTask.ProjectId,
-                Description = string.IsNullOrEmpty(description) ? $"Manual log via Desktop ({hours}h)" : description,
-                StartTime = now.AddSeconds(-seconds).ToString("o"),
-                EndTime = now.ToString("o"),
-                DurationSeconds = seconds,
-                IsBillable = true,
+                DurationSeconds = minutes * 60,
+                Description = EditDescriptionInput.Text.Trim(),
             };
 
-            await App.ApiClient.PostAsync("/time-entries", payload);
-            ManualHoursInput.Text = "";
-            DescriptionInput.Text = "";
-
-            ShowNotice($"Manually logged {hours:F1} hrs ({FormatSeconds(seconds)})!");
-            await LoadDataAsync();
+            await App.ApiClient.PatchAsync<TimeEntryUpdateRequest, TimeEntryDto>($"/time-entries/{_editingEntry.Id}", payload);
+            EditEntryOverlay.Visibility = Visibility.Collapsed;
+            _editingEntry = null;
+            ShowNotice("Time entry updated.");
+            await ReloadEntriesAsync();
         }
         catch (Exception ex)
         {
-            ShowNotice($"Manual log failed: {ex.Message}", isError: true);
+            ShowNotice($"Failed to update entry: {ex.Message}", isError: true);
+        }
+    }
+
+    private async void DeleteEntry_Click(object sender, RoutedEventArgs e)
+    {
+        var button = sender as Button;
+        var entry = button?.Tag as TimeEntryDto;
+        if (entry == null) return;
+
+        if (MessageBox.Show($"Are you sure you want to delete this {entry.FormattedDuration} time log?", "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning) != MessageBoxResult.Yes)
+        {
+            return;
+        }
+
+        try
+        {
+            await App.ApiClient.DeleteAsync($"/time-entries/{entry.Id}");
+            ShowNotice("Time entry deleted.");
+            await ReloadEntriesAsync();
+        }
+        catch (Exception ex)
+        {
+            ShowNotice($"Failed to delete entry: {ex.Message}", isError: true);
+        }
+    }
+
+    // --- CREATE PROJECT MODAL ---
+    private void NewProjectButton_Click(object sender, RoutedEventArgs e)
+    {
+        OpenNewProjectModal();
+    }
+
+    private void OpenNewProjectModal(string? prefillName = null)
+    {
+        NewProjectNameInput.Text = prefillName ?? "";
+        NewProjectClientCombo.Items.Clear();
+
+        foreach (var c in _allClients)
+        {
+            NewProjectClientCombo.Items.Add(c);
+        }
+
+        if (NewProjectClientCombo.Items.Count > 0)
+        {
+            NewProjectClientCombo.SelectedIndex = 0;
+        }
+
+        NewProjectOverlay.Visibility = Visibility.Visible;
+        NewProjectNameInput.Focus();
+    }
+
+    private void CancelNewProject_Click(object sender, RoutedEventArgs e)
+    {
+        NewProjectOverlay.Visibility = Visibility.Collapsed;
+    }
+
+    private async void SubmitNewProject_Click(object sender, RoutedEventArgs e)
+    {
+        var name = NewProjectNameInput.Text.Trim();
+        var client = NewProjectClientCombo.SelectedItem as ClientDto;
+
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            ShowNotice("Project name is required.", isError: true);
+            return;
+        }
+
+        if (client == null)
+        {
+            ShowNotice("Please select a client for this project.", isError: true);
+            return;
+        }
+
+        SubmitNewProjectButton.IsEnabled = false;
+        try
+        {
+            var req = new ProjectCreateRequest
+            {
+                Name = name,
+                ClientId = client.Id,
+            };
+
+            var created = await App.ApiClient.PostAsync<ProjectCreateRequest, ProjectDto>("/projects", req);
+            if (created != null)
+            {
+                _allProjects.Add(created);
+                PopulateProjectsCombo();
+                ProjectCombo.SelectedItem = created;
+                NewProjectOverlay.Visibility = Visibility.Collapsed;
+                ShowNotice($"Project \"{created.Name}\" created!");
+            }
+        }
+        catch (Exception ex)
+        {
+            ShowNotice($"Failed to create project: {ex.Message}", isError: true);
         }
         finally
         {
-            ManualLogButton.IsEnabled = true;
+            SubmitNewProjectButton.IsEnabled = true;
         }
     }
 
-    private async void RefreshButton_Click(object sender, RoutedEventArgs e)
+    // --- CREATE TASK MODAL ---
+    private void NewTaskButton_Click(object sender, RoutedEventArgs e)
     {
-        RefreshButton.IsEnabled = false;
-        await LoadDataAsync();
-        RefreshButton.IsEnabled = true;
-        ShowNotice("Data refreshed.");
+        OpenNewTaskModal();
     }
 
-    private void PinButton_Click(object sender, RoutedEventArgs e)
+    private void OpenNewTaskModal(string? prefillTitle = null)
     {
-        var win = Window.GetWindow(this);
-        if (win != null)
+        var project = ProjectCombo.SelectedItem as ProjectDto;
+        if (project == null)
         {
-            _isPinned = !_isPinned;
-            win.Topmost = _isPinned;
-            PinButton.Content = _isPinned ? "📌 Pinned" : "📌 Pin";
-            PinButton.Style = _isPinned ? (Style)FindResource("PrimaryButton") : (Style)FindResource("SecondaryButton");
+            ShowNotice("Please select a project first.", isError: true);
+            return;
         }
+
+        NewTaskTitleInput.Text = prefillTitle ?? "";
+        NewTaskEstHoursInput.Text = "1.0";
+        NewTaskOverlay.Visibility = Visibility.Visible;
+        NewTaskTitleInput.Focus();
     }
 
-    private async void LogoutButton_Click(object sender, RoutedEventArgs e)
+    private void CancelNewTask_Click(object sender, RoutedEventArgs e)
     {
-        if (App.TimerService.IsRunning)
+        NewTaskOverlay.Visibility = Visibility.Collapsed;
+    }
+
+    private async void SubmitNewTask_Click(object sender, RoutedEventArgs e)
+    {
+        var project = ProjectCombo.SelectedItem as ProjectDto;
+        if (project == null) return;
+
+        var title = NewTaskTitleInput.Text.Trim();
+        if (string.IsNullOrWhiteSpace(title))
         {
-            if (MessageBox.Show("A timer is currently running. Discard and sign out?", "Confirm Sign Out", MessageBoxButton.YesNo, MessageBoxImage.Warning) != MessageBoxResult.Yes)
+            ShowNotice("Task title is required.", isError: true);
+            return;
+        }
+
+        double.TryParse(NewTaskEstHoursInput.Text.Trim(), NumberStyles.Any, CultureInfo.InvariantCulture, out var estHours);
+
+        SubmitNewTaskButton.IsEnabled = false;
+        try
+        {
+            var req = new TaskCreateRequest
             {
-                return;
-            }
-            App.TimerService.Reset();
-        }
+                Title = title,
+                ProjectId = project.Id,
+                EstimatedHours = estHours,
+                DueDate = DateTime.UtcNow.ToString("yyyy-MM-dd"),
+            };
 
-        await App.AuthService.LogoutAsync();
+            var created = await App.ApiClient.PostAsync<TaskCreateRequest, TaskDto>("/tasks", req);
+            if (created != null)
+            {
+                created.ProjectName = project.Name;
+                _allTasks.Add(created);
+                PopulateTasksCombo();
+                TaskCombo.SelectedItem = created;
+                NewTaskOverlay.Visibility = Visibility.Collapsed;
+                ShowNotice($"Task \"{created.Title}\" created!");
+                RefreshScheduleAndMetrics();
+            }
+        }
+        catch (Exception ex)
+        {
+            ShowNotice($"Failed to create task: {ex.Message}", isError: true);
+        }
+        finally
+        {
+            SubmitNewTaskButton.IsEnabled = true;
+        }
+    }
+
+    private void NoticeClose_Click(object sender, RoutedEventArgs e)
+    {
+        NoticeBorder.Visibility = Visibility.Collapsed;
     }
 
     private void ShowNotice(string message, bool isError = false)

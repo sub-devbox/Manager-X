@@ -81,6 +81,34 @@ public class ApiClient
         }
     }
 
+    public async Task<TRes?> PatchAsync<TReq, TRes>(string endpoint, TReq data)
+    {
+        var url = $"{_baseUrl}/{endpoint.TrimStart('/')}";
+        var json = JsonSerializer.Serialize(data);
+        using var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+        var res = await _http.PatchAsync(url, stringContent);
+        var content = await res.Content.ReadAsStringAsync();
+
+        if (!res.IsSuccessStatusCode)
+        {
+            throw new ApiException((int)res.StatusCode, ParseError(content));
+        }
+
+        return JsonSerializer.Deserialize<TRes>(content);
+    }
+
+    public async Task DeleteAsync(string endpoint)
+    {
+        var url = $"{_baseUrl}/{endpoint.TrimStart('/')}";
+        var res = await _http.DeleteAsync(url);
+        if (!res.IsSuccessStatusCode)
+        {
+            var content = await res.Content.ReadAsStringAsync();
+            throw new ApiException((int)res.StatusCode, ParseError(content));
+        }
+    }
+
     private static string ParseError(string json)
     {
         try

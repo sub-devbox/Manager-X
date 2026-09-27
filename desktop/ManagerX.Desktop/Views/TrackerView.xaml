@@ -4,232 +4,425 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="700" d:DesignWidth="460">
+             d:DesignHeight="720" d:DesignWidth="460">
     <Grid Background="{StaticResource BgAppBrush}">
-        <Grid.RowDefinitions>
-            <!-- Header -->
-            <RowDefinition Height="Auto" />
-            <!-- Notification banner -->
-            <RowDefinition Height="Auto" />
-            <!-- Main Content ScrollViewer -->
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+        <!-- Main Content -->
+        <Grid>
+            <Grid.RowDefinitions>
+                <!-- Notification Banner -->
+                <RowDefinition Height="Auto" />
+                <!-- Scrollable Body -->
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-        <!-- Top Navigation Bar -->
-        <Border Grid.Row="0" 
-                Background="{StaticResource BgSurfaceBrush}" 
-                BorderBrush="{StaticResource BorderSubtleBrush}" 
-                BorderThickness="0,0,0,1" 
-                Padding="16,12">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+            <!-- Status Notice Banner -->
+            <Border Grid.Row="0" x:Name="NoticeBorder" Background="#163828" BorderBrush="{StaticResource AccentEmeraldBrush}" BorderThickness="0,0,0,1" Padding="12,8" Visibility="Collapsed">
+                <Grid>
+                    <TextBlock x:Name="NoticeText" Foreground="{StaticResource AccentEmeraldBrush}" FontSize="12" TextWrapping="Wrap" />
+                    <Button Content="✕" HorizontalAlignment="Right" Background="Transparent" Foreground="{StaticResource AccentEmeraldBrush}" BorderThickness="0" Cursor="Hand" Click="NoticeClose_Click" />
+                </Grid>
+            </Border>
 
-                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-                    <Ellipse Width="8" Height="8" Fill="{StaticResource AccentEmeraldBrush}" Margin="0,0,8,0" />
-                    <TextBlock Text="MANAGER-X" FontWeight="Bold" FontSize="14" Foreground="{StaticResource TextMainBrush}" VerticalAlignment="Center" />
-                    <TextBlock Text="•" Foreground="{StaticResource TextDimBrush}" Margin="8,0" VerticalAlignment="Center" />
-                    <TextBlock x:Name="UserEmailText" Text="user@example.com" FontSize="12" Foreground="{StaticResource TextMutedBrush}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" MaxWidth="160" />
-                </StackPanel>
+            <!-- Scrollable Body -->
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="14">
+                <StackPanel>
+                    <!-- 1. METRICS HEADER CARDS -->
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                    <Button x:Name="PinButton" Content="📌 Pin" Style="{StaticResource SecondaryButton}" Margin="0,0,6,0" Padding="8,4" Click="PinButton_Click" ToolTip="Toggle Always on Top" />
-                    <Button x:Name="RefreshButton" Content="↻" Style="{StaticResource SecondaryButton}" Margin="0,0,6,0" Padding="8,4" Click="RefreshButton_Click" ToolTip="Refresh Data" />
-                    <Button x:Name="LogoutButton" Content="Sign Out" Style="{StaticResource SecondaryButton}" Padding="8,4" Click="LogoutButton_Click" />
-                </StackPanel>
-            </Grid>
-        </Border>
-
-        <!-- Toast / Status Notice Banner -->
-        <Border Grid.Row="1" x:Name="NoticeBorder" Background="#163828" BorderBrush="{StaticResource AccentEmeraldBrush}" BorderThickness="0,0,0,1" Padding="12,8" Visibility="Collapsed">
-            <TextBlock x:Name="NoticeText" Foreground="{StaticResource AccentEmeraldBrush}" FontSize="12" TextWrapping="Wrap" />
-        </Border>
-
-        <!-- Scrollable Body -->
-        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Padding="16">
-            <StackPanel>
-                <!-- Timer Display Card -->
-                <Border Background="{StaticResource BgSurfaceBrush}" 
-                        BorderBrush="{StaticResource BorderSubtleBrush}" 
-                        BorderThickness="1" 
-                        CornerRadius="10" 
-                        Padding="20" 
-                        Margin="0,0,0,16">
-                    <StackPanel HorizontalAlignment="Center">
-                        <!-- Status Badge -->
-                        <Border x:Name="TimerStatusBadge" 
-                                Background="#1E293B" 
+                        <!-- Card 1: Estimated Today -->
+                        <Border Grid.Column="0" 
+                                Background="{StaticResource BgSurfaceBrush}" 
                                 BorderBrush="{StaticResource BorderSubtleBrush}" 
                                 BorderThickness="1" 
-                                CornerRadius="12" 
-                                Padding="10,3" 
-                                HorizontalAlignment="Center" 
-                                Margin="0,0,0,12">
-                            <TextBlock x:Name="TimerStatusText" Text="IDLE" FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" />
+                                CornerRadius="8" 
+                                Padding="12,10">
+                            <StackPanel>
+                                <TextBlock Text="EST TIME TODAY" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextDimBrush}" />
+                                <TextBlock x:Name="EstTimeTodayText" Text="0.0 hrs" FontSize="18" FontWeight="Bold" Foreground="{StaticResource AccentAmberBrush}" Margin="0,2,0,0" />
+                            </StackPanel>
                         </Border>
 
-                        <!-- Stopwatch Digits -->
-                        <TextBlock x:Name="TimerDigitsText" 
-                                   Text="00:00:00" 
-                                   FontFamily="Consolas, Cascadia Code, Courier New" 
-                                   FontSize="46" 
-                                   FontWeight="Bold" 
-                                   Foreground="{StaticResource TextMainBrush}" 
-                                   HorizontalAlignment="Center" 
-                                   Margin="0,0,0,8" />
+                        <!-- Card 2: Tracked Today -->
+                        <Border Grid.Column="2" 
+                                Background="{StaticResource BgSurfaceBrush}" 
+                                BorderBrush="{StaticResource BorderSubtleBrush}" 
+                                BorderThickness="1" 
+                                CornerRadius="8" 
+                                Padding="12,10">
+                            <StackPanel>
+                                <TextBlock Text="TRACKED TODAY" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextDimBrush}" />
+                                <TextBlock x:Name="TrackedTodayText" Text="0.0 hrs" FontSize="18" FontWeight="Bold" Foreground="{StaticResource AccentEmeraldBrush}" Margin="0,2,0,0" />
+                            </StackPanel>
+                        </Border>
+                    </Grid>
 
-                        <!-- Active Project & Task Label -->
-                        <TextBlock x:Name="ActiveTaskLabel" 
-                                   Text="No task currently running" 
-                                   FontSize="12" 
-                                   Foreground="{StaticResource TextMutedBrush}" 
-                                   HorizontalAlignment="Center" 
-                                   Margin="0,0,0,18" 
-                                   TextAlignment="Center" 
-                                   TextTrimming="CharacterEllipsis" 
-                                   MaxWidth="380" />
+                    <!-- 2. TIMER DISPLAY & CONTROLS -->
+                    <Border Background="{StaticResource BgSurfaceBrush}" 
+                            BorderBrush="{StaticResource BorderSubtleBrush}" 
+                            BorderThickness="1" 
+                            CornerRadius="10" 
+                            Padding="16" 
+                            Margin="0,0,0,14">
+                        <StackPanel HorizontalAlignment="Center">
+                            <!-- Status Badge -->
+                            <Border x:Name="TimerStatusBadge" 
+                                    Background="#1E293B" 
+                                    BorderBrush="{StaticResource BorderSubtleBrush}" 
+                                    BorderThickness="1" 
+                                    CornerRadius="12" 
+                                    Padding="10,2" 
+                                    HorizontalAlignment="Center" 
+                                    Margin="0,0,0,8">
+                                <TextBlock x:Name="TimerStatusText" Text="IDLE" FontSize="10.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" />
+                            </Border>
 
-                        <!-- Timer Controls -->
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button x:Name="StartPauseButton" 
-                                    Content="▶ Start Timer" 
-                                    Style="{StaticResource PrimaryButton}" 
-                                    Width="120" 
-                                    Height="36" 
-                                    Margin="0,0,8,0" 
-                                    Click="StartPauseButton_Click" />
-                            <Button x:Name="StopSaveButton" 
-                                    Content="■ Stop &amp; Log" 
-                                    Style="{StaticResource SecondaryButton}" 
-                                    Width="110" 
-                                    Height="36" 
-                                    Margin="0,0,8,0" 
-                                    IsEnabled="False" 
-                                    Click="StopSaveButton_Click" />
-                            <Button x:Name="ResetButton" 
-                                    Content="Reset" 
-                                    Style="{StaticResource SecondaryButton}" 
-                                    Width="70" 
-                                    Height="36" 
-                                    IsEnabled="False" 
-                                    Click="ResetButton_Click" />
-                        </StackPanel>
-                    </StackPanel>
-                </Border>
-
-                <!-- Task / Project Selection Card -->
-                <Border Background="{StaticResource BgSurfaceBrush}" 
-                        BorderBrush="{StaticResource BorderSubtleBrush}" 
-                        BorderThickness="1" 
-                        CornerRadius="10" 
-                        Padding="16" 
-                        Margin="0,0,0,16">
-                    <StackPanel>
-                        <TextBlock Text="LOG TIME TO TASK" 
-                                   FontSize="11" 
-                                   FontWeight="Bold" 
-                                   Foreground="{StaticResource TextDimBrush}" 
-                                   Margin="0,0,0,12" />
-
-                        <!-- Project Selector -->
-                        <TextBlock Text="PROJECT" FontSize="10" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,4" />
-                        <ComboBox x:Name="ProjectCombo" 
-                                  Margin="0,0,0,12" 
-                                  Height="34" 
-                                  SelectionChanged="ProjectCombo_SelectionChanged" />
-
-                        <!-- Task Selector -->
-                        <TextBlock Text="TASK *" FontSize="10" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,4" />
-                        <ComboBox x:Name="TaskCombo" 
-                                  Margin="0,0,0,12" 
-                                  Height="34" />
-
-                        <!-- Work Note / Description -->
-                        <TextBlock Text="WORK DESCRIPTION / NOTE" FontSize="10" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,4" />
-                        <TextBox x:Name="DescriptionInput" 
-                                 Margin="0,0,0,12" 
-                                 Height="34" />
-
-                        <!-- Manual Time Entry Section -->
-                        <Grid Margin="0,4,0,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <TextBox x:Name="ManualHoursInput" 
-                                     Grid.Column="0" 
-                                     Margin="0,0,8,0" 
-                                     Height="34" 
-                                     ToolTip="Enter hours (e.g. 1.5 or 0.75)" />
-                            <Button x:Name="ManualLogButton" 
-                                    Grid.Column="1" 
-                                    Content="+ Manual Log" 
-                                    Style="{StaticResource SecondaryButton}" 
-                                    Height="34" 
-                                    Click="ManualLogButton_Click" />
-                        </Grid>
-                    </StackPanel>
-                </Border>
-
-                <!-- Today's Activity Card -->
-                <Border Background="{StaticResource BgSurfaceBrush}" 
-                        BorderBrush="{StaticResource BorderSubtleBrush}" 
-                        BorderThickness="1" 
-                        CornerRadius="10" 
-                        Padding="16">
-                    <StackPanel>
-                        <Grid Margin="0,0,0,12">
-                            <TextBlock Text="TODAY'S ACTIVITY" 
-                                       FontSize="11" 
+                            <!-- Stopwatch Digits -->
+                            <TextBlock x:Name="TimerDigitsText" 
+                                       Text="00:00:00" 
+                                       FontFamily="Consolas, Cascadia Code" 
+                                       FontSize="42" 
                                        FontWeight="Bold" 
+                                       Foreground="{StaticResource TextMainBrush}" 
+                                       HorizontalAlignment="Center" 
+                                       Margin="0,0,0,4" />
+
+                            <!-- Active Project & Task Label -->
+                            <TextBlock x:Name="ActiveTaskLabel" 
+                                       Text="Select a project and task to start timer" 
+                                       FontSize="11.5" 
+                                       Foreground="{StaticResource TextMutedBrush}" 
+                                       HorizontalAlignment="Center" 
+                                       Margin="0,0,0,14" 
+                                       TextAlignment="Center" 
+                                       TextTrimming="CharacterEllipsis" 
+                                       MaxWidth="380" />
+
+                            <!-- Timer Action Buttons -->
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button x:Name="StartPauseButton" 
+                                        Content="▶ Start Timer" 
+                                        Style="{StaticResource PrimaryButton}" 
+                                        Width="115" 
+                                        Height="34" 
+                                        Margin="0,0,6,0" 
+                                        IsEnabled="False" 
+                                        Click="StartPauseButton_Click" />
+                                <Button x:Name="StopSaveButton" 
+                                        Content="■ Stop &amp; Log" 
+                                        Style="{StaticResource SecondaryButton}" 
+                                        Width="105" 
+                                        Height="34" 
+                                        Margin="0,0,6,0" 
+                                        IsEnabled="False" 
+                                        Click="StopSaveButton_Click" />
+                                <Button x:Name="ResetButton" 
+                                        Content="Reset" 
+                                        Style="{StaticResource SecondaryButton}" 
+                                        Width="65" 
+                                        Height="34" 
+                                        IsEnabled="False" 
+                                        Click="ResetButton_Click" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- 3. PROJECT & TASK SELECTION (SEARCHABLE + CREATE ON NOT FOUND) -->
+                    <Border Background="{StaticResource BgSurfaceBrush}" 
+                            BorderBrush="{StaticResource BorderSubtleBrush}" 
+                            BorderThickness="1" 
+                            CornerRadius="10" 
+                            Padding="14" 
+                            Margin="0,0,0,14">
+                        <StackPanel>
+                            <!-- Project Header -->
+                            <Grid Margin="0,0,0,4">
+                                <TextBlock Text="PROJECT *" FontSize="10.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" />
+                                <Button Content="+ New Project" 
+                                        HorizontalAlignment="Right" 
+                                        Background="Transparent" 
+                                        Foreground="{StaticResource AccentBlueBrush}" 
+                                        BorderThickness="0" 
+                                        FontSize="11" 
+                                        Cursor="Hand" 
+                                        Click="NewProjectButton_Click" />
+                            </Grid>
+
+                            <!-- Project Searchable Combo -->
+                            <ComboBox x:Name="ProjectCombo" 
+                                      IsEditable="True" 
+                                      Height="32" 
+                                      Margin="0,0,0,10" 
+                                      SelectionChanged="ProjectCombo_SelectionChanged" 
+                                      KeyUp="ProjectCombo_KeyUp" />
+
+                            <!-- Task Header -->
+                            <Grid Margin="0,0,0,4">
+                                <TextBlock Text="TASK *" FontSize="10.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" />
+                                <Button x:Name="NewTaskHeaderButton" 
+                                        Content="+ New Task" 
+                                        HorizontalAlignment="Right" 
+                                        Background="Transparent" 
+                                        Foreground="{StaticResource AccentBlueBrush}" 
+                                        BorderThickness="0" 
+                                        FontSize="11" 
+                                        Cursor="Hand" 
+                                        IsEnabled="False" 
+                                        Click="NewTaskButton_Click" />
+                            </Grid>
+
+                            <!-- Task Searchable Combo -->
+                            <ComboBox x:Name="TaskCombo" 
+                                      IsEditable="True" 
+                                      Height="32" 
+                                      Margin="0,0,0,10" 
+                                      IsEnabled="False" 
+                                      SelectionChanged="TaskCombo_SelectionChanged" 
+                                      KeyUp="TaskCombo_KeyUp" />
+
+                            <!-- Work Description / Memo -->
+                            <TextBlock Text="DESCRIPTION (OPTIONAL)" FontSize="10.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,4" />
+                            <TextBox x:Name="DescriptionInput" Height="32" Margin="0,0,0,8" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- 4. TODAY'S SCHEDULE -->
+                    <Border Background="{StaticResource BgSurfaceBrush}" 
+                            BorderBrush="{StaticResource BorderSubtleBrush}" 
+                            BorderThickness="1" 
+                            CornerRadius="10" 
+                            Padding="14" 
+                            Margin="0,0,0,14">
+                        <StackPanel>
+                            <Grid Margin="0,0,0,10">
+                                <TextBlock Text="TODAY'S SCHEDULE" FontSize="11" FontWeight="Bold" Foreground="{StaticResource TextDimBrush}" VerticalAlignment="Center" />
+                                <TextBlock x:Name="ScheduleCountText" Text="0 tasks due" FontSize="11" Foreground="{StaticResource TextMutedBrush}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            </Grid>
+
+                            <ItemsControl x:Name="TodayScheduleList">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="{StaticResource BgSurfaceSubtleBrush}" 
+                                                BorderBrush="{StaticResource BorderSubtleBrush}" 
+                                                BorderThickness="1" 
+                                                CornerRadius="6" 
+                                                Padding="8,6" 
+                                                Margin="0,0,0,6">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <StackPanel Grid.Column="0">
+                                                    <TextBlock Text="{Binding Title}" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource TextMainBrush}" TextTrimming="CharacterEllipsis" />
+                                                    <TextBlock Text="{Binding ProjectName}" FontSize="10.5" Foreground="{StaticResource TextDimBrush}" TextTrimming="CharacterEllipsis" Margin="0,1,0,0" />
+                                                </StackPanel>
+
+                                                <TextBlock Grid.Column="1" 
+                                                           Text="{Binding EstimatedHours, StringFormat={}{0}h}" 
+                                                           FontFamily="Consolas" 
+                                                           FontSize="11" 
+                                                           Foreground="{StaticResource AccentAmberBrush}" 
+                                                           VerticalAlignment="Center" 
+                                                           Margin="8,0" />
+
+                                                <Button Grid.Column="2" 
+                                                        Content="▶ Start" 
+                                                        Style="{StaticResource SecondaryButton}" 
+                                                        Padding="8,3" 
+                                                        FontSize="11" 
+                                                        Tag="{Binding}" 
+                                                        Click="StartScheduledTask_Click" />
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <TextBlock x:Name="NoScheduleText" 
+                                       Text="No tasks scheduled for today." 
+                                       FontSize="11.5" 
                                        Foreground="{StaticResource TextDimBrush}" 
-                                       VerticalAlignment="Center" />
-                            <TextBlock x:Name="TodayTotalHoursText" 
-                                       Text="Total: 0.0 hrs" 
-                                       FontSize="11" 
-                                       FontWeight="SemiBold" 
-                                       Foreground="{StaticResource AccentEmeraldBrush}" 
-                                       HorizontalAlignment="Right" 
-                                       VerticalAlignment="Center" />
+                                       HorizontalAlignment="Center" 
+                                       Margin="0,6" 
+                                       Visibility="Collapsed" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- 5. TODAY'S ACTIVITY BUTTON -->
+                    <Button x:Name="ViewTodayActivityButton" 
+                            Content="📋 View Today's Activity &amp; Logs (0)" 
+                            Style="{StaticResource SecondaryButton}" 
+                            Height="38" 
+                            FontSize="12.5" 
+                            FontWeight="SemiBold" 
+                            Margin="0,0,0,6" 
+                            Click="ViewTodayActivityButton_Click" />
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <!-- 6. MODAL OVERLAY: TODAY'S ACTIVITY (EDIT & DELETE LOGS) -->
+        <Grid x:Name="ActivityModalOverlay" Background="#90000000" Visibility="Collapsed">
+            <Border Background="{StaticResource BgSurfaceBrush}" 
+                    BorderBrush="{StaticResource BorderSubtleBrush}" 
+                    BorderThickness="1" 
+                    CornerRadius="10" 
+                    Margin="16" 
+                    MaxHeight="600" 
+                    VerticalAlignment="Center">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Modal Header -->
+                    <Border Grid.Row="0" Background="{StaticResource BgSurfaceSubtleBrush}" BorderBrush="{StaticResource BorderSubtleBrush}" BorderThickness="0,0,0,1" Padding="14,10" CornerRadius="9,9,0,0">
+                        <Grid>
+                            <TextBlock Text="Today's Time Entries" FontSize="13" FontWeight="Bold" Foreground="{StaticResource TextMainBrush}" VerticalAlignment="Center" />
+                            <Button Content="✕" HorizontalAlignment="Right" Background="Transparent" Foreground="{StaticResource TextMutedBrush}" BorderThickness="0" Cursor="Hand" Click="CloseActivityModal_Click" />
                         </Grid>
+                    </Border>
 
-                        <ItemsControl x:Name="RecentEntriesList">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Background="{StaticResource BgSurfaceSubtleBrush}" 
-                                            BorderBrush="{StaticResource BorderSubtleBrush}" 
-                                            BorderThickness="1" 
-                                            CornerRadius="6" 
-                                            Padding="10,8" 
-                                            Margin="0,0,0,6">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <StackPanel Grid.Column="0">
-                                                <TextBlock Text="{Binding TaskTitle}" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource TextMainBrush}" TextTrimming="CharacterEllipsis" />
-                                                <TextBlock Text="{Binding ProjectName}" FontSize="11" Foreground="{StaticResource TextMutedBrush}" TextTrimming="CharacterEllipsis" Margin="0,2,0,0" />
-                                            </StackPanel>
-                                            <TextBlock Grid.Column="1" Text="{Binding FormattedDuration}" FontFamily="Consolas, Cascadia Code" FontSize="13" FontWeight="Bold" Foreground="{StaticResource AccentEmeraldBrush}" VerticalAlignment="Center" Margin="10,0,0,0" />
-                                        </Grid>
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                    <!-- Entries List with Edit & Delete -->
+                    <ScrollViewer Grid.Row="1" Padding="14">
+                        <StackPanel>
+                            <ItemsControl x:Name="ModalEntriesList">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="{StaticResource BgSurfaceSubtleBrush}" 
+                                                BorderBrush="{StaticResource BorderSubtleBrush}" 
+                                                BorderThickness="1" 
+                                                CornerRadius="6" 
+                                                Padding="10,8" 
+                                                Margin="0,0,0,8">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
 
-                        <TextBlock x:Name="NoEntriesText" 
-                                   Text="No time entries logged yet today." 
-                                   FontSize="12" 
-                                   Foreground="{StaticResource TextDimBrush}" 
-                                   HorizontalAlignment="Center" 
-                                   Margin="0,8" 
-                                   Visibility="Collapsed" />
+                                                <StackPanel Grid.Column="0">
+                                                    <TextBlock Text="{Binding TaskTitle}" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource TextMainBrush}" TextTrimming="CharacterEllipsis" />
+                                                    <TextBlock Text="{Binding ProjectName}" FontSize="10.5" Foreground="{StaticResource TextMutedBrush}" TextTrimming="CharacterEllipsis" Margin="0,2,0,0" />
+                                                    <TextBlock Text="{Binding Description}" FontSize="11" Foreground="{StaticResource TextDimBrush}" TextTrimming="CharacterEllipsis" Margin="0,4,0,0" />
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                                    <TextBlock Text="{Binding FormattedDuration}" FontFamily="Consolas" FontSize="13" FontWeight="Bold" Foreground="{StaticResource AccentEmeraldBrush}" HorizontalAlignment="Right" Margin="0,0,0,6" />
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Button Content="✏ Edit" 
+                                                                Style="{StaticResource SecondaryButton}" 
+                                                                Padding="6,2" 
+                                                                FontSize="10.5" 
+                                                                Margin="0,0,4,0" 
+                                                                Tag="{Binding}" 
+                                                                Click="EditEntry_Click" />
+                                                        <Button Content="🗑 Delete" 
+                                                                Style="{StaticResource SecondaryButton}" 
+                                                                Foreground="{StaticResource AccentRoseBrush}" 
+                                                                Padding="6,2" 
+                                                                FontSize="10.5" 
+                                                                Tag="{Binding}" 
+                                                                Click="DeleteEntry_Click" />
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <TextBlock x:Name="NoModalEntriesText" Text="No entries logged today." Foreground="{StaticResource TextDimBrush}" FontSize="12" HorizontalAlignment="Center" Margin="0,20" Visibility="Collapsed" />
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- 7. MODAL OVERLAY: EDIT TIME ENTRY -->
+        <Grid x:Name="EditEntryOverlay" Background="#90000000" Visibility="Collapsed">
+            <Border Background="{StaticResource BgSurfaceBrush}" 
+                    BorderBrush="{StaticResource BorderSubtleBrush}" 
+                    BorderThickness="1" 
+                    CornerRadius="10" 
+                    Margin="24" 
+                    Padding="16" 
+                    VerticalAlignment="Center">
+                <StackPanel>
+                    <TextBlock Text="Edit Time Entry" FontSize="13" FontWeight="Bold" Foreground="{StaticResource TextMainBrush}" Margin="0,0,0,12" />
+
+                    <TextBlock Text="DURATION (MINUTES)" FontSize="10.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,4" />
+                    <TextBox x:Name="EditDurationMinutesInput" Height="32" Margin="0,0,0,10" />
+
+                    <TextBlock Text="DESCRIPTION / NOTE" FontSize="10.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,4" />
+                    <TextBox x:Name="EditDescriptionInput" Height="32" Margin="0,0,0,14" />
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="Cancel" Style="{StaticResource SecondaryButton}" Margin="0,0,8,0" Click="CancelEditEntry_Click" />
+                        <Button Content="Save Changes" Style="{StaticResource PrimaryButton}" Click="SaveEditEntry_Click" />
                     </StackPanel>
-                </Border>
-            </StackPanel>
-        </ScrollViewer>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- 8. MODAL OVERLAY: CREATE NEW PROJECT -->
+        <Grid x:Name="NewProjectOverlay" Background="#90000000" Visibility="Collapsed">
+            <Border Background="{StaticResource BgSurfaceBrush}" 
+                    BorderBrush="{StaticResource BorderSubtleBrush}" 
+                    BorderThickness="1" 
+                    CornerRadius="10" 
+                    Margin="24" 
+                    Padding="16" 
+                    VerticalAlignment="Center">
+                <StackPanel>
+                    <TextBlock Text="Create New Project" FontSize="13" FontWeight="Bold" Foreground="{StaticResource TextMainBrush}" Margin="0,0,0,12" />
+
+                    <TextBlock Text="PROJECT NAME *" FontSize="10.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,4" />
+                    <TextBox x:Name="NewProjectNameInput" Height="32" Margin="0,0,0,10" />
+
+                    <TextBlock Text="CLIENT *" FontSize="10.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,4" />
+                    <ComboBox x:Name="NewProjectClientCombo" Height="32" Margin="0,0,0,14" />
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="Cancel" Style="{StaticResource SecondaryButton}" Margin="0,0,8,0" Click="CancelNewProject_Click" />
+                        <Button x:Name="SubmitNewProjectButton" Content="Create Project" Style="{StaticResource PrimaryButton}" Click="SubmitNewProject_Click" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- 9. MODAL OVERLAY: CREATE NEW TASK -->
+        <Grid x:Name="NewTaskOverlay" Background="#90000000" Visibility="Collapsed">
+            <Border Background="{StaticResource BgSurfaceBrush}" 
+                    BorderBrush="{StaticResource BorderSubtleBrush}" 
+                    BorderThickness="1" 
+                    CornerRadius="10" 
+                    Margin="24" 
+                    Padding="16" 
+                    VerticalAlignment="Center">
+                <StackPanel>
+                    <TextBlock Text="Create New Task" FontSize="13" FontWeight="Bold" Foreground="{StaticResource TextMainBrush}" Margin="0,0,0,12" />
+
+                    <TextBlock Text="TASK TITLE *" FontSize="10.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,4" />
+                    <TextBox x:Name="NewTaskTitleInput" Height="32" Margin="0,0,0,10" />
+
+                    <TextBlock Text="ESTIMATED HOURS (OPTIONAL)" FontSize="10.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,4" />
+                    <TextBox x:Name="NewTaskEstHoursInput" Text="1.0" Height="32" Margin="0,0,0,14" />
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="Cancel" Style="{StaticResource SecondaryButton}" Margin="0,0,8,0" Click="CancelNewTask_Click" />
+                        <Button x:Name="SubmitNewTaskButton" Content="Create Task" Style="{StaticResource PrimaryButton}" Click="SubmitNewTask_Click" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
     </Grid>
 </UserControl>

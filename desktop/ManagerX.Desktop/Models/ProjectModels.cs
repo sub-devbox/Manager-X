@@ -14,10 +14,10 @@ public class ProjectDto
     public string? Description { get; set; }
 
     [JsonPropertyName("status")]
-    public string Status { get; set; } = "in_progress";
+    public string Status { get; set; } = "active";
 
     [JsonPropertyName("client_id")]
-    public string? ClientId { get; set; }
+    public string ClientId { get; set; } = string.Empty;
 
     [JsonPropertyName("client")]
     public ClientDto? Client { get; set; }
@@ -32,6 +32,8 @@ public class ClientDto
 
     [JsonPropertyName("company_name")]
     public string CompanyName { get; set; } = string.Empty;
+
+    public override string ToString() => CompanyName;
 }
 
 public class TaskDto
@@ -57,6 +59,9 @@ public class TaskDto
     [JsonPropertyName("project_name")]
     public string? ProjectName { get; set; }
 
+    [JsonPropertyName("client_name")]
+    public string? ClientName { get; set; }
+
     [JsonPropertyName("estimated_hours")]
     public double EstimatedHours { get; set; }
 
@@ -64,4 +69,40 @@ public class TaskDto
     public string? DueDate { get; set; }
 
     public override string ToString() => Title;
+}
+
+public class ProjectCreateRequest
+{
+    [JsonPropertyName("name")]
+    public string Name { get; set; } = string.Empty;
+
+    [JsonPropertyName("client_id")]
+    public string ClientId { get; set; } = string.Empty;
+
+    [JsonPropertyName("description")]
+    public string? Description { get; set; }
+
+    [JsonPropertyName("billing_type")]
+    public string BillingType { get; set; } = "hourly";
+
+    [JsonPropertyName("status")]
+    public string Status { get; set; } = "active";
+}
+
+public class TaskCreateRequest
+{
+    [JsonPropertyName("title")]
+    public string Title { get; set; } = string.Empty;
+
+    [JsonPropertyName("project_id")]
+    public string ProjectId { get; set; } = string.Empty;
+
+    [JsonPropertyName("description")]
+    public string? Description { get; set; }
+
+    [JsonPropertyName("estimated_hours")]
+    public double EstimatedHours { get; set; } = 0.0;
+
+    [JsonPropertyName("due_date")]
+    public string? DueDate { get; set; }
 }

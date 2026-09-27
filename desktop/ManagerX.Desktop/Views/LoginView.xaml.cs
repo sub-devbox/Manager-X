@@ -3,6 +3,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ManagerX.Services;
+using UserControl = System.Windows.Controls.UserControl;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace ManagerX.Views;
 
