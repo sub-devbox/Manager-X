@@ -9,6 +9,7 @@ using ManagerX.Services;
 using Microsoft.Win32;
 using UserControl = System.Windows.Controls.UserControl;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using FolderBrowserDialog = System.Windows.Forms.FolderBrowserDialog;
 
 namespace ManagerX.Views;
 
@@ -29,31 +30,34 @@ public partial class BackendSetupView : UserControl
         var saved = StorageService.LoadBackendSettings();
         if (saved != null)
         {
-            if (!string.IsNullOrWhiteSpace(saved.PythonPath))
-            {
-                PythonPathInput.Text = saved.PythonPath;
-            }
-            if (saved.Port > 0)
-            {
-                PortInput.Text = saved.Port.ToString();
-            }
+            if (!string.IsNullOrWhiteSpace(saved.PythonPath)) PythonPathInput.Text = saved.PythonPath;
+            if (!string.IsNullOrWhiteSpace(saved.Host)) HostInput.Text = saved.Host;
+            if (saved.Port > 0) PortInput.Text = saved.Port.ToString();
             ReloadCheck.IsChecked = saved.AutoReload;
+
+            if (!string.IsNullOrWhiteSpace(saved.FrontendDir)) FrontendDirInput.Text = saved.FrontendDir;
+            if (!string.IsNullOrWhiteSpace(saved.FrontendHost)) FrontendHostInput.Text = saved.FrontendHost;
+            if (saved.FrontendPort > 0) FrontendPortInput.Text = saved.FrontendPort.ToString();
+
+            SilentModeCheck.IsChecked = saved.RunSilently;
         }
 
-        // If Python path still blank, auto-discover
+        // Auto-discover if fields are blank
         if (string.IsNullOrWhiteSpace(PythonPathInput.Text))
         {
             var discovered = BackendLauncherService.FindDefaultPythonPath();
             if (!string.IsNullOrWhiteSpace(discovered))
             {
                 PythonPathInput.Text = discovered;
-                PythonHintText.Text = "✓ Auto-detected from project virtual environment";
-                PythonHintText.Foreground = (System.Windows.Media.Brush)FindResource("AccentEmeraldBrush");
             }
-            else
+        }
+
+        if (string.IsNullOrWhiteSpace(FrontendDirInput.Text))
+        {
+            var discoveredFrontend = BackendLauncherService.FindDefaultFrontendPath();
+            if (!string.IsNullOrWhiteSpace(discoveredFrontend))
             {
-                PythonHintText.Text = "Please locate python.exe in backend\\venv\\Scripts";
-                PythonHintText.Foreground = (System.Windows.Media.Brush)FindResource("TextDimBrush");
+                FrontendDirInput.Text = discoveredFrontend;
             }
         }
     }
@@ -70,78 +74,122 @@ public partial class BackendSetupView : UserControl
         if (dialog.ShowDialog() == true)
         {
             PythonPathInput.Text = dialog.FileName;
-            PythonHintText.Text = "Custom Python interpreter selected";
-            PythonHintText.Foreground = (System.Windows.Media.Brush)FindResource("TextMutedBrush");
         }
     }
 
-    private async void LaunchButton_Click(object sender, RoutedEventArgs e)
+    private void BrowseFrontendButton_Click(object sender, RoutedEventArgs e)
+    {
+        using var dialog = new FolderBrowserDialog
+        {
+            Description = "Select Manager-X Frontend Directory (containing package.json)",
+            UseDescriptionForTitle = true
+        };
+
+        if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+        {
+            FrontendDirInput.Text = dialog.SelectedPath;
+        }
+    }
+
+    private async void LaunchAllButton_Click(object sender, RoutedEventArgs e)
+    {
+        await LaunchServicesAsync(launchFrontend: true);
+    }
+
+    private async void LaunchBackendOnlyButton_Click(object sender, RoutedEventArgs e)
+    {
+        await LaunchServicesAsync(launchFrontend: false);
+    }
+
+    private async Task LaunchServicesAsync(bool launchFrontend)
     {
         HideError();
 
         var pythonPath = PythonPathInput.Text.Trim();
         if (string.IsNullOrWhiteSpace(pythonPath) || !File.Exists(pythonPath))
         {
-            ShowError("Please select a valid python.exe file.");
+            ShowError("Please select a valid python.exe file in backend venv.");
             return;
         }
 
-        if (!int.TryParse(PortInput.Text.Trim(), out var port) || port < 1 || port > 65535)
+        if (!int.TryParse(PortInput.Text.Trim(), out var backendPort) || backendPort < 1 || backendPort > 65535)
         {
-            ShowError("Please enter a valid port number (e.g. 8000).");
+            ShowError("Please enter a valid backend port number (e.g. 8000).");
             return;
         }
 
         var host = string.IsNullOrWhiteSpace(HostInput.Text) ? "127.0.0.1" : HostInput.Text.Trim();
         var reload = ReloadCheck.IsChecked ?? true;
+        var runSilently = SilentModeCheck.IsChecked ?? true;
 
         var backendDir = BackendLauncherService.ResolveBackendDirectory(pythonPath);
         if (string.IsNullOrWhiteSpace(backendDir) || !Directory.Exists(backendDir))
         {
-            ShowError("Could not locate the 'backend' folder with app/main.py. Make sure the backend project structure is intact.");
+            ShowError("Could not locate the 'backend' folder with app/main.py.");
             return;
+        }
+
+        // Frontend validation
+        var frontendDir = FrontendDirInput.Text.Trim();
+        var frontendHost = string.IsNullOrWhiteSpace(FrontendHostInput.Text) ? "localhost" : FrontendHostInput.Text.Trim();
+        if (!int.TryParse(FrontendPortInput.Text.Trim(), out var frontendPort) || frontendPort < 1 || frontendPort > 65535)
+        {
+            frontendPort = 3000;
         }
 
         // Save preferences
         StorageService.SaveBackendSettings(new BackendSettings
         {
             PythonPath = pythonPath,
-            Port = port,
+            Host = host,
+            Port = backendPort,
             BackendDir = backendDir,
-            AutoReload = reload
+            AutoReload = reload,
+            FrontendDir = frontendDir,
+            FrontendHost = frontendHost,
+            FrontendPort = frontendPort,
+            RunSilently = runSilently
         });
 
         SetLaunchingState(true);
-        StatusText.Text = $"Launching backend on {host}:{port}...";
+        StatusText.Text = $"Launching backend on {host}:{backendPort}...";
 
         try
         {
-            BackendLauncherService.StartBackend(pythonPath, backendDir, port, reload);
+            // 1. Launch Backend
+            BackendLauncherService.StartBackend(pythonPath, backendDir, host, backendPort, reload, runSilently);
 
-            var baseUrl = $"http://{host}:{port}/api/v1";
-            var targetHealthUrl = $"http://{host}:{port}";
+            // 2. Launch Frontend (if requested and directory valid)
+            if (launchFrontend && !string.IsNullOrWhiteSpace(frontendDir) && Directory.Exists(frontendDir))
+            {
+                StatusText.Text = "Launching backend & frontend services...";
+                BackendLauncherService.StartFrontend(frontendDir, frontendHost, frontendPort, runSilently);
+            }
+
+            var baseUrl = $"http://{host}:{backendPort}/api/v1";
+            var targetHealthUrl = $"http://{host}:{backendPort}";
 
             _pollCts = new CancellationTokenSource();
             var progress = new Progress<(int current, int max, string status)>(p =>
             {
-                StatusText.Text = $"Starting server ({p.current}/{p.max})... Waiting for health check...";
+                StatusText.Text = $"Starting services ({p.current}/{p.max})... Waiting for backend...";
             });
 
             var isHealthy = await BackendLauncherService.WaitForHealthyAsync(targetHealthUrl, maxRetries: 20, intervalMs: 1000, progress, _pollCts.Token);
             if (isHealthy)
             {
-                StatusText.Text = "Backend connected successfully!";
-                await Task.Delay(400);
+                StatusText.Text = "Connected successfully!";
+                await Task.Delay(300);
                 OnBackendReady?.Invoke(baseUrl);
             }
             else
             {
-                ShowError($"Backend did not respond on http://{host}:{port}/health within 20s.\n\nPlease check the opened terminal console ('ManagerX-Backend') for error tracebacks, missing dependencies, or port conflicts.");
+                ShowError($"Backend did not respond on http://{host}:{backendPort}/health within 20s.\n\nPlease check that the port is not blocked and dependencies are installed.");
             }
         }
         catch (Exception ex)
         {
-            ShowError($"Failed to launch backend: {ex.Message}");
+            ShowError($"Failed to launch services: {ex.Message}");
         }
         finally
         {
@@ -155,7 +203,7 @@ public partial class BackendSetupView : UserControl
 
         if (!int.TryParse(PortInput.Text.Trim(), out var port) || port < 1 || port > 65535)
         {
-            ShowError("Please enter a valid port number.");
+            ShowError("Please enter a valid backend port number.");
             return;
         }
 
@@ -171,7 +219,7 @@ public partial class BackendSetupView : UserControl
             if (isHealthy)
             {
                 StatusText.Text = "Backend is online!";
-                await Task.Delay(300);
+                await Task.Delay(250);
                 OnBackendReady?.Invoke(baseUrl);
             }
             else
@@ -208,7 +256,7 @@ public partial class BackendSetupView : UserControl
             if (isHealthy)
             {
                 StatusText.Text = "Server connected!";
-                await Task.Delay(300);
+                await Task.Delay(250);
                 OnBackendReady?.Invoke(customUrl);
             }
             else
@@ -228,12 +276,17 @@ public partial class BackendSetupView : UserControl
 
     private void SetLaunchingState(bool isLaunching)
     {
-        LaunchButton.IsEnabled = !isLaunching;
+        LaunchAllButton.IsEnabled = !isLaunching;
+        LaunchBackendOnlyButton.IsEnabled = !isLaunching;
         CheckAgainButton.IsEnabled = !isLaunching;
         BrowsePythonButton.IsEnabled = !isLaunching;
+        BrowseFrontendButton.IsEnabled = !isLaunching;
         PythonPathInput.IsEnabled = !isLaunching;
         PortInput.IsEnabled = !isLaunching;
         HostInput.IsEnabled = !isLaunching;
+        FrontendDirInput.IsEnabled = !isLaunching;
+        FrontendPortInput.IsEnabled = !isLaunching;
+        FrontendHostInput.IsEnabled = !isLaunching;
         StatusBorder.Visibility = isLaunching ? Visibility.Visible : Visibility.Collapsed;
     }
 

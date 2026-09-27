@@ -18,10 +18,18 @@ public partial class MainWindow : Window
     private Forms.NotifyIcon? _notifyIcon;
     private IntPtr _hwnd = IntPtr.Zero;
     private bool _isMiniMode = false;
-    private double _previousWidth = 460;
-    private double _previousHeight = 720;
+    private double _previousWidth = 390;
+    private double _previousHeight = 620;
     private double _previousLeft = 100;
     private double _previousTop = 100;
+
+    private System.Windows.Threading.DispatcherTimer? _statusTimer;
+    private bool _isBackendOnline = false;
+    private bool _isFrontendOnline = false;
+    private int _currentBackendPort = 8000;
+    private int _currentFrontendPort = 3000;
+    private string _currentBackendHost = "127.0.0.1";
+    private string _currentFrontendHost = "localhost";
 
     public MainWindow()
     {
@@ -49,7 +57,16 @@ public partial class MainWindow : Window
         App.TimerService.Ticked += OnTimerTicked;
         App.TimerService.StateChanged += OnTimerStateChanged;
 
+        // Periodic poller for API & Web frontend service health
+        _statusTimer = new System.Windows.Threading.DispatcherTimer
+        {
+            Interval = TimeSpan.FromSeconds(8)
+        };
+        _statusTimer.Tick += async (s, ev) => await UpdateServiceBadgesAsync();
+        _statusTimer.Start();
+
         await CheckBackendAndInitializeAsync();
+        await UpdateServiceBadgesAsync();
     }
 
     private async Task CheckBackendAndInitializeAsync()
@@ -95,6 +112,8 @@ public partial class MainWindow : Window
             _backendSetupView.OnBackendReady += async (url) =>
             {
                 App.ApiClient.UpdateBaseUrl(url);
+                await UpdateServiceBadgesAsync();
+
                 LoadingOverlay.Visibility = Visibility.Visible;
                 LoadingStatusText.Text = "Connecting...";
 
@@ -146,9 +165,17 @@ public partial class MainWindow : Window
 
             var contextMenu = new Forms.ContextMenuStrip();
             contextMenu.Items.Add("Show Manager X", null, (s, e) => RestoreFromTray());
+            contextMenu.Items.Add("Open Web App", null, (s, e) => OpenInBrowser($"http://{_currentFrontendHost}:{_currentFrontendPort}"));
+            contextMenu.Items.Add("Open API Docs (Swagger)", null, (s, e) => OpenInBrowser($"http://{_currentBackendHost}:{_currentBackendPort}/docs"));
+            contextMenu.Items.Add(new Forms.ToolStripSeparator());
             contextMenu.Items.Add("Start / Pause Timer", null, (s, e) => ToggleTimerFromTray());
             contextMenu.Items.Add("Stop & Save Timer", null, (s, e) => StopTimerFromTray());
             contextMenu.Items.Add(new Forms.ToolStripSeparator());
+            contextMenu.Items.Add("Stop All Servers", null, async (s, e) =>
+            {
+                await BackendLauncherService.StopAllServicesAsync(_currentBackendPort, _currentFrontendPort);
+                await UpdateServiceBadgesAsync();
+            });
             contextMenu.Items.Add("Log Out", null, async (s, e) => await Dispatcher.InvokeAsync(ConfirmAndLogoutAsync));
             contextMenu.Items.Add("Exit", null, (s, e) => ExitApplication());
 
@@ -228,6 +255,21 @@ public partial class MainWindow : Window
             App.TimerService.Reset();
         }
 
+        if (_isBackendOnline || _isFrontendOnline)
+        {
+            var stopServers = System.Windows.MessageBox.Show(
+                "Do you also want to stop the background servers (API & Frontend) before exiting?",
+                "Safely Shutdown Servers - Manager X",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (stopServers == MessageBoxResult.Yes)
+            {
+                BackendLauncherService.StopAllServicesAsync(_currentBackendPort, _currentFrontendPort).GetAwaiter().GetResult();
+            }
+        }
+
+        _statusTimer?.Stop();
         ShutdownPreventionService.DisableShutdownBlock(_hwnd);
         _notifyIcon?.Dispose();
         _notifyIcon = null;
@@ -245,6 +287,7 @@ public partial class MainWindow : Window
         }
         else
         {
+            _statusTimer?.Stop();
             ShutdownPreventionService.DisableShutdownBlock(_hwnd);
             _notifyIcon?.Dispose();
             _notifyIcon = null;
@@ -416,8 +459,8 @@ public partial class MainWindow : Window
         MiniWidgetContainer.Visibility = Visibility.Collapsed;
         FullModeContainer.Visibility = Visibility.Visible;
 
-        Width = _previousWidth > 380 ? _previousWidth : 460;
-        Height = _previousHeight > 400 ? _previousHeight : 720;
+        Width = _previousWidth > 320 ? _previousWidth : 390;
+        Height = _previousHeight > 380 ? _previousHeight : 620;
         Topmost = false;
         Opacity = 1.0;
     }
@@ -495,6 +538,131 @@ public partial class MainWindow : Window
     private void MiniExpandButton_Click(object sender, RoutedEventArgs e)
     {
         RestoreFullMode();
+    }
+
+    public async Task UpdateServiceBadgesAsync()
+    {
+        var settings = StorageService.LoadBackendSettings();
+        if (settings != null)
+        {
+            _currentBackendPort = settings.Port > 0 ? settings.Port : 8000;
+            _currentBackendHost = !string.IsNullOrWhiteSpace(settings.Host) ? settings.Host : "127.0.0.1";
+            _currentFrontendPort = settings.FrontendPort > 0 ? settings.FrontendPort : 3000;
+            _currentFrontendHost = !string.IsNullOrWhiteSpace(settings.FrontendHost) ? settings.FrontendHost : "localhost";
+        }
+
+        var backendUrl = $"http://{_currentBackendHost}:{_currentBackendPort}";
+        _isBackendOnline = await BackendLauncherService.CheckHealthAsync(backendUrl);
+        _isFrontendOnline = await BackendLauncherService.CheckFrontendHealthAsync(_currentFrontendHost, _currentFrontendPort);
+
+        Dispatcher.Invoke(() =>
+        {
+            var greenBrush = (System.Windows.Media.Brush)FindResource("AccentEmeraldBrush");
+            var redBrush = (System.Windows.Media.Brush)FindResource("AccentRoseBrush");
+            var textMain = (System.Windows.Media.Brush)FindResource("TextMainBrush");
+            var textMuted = (System.Windows.Media.Brush)FindResource("TextMutedBrush");
+
+            // Update Backend Pill
+            ApiStatusDot.Fill = _isBackendOnline ? greenBrush : redBrush;
+            ApiStatusText.Text = $"API: {_currentBackendPort}";
+            ApiStatusText.Foreground = _isBackendOnline ? textMain : textMuted;
+            ApiStatusBadge.ToolTip = _isBackendOnline
+                ? $"Backend API Online - Click to open Swagger Docs (http://{_currentBackendHost}:{_currentBackendPort}/docs)"
+                : $"Backend API Offline - Click to configure / launch";
+
+            // Update Frontend Pill
+            WebStatusDot.Fill = _isFrontendOnline ? greenBrush : redBrush;
+            WebStatusText.Text = $"Web: {_currentFrontendPort}";
+            WebStatusText.Foreground = _isFrontendOnline ? textMain : textMuted;
+            WebStatusBadge.ToolTip = _isFrontendOnline
+                ? $"Frontend Web Online - Click to open Web App (http://{_currentFrontendHost}:{_currentFrontendPort})"
+                : $"Frontend Web Offline - Click to configure / launch";
+
+            // Stop All button enabled if either service is online
+            StopServicesButton.IsEnabled = _isBackendOnline || _isFrontendOnline;
+            StopServicesButton.Opacity = (_isBackendOnline || _isFrontendOnline) ? 1.0 : 0.5;
+        });
+    }
+
+    private void ApiStatusBadge_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        if (_isBackendOnline)
+        {
+            OpenInBrowser($"http://{_currentBackendHost}:{_currentBackendPort}/docs");
+        }
+        else
+        {
+            var res = System.Windows.MessageBox.Show(
+                $"Backend service on port {_currentBackendPort} appears offline.\n\nWould you like to open the Service Setup window to launch it?",
+                "Backend Service Offline",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Information);
+
+            if (res == MessageBoxResult.Yes)
+            {
+                ShowBackendSetupView();
+            }
+        }
+    }
+
+    private void WebStatusBadge_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        if (_isFrontendOnline)
+        {
+            OpenInBrowser($"http://{_currentFrontendHost}:{_currentFrontendPort}");
+        }
+        else
+        {
+            var res = System.Windows.MessageBox.Show(
+                $"Frontend web service on port {_currentFrontendPort} appears offline.\n\nWould you like to open the Service Setup window to launch it?",
+                "Frontend Web Offline",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Information);
+
+            if (res == MessageBoxResult.Yes)
+            {
+                ShowBackendSetupView();
+            }
+        }
+    }
+
+    private async void StopServicesButton_Click(object sender, RoutedEventArgs e)
+    {
+        var res = System.Windows.MessageBox.Show(
+            $"Are you sure you want to stop both the Backend (Port {_currentBackendPort}) and Frontend (Port {_currentFrontendPort}) background services?",
+            "Safely Stop Servers",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Question);
+
+        if (res != MessageBoxResult.Yes) return;
+
+        StopServicesButton.IsEnabled = false;
+        try
+        {
+            await BackendLauncherService.StopAllServicesAsync(_currentBackendPort, _currentFrontendPort);
+            await UpdateServiceBadgesAsync();
+            _notifyIcon?.ShowBalloonTip(2000, "Manager X", "Backend and Frontend services stopped successfully.", Forms.ToolTipIcon.Info);
+        }
+        finally
+        {
+            StopServicesButton.IsEnabled = true;
+        }
+    }
+
+    private static void OpenInBrowser(string url)
+    {
+        try
+        {
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = url,
+                UseShellExecute = true
+            });
+        }
+        catch (Exception ex)
+        {
+            System.Windows.MessageBox.Show($"Unable to open browser: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     private static string FormatSeconds(int totalSeconds)

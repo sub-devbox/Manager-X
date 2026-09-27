@@ -48,6 +48,7 @@ public class SavedCredentials
 {
     public string ServerUrl { get; set; } = "http://localhost:8000/api/v1";
     public string Email { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
     public string? AccessToken { get; set; }
     public DateTime? ExpiresAtUtc { get; set; }
     public bool RememberMe { get; set; } = true;
@@ -56,8 +57,15 @@ public class SavedCredentials
 public class BackendSettings
 {
     public string PythonPath { get; set; } = string.Empty;
+    public string Host { get; set; } = "127.0.0.1";
     public int Port { get; set; } = 8000;
     public string BackendDir { get; set; } = string.Empty;
     public bool AutoReload { get; set; } = true;
+
+    public string FrontendDir { get; set; } = string.Empty;
+    public string FrontendHost { get; set; } = "localhost";
+    public int FrontendPort { get; set; } = 3000;
+
+    public bool RunSilently { get; set; } = true;
 }
 

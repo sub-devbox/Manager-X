@@ -22,29 +22,48 @@ public class AuthService
     public async Task<bool> TryAutoLoginAsync()
     {
         var saved = StorageService.LoadCredentials();
-        if (saved == null || string.IsNullOrWhiteSpace(saved.AccessToken))
+        if (saved == null || !saved.RememberMe)
         {
             return false;
         }
 
-        try
-        {
-            ServerUrl = saved.ServerUrl;
-            _apiClient.UpdateBaseUrl(saved.ServerUrl);
-            _apiClient.SetBearerToken(saved.AccessToken);
+        ServerUrl = !string.IsNullOrWhiteSpace(saved.ServerUrl) ? saved.ServerUrl : ServerUrl;
+        _apiClient.UpdateBaseUrl(ServerUrl);
 
-            var user = await _apiClient.GetAsync<UserDto>("/auth/me");
-            if (user != null && user.IsActive)
+        // 1. Try existing access token
+        if (!string.IsNullOrWhiteSpace(saved.AccessToken))
+        {
+            try
             {
-                CurrentUser = user;
-                CurrentToken = saved.AccessToken;
-                AuthStateChanged?.Invoke(CurrentUser);
-                return true;
+                _apiClient.SetBearerToken(saved.AccessToken);
+
+                var user = await _apiClient.GetAsync<UserDto>("/auth/me");
+                if (user != null && user.IsActive)
+                {
+                    CurrentUser = user;
+                    CurrentToken = saved.AccessToken;
+                    AuthStateChanged?.Invoke(CurrentUser);
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Token auth check failed: {ex.Message}");
             }
         }
-        catch (Exception ex)
+
+        // 2. Token expired or invalid -> automatic silent re-login with saved credentials
+        if (!string.IsNullOrWhiteSpace(saved.Email) && !string.IsNullOrWhiteSpace(saved.Password))
         {
-            System.Diagnostics.Debug.WriteLine($"Auto-login failed: {ex.Message}");
+            try
+            {
+                await LoginAsync(saved.Email, saved.Password, ServerUrl, rememberMe: true);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Silent re-login with saved credentials failed: {ex.Message}");
+            }
         }
 
         _apiClient.SetBearerToken(null);
@@ -79,6 +98,7 @@ public class AuthService
             {
                 ServerUrl = ServerUrl,
                 Email = email.Trim(),
+                Password = password,
                 AccessToken = CurrentToken,
                 ExpiresAtUtc = expiry,
                 RememberMe = true,

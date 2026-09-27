@@ -6,9 +6,9 @@
         mc:Ignorable="d"
         Title="Manager X - Time Tracker" 
         Icon="app.png"
-        Height="720" 
-        Width="460" 
-        MinHeight="68" 
+        Height="620" 
+        Width="390" 
+        MinHeight="64" 
         MinWidth="340"
         WindowStyle="None"
         AllowsTransparency="True"
@@ -19,14 +19,16 @@
             Background="{StaticResource BgAppBrush}"
             BorderBrush="{StaticResource BorderSubtleBrush}"
             BorderThickness="1"
-            CornerRadius="10"
+            CornerRadius="8"
             SnapsToDevicePixels="True">
         <Grid>
             <!-- 1. FULL APPLICATION MODE -->
             <Grid x:Name="FullModeContainer" Visibility="Visible">
                 <Grid.RowDefinitions>
                     <!-- Custom Frameless Titlebar -->
-                    <RowDefinition Height="36" />
+                    <RowDefinition Height="30" />
+                    <!-- Clickable Live Status Ribbon -->
+                    <RowDefinition Height="26" />
                     <!-- Body Content -->
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
@@ -36,9 +38,9 @@
                         Background="{StaticResource BgSurfaceBrush}"
                         BorderBrush="{StaticResource BorderSubtleBrush}"
                         BorderThickness="0,0,0,1"
-                        CornerRadius="9,9,0,0"
+                        CornerRadius="7,7,0,0"
                         MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
-                    <Grid Margin="12,0,8,0">
+                    <Grid Margin="10,0,6,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
@@ -46,10 +48,10 @@
 
                         <!-- App Icon & Title -->
                         <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-                            <Image Source="app.png" Width="16" Height="16" Margin="0,0,8,0" />
+                            <Image Source="app.png" Width="14" Height="14" Margin="0,0,6,0" />
                             <TextBlock x:Name="TitleText"
                                        Text="Manager X - Time Tracker"
-                                       FontSize="12"
+                                       FontSize="11"
                                        FontWeight="SemiBold"
                                        Foreground="{StaticResource TextMainBrush}"
                                        VerticalAlignment="Center" />
@@ -60,8 +62,8 @@
                             <!-- Refresh Button (visible when logged in) -->
                             <Button x:Name="TitleRefreshButton"
                                     Content="🔄"
-                                    FontSize="11"
-                                    Width="26" Height="24"
+                                    FontSize="10"
+                                    Width="22" Height="20"
                                     Background="Transparent"
                                     Foreground="{StaticResource TextMutedBrush}"
                                     BorderThickness="0"
@@ -73,8 +75,8 @@
                             <!-- Logout Button (Icon only, visible when logged in) -->
                             <Button x:Name="TitleLogoutButton"
                                     Content="🚪"
-                                    FontSize="13"
-                                    Width="26" Height="24"
+                                    FontSize="11"
+                                    Width="22" Height="20"
                                     Background="Transparent"
                                     Foreground="{StaticResource TextMutedBrush}"
                                     BorderThickness="0"
@@ -85,7 +87,8 @@
 
                             <!-- Minimize to Tray -->
                             <Button Content="🗕"
-                                    Width="26" Height="24"
+                                    FontSize="10"
+                                    Width="22" Height="20"
                                     Background="Transparent"
                                     Foreground="{StaticResource TextMutedBrush}"
                                     BorderThickness="0"
@@ -95,7 +98,8 @@
 
                             <!-- Close / Hide -->
                             <Button Content="✕"
-                                    Width="26" Height="24"
+                                    FontSize="10"
+                                    Width="22" Height="20"
                                     Background="Transparent"
                                     Foreground="{StaticResource TextMutedBrush}"
                                     BorderThickness="0"
@@ -106,35 +110,98 @@
                     </Grid>
                 </Border>
 
+                <!-- Clickable Live Status Ribbon -->
+                <Border Grid.Row="1" 
+                        Background="{StaticResource BgSurfaceSubtleBrush}" 
+                        BorderBrush="{StaticResource BorderSubtleBrush}" 
+                        BorderThickness="0,0,0,1" 
+                        Padding="8,2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Status Pills (Clickable to open in default browser) -->
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                            <!-- Backend API Pill -->
+                            <Border x:Name="ApiStatusBadge" 
+                                    Background="#1E293B" 
+                                    BorderBrush="{StaticResource BorderSubtleBrush}" 
+                                    BorderThickness="1" 
+                                    CornerRadius="10" 
+                                    Padding="6,1.5" 
+                                    Margin="0,0,6,0" 
+                                    Cursor="Hand" 
+                                    MouseLeftButtonDown="ApiStatusBadge_MouseLeftButtonDown"
+                                    ToolTip="Backend API - Click to open Swagger API Docs in browser">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Ellipse x:Name="ApiStatusDot" Width="6" Height="6" Fill="{StaticResource AccentRoseBrush}" Margin="0,0,4,0" />
+                                    <TextBlock x:Name="ApiStatusText" Text="API: 8000" FontSize="9.5" FontWeight="SemiBold" Foreground="{StaticResource TextMutedBrush}" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Frontend Web Pill -->
+                            <Border x:Name="WebStatusBadge" 
+                                    Background="#1E293B" 
+                                    BorderBrush="{StaticResource BorderSubtleBrush}" 
+                                    BorderThickness="1" 
+                                    CornerRadius="10" 
+                                    Padding="6,1.5" 
+                                    Margin="0,0,6,0" 
+                                    Cursor="Hand" 
+                                    MouseLeftButtonDown="WebStatusBadge_MouseLeftButtonDown"
+                                    ToolTip="Frontend Web App - Click to open Web Dashboard in browser">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Ellipse x:Name="WebStatusDot" Width="6" Height="6" Fill="{StaticResource AccentRoseBrush}" Margin="0,0,4,0" />
+                                    <TextBlock x:Name="WebStatusText" Text="Web: 3000" FontSize="9.5" FontWeight="SemiBold" Foreground="{StaticResource TextMutedBrush}" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+
+                        <!-- Stop All Services Button -->
+                        <Button Grid.Column="1" 
+                                x:Name="StopServicesButton" 
+                                Content="🛑 Stop All" 
+                                FontSize="9.5" 
+                                Padding="6,1" 
+                                Height="19" 
+                                Style="{StaticResource DangerOutlineButton}" 
+                                Cursor="Hand" 
+                                Click="StopServicesButton_Click" 
+                                ToolTip="Safely shut down running Backend and Frontend servers" />
+                    </Grid>
+                </Border>
+
                 <!-- Main View Content -->
-                <ContentControl Grid.Row="1" x:Name="MainContent" />
+                <ContentControl Grid.Row="2" x:Name="MainContent" />
 
                 <!-- Startup Loading Overlay -->
-                <Grid Grid.Row="1" x:Name="LoadingOverlay" Background="{StaticResource BgAppBrush}" Visibility="Visible">
+                <Grid Grid.Row="2" x:Name="LoadingOverlay" Background="{StaticResource BgAppBrush}" Visibility="Visible">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Image Source="app.png" Width="48" Height="48" Margin="0,0,0,16" HorizontalAlignment="Center" />
+                        <Image Source="app.png" Width="36" Height="36" Margin="0,0,0,12" HorizontalAlignment="Center" />
                         <TextBlock Text="MANAGER X" 
-                                   FontSize="20" 
+                                   FontSize="16" 
                                    FontWeight="Bold" 
                                    Foreground="{StaticResource TextMainBrush}" 
                                    HorizontalAlignment="Center" />
                         <TextBlock Text="Time Tracker" 
-                                   FontSize="12" 
+                                   FontSize="11" 
                                    Foreground="{StaticResource TextMutedBrush}" 
                                    HorizontalAlignment="Center" 
-                                   Margin="0,4,0,20" />
+                                   Margin="0,2,0,14" />
                         <ProgressBar IsIndeterminate="True" 
-                                     Width="140" 
+                                     Width="120" 
                                      Height="3" 
                                      Foreground="{StaticResource AccentBlueBrush}" 
                                      Background="{StaticResource BgSurfaceBrush}" 
                                      BorderThickness="0" />
                         <TextBlock x:Name="LoadingStatusText" 
                                    Text="Connecting..." 
-                                   FontSize="11" 
+                                   FontSize="10.5" 
                                    Foreground="{StaticResource TextDimBrush}" 
                                    HorizontalAlignment="Center" 
-                                   Margin="0,10,0,0" />
+                                   Margin="0,8,0,0" />
                     </StackPanel>
                 </Grid>
             </Grid>

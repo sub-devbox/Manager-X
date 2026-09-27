@@ -18,7 +18,6 @@ public static class BackendLauncherService
         try
         {
             var cleanBase = baseUrl.TrimEnd('/');
-            // Try checking /api/v1/health or /health depending on format
             var healthUrl = cleanBase.EndsWith("/api/v1", StringComparison.OrdinalIgnoreCase)
                 ? $"{cleanBase}/health"
                 : $"{cleanBase}/api/v1/health";
@@ -30,7 +29,6 @@ public static class BackendLauncherService
                 return true;
             }
 
-            // Fallback: check root /health
             var rootUri = new Uri(cleanBase);
             var rootHealth = $"{rootUri.Scheme}://{rootUri.Authority}/health";
             if (rootHealth != healthUrl)
@@ -48,16 +46,29 @@ public static class BackendLauncherService
         return false;
     }
 
+    public static async Task<bool> CheckFrontendHealthAsync(string host, int port, int timeoutMs = 2000)
+    {
+        try
+        {
+            var url = $"http://{host}:{port}";
+            using var cts = new CancellationTokenSource(TimeSpan.FromMilliseconds(timeoutMs));
+            var response = await _probeClient.GetAsync(url, cts.Token);
+            return response.IsSuccessStatusCode;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
     public static string FindDefaultPythonPath()
     {
-        // 1. Check saved settings
         var saved = StorageService.LoadBackendSettings();
         if (!string.IsNullOrWhiteSpace(saved?.PythonPath) && File.Exists(saved.PythonPath))
         {
             return saved.PythonPath;
         }
 
-        // 2. Search upwards from AppDomain BaseDirectory
         var currentDir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
         for (int i = 0; i < 6 && currentDir != null; i++)
         {
@@ -76,7 +87,6 @@ public static class BackendLauncherService
             currentDir = currentDir.Parent;
         }
 
-        // 3. Search upwards from CurrentDirectory
         var workingDir = new DirectoryInfo(Environment.CurrentDirectory);
         for (int i = 0; i < 4 && workingDir != null; i++)
         {
@@ -93,7 +103,6 @@ public static class BackendLauncherService
 
     public static string ResolveBackendDirectory(string pythonPath)
     {
-        // 1. Check saved settings
         var saved = StorageService.LoadBackendSettings();
         if (!string.IsNullOrWhiteSpace(saved?.BackendDir) && Directory.Exists(saved.BackendDir))
         {
@@ -103,12 +112,11 @@ public static class BackendLauncherService
             }
         }
 
-        // 2. Derive from pythonPath
         if (!string.IsNullOrWhiteSpace(pythonPath) && File.Exists(pythonPath))
         {
             try
             {
-                var dir = new FileInfo(pythonPath).Directory; // e.g. Scripts
+                var dir = new FileInfo(pythonPath).Directory;
                 while (dir != null)
                 {
                     if (File.Exists(Path.Combine(dir.FullName, "app", "main.py")))
@@ -121,7 +129,6 @@ public static class BackendLauncherService
             catch {}
         }
 
-        // 3. Search upwards from BaseDirectory
         var currentDir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
         for (int i = 0; i < 6 && currentDir != null; i++)
         {
@@ -136,7 +143,48 @@ public static class BackendLauncherService
         return string.Empty;
     }
 
+    public static string FindDefaultFrontendPath()
+    {
+        var saved = StorageService.LoadBackendSettings();
+        if (!string.IsNullOrWhiteSpace(saved?.FrontendDir) && Directory.Exists(saved.FrontendDir))
+        {
+            if (File.Exists(Path.Combine(saved.FrontendDir, "package.json")))
+            {
+                return saved.FrontendDir;
+            }
+        }
+
+        var currentDir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
+        for (int i = 0; i < 6 && currentDir != null; i++)
+        {
+            var frontendDir = Path.Combine(currentDir.FullName, "frontend");
+            if (Directory.Exists(frontendDir) && File.Exists(Path.Combine(frontendDir, "package.json")))
+            {
+                return Path.GetFullPath(frontendDir);
+            }
+            currentDir = currentDir.Parent;
+        }
+
+        var workingDir = new DirectoryInfo(Environment.CurrentDirectory);
+        for (int i = 0; i < 4 && workingDir != null; i++)
+        {
+            var frontendDir = Path.Combine(workingDir.FullName, "frontend");
+            if (Directory.Exists(frontendDir) && File.Exists(Path.Combine(frontendDir, "package.json")))
+            {
+                return Path.GetFullPath(frontendDir);
+            }
+            workingDir = workingDir.Parent;
+        }
+
+        return string.Empty;
+    }
+
     public static void StartBackend(string pythonPath, string backendDir, int port, bool reload)
+    {
+        StartBackend(pythonPath, backendDir, "127.0.0.1", port, reload, runSilently: true);
+    }
+
+    public static void StartBackend(string pythonPath, string backendDir, string host, int port, bool reload, bool runSilently)
     {
         if (!File.Exists(pythonPath))
         {
@@ -149,18 +197,111 @@ public static class BackendLauncherService
         }
 
         var reloadArg = reload ? "--reload" : "";
-        var command = $"cd /d \"{backendDir}\" && \"{pythonPath}\" -m uvicorn app.main:app --host 127.0.0.1 --port {port} {reloadArg}".Trim();
+        var command = $"cd /d \"{backendDir}\" && \"{pythonPath}\" -m uvicorn app.main:app --host {host} --port {port} {reloadArg}".Trim();
 
         var psi = new ProcessStartInfo
         {
             FileName = "cmd.exe",
-            Arguments = $"/c start \"ManagerX-Backend\" cmd /k \"{command}\"",
-            UseShellExecute = true,
-            CreateNoWindow = false,
             WorkingDirectory = backendDir
         };
 
+        if (runSilently)
+        {
+            psi.Arguments = $"/c {command}";
+            psi.UseShellExecute = false;
+            psi.CreateNoWindow = true;
+            psi.WindowStyle = ProcessWindowStyle.Hidden;
+        }
+        else
+        {
+            psi.Arguments = $"/c start \"ManagerX-Backend\" cmd /k \"{command}\"";
+            psi.UseShellExecute = true;
+            psi.CreateNoWindow = false;
+        }
+
         Process.Start(psi);
+    }
+
+    public static void StartFrontend(string frontendDir, string host, int port, bool runSilently)
+    {
+        if (!Directory.Exists(frontendDir))
+        {
+            throw new DirectoryNotFoundException($"Frontend directory not found at: {frontendDir}");
+        }
+
+        var command = $"cd /d \"{frontendDir}\" && npm run dev -- -p {port} -H {host}".Trim();
+
+        var psi = new ProcessStartInfo
+        {
+            FileName = "cmd.exe",
+            WorkingDirectory = frontendDir
+        };
+
+        if (runSilently)
+        {
+            psi.Arguments = $"/c {command}";
+            psi.UseShellExecute = false;
+            psi.CreateNoWindow = true;
+            psi.WindowStyle = ProcessWindowStyle.Hidden;
+        }
+        else
+        {
+            psi.Arguments = $"/c start \"ManagerX-Frontend\" cmd /k \"{command}\"";
+            psi.UseShellExecute = true;
+            psi.CreateNoWindow = false;
+        }
+
+        Process.Start(psi);
+    }
+
+    public static async Task StopServiceByPortAsync(int port)
+    {
+        if (port < 1 || port > 65535) return;
+
+        try
+        {
+            var psi = new ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                Arguments = $"/c for /f \"tokens=5\" %a in ('netstat -aon ^| findstr /r \":{port}.*LISTENING\"') do taskkill /F /T /PID %a >nul 2>&1",
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                WindowStyle = ProcessWindowStyle.Hidden
+            };
+            using var proc = Process.Start(psi);
+            if (proc != null)
+            {
+                await proc.WaitForExitAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Failed to stop service on port {port}: {ex.Message}");
+        }
+    }
+
+    public static async Task StopAllServicesAsync(int backendPort = 8000, int frontendPort = 3000)
+    {
+        await StopServiceByPortAsync(backendPort);
+        await StopServiceByPortAsync(frontendPort);
+
+        try
+        {
+            var psi = new ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                Arguments = "/c taskkill /FI \"WINDOWTITLE eq ManagerX-Backend*\" /T /F >nul 2>&1 & taskkill /FI \"WINDOWTITLE eq ManagerX-Frontend*\" /T /F >nul 2>&1",
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                WindowStyle = ProcessWindowStyle.Hidden
+            };
+            using var proc = Process.Start(psi);
+            if (proc != null)
+            {
+                await proc.WaitForExitAsync();
+            }
+        }
+        catch {}
     }
 
     public static async Task<bool> WaitForHealthyAsync(

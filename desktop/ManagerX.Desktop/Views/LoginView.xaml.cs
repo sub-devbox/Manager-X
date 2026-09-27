@@ -27,9 +27,11 @@ public partial class LoginView : UserControl
                 ServerUrlInput.Text = saved.ServerUrl;
             if (!string.IsNullOrWhiteSpace(saved.Email))
                 EmailInput.Text = saved.Email;
+            if (!string.IsNullOrWhiteSpace(saved.Password))
+                PasswordInput.Password = saved.Password;
             RememberMeCheck.IsChecked = saved.RememberMe;
 
-            if (!string.IsNullOrWhiteSpace(saved.Email))
+            if (!string.IsNullOrWhiteSpace(saved.Email) && string.IsNullOrWhiteSpace(saved.Password))
             {
                 PasswordInput.Focus();
                 return;

@@ -4,189 +4,277 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="400">
+             d:DesignHeight="600" d:DesignWidth="390">
     <Grid Background="{StaticResource BgAppBrush}">
-        <Border Background="{StaticResource BgSurfaceBrush}"
-                BorderBrush="{StaticResource BorderSubtleBrush}"
-                BorderThickness="1"
-                CornerRadius="10"
-                Padding="28,24"
-                MaxWidth="390"
-                Margin="16"
-                VerticalAlignment="Center">
-            <StackPanel>
-                <!-- Header Icon & Title -->
-                <StackPanel HorizontalAlignment="Center" Margin="0,0,0,18">
-                    <Border Background="#2A1E14" 
-                            BorderBrush="{StaticResource AccentAmberBrush}" 
-                            BorderThickness="1" 
-                            CornerRadius="20" 
-                            Padding="10,4" 
-                            HorizontalAlignment="Center" 
-                            Margin="0,0,0,10">
-                        <TextBlock Text="⚡ BACKEND SERVICE REQUIRED" 
-                                   FontSize="10" 
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <Border Background="{StaticResource BgSurfaceBrush}"
+                    BorderBrush="{StaticResource BorderSubtleBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Padding="16,14"
+                    MaxWidth="360"
+                    Margin="10"
+                    VerticalAlignment="Center">
+                <StackPanel>
+                    <!-- Header Icon & Title -->
+                    <StackPanel HorizontalAlignment="Center" Margin="0,0,0,10">
+                        <Border Background="#2A1E14" 
+                                BorderBrush="{StaticResource AccentAmberBrush}" 
+                                BorderThickness="1" 
+                                CornerRadius="12" 
+                                Padding="8,2" 
+                                HorizontalAlignment="Center" 
+                                Margin="0,0,0,6">
+                            <TextBlock Text="⚡ SERVICE SETUP" 
+                                       FontSize="9" 
+                                       FontWeight="Bold" 
+                                       Foreground="{StaticResource AccentAmberBrush}" />
+                        </Border>
+                        <TextBlock Text="Manager-X Services" 
+                                   FontSize="15" 
                                    FontWeight="Bold" 
-                                   Foreground="{StaticResource AccentAmberBrush}" />
-                    </Border>
-                    <TextBlock Text="Manager-X Backend" 
-                               FontSize="18" 
-                               FontWeight="Bold" 
-                               Foreground="{StaticResource TextMainBrush}" 
-                               HorizontalAlignment="Center" />
-                    <TextBlock Text="Backend is not running. Launch it to continue." 
-                               FontSize="12" 
-                               Foreground="{StaticResource TextMutedBrush}" 
-                               HorizontalAlignment="Center"
-                               TextWrapping="Wrap"
-                               TextAlignment="Center"
-                               Margin="0,4,0,0" />
-                </StackPanel>
-
-                <!-- Error Message Banner -->
-                <Border x:Name="ErrorBorder" 
-                        Background="#2A1620" 
-                        BorderBrush="{StaticResource AccentRoseBrush}" 
-                        BorderThickness="1" 
-                        CornerRadius="6" 
-                        Padding="10,8" 
-                        Margin="0,0,0,14" 
-                        Visibility="Collapsed">
-                    <TextBlock x:Name="ErrorText" 
-                               Foreground="{StaticResource AccentRoseBrush}" 
-                               FontSize="11.5" 
-                               TextWrapping="Wrap" />
-                </Border>
-
-                <!-- Status Progress Banner (during launching/polling) -->
-                <Border x:Name="StatusBorder" 
-                        Background="{StaticResource BgSurfaceSubtleBrush}" 
-                        BorderBrush="{StaticResource AccentBlueBrush}" 
-                        BorderThickness="1" 
-                        CornerRadius="6" 
-                        Padding="12,10" 
-                        Margin="0,0,0,14" 
-                        Visibility="Collapsed">
-                    <StackPanel>
-                        <ProgressBar x:Name="LaunchProgressBar" 
-                                     IsIndeterminate="True" 
-                                     Height="4" 
-                                     Foreground="{StaticResource AccentBlueBrush}" 
-                                     Background="#0F172A" 
-                                     BorderThickness="0" 
-                                     Margin="0,0,0,8" />
-                        <TextBlock x:Name="StatusText" 
-                                   Text="Starting backend process..." 
                                    Foreground="{StaticResource TextMainBrush}" 
-                                   FontSize="11.5" 
+                                   HorizontalAlignment="Center" />
+                        <TextBlock Text="Configure and launch background services" 
+                                   FontSize="11" 
+                                   Foreground="{StaticResource TextMutedBrush}" 
+                                   HorizontalAlignment="Center"
+                                   Margin="0,2,0,0" />
+                    </StackPanel>
+
+                    <!-- Error Message Banner -->
+                    <Border x:Name="ErrorBorder" 
+                            Background="#2A1620" 
+                            BorderBrush="{StaticResource AccentRoseBrush}" 
+                            BorderThickness="1" 
+                            CornerRadius="5" 
+                            Padding="8,6" 
+                            Margin="0,0,0,8" 
+                            Visibility="Collapsed">
+                        <TextBlock x:Name="ErrorText" 
+                                   Foreground="{StaticResource AccentRoseBrush}" 
+                                   FontSize="11" 
                                    TextWrapping="Wrap" />
-                    </StackPanel>
-                </Border>
+                    </Border>
 
-                <!-- Python Executable Picker -->
-                <TextBlock Text="PYTHON INTERPRETER (VENV)" 
-                           FontSize="10" 
-                           FontWeight="SemiBold" 
-                           Foreground="{StaticResource TextDimBrush}" 
-                           Margin="0,0,0,4" />
-                <Grid Margin="0,0,0,6">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBox x:Name="PythonPathInput" 
-                             Grid.Column="0" 
-                             Margin="0,0,6,0" 
-                             ToolTip="Path to python.exe inside your virtual environment" />
-                    <Button x:Name="BrowsePythonButton" 
-                            Grid.Column="1" 
-                            Content="Browse..." 
-                            Style="{StaticResource SecondaryButton}" 
-                            Padding="10,6" 
-                            Click="BrowsePythonButton_Click" />
-                </Grid>
-                <TextBlock x:Name="PythonHintText" 
-                           Text="Auto-detected from project venv" 
-                           FontSize="10" 
-                           Foreground="{StaticResource AccentEmeraldBrush}" 
-                           Margin="0,0,0,12" />
+                    <!-- Status Progress Banner (during launching/polling) -->
+                    <Border x:Name="StatusBorder" 
+                            Background="{StaticResource BgSurfaceSubtleBrush}" 
+                            BorderBrush="{StaticResource AccentBlueBrush}" 
+                            BorderThickness="1" 
+                            CornerRadius="5" 
+                            Padding="10,8" 
+                            Margin="0,0,0,8" 
+                            Visibility="Collapsed">
+                        <StackPanel>
+                            <ProgressBar x:Name="LaunchProgressBar" 
+                                         IsIndeterminate="True" 
+                                         Height="3" 
+                                         Foreground="{StaticResource AccentBlueBrush}" 
+                                         Background="#0F172A" 
+                                         BorderThickness="0" 
+                                         Margin="0,0,0,6" />
+                            <TextBlock x:Name="StatusText" 
+                                       Text="Starting services..." 
+                                       Foreground="{StaticResource TextMainBrush}" 
+                                       FontSize="11" 
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Border>
 
-                <!-- Host & Port Row -->
-                <Grid Margin="0,0,0,12">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="12" />
-                        <ColumnDefinition Width="100" />
-                    </Grid.ColumnDefinitions>
+                    <!-- 1. BACKEND SERVICE BLOCK -->
+                    <Border Background="{StaticResource BgSurfaceSubtleBrush}" 
+                            BorderBrush="{StaticResource BorderSubtleBrush}" 
+                            BorderThickness="1" 
+                            CornerRadius="6" 
+                            Padding="10,8" 
+                            Margin="0,0,0,8">
+                        <StackPanel>
+                            <TextBlock Text="BACKEND SERVICE (FASTAPI)" 
+                                       FontSize="9" 
+                                       FontWeight="Bold" 
+                                       Foreground="{StaticResource AccentBlueBrush}" 
+                                       Margin="0,0,0,6" />
 
-                    <!-- Host -->
-                    <StackPanel Grid.Column="0">
-                        <TextBlock Text="HOST" 
-                                   FontSize="10" 
-                                   FontWeight="SemiBold" 
-                                   Foreground="{StaticResource TextDimBrush}" 
-                                   Margin="0,0,0,4" />
-                        <TextBox x:Name="HostInput" Text="127.0.0.1" />
-                    </StackPanel>
+                            <!-- Python Path -->
+                            <TextBlock Text="PYTHON INTERPRETER (VENV)" 
+                                       FontSize="9" 
+                                       FontWeight="SemiBold" 
+                                       Foreground="{StaticResource TextDimBrush}" 
+                                       Margin="0,0,0,2" />
+                            <Grid Margin="0,0,0,4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="PythonPathInput" 
+                                         Grid.Column="0" 
+                                         Height="26" 
+                                         FontSize="11" 
+                                         Padding="4,2" 
+                                         Margin="0,0,4,0" />
+                                <Button x:Name="BrowsePythonButton" 
+                                        Grid.Column="1" 
+                                        Content="Browse" 
+                                        Style="{StaticResource SecondaryButton}" 
+                                        Height="26" 
+                                        Padding="8,2" 
+                                        FontSize="11" 
+                                        Click="BrowsePythonButton_Click" />
+                            </Grid>
 
-                    <!-- Port -->
-                    <StackPanel Grid.Column="2">
-                        <TextBlock Text="PORT" 
-                                   FontSize="10" 
-                                   FontWeight="SemiBold" 
-                                   Foreground="{StaticResource TextDimBrush}" 
-                                   Margin="0,0,0,4" />
-                        <TextBox x:Name="PortInput" Text="8000" />
-                    </StackPanel>
-                </Grid>
+                            <!-- Backend Host & Port -->
+                            <Grid Margin="0,0,0,4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="8" />
+                                    <ColumnDefinition Width="90" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock Text="HOST" FontSize="8.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,1" />
+                                    <TextBox x:Name="HostInput" Text="127.0.0.1" Height="26" FontSize="11" Padding="4,2" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="2">
+                                    <TextBlock Text="PORT" FontSize="8.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,1" />
+                                    <TextBox x:Name="PortInput" Text="8000" Height="26" FontSize="11" Padding="4,2" />
+                                </StackPanel>
+                            </Grid>
 
-                <!-- Reload Checkbox -->
-                <CheckBox x:Name="ReloadCheck" 
-                          IsChecked="True" 
-                          Foreground="{StaticResource TextMutedBrush}" 
-                          FontSize="11.5" 
-                          Margin="0,0,0,16">
-                    <TextBlock Text="Enable live auto-reload (--reload)" Margin="4,0,0,0" />
-                </CheckBox>
+                            <CheckBox x:Name="ReloadCheck" 
+                                      IsChecked="True" 
+                                      Foreground="{StaticResource TextMutedBrush}" 
+                                      FontSize="10.5">
+                                <TextBlock Text="Enable auto-reload (--reload)" Margin="4,0,0,0" />
+                            </CheckBox>
+                        </StackPanel>
+                    </Border>
 
-                <!-- Launch Button -->
-                <Button x:Name="LaunchButton" 
-                        Content="🚀  Launch Backend Server" 
-                        Style="{StaticResource PrimaryButton}" 
-                        Height="40" 
-                        Margin="0,0,0,8" 
-                        Click="LaunchButton_Click" />
+                    <!-- 2. FRONTEND SERVICE BLOCK -->
+                    <Border Background="{StaticResource BgSurfaceSubtleBrush}" 
+                            BorderBrush="{StaticResource BorderSubtleBrush}" 
+                            BorderThickness="1" 
+                            CornerRadius="6" 
+                            Padding="10,8" 
+                            Margin="0,0,0,8">
+                        <StackPanel>
+                            <TextBlock Text="FRONTEND WEB APP (NEXT.JS)" 
+                                       FontSize="9" 
+                                       FontWeight="Bold" 
+                                       Foreground="{StaticResource AccentEmeraldBrush}" 
+                                       Margin="0,0,0,6" />
 
-                <!-- Check Again / Manual Retry -->
-                <Button x:Name="CheckAgainButton" 
-                        Content="🔄  Check Running Server" 
-                        Style="{StaticResource SecondaryButton}" 
-                        Height="34" 
-                        Margin="0,0,0,10" 
-                        Click="CheckAgainButton_Click" />
+                            <!-- Frontend Dir -->
+                            <TextBlock Text="FRONTEND DIRECTORY" 
+                                       FontSize="9" 
+                                       FontWeight="SemiBold" 
+                                       Foreground="{StaticResource TextDimBrush}" 
+                                       Margin="0,0,0,2" />
+                            <Grid Margin="0,0,0,4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="FrontendDirInput" 
+                                         Grid.Column="0" 
+                                         Height="26" 
+                                         FontSize="11" 
+                                         Padding="4,2" 
+                                         Margin="0,0,4,0" />
+                                <Button x:Name="BrowseFrontendButton" 
+                                        Grid.Column="1" 
+                                        Content="Browse" 
+                                        Style="{StaticResource SecondaryButton}" 
+                                        Height="26" 
+                                        Padding="8,2" 
+                                        FontSize="11" 
+                                        Click="BrowseFrontendButton_Click" />
+                            </Grid>
 
-                <!-- Advanced: Custom Remote Server Toggle -->
-                <Expander Header="Connect to remote server instead" 
-                          Foreground="{StaticResource TextDimBrush}" 
-                          FontSize="11" 
-                          Margin="0,4,0,0">
-                    <StackPanel Margin="0,8,0,0">
-                        <TextBlock Text="CUSTOM API URL" 
-                                   FontSize="9.5" 
-                                   FontWeight="SemiBold" 
-                                   Foreground="{StaticResource TextDimBrush}" 
-                                   Margin="0,0,0,4" />
-                        <TextBox x:Name="CustomUrlInput" 
-                                 Text="http://localhost:8000/api/v1" 
-                                 Margin="0,0,0,8" />
-                        <Button x:Name="ConnectCustomButton" 
-                                Content="Connect to URL" 
+                            <!-- Frontend Port -->
+                            <Grid Margin="0,0,0,2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="8" />
+                                    <ColumnDefinition Width="90" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock Text="HOST" FontSize="8.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,1" />
+                                    <TextBox x:Name="FrontendHostInput" Text="localhost" Height="26" FontSize="11" Padding="4,2" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="2">
+                                    <TextBlock Text="PORT" FontSize="8.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,1" />
+                                    <TextBox x:Name="FrontendPortInput" Text="3000" Height="26" FontSize="11" Padding="4,2" />
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Silent Execution Toggle -->
+                    <CheckBox x:Name="SilentModeCheck" 
+                              IsChecked="True" 
+                              Foreground="{StaticResource AccentEmeraldBrush}" 
+                              FontSize="11" 
+                              Margin="2,0,0,10">
+                        <TextBlock Text="Run silently in background (No CMD windows)" Margin="4,0,0,0" />
+                    </CheckBox>
+
+                    <!-- Action Buttons -->
+                    <Button x:Name="LaunchAllButton" 
+                            Content="🚀  Launch All Services" 
+                            Style="{StaticResource PrimaryButton}" 
+                            Height="32" 
+                            Margin="0,0,0,6" 
+                            Click="LaunchAllButton_Click" />
+
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="6" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="LaunchBackendOnlyButton" 
+                                Grid.Column="0" 
+                                Content="Backend Only" 
                                 Style="{StaticResource SecondaryButton}" 
-                                Height="30" 
-                                Click="ConnectCustomButton_Click" />
-                    </StackPanel>
-                </Expander>
-            </StackPanel>
-        </Border>
+                                Height="28" 
+                                FontSize="11" 
+                                Click="LaunchBackendOnlyButton_Click" />
+                        <Button x:Name="CheckAgainButton" 
+                                Grid.Column="2" 
+                                Content="🔄  Check Status" 
+                                Style="{StaticResource SecondaryButton}" 
+                                Height="28" 
+                                FontSize="11" 
+                                Click="CheckAgainButton_Click" />
+                    </Grid>
+
+                    <!-- Advanced: Custom Remote Server Toggle -->
+                    <Expander Header="Custom Remote URL" 
+                              Foreground="{StaticResource TextDimBrush}" 
+                              FontSize="10.5" 
+                              Margin="0,0,0,0">
+                        <StackPanel Margin="0,6,0,0">
+                            <TextBlock Text="CUSTOM API URL" 
+                                       FontSize="8.5" 
+                                       FontWeight="SemiBold" 
+                                       Foreground="{StaticResource TextDimBrush}" 
+                                       Margin="0,0,0,2" />
+                            <TextBox x:Name="CustomUrlInput" 
+                                     Text="http://localhost:8000/api/v1" 
+                                     Height="26" 
+                                     FontSize="11" 
+                                     Padding="4,2" 
+                                     Margin="0,0,0,6" />
+                            <Button x:Name="ConnectCustomButton" 
+                                    Content="Connect" 
+                                    Style="{StaticResource SecondaryButton}" 
+                                    Height="26" 
+                                    FontSize="11" 
+                                    Click="ConnectCustomButton_Click" />
+                        </StackPanel>
+                    </Expander>
+                </StackPanel>
+            </Border>
+        </ScrollViewer>
     </Grid>
 </UserControl>

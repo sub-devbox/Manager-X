@@ -1638,8 +1638,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_core_config",
-      "community": 6,
-      "community_name": "time_entries.py",
+      "community": 54,
+      "community_name": "project_schemas.py",
       "norm_label": "config.py"
     },
     {
@@ -2705,8 +2705,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas",
-      "community": 9,
-      "community_name": "projects.py",
+      "community": 54,
+      "community_name": "project_schemas.py",
       "norm_label": "project_schemas.py"
     },
     {
@@ -2716,8 +2716,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_checklistitem",
-      "community": 9,
-      "community_name": "projects.py",
+      "community": 54,
+      "community_name": "project_schemas.py",
       "norm_label": "checklistitem"
     },
     {
@@ -2727,8 +2727,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_py_basemodel",
-      "community": 9,
-      "community_name": "projects.py",
+      "community": 54,
+      "community_name": "project_schemas.py",
       "norm_label": "basemodel"
     },
     {
@@ -2738,8 +2738,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_taskbase",
-      "community": 58,
-      "community_name": "tasks.py",
+      "community": 54,
+      "community_name": "project_schemas.py",
       "norm_label": "taskbase"
     },
     {
@@ -2749,8 +2749,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_py_field_validator",
-      "community": 58,
-      "community_name": "tasks.py",
+      "community": 54,
+      "community_name": "project_schemas.py",
       "norm_label": "field_validator"
     },
     {
@@ -2760,8 +2760,8 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_taskbase_ensure_checklist",
-      "community": 58,
-      "community_name": "tasks.py",
+      "community": 54,
+      "community_name": "project_schemas.py",
       "norm_label": ".ensure_checklist()"
     },
     {
@@ -2771,8 +2771,8 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_taskcreate",
-      "community": 58,
-      "community_name": "tasks.py",
+      "community": 54,
+      "community_name": "project_schemas.py",
       "norm_label": "taskcreate"
     },
     {
@@ -2815,8 +2815,8 @@
       "source_location": "L60",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_tasksummary",
-      "community": 9,
-      "community_name": "projects.py",
+      "community": 54,
+      "community_name": "project_schemas.py",
       "norm_label": "tasksummary"
     },
     {
@@ -2826,8 +2826,8 @@
       "source_location": "L76",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_clientnested",
-      "community": 9,
-      "community_name": "projects.py",
+      "community": 54,
+      "community_name": "project_schemas.py",
       "norm_label": "clientnested"
     },
     {
@@ -2837,8 +2837,8 @@
       "source_location": "L85",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_projectbase",
-      "community": 9,
-      "community_name": "projects.py",
+      "community": 54,
+      "community_name": "project_schemas.py",
       "norm_label": "projectbase"
     },
     {
@@ -2848,8 +2848,8 @@
       "source_location": "L95",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_projectcreate",
-      "community": 9,
-      "community_name": "projects.py",
+      "community": 54,
+      "community_name": "project_schemas.py",
       "norm_label": "projectcreate"
     },
     {
@@ -2881,8 +2881,8 @@
       "source_location": "L112",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_projectresponse",
-      "community": 9,
-      "community_name": "projects.py",
+      "community": 54,
+      "community_name": "project_schemas.py",
       "norm_label": "projectresponse"
     },
     {
@@ -3809,12 +3809,12 @@
       "label": "MainWindow",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L12",
+      "source_location": "L13",
       "metadata": {
         "is_partial": true,
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -3871,11 +3871,11 @@
       "label": ".TitleBar_MouseLeftButtonDown()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L441",
+      "source_location": "L442",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -3932,11 +3932,11 @@
       "label": ".TitleRefreshButton_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L309",
+      "source_location": "L310",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -3960,11 +3960,11 @@
       "label": ".TitleLogoutButton_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L325",
+      "source_location": "L326",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -3977,11 +3977,11 @@
       "label": ".TitleMinimize_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L457",
+      "source_location": "L458",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -3994,11 +3994,11 @@
       "label": ".TitleClose_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L463",
+      "source_location": "L464",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4066,11 +4066,11 @@
       "label": ".MiniWidget_MouseLeftButtonDown()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L449",
+      "source_location": "L450",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4127,11 +4127,11 @@
       "label": ".MiniPauseButton_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L476",
+      "source_location": "L477",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4155,11 +4155,11 @@
       "label": ".MiniStopButton_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L488",
+      "source_location": "L489",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4172,11 +4172,11 @@
       "label": ".MiniExpandButton_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L494",
+      "source_location": "L495",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4244,11 +4244,11 @@
       "label": ".MainWindow_Loaded()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L35",
+      "source_location": "L36",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4272,11 +4272,11 @@
       "label": ".CheckBackendAndInitializeAsync()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L54",
+      "source_location": "L55",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4289,11 +4289,11 @@
       "label": ".ShowBackendSetupView()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L84",
+      "source_location": "L85",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4306,11 +4306,11 @@
       "label": ".InitializeTrayIcon()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L117",
+      "source_location": "L118",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4323,11 +4323,11 @@
       "label": ".RestoreFromTray()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L163",
+      "source_location": "L164",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4340,11 +4340,11 @@
       "label": ".ToggleTimerFromTray()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L171",
+      "source_location": "L172",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4357,11 +4357,11 @@
       "label": ".StopTimerFromTray()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L187",
+      "source_location": "L188",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4374,11 +4374,11 @@
       "label": ".IsTimerActive()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L196",
+      "source_location": "L197",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4391,11 +4391,11 @@
       "label": ".OnSessionEnding()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L201",
+      "source_location": "L202",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4419,11 +4419,11 @@
       "label": ".HwndMessageHook()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L210",
+      "source_location": "L211",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4436,11 +4436,11 @@
       "label": ".ExitApplication()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L215",
+      "source_location": "L216",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4453,11 +4453,11 @@
       "label": ".MainWindow_Closing()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L236",
+      "source_location": "L237",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4481,11 +4481,11 @@
       "label": ".OnAuthStateChanged()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L253",
+      "source_location": "L254",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4498,11 +4498,11 @@
       "label": ".UpdateWindowTitle()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L270",
+      "source_location": "L271",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4515,11 +4515,11 @@
       "label": ".ShowLoginView()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L282",
+      "source_location": "L283",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4532,11 +4532,11 @@
       "label": ".ShowTrackerView()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L296",
+      "source_location": "L297",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4549,11 +4549,11 @@
       "label": ".ConfirmAndLogoutAsync()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L330",
+      "source_location": "L331",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4566,11 +4566,11 @@
       "label": ".OnTimerTicked()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L348",
+      "source_location": "L349",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4583,11 +4583,11 @@
       "label": ".OnTimerStateChanged()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L356",
+      "source_location": "L357",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4600,11 +4600,11 @@
       "label": ".SwitchToMiniMode()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L386",
+      "source_location": "L387",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4617,11 +4617,11 @@
       "label": ".RestoreFullMode()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L410",
+      "source_location": "L411",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4634,11 +4634,11 @@
       "label": ".MainWindow_MouseEnter()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L424",
+      "source_location": "L425",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4662,11 +4662,11 @@
       "label": ".MainWindow_MouseLeave()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L432",
+      "source_location": "L433",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4690,11 +4690,11 @@
       "label": ".FormatSeconds()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L499",
+      "source_location": "L500",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
-          "s223"
+          "s248"
         ]
       },
       "_origin": "ast",
@@ -4743,8 +4743,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "desktop_managerx_desktop_models_authmodels",
-      "community": 54,
-      "community_name": "AuthModels.cs",
+      "community": 46,
+      "community_name": "AuthService",
       "norm_label": "authmodels.cs"
     },
     {
@@ -4776,8 +4776,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_models_authmodels_managerx_models_userloginrequest",
-      "community": 54,
-      "community_name": "AuthModels.cs",
+      "community": 46,
+      "community_name": "AuthService",
       "norm_label": "userloginrequest"
     },
     {
@@ -4793,8 +4793,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_models_authmodels_managerx_models_tokenresponse",
-      "community": 54,
-      "community_name": "AuthModels.cs",
+      "community": 46,
+      "community_name": "AuthService",
       "norm_label": "tokenresponse"
     },
     {
@@ -4810,8 +4810,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_models_authmodels_managerx_models_userdto",
-      "community": 54,
-      "community_name": "AuthModels.cs",
+      "community": 46,
+      "community_name": "AuthService",
       "norm_label": "userdto"
     },
     {
@@ -4855,8 +4855,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_models_authmodels_managerx_models_backendsettings",
-      "community": 54,
-      "community_name": "AuthModels.cs",
+      "community": 46,
+      "community_name": "AuthService",
       "norm_label": "backendsettings"
     },
     {
@@ -5810,8 +5810,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_services_storageservice_managerx_services_storageservice_savebackendsettings",
-      "community": 54,
-      "community_name": "AuthModels.cs",
+      "community": 46,
+      "community_name": "AuthService",
       "norm_label": ".savebackendsettings()"
     },
     {
@@ -5986,12 +5986,12 @@
       "label": "BackendSetupView",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L13",
+      "source_location": "L15",
       "metadata": {
         "is_partial": true,
         "namespace": "ManagerX.Views",
         "scope_chain": [
-          "s210"
+          "s322"
         ]
       },
       "_origin": "ast",
@@ -6136,11 +6136,11 @@
       "label": ".BrowsePythonButton_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L59",
+      "source_location": "L61",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
-          "s210"
+          "s322"
         ]
       },
       "_origin": "ast",
@@ -6219,11 +6219,11 @@
       "label": ".LaunchButton_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L76",
+      "source_location": "L78",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
-          "s210"
+          "s322"
         ]
       },
       "_origin": "ast",
@@ -6247,11 +6247,11 @@
       "label": ".CheckAgainButton_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L150",
+      "source_location": "L152",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
-          "s210"
+          "s322"
         ]
       },
       "_origin": "ast",
@@ -6286,11 +6286,11 @@
       "label": ".ConnectCustomButton_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L190",
+      "source_location": "L192",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
-          "s210"
+          "s322"
         ]
       },
       "_origin": "ast",
@@ -6314,7 +6314,7 @@
       "label": "ManagerX.Views",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L11",
+      "source_location": "L13",
       "type": "namespace",
       "metadata": {
         "kind": "csharp_namespace",
@@ -6352,11 +6352,11 @@
       "label": ".BackendSetupView_Loaded()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L25",
+      "source_location": "L27",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
-          "s210"
+          "s322"
         ]
       },
       "_origin": "ast",
@@ -6380,11 +6380,11 @@
       "label": ".SetLaunchingState()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L227",
+      "source_location": "L229",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
-          "s210"
+          "s322"
         ]
       },
       "_origin": "ast",
@@ -6397,11 +6397,11 @@
       "label": ".ShowError()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L238",
+      "source_location": "L240",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
-          "s210"
+          "s322"
         ]
       },
       "_origin": "ast",
@@ -6414,11 +6414,11 @@
       "label": ".HideError()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L244",
+      "source_location": "L246",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
-          "s210"
+          "s322"
         ]
       },
       "_origin": "ast",
@@ -7059,8 +7059,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_projectcombo_keyup",
-      "community": 60,
-      "community_name": ".UpdateTimerUi",
+      "community": 67,
+      "community_name": ".SubmitNewProject_Click",
       "norm_label": ".projectcombo_keyup()"
     },
     {
@@ -7532,8 +7532,8 @@
       "source_location": "L396",
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_submitnewprojectbutton",
-      "community": 61,
-      "community_name": "Button",
+      "community": 67,
+      "community_name": ".SubmitNewProject_Click",
       "norm_label": "submitnewprojectbutton"
     },
     {
@@ -7549,8 +7549,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_submitnewproject_click",
-      "community": 61,
-      "community_name": "Button",
+      "community": 67,
+      "community_name": ".SubmitNewProject_Click",
       "norm_label": ".submitnewproject_click()"
     },
     {
@@ -7796,8 +7796,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_populateprojectscombo",
-      "community": 60,
-      "community_name": ".UpdateTimerUi",
+      "community": 67,
+      "community_name": ".SubmitNewProject_Click",
       "norm_label": ".populateprojectscombo()"
     },
     {
@@ -7807,8 +7807,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_xaml_cs_keyeventargs",
-      "community": 60,
-      "community_name": ".UpdateTimerUi",
+      "community": 67,
+      "community_name": ".SubmitNewProject_Click",
       "norm_label": "keyeventargs"
     },
     {
@@ -12064,8 +12064,8 @@
     },
     {
       "label": "typing",
-      "community": 6,
-      "community_name": "time_entries.py",
+      "community": 54,
+      "community_name": "project_schemas.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "typing",
@@ -12088,8 +12088,8 @@
     },
     {
       "label": "pydantic",
-      "community": 6,
-      "community_name": "time_entries.py",
+      "community": 54,
+      "community_name": "project_schemas.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "pydantic",
@@ -12304,8 +12304,8 @@
     },
     {
       "label": "os",
-      "community": 6,
-      "community_name": "time_entries.py",
+      "community": 54,
+      "community_name": "project_schemas.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "os",
@@ -12316,8 +12316,8 @@
     },
     {
       "label": "pathlib",
-      "community": 6,
-      "community_name": "time_entries.py",
+      "community": 54,
+      "community_name": "project_schemas.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "pathlib",
@@ -12328,8 +12328,8 @@
     },
     {
       "label": "pydantic_settings",
-      "community": 6,
-      "community_name": "time_entries.py",
+      "community": 54,
+      "community_name": "project_schemas.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "pydantic_settings",
@@ -23144,7 +23144,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml",
@@ -23335,7 +23335,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1.0,
       "context": "x_class",
       "_origin": "ast",
@@ -23398,7 +23398,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml",
@@ -23409,7 +23409,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1.0,
       "context": "field",
       "metadata": {
@@ -23424,7 +23424,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0,
       "context": "field",
       "metadata": {
@@ -23439,7 +23439,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L54",
+      "source_location": "L55",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23450,7 +23450,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L330",
+      "source_location": "L331",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23461,7 +23461,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L215",
+      "source_location": "L216",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23472,7 +23472,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L499",
+      "source_location": "L500",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23483,7 +23483,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L210",
+      "source_location": "L211",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23494,7 +23494,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L117",
+      "source_location": "L118",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23505,7 +23505,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L196",
+      "source_location": "L197",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23516,7 +23516,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L236",
+      "source_location": "L237",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23527,7 +23527,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L35",
+      "source_location": "L36",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23538,7 +23538,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L424",
+      "source_location": "L425",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23549,7 +23549,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L432",
+      "source_location": "L433",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23560,7 +23560,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L494",
+      "source_location": "L495",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23571,7 +23571,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L476",
+      "source_location": "L477",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23582,7 +23582,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L488",
+      "source_location": "L489",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23593,7 +23593,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L449",
+      "source_location": "L450",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23604,7 +23604,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L253",
+      "source_location": "L254",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23615,7 +23615,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L201",
+      "source_location": "L202",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23626,7 +23626,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L356",
+      "source_location": "L357",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23637,7 +23637,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L348",
+      "source_location": "L349",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23648,7 +23648,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L163",
+      "source_location": "L164",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23659,7 +23659,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L410",
+      "source_location": "L411",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23670,7 +23670,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L84",
+      "source_location": "L85",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23681,7 +23681,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L282",
+      "source_location": "L283",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23692,7 +23692,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L296",
+      "source_location": "L297",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23703,7 +23703,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L187",
+      "source_location": "L188",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23714,7 +23714,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L386",
+      "source_location": "L387",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23725,7 +23725,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L441",
+      "source_location": "L442",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23736,7 +23736,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L463",
+      "source_location": "L464",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23747,7 +23747,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L325",
+      "source_location": "L326",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23758,7 +23758,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L457",
+      "source_location": "L458",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23769,7 +23769,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L309",
+      "source_location": "L310",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23780,7 +23780,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L171",
+      "source_location": "L172",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23791,7 +23791,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L270",
+      "source_location": "L271",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -23802,7 +23802,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0,
       "context": "field",
       "metadata": {
@@ -23817,7 +23817,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L14",
+      "source_location": "L15",
       "weight": 1.0,
       "context": "field",
       "metadata": {
@@ -23832,7 +23832,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L15",
+      "source_location": "L16",
       "weight": 1.0,
       "context": "field",
       "metadata": {
@@ -23847,7 +23847,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 1.0,
       "context": "field",
       "metadata": {
@@ -23862,7 +23862,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0,
       "context": "field",
       "metadata": {
@@ -23927,7 +23927,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L441",
+      "source_location": "L442",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -24062,7 +24062,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L309",
+      "source_location": "L310",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -24079,7 +24079,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L316",
+      "source_location": "L317",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_titlerefreshbutton_click",
@@ -24101,7 +24101,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L325",
+      "source_location": "L326",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -24117,7 +24117,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L327",
+      "source_location": "L328",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_titlelogoutbutton_click",
@@ -24128,7 +24128,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L457",
+      "source_location": "L458",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -24143,7 +24143,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L463",
+      "source_location": "L464",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -24159,7 +24159,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L472",
+      "source_location": "L473",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_titleclose_click",
@@ -24171,7 +24171,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L465",
+      "source_location": "L466",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_titleclose_click",
@@ -24206,7 +24206,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L449",
+      "source_location": "L450",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -24233,7 +24233,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L476",
+      "source_location": "L477",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -24260,7 +24260,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L488",
+      "source_location": "L489",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -24276,7 +24276,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L490",
+      "source_location": "L491",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_ministopbutton_click",
@@ -24287,7 +24287,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L494",
+      "source_location": "L495",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -24303,7 +24303,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L496",
+      "source_location": "L497",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_miniexpandbutton_click",
@@ -24332,7 +24332,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L6",
+      "source_location": "L7",
       "weight": 1.0,
       "metadata": {
         "using_kind": "namespace",
@@ -24345,10 +24345,27 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
+      "source_location": "L6",
+      "weight": 1.0,
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "ManagerX.Services",
+        "scope_kind": "file"
+      },
+      "_origin": "ast",
+      "source": "desktop_managerx_desktop_mainwindow_xaml",
+      "target": "csharp_namespace:e2a8716dc3efb5a5",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L210",
+      "source_location": "L211",
       "weight": 1.0,
       "context": "return_type",
       "metadata": {
@@ -24363,7 +24380,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L35",
+      "source_location": "L36",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -24379,7 +24396,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L51",
+      "source_location": "L52",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_mainwindow_loaded",
@@ -24391,7 +24408,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L37",
+      "source_location": "L38",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_mainwindow_loaded",
@@ -24403,7 +24420,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L66",
+      "source_location": "L67",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_checkbackendandinitializeasync",
@@ -24415,7 +24432,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L80",
+      "source_location": "L81",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_checkbackendandinitializeasync",
@@ -24427,7 +24444,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L76",
+      "source_location": "L77",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_checkbackendandinitializeasync",
@@ -24440,7 +24457,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L62",
+      "source_location": "L63",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_checkbackendandinitializeasync",
@@ -24452,7 +24469,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L59",
+      "source_location": "L60",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_checkbackendandinitializeasync",
@@ -24463,7 +24480,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L109",
+      "source_location": "L110",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_showbackendsetupview",
@@ -24475,7 +24492,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L105",
+      "source_location": "L106",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_showbackendsetupview",
@@ -24487,7 +24504,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L86",
+      "source_location": "L87",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_showbackendsetupview",
@@ -24499,7 +24516,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L152",
+      "source_location": "L153",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_initializetrayicon",
@@ -24511,7 +24528,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L147",
+      "source_location": "L148",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_initializetrayicon",
@@ -24523,7 +24540,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L149",
+      "source_location": "L150",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_initializetrayicon",
@@ -24535,7 +24552,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L148",
+      "source_location": "L149",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_initializetrayicon",
@@ -24547,7 +24564,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L219",
+      "source_location": "L220",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_exitapplication",
@@ -24559,7 +24576,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L191",
+      "source_location": "L192",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_stoptimerfromtray",
@@ -24571,7 +24588,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L183",
+      "source_location": "L184",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_toggletimerfromtray",
@@ -24583,7 +24600,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L217",
+      "source_location": "L218",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_exitapplication",
@@ -24595,7 +24612,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L239",
+      "source_location": "L240",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_mainwindow_closing",
@@ -24607,7 +24624,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L203",
+      "source_location": "L204",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_onsessionending",
@@ -24620,7 +24637,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L206",
+      "source_location": "L207",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_onsessionending",
@@ -24630,7 +24647,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L201",
+      "source_location": "L202",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -24647,7 +24664,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L212",
+      "source_location": "L213",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_hwndmessagehook",
@@ -24659,7 +24676,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L230",
+      "source_location": "L231",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_exitapplication",
@@ -24669,7 +24686,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L236",
+      "source_location": "L237",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -24688,7 +24705,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L247",
+      "source_location": "L248",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_mainwindow_closing",
@@ -24699,7 +24716,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L264",
+      "source_location": "L265",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_onauthstatechanged",
@@ -24711,7 +24728,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L265",
+      "source_location": "L266",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_onauthstatechanged",
@@ -24723,7 +24740,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L260",
+      "source_location": "L261",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_onauthstatechanged",
@@ -24735,7 +24752,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L257",
+      "source_location": "L258",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_onauthstatechanged",
@@ -24746,7 +24763,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L253",
+      "source_location": "L254",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -24762,7 +24779,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L284",
+      "source_location": "L285",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_showloginview",
@@ -24774,7 +24791,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L298",
+      "source_location": "L299",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_showtrackerview",
@@ -24785,7 +24802,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L270",
+      "source_location": "L271",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -24801,7 +24818,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L291",
+      "source_location": "L292",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_showloginview",
@@ -24813,7 +24830,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L352",
+      "source_location": "L353",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_ontimerticked",
@@ -24825,7 +24842,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L377",
+      "source_location": "L378",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_ontimerstatechanged",
@@ -24837,7 +24854,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L372",
+      "source_location": "L373",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_ontimerstatechanged",
@@ -24850,7 +24867,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L366",
+      "source_location": "L367",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_ontimerstatechanged",
@@ -24862,7 +24879,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L362",
+      "source_location": "L363",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_ontimerstatechanged",
@@ -24873,7 +24890,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L406",
+      "source_location": "L407",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_switchtominimode",
@@ -24884,7 +24901,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L424",
+      "source_location": "L425",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -24899,7 +24916,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L432",
+      "source_location": "L433",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -25946,7 +25963,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L168",
+      "source_location": "L170",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_checkagainbutton_click",
@@ -25958,7 +25975,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L205",
+      "source_location": "L207",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_connectcustombutton_click",
@@ -25982,7 +25999,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L44",
+      "source_location": "L46",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_backendsetupview_loaded",
@@ -26006,7 +26023,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L96",
+      "source_location": "L98",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_launchbutton_click",
@@ -26018,7 +26035,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L117",
+      "source_location": "L119",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_launchbutton_click",
@@ -26105,7 +26122,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L128",
+      "source_location": "L130",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_launchbutton_click",
@@ -26450,7 +26467,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L104",
+      "source_location": "L106",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_launchbutton_click",
@@ -26462,7 +26479,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L27",
+      "source_location": "L29",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_backendsetupview_loaded",
@@ -26760,7 +26777,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L13",
+      "source_location": "L15",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml",
@@ -26771,7 +26788,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L17",
+      "source_location": "L19",
       "weight": 1.0,
       "context": "field",
       "metadata": {
@@ -26786,7 +26803,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L25",
+      "source_location": "L27",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview",
@@ -26797,7 +26814,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L59",
+      "source_location": "L61",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview",
@@ -26808,7 +26825,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L150",
+      "source_location": "L152",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview",
@@ -26819,7 +26836,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L190",
+      "source_location": "L192",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview",
@@ -26830,7 +26847,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L244",
+      "source_location": "L246",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview",
@@ -26841,7 +26858,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L76",
+      "source_location": "L78",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview",
@@ -26852,7 +26869,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L227",
+      "source_location": "L229",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview",
@@ -26863,7 +26880,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L238",
+      "source_location": "L240",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview",
@@ -26874,7 +26891,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L13",
+      "source_location": "L15",
       "weight": 1.0,
       "metadata": {
         "ref_token": "UserControl"
@@ -27068,7 +27085,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L59",
+      "source_location": "L61",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -27107,7 +27124,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L76",
+      "source_location": "L78",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -27123,7 +27140,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L78",
+      "source_location": "L80",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_launchbutton_click",
@@ -27135,7 +27152,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L112",
+      "source_location": "L114",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_launchbutton_click",
@@ -27147,7 +27164,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L83",
+      "source_location": "L85",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_launchbutton_click",
@@ -27170,7 +27187,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L150",
+      "source_location": "L152",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -27186,7 +27203,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L152",
+      "source_location": "L154",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_checkagainbutton_click",
@@ -27198,7 +27215,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L163",
+      "source_location": "L165",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_checkagainbutton_click",
@@ -27210,7 +27227,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L156",
+      "source_location": "L158",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_checkagainbutton_click",
@@ -27233,7 +27250,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L190",
+      "source_location": "L192",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -27249,7 +27266,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L192",
+      "source_location": "L194",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_connectcustombutton_click",
@@ -27261,7 +27278,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L200",
+      "source_location": "L202",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_connectcustombutton_click",
@@ -27273,7 +27290,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L196",
+      "source_location": "L198",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_connectcustombutton_click",
@@ -27284,7 +27301,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L11",
+      "source_location": "L13",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml",
@@ -27345,7 +27362,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L25",
+      "source_location": "L27",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -36374,5 +36391,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "49f57b608050e62ec84ed877a8541fbac28a8b82"
+  "built_at_commit": "99ab2e6665308dc31123ea95fe75288922d8fd86"
 }
