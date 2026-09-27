@@ -15,6 +15,8 @@ import {
   AlertCircle,
   CheckCircle2,
   Clock,
+  Hourglass,
+  Timer,
 } from "lucide-react";
 
 type PeriodFilter = "today" | "this_week" | "this_month" | "custom";
@@ -235,6 +237,37 @@ export default function TasksPage() {
   const completedTasks = totalTasks - pendingTasks;
   const inProgressTasks = filteredTasks.filter((t) => t.status === "in_progress").length;
 
+  // Pending projects & estimated hours for pending projects
+  const pendingProjectIds = useMemo(() => {
+    return new Set(projects.filter((p) => p.status !== "completed").map((p) => p.id));
+  }, [projects]);
+
+  const { totalEstimatedHoursPendingProjects, remainingEstHours, totalTrackedSeconds } = useMemo(() => {
+    let estHoursPending = 0;
+    let remainingHours = 0;
+    let trackedSeconds = 0;
+
+    for (const t of filteredTasks) {
+      const isPendingProj =
+        pendingProjectIds.size > 0 ? pendingProjectIds.has(t.project_id) : t.status !== "done";
+
+      if (isPendingProj) {
+        estHoursPending += t.estimated_hours || 0;
+        if (t.status !== "done") {
+          remainingHours += t.estimated_hours || 0;
+        }
+      }
+
+      trackedSeconds += timeTrackedMap[t.id] || 0;
+    }
+
+    return {
+      totalEstimatedHoursPendingProjects: estHoursPending,
+      remainingEstHours: remainingHours,
+      totalTrackedSeconds: trackedSeconds,
+    };
+  }, [filteredTasks, pendingProjectIds, timeTrackedMap]);
+
   return (
     <AppShell title="Tasks">
       <div className="animate-fade-in" style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
@@ -411,6 +444,74 @@ export default function TasksPage() {
                 style={{ fontSize: "18px", fontWeight: 700, color: "var(--accent-emerald)" }}
               >
                 {completedTasks}
+              </div>
+            </div>
+          </div>
+
+          <div
+            className="finance-panel"
+            style={{ padding: "14px 18px", display: "flex", alignItems: "center", gap: "12px" }}
+          >
+            <div
+              style={{
+                width: "36px",
+                height: "36px",
+                borderRadius: "var(--radius-xs)",
+                background: "rgba(168, 85, 247, 0.12)",
+                color: "#a855f7",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Hourglass size={18} />
+            </div>
+            <div>
+              <div style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 500 }}>
+                Est. Time (Pending Projects)
+              </div>
+              <div
+                className="mono"
+                style={{ fontSize: "18px", fontWeight: 700, color: "var(--text-main)" }}
+              >
+                {Number(totalEstimatedHoursPendingProjects.toFixed(1))}h{" "}
+                <span style={{ fontSize: "12px", fontWeight: 400, color: "var(--text-dim)" }}>
+                  ({Number(remainingEstHours.toFixed(1))}h remaining)
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div
+            className="finance-panel"
+            style={{ padding: "14px 18px", display: "flex", alignItems: "center", gap: "12px" }}
+          >
+            <div
+              style={{
+                width: "36px",
+                height: "36px",
+                borderRadius: "var(--radius-xs)",
+                background: "rgba(6, 182, 212, 0.12)",
+                color: "#06b6d4",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Timer size={18} />
+            </div>
+            <div>
+              <div style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 500 }}>
+                Total Time Tracked
+              </div>
+              <div
+                className="mono"
+                style={{ fontSize: "18px", fontWeight: 700, color: "var(--text-main)" }}
+              >
+                {(totalTrackedSeconds / 3600).toFixed(1)}h{" "}
+                <span style={{ fontSize: "12px", fontWeight: 400, color: "var(--text-dim)" }}>
+                  ({Math.floor(totalTrackedSeconds / 3600)}h {Math.floor((totalTrackedSeconds % 3600) / 60)}m logged)
+                </span>
               </div>
             </div>
           </div>
