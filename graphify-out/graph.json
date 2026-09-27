@@ -846,7 +846,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects",
-      "community": 58,
+      "community": 64,
       "community_name": "projects.py",
       "norm_label": "projects.py"
     },
@@ -857,7 +857,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_format_project_response",
-      "community": 58,
+      "community": 64,
       "community_name": "projects.py",
       "norm_label": "_format_project_response()"
     },
@@ -868,7 +868,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_py_get",
-      "community": 58,
+      "community": 64,
       "community_name": "projects.py",
       "norm_label": "get"
     },
@@ -879,7 +879,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_list_projects",
-      "community": 58,
+      "community": 64,
       "community_name": "projects.py",
       "norm_label": "list_projects()"
     },
@@ -890,7 +890,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_py_asyncsession",
-      "community": 58,
+      "community": 64,
       "community_name": "projects.py",
       "norm_label": "asyncsession"
     },
@@ -901,7 +901,7 @@
       "source_location": "L96",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_list_projects_summary",
-      "community": 58,
+      "community": 64,
       "community_name": "projects.py",
       "norm_label": "list_projects_summary()"
     },
@@ -912,7 +912,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_py_post",
-      "community": 58,
+      "community": 64,
       "community_name": "projects.py",
       "norm_label": "post"
     },
@@ -923,7 +923,7 @@
       "source_location": "L118",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_create_project",
-      "community": 58,
+      "community": 64,
       "community_name": "projects.py",
       "norm_label": "create_project()"
     },
@@ -934,7 +934,7 @@
       "source_location": "L144",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_get_project",
-      "community": 58,
+      "community": 64,
       "community_name": "projects.py",
       "norm_label": "get_project()"
     },
@@ -945,7 +945,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_py_put",
-      "community": 58,
+      "community": 64,
       "community_name": "projects.py",
       "norm_label": "put"
     },
@@ -956,7 +956,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_py_patch",
-      "community": 58,
+      "community": 64,
       "community_name": "projects.py",
       "norm_label": "patch"
     },
@@ -967,7 +967,7 @@
       "source_location": "L166",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_update_project",
-      "community": 58,
+      "community": 64,
       "community_name": "projects.py",
       "norm_label": "update_project()"
     },
@@ -978,7 +978,7 @@
       "source_location": "L197",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_update_project_status",
-      "community": 58,
+      "community": 64,
       "community_name": "projects.py",
       "norm_label": "update_project_status()"
     },
@@ -989,7 +989,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_py_delete",
-      "community": 58,
+      "community": 64,
       "community_name": "projects.py",
       "norm_label": "delete"
     },
@@ -1000,7 +1000,7 @@
       "source_location": "L217",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_delete_project",
-      "community": 58,
+      "community": 64,
       "community_name": "projects.py",
       "norm_label": "delete_project()"
     },
@@ -1320,7 +1320,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "tasks.py"
     },
     {
@@ -1331,7 +1331,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_format_task_response",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "_format_task_response()"
     },
     {
@@ -1342,7 +1342,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_sync_project_status",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "_sync_project_status()"
     },
     {
@@ -1353,7 +1353,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_py_asyncsession",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "asyncsession"
     },
     {
@@ -1364,7 +1364,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_py_get",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "get"
     },
     {
@@ -1375,7 +1375,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_list_tasks",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "list_tasks()"
     },
     {
@@ -1386,7 +1386,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_py_post",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "post"
     },
     {
@@ -1397,7 +1397,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_create_task",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "create_task()"
     },
     {
@@ -1408,7 +1408,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_get_task",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "get_task()"
     },
     {
@@ -1419,7 +1419,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_py_put",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "put"
     },
     {
@@ -1430,7 +1430,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_py_patch",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "patch"
     },
     {
@@ -1441,7 +1441,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_update_task",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "update_task()"
     },
     {
@@ -1452,7 +1452,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_update_task_status",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "update_task_status()"
     },
     {
@@ -1463,7 +1463,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_py_delete",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "delete"
     },
     {
@@ -1474,7 +1474,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_delete_task",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "delete_task()"
     },
     {
@@ -1485,7 +1485,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_time_entries",
       "community": 6,
-      "community_name": "Base",
+      "community_name": "time_entries.py",
       "norm_label": "time_entries.py"
     },
     {
@@ -1496,7 +1496,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_time_entries_format_time_entry_response",
       "community": 6,
-      "community_name": "Base",
+      "community_name": "time_entries.py",
       "norm_label": "_format_time_entry_response()"
     },
     {
@@ -1507,7 +1507,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_time_entries_py_get",
       "community": 6,
-      "community_name": "Base",
+      "community_name": "time_entries.py",
       "norm_label": "get"
     },
     {
@@ -1518,7 +1518,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_time_entries_list_time_entries",
       "community": 6,
-      "community_name": "Base",
+      "community_name": "time_entries.py",
       "norm_label": "list_time_entries()"
     },
     {
@@ -1529,7 +1529,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_time_entries_py_asyncsession",
       "community": 6,
-      "community_name": "Base",
+      "community_name": "time_entries.py",
       "norm_label": "asyncsession"
     },
     {
@@ -1540,7 +1540,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_time_entries_py_post",
       "community": 6,
-      "community_name": "Base",
+      "community_name": "time_entries.py",
       "norm_label": "post"
     },
     {
@@ -1551,7 +1551,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_time_entries_create_time_entry",
       "community": 6,
-      "community_name": "Base",
+      "community_name": "time_entries.py",
       "norm_label": "create_time_entry()"
     },
     {
@@ -1562,7 +1562,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_time_entries_get_time_entry",
       "community": 6,
-      "community_name": "Base",
+      "community_name": "time_entries.py",
       "norm_label": "get_time_entry()"
     },
     {
@@ -1573,7 +1573,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_time_entries_py_patch",
       "community": 6,
-      "community_name": "Base",
+      "community_name": "time_entries.py",
       "norm_label": "patch"
     },
     {
@@ -1584,7 +1584,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_time_entries_py_put",
       "community": 6,
-      "community_name": "Base",
+      "community_name": "time_entries.py",
       "norm_label": "put"
     },
     {
@@ -1595,7 +1595,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_time_entries_update_time_entry",
       "community": 6,
-      "community_name": "Base",
+      "community_name": "time_entries.py",
       "norm_label": "update_time_entry()"
     },
     {
@@ -1606,7 +1606,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_time_entries_py_delete",
       "community": 6,
-      "community_name": "Base",
+      "community_name": "time_entries.py",
       "norm_label": "delete"
     },
     {
@@ -1617,7 +1617,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_time_entries_delete_time_entry",
       "community": 6,
-      "community_name": "Base",
+      "community_name": "time_entries.py",
       "norm_label": "delete_time_entry()"
     },
     {
@@ -1693,7 +1693,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_core_cuid",
-      "community": 6,
+      "community": 69,
       "community_name": "Base",
       "norm_label": "cuid.py"
     },
@@ -1704,7 +1704,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "backend_app_core_cuid_to_base36",
-      "community": 6,
+      "community": 69,
       "community_name": "Base",
       "norm_label": "to_base36()"
     },
@@ -1715,7 +1715,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "backend_app_core_cuid_generate_cuid",
-      "community": 6,
+      "community": 69,
       "community_name": "Base",
       "norm_label": "generate_cuid()"
     },
@@ -1726,7 +1726,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "backend_app_core_cuid_rationale_17",
-      "community": 6,
+      "community": 69,
       "community_name": "Base",
       "norm_label": "generate a collision-resistant unique identifier (cuid). structure: prefix (1)..."
     },
@@ -1737,7 +1737,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_core_database",
-      "community": 6,
+      "community": 69,
       "community_name": "Base",
       "norm_label": "database.py"
     },
@@ -1748,7 +1748,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "listens_for",
-      "community": 6,
+      "community": 69,
       "community_name": "Base",
       "norm_label": "listens_for"
     },
@@ -1759,7 +1759,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "backend_app_core_database_set_sqlite_pragma",
-      "community": 6,
+      "community": 69,
       "community_name": "Base",
       "norm_label": "set_sqlite_pragma()"
     },
@@ -1770,7 +1770,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "backend_app_core_database_base",
-      "community": 6,
+      "community": 69,
       "community_name": "Base",
       "norm_label": "base"
     },
@@ -1781,7 +1781,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "declarativebase",
-      "community": 6,
+      "community": 69,
       "community_name": "Base",
       "norm_label": "declarativebase"
     },
@@ -1792,8 +1792,8 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "backend_app_core_database_get_db",
-      "community": 58,
-      "community_name": "projects.py",
+      "community": 70,
+      "community_name": "conftest.py",
       "norm_label": "get_db()"
     },
     {
@@ -1803,8 +1803,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_core_database_py_asyncsession",
-      "community": 58,
-      "community_name": "projects.py",
+      "community": 70,
+      "community_name": "conftest.py",
       "norm_label": "asyncsession"
     },
     {
@@ -1892,7 +1892,7 @@
       "_origin": "ast",
       "id": "timedelta",
       "community": 6,
-      "community_name": "Base",
+      "community_name": "time_entries.py",
       "norm_label": "timedelta"
     },
     {
@@ -2089,7 +2089,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_models_client_model",
-      "community": 6,
+      "community": 69,
       "community_name": "Base",
       "norm_label": "client_model.py"
     },
@@ -2111,7 +2111,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_models_gateway_model",
-      "community": 6,
+      "community": 69,
       "community_name": "Base",
       "norm_label": "gateway_model.py"
     },
@@ -2133,7 +2133,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_models_invoice_model",
-      "community": 6,
+      "community": 69,
       "community_name": "Base",
       "norm_label": "invoice_model.py"
     },
@@ -2144,7 +2144,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "backend_app_models_invoice_model_invoice",
-      "community": 6,
+      "community": 69,
       "community_name": "Base",
       "norm_label": "invoice"
     },
@@ -2166,7 +2166,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_models_project_models",
-      "community": 6,
+      "community": 69,
       "community_name": "Base",
       "norm_label": "project_models.py"
     },
@@ -2177,7 +2177,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "backend_app_models_project_models_project",
-      "community": 58,
+      "community": 64,
       "community_name": "projects.py",
       "norm_label": "project"
     },
@@ -2188,8 +2188,8 @@
       "source_location": "L53",
       "_origin": "ast",
       "id": "backend_app_models_project_models_task",
-      "community": 58,
-      "community_name": "projects.py",
+      "community": 69,
+      "community_name": "Base",
       "norm_label": "task"
     },
     {
@@ -2200,7 +2200,7 @@
       "_origin": "ast",
       "id": "backend_app_models_project_models_timeentry",
       "community": 6,
-      "community_name": "Base",
+      "community_name": "time_entries.py",
       "norm_label": "timeentry"
     },
     {
@@ -2210,7 +2210,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_models_settings_models",
-      "community": 6,
+      "community": 69,
       "community_name": "Base",
       "norm_label": "settings_models.py"
     },
@@ -2221,8 +2221,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "backend_app_models_settings_models_systemsetting",
-      "community": 6,
-      "community_name": "Base",
+      "community": 3,
+      "community_name": "settings.py",
       "norm_label": "systemsetting"
     },
     {
@@ -2243,8 +2243,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_models_user_models",
-      "community": 6,
-      "community_name": "Base",
+      "community": 1,
+      "community_name": "auth.py",
       "norm_label": "user_models.py"
     },
     {
@@ -2254,8 +2254,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "backend_app_models_user_models_generate_uuid",
-      "community": 6,
-      "community_name": "Base",
+      "community": 1,
+      "community_name": "auth.py",
       "norm_label": "generate_uuid()"
     },
     {
@@ -2265,8 +2265,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "backend_app_models_user_models_utc_now",
-      "community": 6,
-      "community_name": "Base",
+      "community": 1,
+      "community_name": "auth.py",
       "norm_label": "utc_now()"
     },
     {
@@ -2276,8 +2276,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_models_user_models_py_datetime",
-      "community": 6,
-      "community_name": "Base",
+      "community": 1,
+      "community_name": "auth.py",
       "norm_label": "datetime"
     },
     {
@@ -2298,8 +2298,8 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "backend_app_models_user_models_usersession",
-      "community": 6,
-      "community_name": "Base",
+      "community": 1,
+      "community_name": "auth.py",
       "norm_label": "usersession"
     },
     {
@@ -2706,7 +2706,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "project_schemas.py"
     },
     {
@@ -2717,7 +2717,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_checklistitem",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "checklistitem"
     },
     {
@@ -2728,7 +2728,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_py_basemodel",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "basemodel"
     },
     {
@@ -2739,7 +2739,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_taskbase",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "taskbase"
     },
     {
@@ -2750,7 +2750,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_py_field_validator",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "field_validator"
     },
     {
@@ -2761,7 +2761,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_taskbase_ensure_checklist",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": ".ensure_checklist()"
     },
     {
@@ -2772,7 +2772,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_taskcreate",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "taskcreate"
     },
     {
@@ -2783,7 +2783,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_taskupdate",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "taskupdate"
     },
     {
@@ -2794,7 +2794,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_taskstatusupdate",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "taskstatusupdate"
     },
     {
@@ -2805,7 +2805,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_taskresponse",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "taskresponse"
     },
     {
@@ -2816,7 +2816,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_tasksummary",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "tasksummary"
     },
     {
@@ -2827,7 +2827,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_clientnested",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "clientnested"
     },
     {
@@ -2838,7 +2838,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_projectbase",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "projectbase"
     },
     {
@@ -2848,7 +2848,7 @@
       "source_location": "L95",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_projectcreate",
-      "community": 58,
+      "community": 64,
       "community_name": "projects.py",
       "norm_label": "projectcreate"
     },
@@ -2859,7 +2859,7 @@
       "source_location": "L98",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_projectupdate",
-      "community": 58,
+      "community": 64,
       "community_name": "projects.py",
       "norm_label": "projectupdate"
     },
@@ -2870,7 +2870,7 @@
       "source_location": "L109",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_projectstatusupdate",
-      "community": 58,
+      "community": 64,
       "community_name": "projects.py",
       "norm_label": "projectstatusupdate"
     },
@@ -2882,7 +2882,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_projectresponse",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "projectresponse"
     },
     {
@@ -2892,7 +2892,7 @@
       "source_location": "L125",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_projectsummary",
-      "community": 58,
+      "community": 64,
       "community_name": "projects.py",
       "norm_label": "projectsummary"
     },
@@ -3036,7 +3036,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_time_schemas",
       "community": 6,
-      "community_name": "Base",
+      "community_name": "time_entries.py",
       "norm_label": "time_schemas.py"
     },
     {
@@ -3047,7 +3047,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_time_schemas_timeentrybase",
       "community": 6,
-      "community_name": "Base",
+      "community_name": "time_entries.py",
       "norm_label": "timeentrybase"
     },
     {
@@ -3058,7 +3058,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_time_schemas_py_basemodel",
       "community": 6,
-      "community_name": "Base",
+      "community_name": "time_entries.py",
       "norm_label": "basemodel"
     },
     {
@@ -3069,7 +3069,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_time_schemas_timeentrycreate",
       "community": 6,
-      "community_name": "Base",
+      "community_name": "time_entries.py",
       "norm_label": "timeentrycreate"
     },
     {
@@ -3080,7 +3080,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_time_schemas_timeentryupdate",
       "community": 6,
-      "community_name": "Base",
+      "community_name": "time_entries.py",
       "norm_label": "timeentryupdate"
     },
     {
@@ -3091,7 +3091,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_time_schemas_timeentryresponse",
       "community": 6,
-      "community_name": "Base",
+      "community_name": "time_entries.py",
       "norm_label": "timeentryresponse"
     },
     {
@@ -3211,8 +3211,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_tests_conftest",
-      "community": 2,
-      "community_name": "Currency",
+      "community": 70,
+      "community_name": "conftest.py",
       "norm_label": "conftest.py"
     },
     {
@@ -3222,8 +3222,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "backend_tests_conftest_override_get_db",
-      "community": 2,
-      "community_name": "Currency",
+      "community": 70,
+      "community_name": "conftest.py",
       "norm_label": "override_get_db()"
     },
     {
@@ -3233,8 +3233,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "fixture",
-      "community": 2,
-      "community_name": "Currency",
+      "community": 70,
+      "community_name": "conftest.py",
       "norm_label": "fixture"
     },
     {
@@ -3244,8 +3244,8 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "backend_tests_conftest_prepare_database",
-      "community": 2,
-      "community_name": "Currency",
+      "community": 70,
+      "community_name": "conftest.py",
       "norm_label": "prepare_database()"
     },
     {
@@ -3255,8 +3255,8 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "backend_tests_conftest_client",
-      "community": 2,
-      "community_name": "Currency",
+      "community": 70,
+      "community_name": "conftest.py",
       "norm_label": "client()"
     },
     {
@@ -3831,7 +3831,7 @@
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_rootwindowborder",
       "community": 59,
-      "community_name": ".ApiStatusBadge_MouseLeftButtonDown",
+      "community_name": ".CheckBackendAndInitializeAsync",
       "norm_label": "rootwindowborder"
     },
     {
@@ -3842,7 +3842,7 @@
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_xaml_border",
       "community": 59,
-      "community_name": ".ApiStatusBadge_MouseLeftButtonDown",
+      "community_name": ".CheckBackendAndInitializeAsync",
       "norm_label": "border"
     },
     {
@@ -3881,7 +3881,7 @@
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_titlebar_mouseleftbuttondown",
       "community": 59,
-      "community_name": ".ApiStatusBadge_MouseLeftButtonDown",
+      "community_name": ".CheckBackendAndInitializeAsync",
       "norm_label": ".titlebar_mouseleftbuttondown()"
     },
     {
@@ -4015,7 +4015,7 @@
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_apistatusbadge",
       "community": 59,
-      "community_name": ".ApiStatusBadge_MouseLeftButtonDown",
+      "community_name": ".CheckBackendAndInitializeAsync",
       "norm_label": "apistatusbadge"
     },
     {
@@ -4032,7 +4032,7 @@
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_apistatusbadge_mouseleftbuttondown",
       "community": 59,
-      "community_name": ".ApiStatusBadge_MouseLeftButtonDown",
+      "community_name": ".CheckBackendAndInitializeAsync",
       "norm_label": ".apistatusbadge_mouseleftbuttondown()"
     },
     {
@@ -4076,7 +4076,7 @@
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_webstatusbadge",
       "community": 59,
-      "community_name": ".ApiStatusBadge_MouseLeftButtonDown",
+      "community_name": ".CheckBackendAndInitializeAsync",
       "norm_label": "webstatusbadge"
     },
     {
@@ -4093,7 +4093,7 @@
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_webstatusbadge_mouseleftbuttondown",
       "community": 59,
-      "community_name": ".ApiStatusBadge_MouseLeftButtonDown",
+      "community_name": ".CheckBackendAndInitializeAsync",
       "norm_label": ".webstatusbadge_mouseleftbuttondown()"
     },
     {
@@ -4142,8 +4142,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_stopservicesbutton_click",
-      "community": 54,
-      "community_name": "RoutedEventArgs",
+      "community": 65,
+      "community_name": ".InitializeTrayIcon",
       "norm_label": ".stopservicesbutton_click()"
     },
     {
@@ -4425,8 +4425,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_mainwindow_loaded",
-      "community": 64,
-      "community_name": ".ShowBackendSetupView",
+      "community": 65,
+      "community_name": ".InitializeTrayIcon",
       "norm_label": ".mainwindow_loaded()"
     },
     {
@@ -4453,8 +4453,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_checkbackendandinitializeasync",
-      "community": 64,
-      "community_name": ".ShowBackendSetupView",
+      "community": 59,
+      "community_name": ".CheckBackendAndInitializeAsync",
       "norm_label": ".checkbackendandinitializeasync()"
     },
     {
@@ -4470,8 +4470,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_showbackendsetupview",
-      "community": 64,
-      "community_name": ".ShowBackendSetupView",
+      "community": 59,
+      "community_name": ".CheckBackendAndInitializeAsync",
       "norm_label": ".showbackendsetupview()"
     },
     {
@@ -4572,8 +4572,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_onsessionending",
-      "community": 65,
-      "community_name": ".InitializeTrayIcon",
+      "community": 36,
+      "community_name": "ShutdownPreventionService",
       "norm_label": ".onsessionending()"
     },
     {
@@ -4583,8 +4583,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "sessionendingcanceleventargs",
-      "community": 65,
-      "community_name": ".InitializeTrayIcon",
+      "community": 36,
+      "community_name": "ShutdownPreventionService",
       "norm_label": "sessionendingcanceleventargs"
     },
     {
@@ -4662,8 +4662,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_onauthstatechanged",
-      "community": 64,
-      "community_name": ".ShowBackendSetupView",
+      "community": 59,
+      "community_name": ".CheckBackendAndInitializeAsync",
       "norm_label": ".onauthstatechanged()"
     },
     {
@@ -4679,8 +4679,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_updatewindowtitle",
-      "community": 64,
-      "community_name": ".ShowBackendSetupView",
+      "community": 59,
+      "community_name": ".CheckBackendAndInitializeAsync",
       "norm_label": ".updatewindowtitle()"
     },
     {
@@ -4696,8 +4696,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_showloginview",
-      "community": 64,
-      "community_name": ".ShowBackendSetupView",
+      "community": 59,
+      "community_name": ".CheckBackendAndInitializeAsync",
       "norm_label": ".showloginview()"
     },
     {
@@ -4713,8 +4713,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_showtrackerview",
-      "community": 64,
-      "community_name": ".ShowBackendSetupView",
+      "community": 59,
+      "community_name": ".CheckBackendAndInitializeAsync",
       "norm_label": ".showtrackerview()"
     },
     {
@@ -4855,7 +4855,7 @@
       "_origin": "ast",
       "id": "mousebuttoneventargs",
       "community": 59,
-      "community_name": ".ApiStatusBadge_MouseLeftButtonDown",
+      "community_name": ".CheckBackendAndInitializeAsync",
       "norm_label": "mousebuttoneventargs"
     },
     {
@@ -4871,8 +4871,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_updateservicebadgesasync",
-      "community": 64,
-      "community_name": ".ShowBackendSetupView",
+      "community": 65,
+      "community_name": ".InitializeTrayIcon",
       "norm_label": ".updateservicebadgesasync()"
     },
     {
@@ -4889,7 +4889,7 @@
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_openinbrowser",
       "community": 59,
-      "community_name": ".ApiStatusBadge_MouseLeftButtonDown",
+      "community_name": ".CheckBackendAndInitializeAsync",
       "norm_label": ".openinbrowser()"
     },
     {
@@ -5652,8 +5652,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice_checkfrontendhealthasync",
-      "community": 64,
-      "community_name": ".ShowBackendSetupView",
+      "community": 56,
+      "community_name": "UserControl",
       "norm_label": ".checkfrontendhealthasync()"
     },
     {
@@ -5759,10 +5759,27 @@
       "norm_label": ".syncenvfile()"
     },
     {
+      "label": ".FindEnvFilePath()",
+      "file_type": "code",
+      "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
+      "source_location": "L290",
+      "metadata": {
+        "namespace": "ManagerX.Services",
+        "scope_chain": [
+          "s135"
+        ]
+      },
+      "_origin": "ast",
+      "id": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice_findenvfilepath",
+      "community": 56,
+      "community_name": "UserControl",
+      "norm_label": ".findenvfilepath()"
+    },
+    {
       "label": ".UpdateEnvFile()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L308",
+      "source_location": "L335",
       "metadata": {
         "namespace": "ManagerX.Services",
         "scope_chain": [
@@ -5779,7 +5796,7 @@
       "label": ".StopServiceByPortAsync()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L345",
+      "source_location": "L406",
       "metadata": {
         "namespace": "ManagerX.Services",
         "scope_chain": [
@@ -5796,7 +5813,7 @@
       "label": ".StopAllServicesAsync()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L371",
+      "source_location": "L432",
       "metadata": {
         "namespace": "ManagerX.Services",
         "scope_chain": [
@@ -5805,15 +5822,15 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice_stopallservicesasync",
-      "community": 56,
-      "community_name": "UserControl",
+      "community": 65,
+      "community_name": ".InitializeTrayIcon",
       "norm_label": ".stopallservicesasync()"
     },
     {
       "label": ".WaitForHealthyAsync()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L395",
+      "source_location": "L456",
       "metadata": {
         "namespace": "ManagerX.Services",
         "scope_chain": [
@@ -6678,7 +6695,7 @@
       "label": ".CheckAgainButton_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L200",
+      "source_location": "L203",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -6717,7 +6734,7 @@
       "label": ".ConnectCustomButton_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L240",
+      "source_location": "L243",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -6828,7 +6845,7 @@
       "label": ".SetLaunchingState()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L277",
+      "source_location": "L280",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -6845,7 +6862,7 @@
       "label": ".ShowError()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L293",
+      "source_location": "L296",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -6862,7 +6879,7 @@
       "label": ".HideError()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L299",
+      "source_location": "L302",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -12518,8 +12535,8 @@
     },
     {
       "label": "pytest_asyncio",
-      "community": 2,
-      "community_name": "Currency",
+      "community": 70,
+      "community_name": "conftest.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "pytest_asyncio",
@@ -12530,7 +12547,7 @@
     },
     {
       "label": "sqlalchemy",
-      "community": 6,
+      "community": 69,
       "community_name": "Base",
       "external": true,
       "file_type": "concept",
@@ -12542,8 +12559,8 @@
     },
     {
       "label": "sqlalchemy_ext_asyncio",
-      "community": 2,
-      "community_name": "Currency",
+      "community": 70,
+      "community_name": "conftest.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "sqlalchemy_ext_asyncio",
@@ -12554,7 +12571,7 @@
     },
     {
       "label": "sqlalchemy_orm",
-      "community": 6,
+      "community": 69,
       "community_name": "Base",
       "external": true,
       "file_type": "concept",
@@ -12590,7 +12607,7 @@
     },
     {
       "label": "datetime",
-      "community": 6,
+      "community": 69,
       "community_name": "Base",
       "external": true,
       "file_type": "concept",
@@ -12854,7 +12871,7 @@
     },
     {
       "label": "secrets",
-      "community": 6,
+      "community": 69,
       "community_name": "Base",
       "external": true,
       "file_type": "concept",
@@ -27035,6 +27052,17 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
+      "source_location": "L290",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice",
+      "target": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice_findenvfilepath",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
       "source_location": "L104",
       "weight": 1.0,
       "_origin": "ast",
@@ -27068,7 +27096,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L371",
+      "source_location": "L432",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice",
@@ -27079,7 +27107,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L345",
+      "source_location": "L406",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice",
@@ -27101,7 +27129,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L308",
+      "source_location": "L335",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice",
@@ -27112,7 +27140,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L395",
+      "source_location": "L456",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice",
@@ -27124,7 +27152,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L408",
+      "source_location": "L469",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice_waitforhealthyasync",
@@ -27137,7 +27165,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L218",
+      "source_location": "L221",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_checkagainbutton_click",
@@ -27149,7 +27177,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L255",
+      "source_location": "L258",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_connectcustombutton_click",
@@ -27233,7 +27261,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L160",
+      "source_location": "L163",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_launchservicesasync",
@@ -27269,7 +27297,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L166",
+      "source_location": "L169",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_launchservicesasync",
@@ -27280,7 +27308,19 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L284",
+      "source_location": "L278",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice_syncenvfile",
+      "target": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice_findenvfilepath",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
+      "source_location": "L281",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice_syncenvfile",
@@ -27291,8 +27331,32 @@
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
+      "source_location": "L155",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_launchservicesasync",
+      "target": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice_syncenvfile"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L373",
+      "source_location": "L293",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice_findenvfilepath",
+      "target": "desktop_managerx_desktop_services_storageservice_managerx_services_storageservice_loadbackendsettings"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
+      "source_location": "L434",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice_stopallservicesasync",
@@ -27303,7 +27367,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L395",
+      "source_location": "L456",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -27318,7 +27382,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L395",
+      "source_location": "L456",
       "weight": 1.0,
       "context": "generic_arg",
       "metadata": {
@@ -27333,7 +27397,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L395",
+      "source_location": "L456",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -27348,7 +27412,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L395",
+      "source_location": "L456",
       "weight": 1.0,
       "context": "generic_arg",
       "metadata": {
@@ -27363,7 +27427,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L395",
+      "source_location": "L456",
       "weight": 1.0,
       "context": "generic_arg",
       "metadata": {
@@ -27380,7 +27444,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L178",
+      "source_location": "L181",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_launchservicesasync",
@@ -28161,7 +28225,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L200",
+      "source_location": "L203",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview",
@@ -28172,7 +28236,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L240",
+      "source_location": "L243",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview",
@@ -28183,7 +28247,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L299",
+      "source_location": "L302",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview",
@@ -28227,7 +28291,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L277",
+      "source_location": "L280",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview",
@@ -28238,7 +28302,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L293",
+      "source_location": "L296",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview",
@@ -28647,7 +28711,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L200",
+      "source_location": "L203",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -28663,7 +28727,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L202",
+      "source_location": "L205",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_checkagainbutton_click",
@@ -28675,7 +28739,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L213",
+      "source_location": "L216",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_checkagainbutton_click",
@@ -28687,7 +28751,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L206",
+      "source_location": "L209",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_checkagainbutton_click",
@@ -28710,7 +28774,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L240",
+      "source_location": "L243",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -28726,7 +28790,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L242",
+      "source_location": "L245",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_connectcustombutton_click",
@@ -28738,7 +28802,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L250",
+      "source_location": "L253",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_connectcustombutton_click",
@@ -28750,7 +28814,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L246",
+      "source_location": "L249",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_connectcustombutton_click",
@@ -28850,7 +28914,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs",
-      "source_location": "L154",
+      "source_location": "L157",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_backendsetupview_xaml_managerx_views_backendsetupview_launchservicesasync",
@@ -37953,5 +38017,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "c1643b3c62790f1daa0037aad33b38ad3b6611c6"
+  "built_at_commit": "291ce8a69830f9cc211d6b0c50f5625a7bc4d9ac"
 }

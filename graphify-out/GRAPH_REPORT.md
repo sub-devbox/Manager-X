@@ -1,16 +1,16 @@
 # Graph Report - Manager-X  (2026-09-27)
 
 ## Corpus Check
-- 131 files · ~94,660 words
+- 131 files · ~94,853 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1078 nodes · 2129 edges · 69 communities (55 shown, 14 thin omitted)
+- 1079 nodes · 2133 edges · 71 communities (58 shown, 13 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 26 edges (avg confidence: 0.63)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `c1643b3c`
+- Built from commit: `291ce8a6`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -21,7 +21,7 @@
 - settings.py
 - compilerOptions
 - Ponytail
-- Base
+- time_entries.py
 - FastAPI ASGI Backend
 - Finance Manager Module
 - Window
@@ -72,16 +72,18 @@
 - ManagerX.Desktop.csproj
 - UserControl
 - TrackerView
-- projects.py
-- .ApiStatusBadge_MouseLeftButtonDown
+- tasks.py
+- .CheckBackendAndInitializeAsync
 - .UpdateTimerUi
 - Button
 - clients/page.tsx
 - .StopSaveButton_Click
-- .InitializeTrayIcon
+- projects.py
 - TimeModels.cs
 - .SubmitNewProject_Click
 - AuthService
+- Base
+- conftest.py
 
 ## God Nodes (most connected - your core abstractions)
 1. `User` - 72 edges
@@ -110,23 +112,23 @@
 ## Import Cycles
 - None detected.
 
-## Communities (69 total, 14 thin omitted)
+## Communities (71 total, 13 thin omitted)
 
 ### Community 0 - "devDependencies"
 Cohesion: 0.06
 Nodes (32): eslint, eslint-config-next, dependencies, lucide-react, next, react, react-dom, @tanstack/react-query (+24 more)
 
 ### Community 1 - "auth.py"
-Cohesion: 0.08
-Nodes (50): check_auth_status(), get_client_ip(), get_current_user(), get_me(), get_optional_user(), login(), logout(), AsyncSession (+42 more)
+Cohesion: 0.07
+Nodes (53): check_auth_status(), get_client_ip(), get_current_user(), get_me(), get_optional_user(), login(), logout(), AsyncSession (+45 more)
 
 ### Community 2 - "Currency"
-Cohesion: 0.09
-Nodes (32): Currency, client(), prepare_database(), AsyncClient, asyncio, test_full_security_and_auth_lifecycle(), AsyncClient, asyncio (+24 more)
+Cohesion: 0.10
+Nodes (27): Currency, AsyncClient, asyncio, test_full_security_and_auth_lifecycle(), AsyncClient, asyncio, test_client_incoming_currency_and_equivalent_inr_auto_calc(), test_client_lifecycle_and_address_validation() (+19 more)
 
 ### Community 3 - "settings.py"
 Cohesion: 0.08
-Nodes (45): add_country(), create_backup_snapshot(), create_currency(), delete_country(), delete_currency(), download_database(), ensure_default_currencies(), _format_size() (+37 more)
+Nodes (46): add_country(), create_backup_snapshot(), create_currency(), delete_country(), delete_currency(), download_database(), ensure_default_currencies(), _format_size() (+38 more)
 
 ### Community 4 - "compilerOptions"
 Cohesion: 0.07
@@ -136,9 +138,9 @@ Nodes (28): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModu
 Cohesion: 0.22
 Nodes (8): Boundaries, Intensity, Output, Persistence, Ponytail, Rules, The ladder, When NOT to be lazy
 
-### Community 6 - "Base"
-Cohesion: 0.09
-Nodes (35): create_time_entry(), delete_time_entry(), _format_time_entry_response(), get_time_entry(), list_time_entries(), AsyncSession, delete, get (+27 more)
+### Community 6 - "time_entries.py"
+Cohesion: 0.19
+Nodes (19): create_time_entry(), delete_time_entry(), _format_time_entry_response(), get_time_entry(), list_time_entries(), AsyncSession, delete, get (+11 more)
 
 ### Community 7 - "FastAPI ASGI Backend"
 Cohesion: 0.29
@@ -221,8 +223,8 @@ Cohesion: 0.07
 Nodes (26): 1. Environment Setup, 2. Backend Setup, 3. Frontend Setup, 4. Windows Desktop App (Time Tracker), 5. Control Scripts (Batch), Backend Tests, Building & Publishing from Source:, 👥 Client Management (+18 more)
 
 ### Community 36 - "ShutdownPreventionService"
-Cohesion: 0.22
-Nodes (7): CancelEventArgs, bool, int, IntPtr, ShutdownPreventionService, DllImport, Func
+Cohesion: 0.18
+Nodes (8): CancelEventArgs, bool, int, IntPtr, ShutdownPreventionService, DllImport, Func, SessionEndingCancelEventArgs
 
 ### Community 37 - "layout.tsx"
 Cohesion: 0.29
@@ -293,7 +295,7 @@ Cohesion: 0.25
 Nodes (5): ClientDto, ProjectCreateRequest, ProjectDto, TaskCreateRequest, TaskDto
 
 ### Community 54 - "RoutedEventArgs"
-Cohesion: 0.19
+Cohesion: 0.20
 Nodes (7): MiniPauseButton, MiniStopButton, StopServicesButton, TitleLogoutButton, TitleRefreshButton, RoutedEventArgs, Button
 
 ### Community 56 - "UserControl"
@@ -304,12 +306,12 @@ Nodes (37): CancellationToken, CancellationTokenSource, current, HttpClient, Bac
 Cohesion: 0.17
 Nodes (5): TimeEntryDto, SubmitNewTaskButton, RoutedEventArgs, TrackerView, List
 
-### Community 58 - "projects.py"
-Cohesion: 0.09
-Nodes (48): create_project(), delete_project(), _format_project_response(), get_project(), list_projects(), list_projects_summary(), AsyncSession, delete (+40 more)
+### Community 58 - "tasks.py"
+Cohesion: 0.15
+Nodes (26): create_task(), delete_task(), _format_task_response(), get_task(), list_tasks(), AsyncSession, delete, get (+18 more)
 
-### Community 59 - ".ApiStatusBadge_MouseLeftButtonDown"
-Cohesion: 0.28
+### Community 59 - ".CheckBackendAndInitializeAsync"
+Cohesion: 0.23
 Nodes (5): ApiStatusBadge, RootWindowBorder, WebStatusBadge, Border, MouseButtonEventArgs
 
 ### Community 60 - ".UpdateTimerUi"
@@ -324,25 +326,37 @@ Nodes (5): NewTaskHeaderButton, ResetButton, StartPauseButton, ViewTodayActivity
 Cohesion: 0.32
 Nodes (5): CurrencySetting, ClientData, ClientModal(), ClientModalProps, CurrencyOption
 
+### Community 64 - "projects.py"
+Cohesion: 0.21
+Nodes (19): create_project(), delete_project(), _format_project_response(), get_project(), list_projects(), list_projects_summary(), AsyncSession, delete (+11 more)
+
+### Community 69 - "Base"
+Cohesion: 0.21
+Nodes (13): generate_cuid(), Generate a collision-resistant unique identifier (CUID). Structure: prefix (1)…, to_base36(), Base, set_sqlite_pragma(), Invoice, Task, datetime (+5 more)
+
+### Community 70 - "conftest.py"
+Cohesion: 0.25
+Nodes (7): get_db(), AsyncSession, client(), prepare_database(), fixture, pytest_asyncio, sqlalchemy_ext_asyncio
+
 ## Knowledge Gaps
 - **221 isolated node(s):** `Border`, `ScrollViewer`, `ContentControl`, `net8.0-windows`, `Microsoft.NET.Sdk` (+216 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **14 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **13 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `User` connect `User` to `auth.py`, `clients.py`, `settings.py`, `Currency`, `Base`, `projects.py`?**
+- **Why does `User` connect `User` to `projects.py`, `auth.py`, `clients.py`, `settings.py`, `Currency`, `Base`, `time_entries.py`, `tasks.py`?**
   _High betweenness centrality (0.045) - this node is a cross-community bridge._
-- **Why does `MainWindow` connect `MainWindow` to `.ShowBackendSetupView`, `.InitializeTrayIcon`, `ShutdownPreventionService`, `Window`, `UserControl`, `ManagerX.Services`, `RoutedEventArgs`, `UserControl`, `TrackerView`, `.ApiStatusBadge_MouseLeftButtonDown`?**
+- **Why does `MainWindow` connect `MainWindow` to `.InitializeTrayIcon`, `ShutdownPreventionService`, `Window`, `UserControl`, `ManagerX.Services`, `RoutedEventArgs`, `UserControl`, `TrackerView`, `.CheckBackendAndInitializeAsync`?**
   _High betweenness centrality (0.043) - this node is a cross-community bridge._
 - **Why does `TrackerView` connect `TrackerView` to `.SubmitNewProject_Click`, `UserControl`, `UserControl`, `ManagerX.Services`, `MainWindow`, `.UpdateTimerUi`, `Button`, `.StopSaveButton_Click`?**
-  _High betweenness centrality (0.038) - this node is a cross-community bridge._
+  _High betweenness centrality (0.037) - this node is a cross-community bridge._
 - **What connects `Border`, `ScrollViewer`, `ContentControl` to the rest of the system?**
   _221 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `devDependencies` be split into smaller, more focused modules?**
   _Cohesion score 0.06060606060606061 - nodes in this community are weakly interconnected._
 - **Should `auth.py` be split into smaller, more focused modules?**
-  _Cohesion score 0.08176100628930817 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.07364114552893045 - nodes in this community are weakly interconnected._
 - **Should `Currency` be split into smaller, more focused modules?**
-  _Cohesion score 0.08658536585365853 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.10160427807486631 - nodes in this community are weakly interconnected._

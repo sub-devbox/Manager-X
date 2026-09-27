@@ -640,8 +640,8 @@
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs": {
-    "mtime": 1790511233.5079124,
-    "ast_hash": "94ea785a463566cfb5c8a9c808e7d349",
+    "mtime": 1790511891.5593896,
+    "ast_hash": "cbd7e6a2934b0137c50bce25d057f7e8",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Services/ShutdownPreventionService.cs": {
@@ -655,8 +655,8 @@
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs": {
-    "mtime": 1790511245.1678493,
-    "ast_hash": "3fe54c84ff5350f68fafc84c0cf9df03",
+    "mtime": 1790511904.5558696,
+    "ast_hash": "062dbd3f94c92276a7d17fd8ea725e6a",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/app.png": {

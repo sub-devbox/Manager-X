@@ -151,6 +151,9 @@ public partial class BackendSetupView : UserControl
             RunSilently = runSilently
         });
 
+        // Surgically sync .env with updated ports
+        BackendLauncherService.SyncEnvFile(host, backendPort, frontendPort);
+
         SetLaunchingState(true);
         StatusText.Text = $"Launching backend on {host}:{backendPort}...";
 

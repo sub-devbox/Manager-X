@@ -275,34 +275,61 @@ public static class BackendLauncherService
     {
         try
         {
-            var baseDir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
-            for (int i = 0; i < 6 && baseDir != null; i++)
+            var envPath = FindEnvFilePath();
+            if (!string.IsNullOrEmpty(envPath) && File.Exists(envPath))
             {
-                var envPath = Path.Combine(baseDir.FullName, ".env");
-                if (File.Exists(envPath))
-                {
-                    UpdateEnvFile(envPath, backendHost, backendPort, frontendPort);
-                    return;
-                }
-                baseDir = baseDir.Parent;
-            }
-
-            var workingDir = new DirectoryInfo(Environment.CurrentDirectory);
-            for (int i = 0; i < 4 && workingDir != null; i++)
-            {
-                var envPath = Path.Combine(workingDir.FullName, ".env");
-                if (File.Exists(envPath))
-                {
-                    UpdateEnvFile(envPath, backendHost, backendPort, frontendPort);
-                    return;
-                }
-                workingDir = workingDir.Parent;
+                UpdateEnvFile(envPath, backendHost, backendPort, frontendPort);
             }
         }
         catch (Exception ex)
         {
             System.Diagnostics.Debug.WriteLine($"Failed to sync .env file: {ex.Message}");
         }
+    }
+
+    public static string? FindEnvFilePath()
+    {
+        // 1. Check relative to saved Backend or Frontend directory
+        var saved = StorageService.LoadBackendSettings();
+        if (!string.IsNullOrWhiteSpace(saved?.BackendDir) && Directory.Exists(saved.BackendDir))
+        {
+            var parent = Directory.GetParent(saved.BackendDir);
+            if (parent != null)
+            {
+                var candidate = Path.Combine(parent.FullName, ".env");
+                if (File.Exists(candidate)) return candidate;
+            }
+        }
+
+        if (!string.IsNullOrWhiteSpace(saved?.FrontendDir) && Directory.Exists(saved.FrontendDir))
+        {
+            var parent = Directory.GetParent(saved.FrontendDir);
+            if (parent != null)
+            {
+                var candidate = Path.Combine(parent.FullName, ".env");
+                if (File.Exists(candidate)) return candidate;
+            }
+        }
+
+        // 2. Check upward from application base directory
+        var baseDir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
+        for (int i = 0; i < 6 && baseDir != null; i++)
+        {
+            var envPath = Path.Combine(baseDir.FullName, ".env");
+            if (File.Exists(envPath)) return envPath;
+            baseDir = baseDir.Parent;
+        }
+
+        // 3. Check upward from current working directory
+        var workingDir = new DirectoryInfo(Environment.CurrentDirectory);
+        for (int i = 0; i < 4 && workingDir != null; i++)
+        {
+            var envPath = Path.Combine(workingDir.FullName, ".env");
+            if (File.Exists(envPath)) return envPath;
+            workingDir = workingDir.Parent;
+        }
+
+        return null;
     }
 
     private static void UpdateEnvFile(string filePath, string backendHost, int backendPort, int frontendPort)
@@ -314,24 +341,55 @@ public static class BackendLauncherService
         foreach (var line in lines)
         {
             var trimmed = line.Trim();
-            if (trimmed.StartsWith("BACKEND_PORT=", StringComparison.OrdinalIgnoreCase))
+            if (trimmed.StartsWith("#") || string.IsNullOrWhiteSpace(trimmed))
+            {
+                newLines.Add(line);
+                continue;
+            }
+
+            var eqIdx = trimmed.IndexOf('=');
+            if (eqIdx == -1)
+            {
+                newLines.Add(line);
+                continue;
+            }
+
+            var key = trimmed.Substring(0, eqIdx).Trim();
+
+            if (key.Equals("BACKEND_PORT", StringComparison.OrdinalIgnoreCase))
             {
                 newLines.Add($"BACKEND_PORT={backendPort}");
                 keysSeen.Add("BACKEND_PORT");
             }
-            else if (trimmed.StartsWith("FRONTEND_PORT=", StringComparison.OrdinalIgnoreCase))
+            else if (key.Equals("FRONTEND_PORT", StringComparison.OrdinalIgnoreCase))
             {
                 newLines.Add($"FRONTEND_PORT={frontendPort}");
                 keysSeen.Add("FRONTEND_PORT");
             }
-            else if (trimmed.StartsWith("BACKEND_URL=", StringComparison.OrdinalIgnoreCase))
+            else if (key.Equals("BACKEND_URL", StringComparison.OrdinalIgnoreCase))
             {
                 newLines.Add($"BACKEND_URL=http://{backendHost}:{backendPort}");
                 keysSeen.Add("BACKEND_URL");
             }
+            else if (key.Equals("CORS_ORIGINS", StringComparison.OrdinalIgnoreCase))
+            {
+                // Ensure dynamic ports are included in CORS_ORIGINS list
+                var existingVal = trimmed.Substring(eqIdx + 1).Trim();
+                var origins = new System.Collections.Generic.HashSet<string>(
+                    existingVal.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries),
+                    StringComparer.OrdinalIgnoreCase);
+
+                origins.Add($"http://localhost:{frontendPort}");
+                origins.Add($"http://127.0.0.1:{frontendPort}");
+                origins.Add($"http://localhost:{backendPort}");
+                origins.Add($"http://127.0.0.1:{backendPort}");
+
+                newLines.Add($"CORS_ORIGINS={string.Join(",", origins)}");
+                keysSeen.Add("CORS_ORIGINS");
+            }
             else
             {
-                newLines.Add(line);
+                newLines.Add(line); // Preserve secret keys, database paths, and other variables untouched
             }
         }
 
@@ -339,7 +397,10 @@ public static class BackendLauncherService
         if (!keysSeen.Contains("FRONTEND_PORT")) newLines.Add($"FRONTEND_PORT={frontendPort}");
         if (!keysSeen.Contains("BACKEND_URL")) newLines.Add($"BACKEND_URL=http://{backendHost}:{backendPort}");
 
-        File.WriteAllLines(filePath, newLines);
+        // Atomic write to prevent file corruption
+        var tempPath = filePath + ".tmp";
+        File.WriteAllLines(tempPath, newLines);
+        File.Move(tempPath, filePath, overwrite: true);
     }
 
     public static async Task StopServiceByPortAsync(int port)
