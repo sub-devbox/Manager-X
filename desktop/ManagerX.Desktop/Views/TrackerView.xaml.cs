@@ -120,6 +120,12 @@ public partial class TrackerView : UserControl
         }
     }
 
+    public async Task RefreshDataAsync()
+    {
+        await LoadInitialDataAsync();
+        ShowNotice("Data refreshed.");
+    }
+
     private async Task LoadInitialDataAsync()
     {
         try

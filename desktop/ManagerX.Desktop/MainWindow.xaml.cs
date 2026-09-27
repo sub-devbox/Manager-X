@@ -15,7 +15,6 @@ public partial class MainWindow : Window
     private TrackerView? _trackerView;
     private Forms.NotifyIcon? _notifyIcon;
     private bool _isMiniMode = false;
-    private bool _isPinned = false;
     private double _previousWidth = 460;
     private double _previousHeight = 720;
     private double _previousLeft = 100;
@@ -159,6 +158,7 @@ public partial class MainWindow : Window
     {
         Dispatcher.Invoke(() =>
         {
+            UpdateWindowTitle(user);
             if (user != null)
             {
                 ShowTrackerView();
@@ -171,8 +171,22 @@ public partial class MainWindow : Window
         });
     }
 
+    private void UpdateWindowTitle(UserDto? user)
+    {
+        var title = "Manager X - Time Tracker";
+        if (user != null)
+        {
+            var loginId = !string.IsNullOrWhiteSpace(user.Email) ? user.Email : user.FullName;
+            title = $"Manager X - Time Tracker | {loginId}";
+        }
+        Title = title;
+        TitleText.Text = title;
+    }
+
     private void ShowLoginView()
     {
+        UpdateWindowTitle(null);
+        TitleRefreshButton.Visibility = Visibility.Collapsed;
         TitleLogoutButton.Visibility = Visibility.Collapsed;
         _trackerView = null; // Reset TrackerView so subsequent login fetches fresh user data
         if (_loginView == null)
@@ -185,6 +199,8 @@ public partial class MainWindow : Window
 
     private void ShowTrackerView()
     {
+        UpdateWindowTitle(App.AuthService.CurrentUser);
+        TitleRefreshButton.Visibility = Visibility.Visible;
         TitleLogoutButton.Visibility = Visibility.Visible;
         if (_trackerView == null)
         {
@@ -192,6 +208,22 @@ public partial class MainWindow : Window
             _trackerView.RequestMiniMode += SwitchToMiniMode;
         }
         MainContent.Content = _trackerView;
+    }
+
+    private async void TitleRefreshButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (_trackerView != null)
+        {
+            TitleRefreshButton.IsEnabled = false;
+            try
+            {
+                await _trackerView.RefreshDataAsync();
+            }
+            finally
+            {
+                TitleRefreshButton.IsEnabled = true;
+            }
+        }
     }
 
     private async void TitleLogoutButton_Click(object sender, RoutedEventArgs e)
@@ -262,7 +294,7 @@ public partial class MainWindow : Window
         Width = 360;
         Height = 68;
         Topmost = true;
-        Opacity = 0.5; // 50% transparency as requested
+        Opacity = 0.8; // 80% opacity as requested
 
         MiniTaskTitle.Text = App.TimerService.TaskTitle;
         MiniProjectTitle.Text = App.TimerService.ProjectTitle;
@@ -280,7 +312,7 @@ public partial class MainWindow : Window
 
         Width = _previousWidth > 380 ? _previousWidth : 460;
         Height = _previousHeight > 400 ? _previousHeight : 720;
-        Topmost = _isPinned;
+        Topmost = false;
         Opacity = 1.0;
     }
 
@@ -288,8 +320,7 @@ public partial class MainWindow : Window
     {
         if (_isMiniMode)
         {
-            // Smoothly elevate opacity on mouse hover for easy interaction
-            Opacity = 0.95;
+            Opacity = 1.0;
         }
     }
 
@@ -297,8 +328,8 @@ public partial class MainWindow : Window
     {
         if (_isMiniMode)
         {
-            // Return to 50% transparency
-            Opacity = 0.5;
+            // Return to 80% opacity
+            Opacity = 0.8;
         }
     }
 
@@ -316,15 +347,6 @@ public partial class MainWindow : Window
         {
             DragMove();
         }
-    }
-
-    private void TitlePinButton_Click(object sender, RoutedEventArgs e)
-    {
-        _isPinned = !_isPinned;
-        Topmost = _isPinned;
-        TitlePinButton.Foreground = _isPinned
-            ? (System.Windows.Media.Brush)FindResource("AccentBlueBrush")
-            : (System.Windows.Media.Brush)FindResource("TextMutedBrush");
     }
 
     private void TitleMinimize_Click(object sender, RoutedEventArgs e)

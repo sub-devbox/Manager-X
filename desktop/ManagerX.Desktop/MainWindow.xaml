@@ -47,7 +47,8 @@
                         <!-- App Icon & Title -->
                         <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
                             <Image Source="app.png" Width="16" Height="16" Margin="0,0,8,0" />
-                            <TextBlock Text="Manager X - Time Tracker"
+                            <TextBlock x:Name="TitleText"
+                                       Text="Manager X - Time Tracker"
                                        FontSize="12"
                                        FontWeight="SemiBold"
                                        Foreground="{StaticResource TextMainBrush}"
@@ -56,32 +57,31 @@
 
                         <!-- Titlebar Control Buttons -->
                         <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                            <!-- Logout Button (visible when logged in) -->
-                            <Button x:Name="TitleLogoutButton"
-                                    Content="↪ Logout"
+                            <!-- Refresh Button (visible when logged in) -->
+                            <Button x:Name="TitleRefreshButton"
+                                    Content="🔄"
                                     FontSize="11"
-                                    FontWeight="SemiBold"
-                                    Padding="8,3"
-                                    Margin="0,0,8,0"
-                                    Background="{StaticResource BgSurfaceSubtleBrush}"
-                                    Foreground="{StaticResource TextMutedBrush}"
-                                    BorderBrush="{StaticResource BorderSubtleBrush}"
-                                    BorderThickness="1"
-                                    Cursor="Hand"
-                                    Click="TitleLogoutButton_Click"
-                                    ToolTip="Log out of Manager X"
-                                    Visibility="Collapsed" />
-
-                            <!-- Pin / Always on Top -->
-                            <Button x:Name="TitlePinButton"
-                                    Content="📌"
                                     Width="26" Height="24"
                                     Background="Transparent"
                                     Foreground="{StaticResource TextMutedBrush}"
                                     BorderThickness="0"
                                     Cursor="Hand"
-                                    Click="TitlePinButton_Click"
-                                    ToolTip="Toggle Always on Top" />
+                                    Click="TitleRefreshButton_Click"
+                                    ToolTip="Refresh Data"
+                                    Visibility="Collapsed" />
+
+                            <!-- Logout Button (Icon only, visible when logged in) -->
+                            <Button x:Name="TitleLogoutButton"
+                                    Content="🚪"
+                                    FontSize="13"
+                                    Width="26" Height="24"
+                                    Background="Transparent"
+                                    Foreground="{StaticResource TextMutedBrush}"
+                                    BorderThickness="0"
+                                    Cursor="Hand"
+                                    Click="TitleLogoutButton_Click"
+                                    ToolTip="Log Out"
+                                    Visibility="Collapsed" />
 
                             <!-- Minimize to Tray -->
                             <Button Content="🗕"
