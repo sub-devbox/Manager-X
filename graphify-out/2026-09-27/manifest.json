@@ -533,5 +533,15 @@
     "mtime": 1790443788.14445,
     "ast_hash": "5148773cca2951723af0359f5789dbd6",
     "semantic_hash": ""
+  },
+  "frontend/src/lib/api-client.ts": {
+    "mtime": 1790403235.7168026,
+    "ast_hash": "97c644297dff91291f347054d5d7e717",
+    "semantic_hash": ""
+  },
+  "frontend/src/lib/query-client.ts": {
+    "mtime": 1790403222.2439604,
+    "ast_hash": "5ca075755c417179cca169cf24235c77",
+    "semantic_hash": ""
   }
 }
