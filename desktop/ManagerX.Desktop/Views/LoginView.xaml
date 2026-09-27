@@ -44,12 +44,27 @@
                                TextWrapping="Wrap" />
                 </Border>
 
-                <!-- Server URL -->
-                <TextBlock Text="SERVER URL" 
-                           FontSize="9" 
-                           FontWeight="SemiBold" 
-                           Foreground="{StaticResource TextDimBrush}" 
-                           Margin="0,0,0,2" />
+                <!-- Server URL with Switch Server Button -->
+                <Grid Margin="0,0,0,2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="SERVER URL" 
+                               FontSize="9" 
+                               FontWeight="SemiBold" 
+                               Foreground="{StaticResource TextDimBrush}" />
+                    <Button x:Name="ChangeServerButton" 
+                            Grid.Column="1"
+                            Content="⚙ Switch Server" 
+                            FontSize="9" 
+                            Background="Transparent" 
+                            Foreground="{StaticResource AccentBlueBrush}" 
+                            BorderThickness="0" 
+                            Cursor="Hand" 
+                            Padding="2,0" 
+                            Click="ChangeServerButton_Click" />
+                </Grid>
                 <TextBox x:Name="ServerUrlInput" 
                          Text="http://localhost:8000/api/v1" 
                          Height="26" 

@@ -2,6 +2,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using ManagerX.Models;
 using ManagerX.Services;
 using UserControl = System.Windows.Controls.UserControl;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
@@ -11,6 +12,8 @@ namespace ManagerX.Views;
 public partial class LoginView : UserControl
 {
     public event Action? OnLoginSuccess;
+
+    public event Action? RequestSwitchServer;
 
     public LoginView()
     {
@@ -22,7 +25,11 @@ public partial class LoginView : UserControl
     {
         var saved = StorageService.LoadCredentials();
         var backendSettings = StorageService.LoadBackendSettings();
-        if (backendSettings != null && backendSettings.Port > 0)
+        if (backendSettings?.Mode == ConnectionMode.RemoteServer && !string.IsNullOrWhiteSpace(backendSettings.RemoteServerUrl))
+        {
+            ServerUrlInput.Text = backendSettings.RemoteServerUrl;
+        }
+        else if (backendSettings != null && backendSettings.Port > 0)
         {
             var host = !string.IsNullOrWhiteSpace(backendSettings.Host) ? backendSettings.Host : "127.0.0.1";
             ServerUrlInput.Text = $"http://{host}:{backendSettings.Port}/api/v1";
@@ -60,6 +67,11 @@ public partial class LoginView : UserControl
     private void LoginButton_Click(object sender, RoutedEventArgs e)
     {
         ExecuteLogin();
+    }
+
+    private void ChangeServerButton_Click(object sender, RoutedEventArgs e)
+    {
+        RequestSwitchServer?.Invoke();
     }
 
     private async void ExecuteLogin()

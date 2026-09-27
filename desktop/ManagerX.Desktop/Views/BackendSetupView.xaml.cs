@@ -30,6 +30,20 @@ public partial class BackendSetupView : UserControl
         var saved = StorageService.LoadBackendSettings();
         if (saved != null)
         {
+            var isRemote = saved.Mode == ConnectionMode.RemoteServer;
+            ModeRemoteRadio.IsChecked = isRemote;
+            ModeLocalRadio.IsChecked = !isRemote;
+            UpdateModePanels(isRemote);
+
+            if (!string.IsNullOrWhiteSpace(saved.RemoteServerUrl))
+            {
+                RemoteApiUrlInput.Text = saved.RemoteServerUrl;
+            }
+            if (!string.IsNullOrWhiteSpace(saved.RemoteWebUrl))
+            {
+                RemoteWebUrlInput.Text = saved.RemoteWebUrl;
+            }
+
             if (!string.IsNullOrWhiteSpace(saved.PythonPath)) PythonPathInput.Text = saved.PythonPath;
             if (!string.IsNullOrWhiteSpace(saved.Host)) HostInput.Text = saved.Host;
             if (saved.Port > 0) PortInput.Text = saved.Port.ToString();
@@ -40,6 +54,10 @@ public partial class BackendSetupView : UserControl
             if (saved.FrontendPort > 0) FrontendPortInput.Text = saved.FrontendPort.ToString();
 
             SilentModeCheck.IsChecked = saved.RunSilently;
+        }
+        else
+        {
+            UpdateModePanels(isRemote: true);
         }
 
         // Auto-discover if fields are blank
@@ -59,6 +77,66 @@ public partial class BackendSetupView : UserControl
             {
                 FrontendDirInput.Text = discoveredFrontend;
             }
+        }
+    }
+
+    private void ModeRadio_Checked(object sender, RoutedEventArgs e)
+    {
+        var isRemote = ModeRemoteRadio.IsChecked == true;
+        UpdateModePanels(isRemote);
+    }
+
+    private void UpdateModePanels(bool isRemote)
+    {
+        if (RemoteServerPanel == null || LocalDevPanel == null) return;
+        RemoteServerPanel.Visibility = isRemote ? Visibility.Visible : Visibility.Collapsed;
+        LocalDevPanel.Visibility = isRemote ? Visibility.Collapsed : Visibility.Visible;
+        HideError();
+    }
+
+    private async void ConnectRemoteButton_Click(object sender, RoutedEventArgs e)
+    {
+        HideError();
+
+        var remoteApiUrl = RemoteApiUrlInput.Text.Trim();
+        var remoteWebUrl = RemoteWebUrlInput.Text.Trim();
+
+        if (string.IsNullOrWhiteSpace(remoteApiUrl) || !Uri.TryCreate(remoteApiUrl, UriKind.Absolute, out var parsedUri))
+        {
+            ShowError("Please enter a valid remote API URL (e.g. https://api.yourcompany.com/api/v1).");
+            return;
+        }
+
+        SetLaunchingState(true);
+        StatusText.Text = $"Testing connection to {parsedUri.Authority}...";
+
+        try
+        {
+            var isHealthy = await BackendLauncherService.CheckHealthAsync(remoteApiUrl, timeoutMs: 4000);
+            if (!isHealthy)
+            {
+                ShowError($"Unable to reach {remoteApiUrl}.\n\nPlease check server status, network connection, or firewall settings.");
+                return;
+            }
+
+            var saved = StorageService.LoadBackendSettings() ?? new BackendSettings();
+            saved.Mode = ConnectionMode.RemoteServer;
+            saved.RemoteServerUrl = remoteApiUrl;
+            saved.RemoteWebUrl = remoteWebUrl;
+            StorageService.SaveBackendSettings(saved);
+
+            StatusText.Text = "Connected to remote server!";
+            await Task.Delay(300);
+
+            OnBackendReady?.Invoke(remoteApiUrl);
+        }
+        catch (Exception ex)
+        {
+            ShowError($"Failed to connect to remote server: {ex.Message}");
+        }
+        finally
+        {
+            SetLaunchingState(false);
         }
     }
 
@@ -138,18 +216,18 @@ public partial class BackendSetupView : UserControl
         }
 
         // Save preferences
-        StorageService.SaveBackendSettings(new BackendSettings
-        {
-            PythonPath = pythonPath,
-            Host = host,
-            Port = backendPort,
-            BackendDir = backendDir,
-            AutoReload = reload,
-            FrontendDir = frontendDir,
-            FrontendHost = frontendHost,
-            FrontendPort = frontendPort,
-            RunSilently = runSilently
-        });
+        var saved = StorageService.LoadBackendSettings() ?? new BackendSettings();
+        saved.Mode = ConnectionMode.LocalDevelopment;
+        saved.PythonPath = pythonPath;
+        saved.Host = host;
+        saved.Port = backendPort;
+        saved.BackendDir = backendDir;
+        saved.AutoReload = reload;
+        saved.FrontendDir = frontendDir;
+        saved.FrontendHost = frontendHost;
+        saved.FrontendPort = frontendPort;
+        saved.RunSilently = runSilently;
+        StorageService.SaveBackendSettings(saved);
 
         // Surgically sync .env with updated ports
         BackendLauncherService.SyncEnvFile(host, backendPort, frontendPort);
@@ -211,65 +289,28 @@ public partial class BackendSetupView : UserControl
         }
 
         var host = string.IsNullOrWhiteSpace(HostInput.Text) ? "127.0.0.1" : HostInput.Text.Trim();
-        var baseUrl = $"http://{host}:{port}/api/v1";
+        var healthUrl = $"http://{host}:{port}";
 
         SetLaunchingState(true);
-        StatusText.Text = $"Probing http://{host}:{port}/health...";
+        StatusText.Text = $"Checking service health on {healthUrl}...";
 
         try
         {
-            var isHealthy = await BackendLauncherService.CheckHealthAsync($"http://{host}:{port}", 2500);
+            var isHealthy = await BackendLauncherService.CheckHealthAsync(healthUrl);
             if (isHealthy)
             {
-                StatusText.Text = "Backend is online!";
-                await Task.Delay(250);
-                OnBackendReady?.Invoke(baseUrl);
+                StatusText.Text = "Backend service is healthy!";
+                await Task.Delay(300);
+                OnBackendReady?.Invoke($"http://{host}:{port}/api/v1");
             }
             else
             {
-                ShowError($"No response from backend on http://{host}:{port}. Is the server running?");
+                ShowError($"No responsive backend found on {healthUrl}.\n\nEnsure the service is running or click 'Launch All Services'.");
             }
         }
         catch (Exception ex)
         {
-            ShowError($"Connection error: {ex.Message}");
-        }
-        finally
-        {
-            SetLaunchingState(false);
-        }
-    }
-
-    private async void ConnectCustomButton_Click(object sender, RoutedEventArgs e)
-    {
-        HideError();
-        var customUrl = CustomUrlInput.Text.Trim();
-        if (string.IsNullOrWhiteSpace(customUrl))
-        {
-            ShowError("Please enter a valid URL.");
-            return;
-        }
-
-        SetLaunchingState(true);
-        StatusText.Text = $"Connecting to {customUrl}...";
-
-        try
-        {
-            var isHealthy = await BackendLauncherService.CheckHealthAsync(customUrl, 3000);
-            if (isHealthy)
-            {
-                StatusText.Text = "Server connected!";
-                await Task.Delay(250);
-                OnBackendReady?.Invoke(customUrl);
-            }
-            else
-            {
-                ShowError($"Server at '{customUrl}' did not respond with healthy status.");
-            }
-        }
-        catch (Exception ex)
-        {
-            ShowError($"Failed to connect: {ex.Message}");
+            ShowError($"Health check failed: {ex.Message}");
         }
         finally
         {
@@ -279,18 +320,24 @@ public partial class BackendSetupView : UserControl
 
     private void SetLaunchingState(bool isLaunching)
     {
-        LaunchAllButton.IsEnabled = !isLaunching;
-        LaunchBackendOnlyButton.IsEnabled = !isLaunching;
-        CheckAgainButton.IsEnabled = !isLaunching;
-        BrowsePythonButton.IsEnabled = !isLaunching;
-        BrowseFrontendButton.IsEnabled = !isLaunching;
-        PythonPathInput.IsEnabled = !isLaunching;
-        PortInput.IsEnabled = !isLaunching;
-        HostInput.IsEnabled = !isLaunching;
-        FrontendDirInput.IsEnabled = !isLaunching;
-        FrontendPortInput.IsEnabled = !isLaunching;
-        FrontendHostInput.IsEnabled = !isLaunching;
-        StatusBorder.Visibility = isLaunching ? Visibility.Visible : Visibility.Collapsed;
+        if (ConnectRemoteButton != null) ConnectRemoteButton.IsEnabled = !isLaunching;
+        if (RemoteApiUrlInput != null) RemoteApiUrlInput.IsEnabled = !isLaunching;
+        if (RemoteWebUrlInput != null) RemoteWebUrlInput.IsEnabled = !isLaunching;
+        if (ModeRemoteRadio != null) ModeRemoteRadio.IsEnabled = !isLaunching;
+        if (ModeLocalRadio != null) ModeLocalRadio.IsEnabled = !isLaunching;
+
+        if (LaunchAllButton != null) LaunchAllButton.IsEnabled = !isLaunching;
+        if (LaunchBackendOnlyButton != null) LaunchBackendOnlyButton.IsEnabled = !isLaunching;
+        if (CheckAgainButton != null) CheckAgainButton.IsEnabled = !isLaunching;
+        if (BrowsePythonButton != null) BrowsePythonButton.IsEnabled = !isLaunching;
+        if (BrowseFrontendButton != null) BrowseFrontendButton.IsEnabled = !isLaunching;
+        if (PythonPathInput != null) PythonPathInput.IsEnabled = !isLaunching;
+        if (PortInput != null) PortInput.IsEnabled = !isLaunching;
+        if (HostInput != null) HostInput.IsEnabled = !isLaunching;
+        if (FrontendDirInput != null) FrontendDirInput.IsEnabled = !isLaunching;
+        if (FrontendPortInput != null) FrontendPortInput.IsEnabled = !isLaunching;
+        if (FrontendHostInput != null) FrontendHostInput.IsEnabled = !isLaunching;
+        if (StatusBorder != null) StatusBorder.Visibility = isLaunching ? Visibility.Visible : Visibility.Collapsed;
     }
 
     private void ShowError(string message)

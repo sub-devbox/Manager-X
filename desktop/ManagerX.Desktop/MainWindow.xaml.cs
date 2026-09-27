@@ -26,6 +26,9 @@ public partial class MainWindow : Window
     private System.Windows.Threading.DispatcherTimer? _statusTimer;
     private bool _isBackendOnline = false;
     private bool _isFrontendOnline = false;
+    private bool _isRemoteMode = false;
+    private string _remoteApiUrl = string.Empty;
+    private string _remoteWebUrl = string.Empty;
     private int _currentBackendPort = 8000;
     private int _currentFrontendPort = 3000;
     private string _currentBackendHost = "127.0.0.1";
@@ -72,17 +75,27 @@ public partial class MainWindow : Window
     private async Task CheckBackendAndInitializeAsync()
     {
         LoadingOverlay.Visibility = Visibility.Visible;
-        LoadingStatusText.Text = "Checking backend service...";
+        LoadingStatusText.Text = "Checking service connection...";
 
         var backendSettings = StorageService.LoadBackendSettings();
         string serverUrl;
-        if (backendSettings != null && backendSettings.Port > 0)
+
+        if (backendSettings?.Mode == ConnectionMode.RemoteServer && !string.IsNullOrWhiteSpace(backendSettings.RemoteServerUrl))
         {
+            _isRemoteMode = true;
+            _remoteApiUrl = backendSettings.RemoteServerUrl;
+            _remoteWebUrl = backendSettings.RemoteWebUrl;
+            serverUrl = _remoteApiUrl;
+        }
+        else if (backendSettings != null && backendSettings.Port > 0)
+        {
+            _isRemoteMode = false;
             var host = !string.IsNullOrWhiteSpace(backendSettings.Host) ? backendSettings.Host : "127.0.0.1";
             serverUrl = $"http://{host}:{backendSettings.Port}/api/v1";
         }
         else
         {
+            _isRemoteMode = false;
             var saved = StorageService.LoadCredentials();
             serverUrl = !string.IsNullOrWhiteSpace(saved?.ServerUrl) ? saved.ServerUrl : App.AuthService.ServerUrl;
         }
@@ -267,10 +280,10 @@ public partial class MainWindow : Window
             App.TimerService.Reset();
         }
 
-        if (_isBackendOnline || _isFrontendOnline)
+        if (!_isRemoteMode && (_isBackendOnline || _isFrontendOnline))
         {
             var stopServers = System.Windows.MessageBox.Show(
-                "Do you also want to stop the background servers (API & Frontend) before exiting?",
+                "Do you also want to stop the local background servers (API & Frontend) before exiting?",
                 "Safely Shutdown Servers - Manager X",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
@@ -345,6 +358,7 @@ public partial class MainWindow : Window
         {
             _loginView = new LoginView();
             _loginView.OnLoginSuccess += () => ShowTrackerView();
+            _loginView.RequestSwitchServer += () => ShowBackendSetupView();
         }
         MainContent.Content = _loginView;
     }
@@ -557,15 +571,33 @@ public partial class MainWindow : Window
         var settings = StorageService.LoadBackendSettings();
         if (settings != null)
         {
+            _isRemoteMode = settings.Mode == ConnectionMode.RemoteServer;
+            _remoteApiUrl = !string.IsNullOrWhiteSpace(settings.RemoteServerUrl) ? settings.RemoteServerUrl : string.Empty;
+            _remoteWebUrl = !string.IsNullOrWhiteSpace(settings.RemoteWebUrl) ? settings.RemoteWebUrl : string.Empty;
+
             _currentBackendPort = settings.Port > 0 ? settings.Port : 8000;
             _currentBackendHost = !string.IsNullOrWhiteSpace(settings.Host) ? settings.Host : "127.0.0.1";
             _currentFrontendPort = settings.FrontendPort > 0 ? settings.FrontendPort : 3000;
             _currentFrontendHost = !string.IsNullOrWhiteSpace(settings.FrontendHost) ? settings.FrontendHost : "localhost";
         }
 
-        var backendUrl = $"http://{_currentBackendHost}:{_currentBackendPort}";
-        _isBackendOnline = await BackendLauncherService.CheckHealthAsync(backendUrl);
-        _isFrontendOnline = await BackendLauncherService.CheckFrontendHealthAsync(_currentFrontendHost, _currentFrontendPort);
+        string backendProbeUrl;
+        string hostDisplayName;
+
+        if (_isRemoteMode && !string.IsNullOrWhiteSpace(_remoteApiUrl))
+        {
+            backendProbeUrl = _remoteApiUrl;
+            hostDisplayName = Uri.TryCreate(_remoteApiUrl, UriKind.Absolute, out var u) ? u.Host : "Cloud";
+            _isBackendOnline = await BackendLauncherService.CheckHealthAsync(backendProbeUrl);
+            _isFrontendOnline = !string.IsNullOrWhiteSpace(_remoteWebUrl) && await BackendLauncherService.CheckHealthAsync(_remoteWebUrl);
+        }
+        else
+        {
+            backendProbeUrl = $"http://{_currentBackendHost}:{_currentBackendPort}";
+            hostDisplayName = $"{_currentBackendPort}";
+            _isBackendOnline = await BackendLauncherService.CheckHealthAsync(backendProbeUrl);
+            _isFrontendOnline = await BackendLauncherService.CheckFrontendHealthAsync(_currentFrontendHost, _currentFrontendPort);
+        }
 
         Dispatcher.Invoke(() =>
         {
@@ -576,23 +608,34 @@ public partial class MainWindow : Window
 
             // Update Backend Pill
             ApiStatusDot.Fill = _isBackendOnline ? greenBrush : redBrush;
-            ApiStatusText.Text = $"API: {_currentBackendPort}";
+            ApiStatusText.Text = _isRemoteMode ? $"API: {hostDisplayName}" : $"API: {_currentBackendPort}";
             ApiStatusText.Foreground = _isBackendOnline ? textMain : textMuted;
             ApiStatusBadge.ToolTip = _isBackendOnline
-                ? $"Backend API Online - Click to open Swagger Docs (http://{_currentBackendHost}:{_currentBackendPort}/docs)"
-                : $"Backend API Offline - Click to configure / launch";
+                ? (_isRemoteMode ? $"Cloud API Online - Click to open Swagger Docs ({_remoteApiUrl}/docs)" : $"Backend API Online - Click to open Swagger Docs (http://{_currentBackendHost}:{_currentBackendPort}/docs)")
+                : (_isRemoteMode ? $"Cloud API Offline ({hostDisplayName}) - Click to configure connection" : $"Backend API Offline - Click to configure / launch");
 
             // Update Frontend Pill
             WebStatusDot.Fill = _isFrontendOnline ? greenBrush : redBrush;
-            WebStatusText.Text = $"Web: {_currentFrontendPort}";
+            WebStatusText.Text = _isRemoteMode ? "Web: Cloud" : $"Web: {_currentFrontendPort}";
             WebStatusText.Foreground = _isFrontendOnline ? textMain : textMuted;
             WebStatusBadge.ToolTip = _isFrontendOnline
-                ? $"Frontend Web Online - Click to open Web App (http://{_currentFrontendHost}:{_currentFrontendPort})"
-                : $"Frontend Web Offline - Click to configure / launch";
+                ? (_isRemoteMode ? $"Cloud Web Dashboard Online - Click to open ({_remoteWebUrl})" : $"Frontend Web Online - Click to open Web App (http://{_currentFrontendHost}:{_currentFrontendPort})")
+                : (_isRemoteMode ? "Cloud Web Dashboard Offline / Unconfigured" : $"Frontend Web Offline - Click to configure / launch");
 
-            // Stop All button enabled if either service is online
-            StopServicesButton.IsEnabled = _isBackendOnline || _isFrontendOnline;
-            StopServicesButton.Opacity = (_isBackendOnline || _isFrontendOnline) ? 1.0 : 0.5;
+            if (_isRemoteMode)
+            {
+                StopServicesButton.Content = "⚙ Server";
+                StopServicesButton.ToolTip = "Switch or reconfigure remote server connection";
+                StopServicesButton.IsEnabled = true;
+                StopServicesButton.Opacity = 1.0;
+            }
+            else
+            {
+                StopServicesButton.Content = "🛑 Stop All";
+                StopServicesButton.ToolTip = "Safely stop all background services (Backend & Frontend)";
+                StopServicesButton.IsEnabled = _isBackendOnline || _isFrontendOnline;
+                StopServicesButton.Opacity = (_isBackendOnline || _isFrontendOnline) ? 1.0 : 0.5;
+            }
         });
     }
 
@@ -600,16 +643,18 @@ public partial class MainWindow : Window
     {
         if (_isBackendOnline)
         {
-            OpenInBrowser($"http://{_currentBackendHost}:{_currentBackendPort}/docs");
+            var url = _isRemoteMode 
+                ? (_remoteApiUrl.TrimEnd('/') + "/docs")
+                : $"http://{_currentBackendHost}:{_currentBackendPort}/docs";
+            OpenInBrowser(url);
         }
         else
         {
-            var res = System.Windows.MessageBox.Show(
-                $"Backend service on port {_currentBackendPort} appears offline.\n\nWould you like to open the Service Setup window to launch it?",
-                "Backend Service Offline",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Information);
+            var msg = _isRemoteMode
+                ? $"Remote API ({_remoteApiUrl}) appears offline.\n\nWould you like to open Connection Setup?"
+                : $"Backend service on port {_currentBackendPort} appears offline.\n\nWould you like to open the Service Setup window to launch it?";
 
+            var res = System.Windows.MessageBox.Show(msg, "Service Offline", MessageBoxButton.YesNo, MessageBoxImage.Information);
             if (res == MessageBoxResult.Yes)
             {
                 ShowBackendSetupView();
@@ -621,16 +666,19 @@ public partial class MainWindow : Window
     {
         if (_isFrontendOnline)
         {
-            OpenInBrowser($"http://{_currentFrontendHost}:{_currentFrontendPort}");
+            var url = _isRemoteMode ? _remoteWebUrl : $"http://{_currentFrontendHost}:{_currentFrontendPort}";
+            if (!string.IsNullOrWhiteSpace(url))
+            {
+                OpenInBrowser(url);
+            }
         }
         else
         {
-            var res = System.Windows.MessageBox.Show(
-                $"Frontend web service on port {_currentFrontendPort} appears offline.\n\nWould you like to open the Service Setup window to launch it?",
-                "Frontend Web Offline",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Information);
+            var msg = _isRemoteMode
+                ? "Remote web dashboard is offline or URL not set.\n\nWould you like to open Connection Setup?"
+                : $"Frontend web service on port {_currentFrontendPort} appears offline.\n\nWould you like to open the Service Setup window to launch it?";
 
+            var res = System.Windows.MessageBox.Show(msg, "Web Offline", MessageBoxButton.YesNo, MessageBoxImage.Information);
             if (res == MessageBoxResult.Yes)
             {
                 ShowBackendSetupView();
@@ -640,6 +688,12 @@ public partial class MainWindow : Window
 
     private async void StopServicesButton_Click(object sender, RoutedEventArgs e)
     {
+        if (_isRemoteMode)
+        {
+            ShowBackendSetupView();
+            return;
+        }
+
         var res = System.Windows.MessageBox.Show(
             $"Are you sure you want to stop both the Backend (Port {_currentBackendPort}) and Frontend (Port {_currentFrontendPort}) background services?",
             "Safely Stop Servers",

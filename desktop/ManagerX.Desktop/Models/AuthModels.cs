@@ -44,6 +44,12 @@ public class UserDto
     public bool IsSuperuser { get; set; }
 }
 
+public enum ConnectionMode
+{
+    LocalDevelopment,
+    RemoteServer
+}
+
 public class SavedCredentials
 {
     public string ServerUrl { get; set; } = "http://localhost:8000/api/v1";
@@ -56,6 +62,10 @@ public class SavedCredentials
 
 public class BackendSettings
 {
+    public ConnectionMode Mode { get; set; } = ConnectionMode.LocalDevelopment;
+    public string RemoteServerUrl { get; set; } = string.Empty;
+    public string RemoteWebUrl { get; set; } = string.Empty;
+
     public string PythonPath { get; set; } = string.Empty;
     public string Host { get; set; } = "127.0.0.1";
     public int Port { get; set; } = 8000;

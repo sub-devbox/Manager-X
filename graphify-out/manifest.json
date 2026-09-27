@@ -560,8 +560,8 @@
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/App.xaml": {
-    "mtime": 1790504816.1742213,
-    "ast_hash": "9e791f6253bdb82b4e2518cd7533930a",
+    "mtime": 1790512967.1685991,
+    "ast_hash": "2c01df7da4a4fcbf1bf73d958baef5bb",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/App.xaml.cs": {
@@ -575,8 +575,8 @@
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/MainWindow.xaml.cs": {
-    "mtime": 1790511271.794395,
-    "ast_hash": "461c6c8ed35d37c34270b7976bca0cf8",
+    "mtime": 1790512944.3645482,
+    "ast_hash": "558cb0d569d8e459bb75a56f04e318b2",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/ManagerX.Desktop.csproj": {
@@ -585,8 +585,8 @@
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Models/AuthModels.cs": {
-    "mtime": 1790510097.7682507,
-    "ast_hash": "c0f9736e79d3decb486a981b7d59b4ac",
+    "mtime": 1790512702.8697019,
+    "ast_hash": "58d5c8498550807b2aab1890c60797a5",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Models/ProjectModels.cs": {
@@ -620,13 +620,13 @@
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Views/LoginView.xaml": {
-    "mtime": 1790510243.4721663,
-    "ast_hash": "e67386a6b51702726e4e4c35f39341ec",
+    "mtime": 1790512882.201866,
+    "ast_hash": "71d7fb682343ee1b98b8d525bd0b5382",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Views/LoginView.xaml.cs": {
-    "mtime": 1790511281.4890716,
-    "ast_hash": "657a438e2461907c91746a36f308af70",
+    "mtime": 1790512995.5684385,
+    "ast_hash": "258ca99b4e82b380b6bfbbbabdbf87ee",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Views/TrackerView.xaml": {
@@ -650,13 +650,13 @@
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml": {
-    "mtime": 1790510165.5501635,
-    "ast_hash": "f357d8bc23a0c2a6c1e0820fe99c52dc",
+    "mtime": 1790512775.4956937,
+    "ast_hash": "1beef0e7cfd40360ff93d23a7e16d98b",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs": {
-    "mtime": 1790511904.5558696,
-    "ast_hash": "062dbd3f94c92276a7d17fd8ea725e6a",
+    "mtime": 1790512789.2481241,
+    "ast_hash": "1e7d77079fe1f72e84bec90a9bd3f073",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/app.png": {

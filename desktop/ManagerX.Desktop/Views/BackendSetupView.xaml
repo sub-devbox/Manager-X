@@ -11,36 +11,64 @@
                     BorderBrush="{StaticResource BorderSubtleBrush}"
                     BorderThickness="1"
                     CornerRadius="8"
-                    Padding="16,14"
+                    Padding="14,12"
                     MaxWidth="360"
                     Margin="10"
                     VerticalAlignment="Center">
                 <StackPanel>
                     <!-- Header Icon & Title -->
-                    <StackPanel HorizontalAlignment="Center" Margin="0,0,0,10">
+                    <StackPanel HorizontalAlignment="Center" Margin="0,0,0,8">
                         <Border Background="#2A1E14" 
                                 BorderBrush="{StaticResource AccentAmberBrush}" 
                                 BorderThickness="1" 
                                 CornerRadius="12" 
                                 Padding="8,2" 
                                 HorizontalAlignment="Center" 
-                                Margin="0,0,0,6">
+                                Margin="0,0,0,4">
                             <TextBlock Text="⚡ SERVICE SETUP" 
-                                       FontSize="9" 
+                                       FontSize="8.5" 
                                        FontWeight="Bold" 
                                        Foreground="{StaticResource AccentAmberBrush}" />
                         </Border>
-                        <TextBlock Text="Manager-X Services" 
+                        <TextBlock Text="Manager-X Connection" 
                                    FontSize="15" 
                                    FontWeight="Bold" 
                                    Foreground="{StaticResource TextMainBrush}" 
                                    HorizontalAlignment="Center" />
-                        <TextBlock Text="Configure and launch background services" 
-                                   FontSize="11" 
+                        <TextBlock Text="Connect to online server or run local dev services" 
+                                   FontSize="10.5" 
                                    Foreground="{StaticResource TextMutedBrush}" 
                                    HorizontalAlignment="Center"
                                    Margin="0,2,0,0" />
                     </StackPanel>
+
+                    <!-- Connection Mode Selector Tabs -->
+                    <Border Background="#0F172A" 
+                            BorderBrush="{StaticResource BorderSubtleBrush}" 
+                            BorderThickness="1" 
+                            CornerRadius="6" 
+                            Padding="2" 
+                            Margin="0,0,0,10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <RadioButton x:Name="ModeRemoteRadio" 
+                                         GroupName="ConnectionModeGroup"
+                                         Content="🌐 Remote Server" 
+                                         IsChecked="True"
+                                         Style="{StaticResource SegmentedRadioButton}" 
+                                         Checked="ModeRadio_Checked" />
+                            <RadioButton x:Name="ModeLocalRadio" 
+                                         Grid.Column="1"
+                                         GroupName="ConnectionModeGroup"
+                                         Content="💻 Local PC Dev" 
+                                         IsChecked="False"
+                                         Style="{StaticResource SegmentedRadioButton}" 
+                                         Checked="ModeRadio_Checked" />
+                        </Grid>
+                    </Border>
 
                     <!-- Error Message Banner -->
                     <Border x:Name="ErrorBorder" 
@@ -53,7 +81,7 @@
                             Visibility="Collapsed">
                         <TextBlock x:Name="ErrorText" 
                                    Foreground="{StaticResource AccentRoseBrush}" 
-                                   FontSize="11" 
+                                   FontSize="10.5" 
                                    TextWrapping="Wrap" />
                     </Border>
 
@@ -75,204 +103,243 @@
                                          BorderThickness="0" 
                                          Margin="0,0,0,6" />
                             <TextBlock x:Name="StatusText" 
-                                       Text="Starting services..." 
+                                       Text="Connecting to server..." 
                                        Foreground="{StaticResource TextMainBrush}" 
                                        FontSize="11" 
                                        TextWrapping="Wrap" />
                         </StackPanel>
                     </Border>
 
-                    <!-- 1. BACKEND SERVICE BLOCK -->
-                    <Border Background="{StaticResource BgSurfaceSubtleBrush}" 
-                            BorderBrush="{StaticResource BorderSubtleBrush}" 
-                            BorderThickness="1" 
-                            CornerRadius="6" 
-                            Padding="10,8" 
-                            Margin="0,0,0,8">
-                        <StackPanel>
-                            <TextBlock Text="BACKEND SERVICE (FASTAPI)" 
-                                       FontSize="9" 
-                                       FontWeight="Bold" 
-                                       Foreground="{StaticResource AccentBlueBrush}" 
-                                       Margin="0,0,0,6" />
+                    <!-- ============================================== -->
+                    <!-- 1. REMOTE SERVER PANEL (Online / Cloud / LAN) -->
+                    <!-- ============================================== -->
+                    <StackPanel x:Name="RemoteServerPanel" Visibility="Visible">
+                        <Border Background="{StaticResource BgSurfaceSubtleBrush}" 
+                                BorderBrush="{StaticResource BorderSubtleBrush}" 
+                                BorderThickness="1" 
+                                CornerRadius="6" 
+                                Padding="10,8" 
+                                Margin="0,0,0,10">
+                            <StackPanel>
+                                <TextBlock Text="CLOUD / REMOTE ENDPOINTS" 
+                                           FontSize="9" 
+                                           FontWeight="Bold" 
+                                           Foreground="{StaticResource AccentEmeraldBrush}" 
+                                           Margin="0,0,0,8" />
 
-                            <!-- Python Path -->
-                            <TextBlock Text="PYTHON INTERPRETER (VENV)" 
-                                       FontSize="9" 
-                                       FontWeight="SemiBold" 
-                                       Foreground="{StaticResource TextDimBrush}" 
-                                       Margin="0,0,0,2" />
-                            <Grid Margin="0,0,0,4">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBox x:Name="PythonPathInput" 
-                                         Grid.Column="0" 
+                                <!-- Remote API Server URL -->
+                                <TextBlock Text="FASTAPI BACKEND API URL" 
+                                           FontSize="8.5" 
+                                           FontWeight="SemiBold" 
+                                           Foreground="{StaticResource TextDimBrush}" 
+                                           Margin="0,0,0,2" />
+                                <TextBox x:Name="RemoteApiUrlInput" 
+                                         Text="https://api.yourdomain.com/api/v1" 
                                          Height="26" 
                                          FontSize="11" 
                                          Padding="4,2" 
-                                         Margin="0,0,4,0" />
-                                <Button x:Name="BrowsePythonButton" 
-                                        Grid.Column="1" 
-                                        Content="Browse" 
-                                        Style="{StaticResource SecondaryButton}" 
-                                        Height="26" 
-                                        Padding="8,2" 
-                                        FontSize="11" 
-                                        Click="BrowsePythonButton_Click" />
-                            </Grid>
+                                         Margin="0,0,0,2" />
+                                <TextBlock Text="e.g. https://api.managerx.com/api/v1 or http://192.168.1.100:8000/api/v1" 
+                                           FontSize="8.5" 
+                                           Foreground="{StaticResource TextDimBrush}" 
+                                           Margin="2,0,0,8" />
 
-                            <!-- Backend Host & Port -->
-                            <Grid Margin="0,0,0,4">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="8" />
-                                    <ColumnDefinition Width="90" />
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Column="0">
-                                    <TextBlock Text="HOST" FontSize="8.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,1" />
-                                    <TextBox x:Name="HostInput" Text="127.0.0.1" Height="26" FontSize="11" Padding="4,2" />
-                                </StackPanel>
-                                <StackPanel Grid.Column="2">
-                                    <TextBlock Text="PORT" FontSize="8.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,1" />
-                                    <TextBox x:Name="PortInput" Text="8000" Height="26" FontSize="11" Padding="4,2" />
-                                </StackPanel>
-                            </Grid>
-
-                            <CheckBox x:Name="ReloadCheck" 
-                                      IsChecked="True" 
-                                      Foreground="{StaticResource TextMutedBrush}" 
-                                      FontSize="10.5">
-                                <TextBlock Text="Enable auto-reload (--reload)" Margin="4,0,0,0" />
-                            </CheckBox>
-                        </StackPanel>
-                    </Border>
-
-                    <!-- 2. FRONTEND SERVICE BLOCK -->
-                    <Border Background="{StaticResource BgSurfaceSubtleBrush}" 
-                            BorderBrush="{StaticResource BorderSubtleBrush}" 
-                            BorderThickness="1" 
-                            CornerRadius="6" 
-                            Padding="10,8" 
-                            Margin="0,0,0,8">
-                        <StackPanel>
-                            <TextBlock Text="FRONTEND WEB APP (NEXT.JS)" 
-                                       FontSize="9" 
-                                       FontWeight="Bold" 
-                                       Foreground="{StaticResource AccentEmeraldBrush}" 
-                                       Margin="0,0,0,6" />
-
-                            <!-- Frontend Dir -->
-                            <TextBlock Text="FRONTEND DIRECTORY" 
-                                       FontSize="9" 
-                                       FontWeight="SemiBold" 
-                                       Foreground="{StaticResource TextDimBrush}" 
-                                       Margin="0,0,0,2" />
-                            <Grid Margin="0,0,0,4">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBox x:Name="FrontendDirInput" 
-                                         Grid.Column="0" 
+                                <!-- Remote Web URL -->
+                                <TextBlock Text="NEXT.JS WEB DASHBOARD URL" 
+                                           FontSize="8.5" 
+                                           FontWeight="SemiBold" 
+                                           Foreground="{StaticResource TextDimBrush}" 
+                                           Margin="0,0,0,2" />
+                                <TextBox x:Name="RemoteWebUrlInput" 
+                                         Text="https://app.yourdomain.com" 
                                          Height="26" 
                                          FontSize="11" 
                                          Padding="4,2" 
-                                         Margin="0,0,4,0" />
-                                <Button x:Name="BrowseFrontendButton" 
-                                        Grid.Column="1" 
-                                        Content="Browse" 
-                                        Style="{StaticResource SecondaryButton}" 
-                                        Height="26" 
-                                        Padding="8,2" 
-                                        FontSize="11" 
-                                        Click="BrowseFrontendButton_Click" />
-                            </Grid>
+                                         Margin="0,0,0,2" />
+                                <TextBlock Text="e.g. https://app.managerx.com or http://192.168.1.100:3000" 
+                                           FontSize="8.5" 
+                                           Foreground="{StaticResource TextDimBrush}" 
+                                           Margin="2,0,0,0" />
+                            </StackPanel>
+                        </Border>
 
-                            <!-- Frontend Port -->
-                            <Grid Margin="0,0,0,2">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="8" />
-                                    <ColumnDefinition Width="90" />
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Column="0">
-                                    <TextBlock Text="HOST" FontSize="8.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,1" />
-                                    <TextBox x:Name="FrontendHostInput" Text="localhost" Height="26" FontSize="11" Padding="4,2" />
-                                </StackPanel>
-                                <StackPanel Grid.Column="2">
-                                    <TextBlock Text="PORT" FontSize="8.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,1" />
-                                    <TextBox x:Name="FrontendPortInput" Text="3000" Height="26" FontSize="11" Padding="4,2" />
-                                </StackPanel>
-                            </Grid>
-                        </StackPanel>
-                    </Border>
+                        <Button x:Name="ConnectRemoteButton" 
+                                Content="🌐  Connect to Remote Server" 
+                                Style="{StaticResource PrimaryButton}" 
+                                Height="32" 
+                                Margin="0,0,0,6" 
+                                Click="ConnectRemoteButton_Click" />
+                    </StackPanel>
 
-                    <!-- Silent Execution Toggle -->
-                    <CheckBox x:Name="SilentModeCheck" 
-                              IsChecked="True" 
-                              Foreground="{StaticResource AccentEmeraldBrush}" 
-                              FontSize="11" 
-                              Margin="2,0,0,10">
-                        <TextBlock Text="Run silently in background (No CMD windows)" Margin="4,0,0,0" />
-                    </CheckBox>
+                    <!-- ============================================== -->
+                    <!-- 2. LOCAL DEV PANEL (Uvicorn + Next.js Launcher)-->
+                    <!-- ============================================== -->
+                    <StackPanel x:Name="LocalDevPanel" Visibility="Collapsed">
+                        <!-- Backend Service Block -->
+                        <Border Background="{StaticResource BgSurfaceSubtleBrush}" 
+                                BorderBrush="{StaticResource BorderSubtleBrush}" 
+                                BorderThickness="1" 
+                                CornerRadius="6" 
+                                Padding="10,8" 
+                                Margin="0,0,0,8">
+                            <StackPanel>
+                                <TextBlock Text="BACKEND SERVICE (FASTAPI)" 
+                                           FontSize="9" 
+                                           FontWeight="Bold" 
+                                           Foreground="{StaticResource AccentBlueBrush}" 
+                                           Margin="0,0,0,6" />
 
-                    <!-- Action Buttons -->
-                    <Button x:Name="LaunchAllButton" 
-                            Content="🚀  Launch All Services" 
-                            Style="{StaticResource PrimaryButton}" 
-                            Height="32" 
-                            Margin="0,0,0,6" 
-                            Click="LaunchAllButton_Click" />
+                                <!-- Python Path -->
+                                <TextBlock Text="PYTHON INTERPRETER (VENV)" 
+                                           FontSize="8.5" 
+                                           FontWeight="SemiBold" 
+                                           Foreground="{StaticResource TextDimBrush}" 
+                                           Margin="0,0,0,2" />
+                                <Grid Margin="0,0,0,4">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox x:Name="PythonPathInput" 
+                                             Grid.Column="0" 
+                                             Height="26" 
+                                             FontSize="11" 
+                                             Padding="4,2" 
+                                             Margin="0,0,4,0" />
+                                    <Button x:Name="BrowsePythonButton" 
+                                            Grid.Column="1" 
+                                            Content="Browse..." 
+                                            Style="{StaticResource SecondaryButton}" 
+                                            Height="26" 
+                                            Padding="6,2" 
+                                            FontSize="10" 
+                                            Click="BrowsePythonButton_Click" />
+                                </Grid>
 
-                    <Grid Margin="0,0,0,8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Button x:Name="LaunchBackendOnlyButton" 
-                                Grid.Column="0" 
-                                Content="Backend Only" 
-                                Style="{StaticResource SecondaryButton}" 
-                                Height="28" 
-                                FontSize="11" 
-                                Click="LaunchBackendOnlyButton_Click" />
-                        <Button x:Name="CheckAgainButton" 
-                                Grid.Column="2" 
-                                Content="🔄  Check Status" 
-                                Style="{StaticResource SecondaryButton}" 
-                                Height="28" 
-                                FontSize="11" 
-                                Click="CheckAgainButton_Click" />
-                    </Grid>
+                                <!-- Host & Port -->
+                                <Grid Margin="0,0,0,4">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="6" />
+                                        <ColumnDefinition Width="70" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock Text="HOST" FontSize="8.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,1" />
+                                        <TextBox x:Name="HostInput" Text="127.0.0.1" Height="26" FontSize="11" Padding="4,2" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock Text="PORT" FontSize="8.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,1" />
+                                        <TextBox x:Name="PortInput" Text="8000" Height="26" FontSize="11" Padding="4,2" />
+                                    </StackPanel>
+                                </Grid>
 
-                    <!-- Advanced: Custom Remote Server Toggle -->
-                    <Expander Header="Custom Remote URL" 
-                              Foreground="{StaticResource TextDimBrush}" 
-                              FontSize="10.5" 
-                              Margin="0,0,0,0">
-                        <StackPanel Margin="0,6,0,0">
-                            <TextBlock Text="CUSTOM API URL" 
-                                       FontSize="8.5" 
-                                       FontWeight="SemiBold" 
-                                       Foreground="{StaticResource TextDimBrush}" 
-                                       Margin="0,0,0,2" />
-                            <TextBox x:Name="CustomUrlInput" 
-                                     Text="http://localhost:8000/api/v1" 
-                                     Height="26" 
-                                     FontSize="11" 
-                                     Padding="4,2" 
-                                     Margin="0,0,0,6" />
-                            <Button x:Name="ConnectCustomButton" 
-                                    Content="Connect" 
+                                <CheckBox x:Name="ReloadCheck" 
+                                          IsChecked="True" 
+                                          Foreground="{StaticResource TextMutedBrush}" 
+                                          FontSize="10" 
+                                          Margin="2,2,0,0">
+                                    <TextBlock Text="Auto-reload on code change" Margin="4,0,0,0" />
+                                </CheckBox>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Frontend Service Block -->
+                        <Border Background="{StaticResource BgSurfaceSubtleBrush}" 
+                                BorderBrush="{StaticResource BorderSubtleBrush}" 
+                                BorderThickness="1" 
+                                CornerRadius="6" 
+                                Padding="10,8" 
+                                Margin="0,0,0,8">
+                            <StackPanel>
+                                <TextBlock Text="FRONTEND SERVICE (NEXT.JS)" 
+                                           FontSize="9" 
+                                           FontWeight="Bold" 
+                                           Foreground="{StaticResource AccentEmeraldBrush}" 
+                                           Margin="0,0,0,6" />
+
+                                <TextBlock Text="FRONTEND DIRECTORY" 
+                                           FontSize="8.5" 
+                                           FontWeight="SemiBold" 
+                                           Foreground="{StaticResource TextDimBrush}" 
+                                           Margin="0,0,0,2" />
+                                <Grid Margin="0,0,0,4">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox x:Name="FrontendDirInput" 
+                                             Grid.Column="0" 
+                                             Height="26" 
+                                             FontSize="11" 
+                                             Padding="4,2" 
+                                             Margin="0,0,4,0" />
+                                    <Button x:Name="BrowseFrontendButton" 
+                                            Grid.Column="1" 
+                                            Content="Browse..." 
+                                            Style="{StaticResource SecondaryButton}" 
+                                            Height="26" 
+                                            Padding="6,2" 
+                                            FontSize="10" 
+                                            Click="BrowseFrontendButton_Click" />
+                                </Grid>
+
+                                <Grid Margin="0,0,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="6" />
+                                        <ColumnDefinition Width="70" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock Text="HOST" FontSize="8.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,1" />
+                                        <TextBox x:Name="FrontendHostInput" Text="localhost" Height="26" FontSize="11" Padding="4,2" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock Text="PORT" FontSize="8.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,1" />
+                                        <TextBox x:Name="FrontendPortInput" Text="3000" Height="26" FontSize="11" Padding="4,2" />
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Silent Execution Toggle -->
+                        <CheckBox x:Name="SilentModeCheck" 
+                                  IsChecked="True" 
+                                  Foreground="{StaticResource AccentEmeraldBrush}" 
+                                  FontSize="10.5" 
+                                  Margin="2,0,0,8">
+                            <TextBlock Text="Run silently in background (No CMD windows)" Margin="4,0,0,0" />
+                        </CheckBox>
+
+                        <!-- Action Buttons -->
+                        <Button x:Name="LaunchAllButton" 
+                                Content="🚀  Launch All Services" 
+                                Style="{StaticResource PrimaryButton}" 
+                                Height="32" 
+                                Margin="0,0,0,6" 
+                                Click="LaunchAllButton_Click" />
+
+                        <Grid Margin="0,0,0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="6" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="LaunchBackendOnlyButton" 
+                                    Grid.Column="0" 
+                                    Content="Backend Only" 
                                     Style="{StaticResource SecondaryButton}" 
-                                    Height="26" 
+                                    Height="28" 
                                     FontSize="11" 
-                                    Click="ConnectCustomButton_Click" />
-                        </StackPanel>
-                    </Expander>
+                                    Click="LaunchBackendOnlyButton_Click" />
+                            <Button x:Name="CheckAgainButton" 
+                                    Grid.Column="2" 
+                                    Content="🔄  Check Status" 
+                                    Style="{StaticResource SecondaryButton}" 
+                                    Height="28" 
+                                    FontSize="11" 
+                                    Click="CheckAgainButton_Click" />
+                        </Grid>
+                    </StackPanel>
                 </StackPanel>
             </Border>
         </ScrollViewer>
