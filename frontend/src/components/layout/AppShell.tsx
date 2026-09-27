@@ -4,7 +4,6 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useAuth } from "@/context/AuthContext";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
-import GlobalTimerBar from "./GlobalTimerBar";
 import SettingsModal from "../SettingsModal";
 import { Eye, EyeOff, AlertCircle, CheckCircle2, Clock, ArrowRight } from "lucide-react";
 import { api } from "@/lib/api-client";
@@ -424,9 +423,6 @@ export default function AppShell({ children, title }: AppShellProps) {
 
         <main className="app-content">{children}</main>
       </div>
-
-      {/* Global Floating Live Timer */}
-      <GlobalTimerBar />
 
       {/* Global Workspace Settings Modal */}
       <SettingsModal isOpen={showSettings} onClose={closeSettings} />

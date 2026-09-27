@@ -74,7 +74,7 @@ export default function TasksPage() {
     fetchData();
   }, [fetchData]);
 
-  // Listen for timer events saved from GlobalTimerBar or TimeTracker
+  // Listen for timer events saved
   useEffect(() => {
     const handleTimerSaved = () => {
       fetchData();
