@@ -52,3 +52,12 @@ public class SavedCredentials
     public DateTime? ExpiresAtUtc { get; set; }
     public bool RememberMe { get; set; } = true;
 }
+
+public class BackendSettings
+{
+    public string PythonPath { get; set; } = string.Empty;
+    public int Port { get; set; } = 8000;
+    public string BackendDir { get; set; } = string.Empty;
+    public bool AutoReload { get; set; } = true;
+}
+

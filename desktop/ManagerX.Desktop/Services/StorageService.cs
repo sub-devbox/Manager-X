@@ -80,4 +80,43 @@ public class StorageService
         }
         catch {}
     }
+
+    private static readonly string BackendSettingsFilePath = Path.Combine(AppDataFolder, "backend_settings.json");
+
+    public static void SaveBackendSettings(BackendSettings settings)
+    {
+        try
+        {
+            if (!Directory.Exists(AppDataFolder))
+            {
+                Directory.CreateDirectory(AppDataFolder);
+            }
+
+            var json = JsonSerializer.Serialize(settings, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(BackendSettingsFilePath, json);
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Failed to save backend settings: {ex.Message}");
+        }
+    }
+
+    public static BackendSettings? LoadBackendSettings()
+    {
+        try
+        {
+            if (!File.Exists(BackendSettingsFilePath))
+            {
+                return null;
+            }
+
+            var json = File.ReadAllText(BackendSettingsFilePath);
+            return JsonSerializer.Deserialize<BackendSettings>(json);
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Failed to load backend settings: {ex.Message}");
+            return null;
+        }
+    }
 }

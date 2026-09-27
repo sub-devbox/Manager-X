@@ -13,7 +13,9 @@ public partial class MainWindow : Window
 {
     private LoginView? _loginView;
     private TrackerView? _trackerView;
+    private BackendSetupView? _backendSetupView;
     private Forms.NotifyIcon? _notifyIcon;
+    private IntPtr _hwnd = IntPtr.Zero;
     private bool _isMiniMode = false;
     private double _previousWidth = 460;
     private double _previousHeight = 720;
@@ -34,11 +36,38 @@ public partial class MainWindow : Window
     {
         InitializeTrayIcon();
 
+        // Native Windows handle and message hook for OS shutdown prevention
+        var helper = new System.Windows.Interop.WindowInteropHelper(this);
+        _hwnd = helper.Handle;
+        var source = System.Windows.Interop.HwndSource.FromHwnd(_hwnd);
+        source?.AddHook(HwndMessageHook);
+
+        System.Windows.Application.Current.SessionEnding += OnSessionEnding;
+
         App.AuthService.AuthStateChanged += OnAuthStateChanged;
         App.TimerService.Ticked += OnTimerTicked;
         App.TimerService.StateChanged += OnTimerStateChanged;
 
-        // Attempt silent auto-login via DPAPI saved credentials
+        await CheckBackendAndInitializeAsync();
+    }
+
+    private async Task CheckBackendAndInitializeAsync()
+    {
+        LoadingOverlay.Visibility = Visibility.Visible;
+        LoadingStatusText.Text = "Checking backend service...";
+
+        var saved = StorageService.LoadCredentials();
+        var serverUrl = !string.IsNullOrWhiteSpace(saved?.ServerUrl) ? saved.ServerUrl : App.AuthService.ServerUrl;
+
+        var isHealthy = await BackendLauncherService.CheckHealthAsync(serverUrl);
+        if (!isHealthy)
+        {
+            LoadingOverlay.Visibility = Visibility.Collapsed;
+            ShowBackendSetupView();
+            return;
+        }
+
+        LoadingStatusText.Text = "Connecting...";
         var success = await App.AuthService.TryAutoLoginAsync();
         LoadingOverlay.Visibility = Visibility.Collapsed;
 
@@ -50,6 +79,39 @@ public partial class MainWindow : Window
         {
             ShowLoginView();
         }
+    }
+
+    private void ShowBackendSetupView()
+    {
+        UpdateWindowTitle(null);
+        TitleRefreshButton.Visibility = Visibility.Collapsed;
+        TitleLogoutButton.Visibility = Visibility.Collapsed;
+        _trackerView = null;
+
+        if (_backendSetupView == null)
+        {
+            _backendSetupView = new BackendSetupView();
+            _backendSetupView.OnBackendReady += async (url) =>
+            {
+                App.ApiClient.UpdateBaseUrl(url);
+                LoadingOverlay.Visibility = Visibility.Visible;
+                LoadingStatusText.Text = "Connecting...";
+
+                var autoLogin = await App.AuthService.TryAutoLoginAsync();
+                LoadingOverlay.Visibility = Visibility.Collapsed;
+
+                if (autoLogin)
+                {
+                    ShowTrackerView();
+                }
+                else
+                {
+                    ShowLoginView();
+                }
+            };
+        }
+
+        MainContent.Content = _backendSetupView;
     }
 
     private void InitializeTrayIcon()
@@ -131,8 +193,41 @@ public partial class MainWindow : Window
         }
     }
 
+    private static bool IsTimerActive()
+    {
+        return App.TimerService.IsRunning || App.TimerService.ElapsedSeconds > 0;
+    }
+
+    private void OnSessionEnding(object sender, SessionEndingCancelEventArgs e)
+    {
+        if (IsTimerActive())
+        {
+            e.Cancel = true;
+            ShutdownPreventionService.EnableShutdownBlock(_hwnd);
+        }
+    }
+
+    private IntPtr HwndMessageHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+    {
+        return ShutdownPreventionService.WindowProcHook(hwnd, msg, wParam, lParam, ref handled, IsTimerActive);
+    }
+
     private void ExitApplication()
     {
+        if (IsTimerActive())
+        {
+            RestoreFromTray();
+            var res = System.Windows.MessageBox.Show(
+                "A timer is currently active. Exiting now will discard unsaved time tracking.\n\nAre you sure you want to stop the timer and exit?",
+                "Confirm Exit - Manager X",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning);
+
+            if (res != MessageBoxResult.Yes) return;
+            App.TimerService.Reset();
+        }
+
+        ShutdownPreventionService.DisableShutdownBlock(_hwnd);
         _notifyIcon?.Dispose();
         _notifyIcon = null;
         System.Windows.Application.Current.Shutdown();
@@ -141,14 +236,15 @@ public partial class MainWindow : Window
     private void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
     {
         // If timer is running or user closes window, minimize to tray instead of quitting
-        if (App.TimerService.IsRunning || App.TimerService.ElapsedSeconds > 0)
+        if (IsTimerActive())
         {
             e.Cancel = true;
             Hide();
-            _notifyIcon?.ShowBalloonTip(2000, "Manager X - Time Tracker", "Timer is still running in background. Click tray icon to restore.", Forms.ToolTipIcon.Info);
+            _notifyIcon?.ShowBalloonTip(2000, "Manager X - Time Tracker", "Timer is actively running in background. Click tray icon to restore.", Forms.ToolTipIcon.Info);
         }
         else
         {
+            ShutdownPreventionService.DisableShutdownBlock(_hwnd);
             _notifyIcon?.Dispose();
             _notifyIcon = null;
         }
@@ -261,6 +357,15 @@ public partial class MainWindow : Window
     {
         Dispatcher.Invoke(() =>
         {
+            if (isRunning || App.TimerService.ElapsedSeconds > 0)
+            {
+                ShutdownPreventionService.EnableShutdownBlock(_hwnd);
+            }
+            else
+            {
+                ShutdownPreventionService.DisableShutdownBlock(_hwnd);
+            }
+
             if (isRunning && !_isMiniMode)
             {
                 // Auto switch to compact floating mini-widget mode when timer starts
@@ -357,7 +462,7 @@ public partial class MainWindow : Window
 
     private void TitleClose_Click(object sender, RoutedEventArgs e)
     {
-        if (App.TimerService.IsRunning)
+        if (IsTimerActive())
         {
             Hide();
             _notifyIcon?.ShowBalloonTip(2000, "Manager X", "Timer active. Minimized to system tray.", Forms.ToolTipIcon.Info);

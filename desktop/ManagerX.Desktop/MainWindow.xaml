@@ -129,7 +129,8 @@
                                      Foreground="{StaticResource AccentBlueBrush}" 
                                      Background="{StaticResource BgSurfaceBrush}" 
                                      BorderThickness="0" />
-                        <TextBlock Text="Connecting..." 
+                        <TextBlock x:Name="LoadingStatusText" 
+                                   Text="Connecting..." 
                                    FontSize="11" 
                                    Foreground="{StaticResource TextDimBrush}" 
                                    HorizontalAlignment="Center" 
