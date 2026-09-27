@@ -26,10 +26,12 @@ interface ClientOption {
 interface ProjectModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSuccess: () => void;
+  onSuccess: (newProject?: ProjectData) => void;
   onDelete?: (project: ProjectData) => Promise<void> | void;
   initialData?: ProjectData | null;
   defaultClientId?: string;
+  initialName?: string;
+  zIndex?: number;
 }
 
 export default function ProjectModal({
@@ -39,6 +41,8 @@ export default function ProjectModal({
   onDelete,
   initialData,
   defaultClientId,
+  initialName,
+  zIndex = 9999,
 }: ProjectModalProps) {
   const [mounted, setMounted] = useState(false);
   const [clients, setClients] = useState<ClientOption[]>([]);
@@ -101,7 +105,7 @@ export default function ProjectModal({
         });
       } else {
         setFormData({
-          name: "",
+          name: initialName || "",
           client_id: defaultClientId || "",
           description: "",
           billing_type: "hourly",
@@ -113,7 +117,7 @@ export default function ProjectModal({
         });
       }
     }
-  }, [isOpen, initialData, defaultClientId]);
+  }, [isOpen, initialData, defaultClientId, initialName]);
 
   const loadClients = async () => {
     setLoadingClients(true);
@@ -195,11 +199,12 @@ export default function ProjectModal({
 
       if (initialData) {
         await api.put(`/projects/${initialData.id}`, payload);
+        onSuccess();
       } else {
-        await api.post("/projects", payload);
+        const created = await api.post<ProjectData>("/projects", payload);
+        onSuccess(created);
       }
 
-      onSuccess();
       onClose();
     } catch (err: any) {
       setErrorMsg(err.message || "Failed to save project.");
@@ -235,7 +240,7 @@ export default function ProjectModal({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        zIndex: 9999,
+        zIndex: zIndex,
         padding: "16px",
       }}
     >

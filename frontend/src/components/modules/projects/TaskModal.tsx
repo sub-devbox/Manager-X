@@ -3,7 +3,9 @@
 import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { api } from "@/lib/api-client";
-import { TaskData, TaskStatus, ChecklistItem } from "@/types/project";
+import { TaskData, TaskStatus, ChecklistItem, ProjectData } from "@/types/project";
+import SearchableProjectSelect, { ProjectOption } from "@/components/common/SearchableProjectSelect";
+import ProjectModal from "./ProjectModal";
 import {
   X,
   CheckSquare,
@@ -13,12 +15,6 @@ import {
   Plus,
   Trash2,
 } from "lucide-react";
-
-interface ProjectOption {
-  id: string;
-  name: string;
-  client_name?: string | null;
-}
 
 interface TaskModalProps {
   isOpen: boolean;
@@ -46,6 +42,8 @@ export default function TaskModal({
   const [deleting, setDeleting] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [isCreateProjectOpen, setIsCreateProjectOpen] = useState(false);
+  const [createProjectName, setCreateProjectName] = useState("");
 
   const [formData, setFormData] = useState({
     title: "",
@@ -61,16 +59,16 @@ export default function TaskModal({
     setMounted(true);
   }, []);
 
-  // Close on Escape key
+  // Close on Escape key (only if nested ProjectModal is not open)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isOpen) {
+      if (e.key === "Escape" && isOpen && !isCreateProjectOpen) {
         onClose();
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, onClose]);
+  }, [isOpen, onClose, isCreateProjectOpen]);
 
   useEffect(() => {
     if (isOpen) {
@@ -115,6 +113,31 @@ export default function TaskModal({
     } finally {
       setLoadingProjects(false);
     }
+  };
+
+  const handleOpenCreateProject = (searchQuery?: string) => {
+    setCreateProjectName(searchQuery || "");
+    setIsCreateProjectOpen(true);
+  };
+
+  const handleProjectCreated = (newProject?: ProjectData) => {
+    if (newProject && newProject.id) {
+      setProjects((prev) => {
+        if (prev.some((p) => p.id === newProject.id)) return prev;
+        return [
+          {
+            id: newProject.id,
+            name: newProject.name,
+            client_name: (newProject as any).client_name || null,
+          },
+          ...prev,
+        ];
+      });
+      setFormData((prev) => ({ ...prev, project_id: newProject.id }));
+    } else {
+      loadProjects();
+    }
+    setIsCreateProjectOpen(false);
   };
 
   const handleAddChecklistItem = () => {
@@ -301,40 +324,52 @@ export default function TaskModal({
 
           {/* Target Project */}
           <div>
-            <label style={{ display: "block", fontSize: "12px", color: "var(--text-muted)", marginBottom: "4px" }}>
-              Target Project <span style={{ color: "var(--accent-rose)" }}>*</span>
-            </label>
-            <div style={{ position: "relative" }}>
-              <select
-                required
-                value={formData.project_id}
-                onChange={(e) => setFormData({ ...formData, project_id: e.target.value })}
-                className="finance-input"
-                style={{ appearance: "none", cursor: "pointer", paddingRight: "30px" }}
-                disabled={loadingProjects}
-              >
-                {projects.length === 0 ? (
-                  <option value="">No projects available — create project first</option>
-                ) : (
-                  projects.map((p) => (
-                    <option key={p.id} value={p.id}>
-                      {p.name} {p.client_name ? `(${p.client_name})` : ""}
-                    </option>
-                  ))
-                )}
-              </select>
-              <FolderKanban
-                size={14}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginBottom: "4px",
+              }}
+            >
+              <label style={{ fontSize: "12px", color: "var(--text-muted)", margin: 0 }}>
+                Target Project <span style={{ color: "var(--accent-rose)" }}>*</span>
+              </label>
+              <button
+                type="button"
+                onClick={() => handleOpenCreateProject()}
                 style={{
-                  position: "absolute",
-                  right: "12px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  pointerEvents: "none",
-                  color: "var(--text-dim)",
+                  background: "transparent",
+                  border: "none",
+                  color: "var(--accent-blue)",
+                  fontSize: "11px",
+                  cursor: "pointer",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "3px",
+                  padding: "0 2px",
                 }}
-              />
+              >
+                <Plus size={11} />
+                <span>New Project</span>
+              </button>
             </div>
+            <SearchableProjectSelect
+              projects={projects}
+              value={formData.project_id}
+              onChange={(projectId) =>
+                setFormData((prev) => ({ ...prev, project_id: projectId }))
+              }
+              onCreateNewProject={(query) => handleOpenCreateProject(query)}
+              disabled={loadingProjects}
+              placeholder={
+                loadingProjects
+                  ? "Loading projects..."
+                  : projects.length === 0
+                  ? "No projects available — create one"
+                  : "Select target project..."
+              }
+            />
           </div>
 
           {/* Task Title */}
@@ -685,5 +720,18 @@ export default function TaskModal({
     </div>
   );
 
-  return createPortal(modalContent, document.body);
+  return (
+    <>
+      {createPortal(modalContent, document.body)}
+      {isCreateProjectOpen && (
+        <ProjectModal
+          isOpen={isCreateProjectOpen}
+          onClose={() => setIsCreateProjectOpen(false)}
+          onSuccess={handleProjectCreated}
+          initialName={createProjectName}
+          zIndex={10050}
+        />
+      )}
+    </>
+  );
 }
