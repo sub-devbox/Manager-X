@@ -19,6 +19,15 @@ public class AuthService
         _apiClient = apiClient;
     }
 
+    public void UpdateServerUrl(string serverUrl)
+    {
+        if (!string.IsNullOrWhiteSpace(serverUrl))
+        {
+            ServerUrl = serverUrl.TrimEnd('/');
+            _apiClient.UpdateBaseUrl(ServerUrl);
+        }
+    }
+
     public async Task<bool> TryAutoLoginAsync()
     {
         var saved = StorageService.LoadCredentials();
@@ -27,7 +36,16 @@ public class AuthService
             return false;
         }
 
-        ServerUrl = !string.IsNullOrWhiteSpace(saved.ServerUrl) ? saved.ServerUrl : ServerUrl;
+        var backendSettings = StorageService.LoadBackendSettings();
+        if (backendSettings != null && backendSettings.Port > 0)
+        {
+            var host = !string.IsNullOrWhiteSpace(backendSettings.Host) ? backendSettings.Host : "127.0.0.1";
+            ServerUrl = $"http://{host}:{backendSettings.Port}/api/v1";
+        }
+        else if (!string.IsNullOrWhiteSpace(saved.ServerUrl))
+        {
+            ServerUrl = saved.ServerUrl;
+        }
         _apiClient.UpdateBaseUrl(ServerUrl);
 
         // 1. Try existing access token

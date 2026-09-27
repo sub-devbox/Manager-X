@@ -21,10 +21,19 @@ public partial class LoginView : UserControl
     private void LoginView_Loaded(object sender, RoutedEventArgs e)
     {
         var saved = StorageService.LoadCredentials();
+        var backendSettings = StorageService.LoadBackendSettings();
+        if (backendSettings != null && backendSettings.Port > 0)
+        {
+            var host = !string.IsNullOrWhiteSpace(backendSettings.Host) ? backendSettings.Host : "127.0.0.1";
+            ServerUrlInput.Text = $"http://{host}:{backendSettings.Port}/api/v1";
+        }
+        else if (saved != null && !string.IsNullOrWhiteSpace(saved.ServerUrl))
+        {
+            ServerUrlInput.Text = saved.ServerUrl;
+        }
+
         if (saved != null)
         {
-            if (!string.IsNullOrWhiteSpace(saved.ServerUrl))
-                ServerUrlInput.Text = saved.ServerUrl;
             if (!string.IsNullOrWhiteSpace(saved.Email))
                 EmailInput.Text = saved.Email;
             if (!string.IsNullOrWhiteSpace(saved.Password))

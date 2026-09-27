@@ -197,24 +197,26 @@ public static class BackendLauncherService
         }
 
         var reloadArg = reload ? "--reload" : "";
-        var command = $"cd /d \"{backendDir}\" && \"{pythonPath}\" -m uvicorn app.main:app --host {host} --port {port} {reloadArg}".Trim();
+        var uvicornArgs = $"-m uvicorn app.main:app --host {host} --port {port} {reloadArg}".Trim();
 
         var psi = new ProcessStartInfo
         {
-            FileName = "cmd.exe",
             WorkingDirectory = backendDir
         };
 
         if (runSilently)
         {
-            psi.Arguments = $"/c {command}";
+            // Direct executable launch - avoids cmd.exe quote-stripping issues
+            psi.FileName = pythonPath;
+            psi.Arguments = uvicornArgs;
             psi.UseShellExecute = false;
             psi.CreateNoWindow = true;
             psi.WindowStyle = ProcessWindowStyle.Hidden;
         }
         else
         {
-            psi.Arguments = $"/c start \"ManagerX-Backend\" cmd /k \"{command}\"";
+            psi.FileName = "cmd.exe";
+            psi.Arguments = $"/c start \"ManagerX-Backend\" \"{pythonPath}\" {uvicornArgs}";
             psi.UseShellExecute = true;
             psi.CreateNoWindow = false;
         }
@@ -224,12 +226,21 @@ public static class BackendLauncherService
 
     public static void StartFrontend(string frontendDir, string host, int port, bool runSilently)
     {
+        var saved = StorageService.LoadBackendSettings();
+        var backendHost = !string.IsNullOrWhiteSpace(saved?.Host) ? saved.Host : "127.0.0.1";
+        var backendPort = saved?.Port > 0 ? saved.Port : 8000;
+        StartFrontend(frontendDir, host, port, backendHost, backendPort, runSilently);
+    }
+
+    public static void StartFrontend(string frontendDir, string host, int port, string backendHost, int backendPort, bool runSilently)
+    {
         if (!Directory.Exists(frontendDir))
         {
             throw new DirectoryNotFoundException($"Frontend directory not found at: {frontendDir}");
         }
 
-        var command = $"cd /d \"{frontendDir}\" && npm run dev -- -p {port} -H {host}".Trim();
+        // Sync root .env file so Next.js reads the correct backend port and url
+        SyncEnvFile(backendHost, backendPort, port);
 
         var psi = new ProcessStartInfo
         {
@@ -237,21 +248,98 @@ public static class BackendLauncherService
             WorkingDirectory = frontendDir
         };
 
+        // Explicit environment overrides for Next.js dev server
+        psi.Environment["PORT"] = port.ToString();
+        psi.Environment["FRONTEND_PORT"] = port.ToString();
+        psi.Environment["BACKEND_PORT"] = backendPort.ToString();
+        psi.Environment["BACKEND_URL"] = $"http://{backendHost}:{backendPort}";
+
         if (runSilently)
         {
-            psi.Arguments = $"/c {command}";
+            psi.Arguments = $"/c npm run dev -- -p {port} -H {host}";
             psi.UseShellExecute = false;
             psi.CreateNoWindow = true;
             psi.WindowStyle = ProcessWindowStyle.Hidden;
         }
         else
         {
-            psi.Arguments = $"/c start \"ManagerX-Frontend\" cmd /k \"{command}\"";
+            psi.Arguments = $"/c start \"ManagerX-Frontend\" cmd /k \"npm run dev -- -p {port} -H {host}\"";
             psi.UseShellExecute = true;
             psi.CreateNoWindow = false;
         }
 
         Process.Start(psi);
+    }
+
+    public static void SyncEnvFile(string backendHost, int backendPort, int frontendPort)
+    {
+        try
+        {
+            var baseDir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
+            for (int i = 0; i < 6 && baseDir != null; i++)
+            {
+                var envPath = Path.Combine(baseDir.FullName, ".env");
+                if (File.Exists(envPath))
+                {
+                    UpdateEnvFile(envPath, backendHost, backendPort, frontendPort);
+                    return;
+                }
+                baseDir = baseDir.Parent;
+            }
+
+            var workingDir = new DirectoryInfo(Environment.CurrentDirectory);
+            for (int i = 0; i < 4 && workingDir != null; i++)
+            {
+                var envPath = Path.Combine(workingDir.FullName, ".env");
+                if (File.Exists(envPath))
+                {
+                    UpdateEnvFile(envPath, backendHost, backendPort, frontendPort);
+                    return;
+                }
+                workingDir = workingDir.Parent;
+            }
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Failed to sync .env file: {ex.Message}");
+        }
+    }
+
+    private static void UpdateEnvFile(string filePath, string backendHost, int backendPort, int frontendPort)
+    {
+        var lines = File.ReadAllLines(filePath);
+        var newLines = new System.Collections.Generic.List<string>();
+        var keysSeen = new System.Collections.Generic.HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+        foreach (var line in lines)
+        {
+            var trimmed = line.Trim();
+            if (trimmed.StartsWith("BACKEND_PORT=", StringComparison.OrdinalIgnoreCase))
+            {
+                newLines.Add($"BACKEND_PORT={backendPort}");
+                keysSeen.Add("BACKEND_PORT");
+            }
+            else if (trimmed.StartsWith("FRONTEND_PORT=", StringComparison.OrdinalIgnoreCase))
+            {
+                newLines.Add($"FRONTEND_PORT={frontendPort}");
+                keysSeen.Add("FRONTEND_PORT");
+            }
+            else if (trimmed.StartsWith("BACKEND_URL=", StringComparison.OrdinalIgnoreCase))
+            {
+                newLines.Add($"BACKEND_URL=http://{backendHost}:{backendPort}");
+                keysSeen.Add("BACKEND_URL");
+            }
+            else
+            {
+                newLines.Add(line);
+            }
+        }
+
+        if (!keysSeen.Contains("BACKEND_PORT")) newLines.Add($"BACKEND_PORT={backendPort}");
+        if (!keysSeen.Contains("FRONTEND_PORT")) newLines.Add($"FRONTEND_PORT={frontendPort}");
+        if (!keysSeen.Contains("BACKEND_URL")) newLines.Add($"BACKEND_URL=http://{backendHost}:{backendPort}");
+
+        File.WriteAllLines(filePath, newLines);
     }
 
     public static async Task StopServiceByPortAsync(int port)

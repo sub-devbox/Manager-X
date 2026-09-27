@@ -163,7 +163,7 @@ public partial class BackendSetupView : UserControl
             if (launchFrontend && !string.IsNullOrWhiteSpace(frontendDir) && Directory.Exists(frontendDir))
             {
                 StatusText.Text = "Launching backend & frontend services...";
-                BackendLauncherService.StartFrontend(frontendDir, frontendHost, frontendPort, runSilently);
+                BackendLauncherService.StartFrontend(frontendDir, frontendHost, frontendPort, host, backendPort, runSilently);
             }
 
             var baseUrl = $"http://{host}:{backendPort}/api/v1";

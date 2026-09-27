@@ -1,16 +1,16 @@
 # Graph Report - Manager-X  (2026-09-27)
 
 ## Corpus Check
-- 131 files · ~94,284 words
+- 131 files · ~94,660 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1075 nodes · 2119 edges · 69 communities (55 shown, 14 thin omitted)
-- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 25 edges (avg confidence: 0.62)
+- 1078 nodes · 2129 edges · 69 communities (55 shown, 14 thin omitted)
+- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 26 edges (avg confidence: 0.63)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `e9bfda75`
+- Built from commit: `c1643b3c`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -138,7 +138,7 @@ Nodes (8): Boundaries, Intensity, Output, Persistence, Ponytail, Rules, The ladd
 
 ### Community 6 - "Base"
 Cohesion: 0.09
-Nodes (37): create_time_entry(), delete_time_entry(), _format_time_entry_response(), get_time_entry(), list_time_entries(), AsyncSession, delete, get (+29 more)
+Nodes (35): create_time_entry(), delete_time_entry(), _format_time_entry_response(), get_time_entry(), list_time_entries(), AsyncSession, delete, get (+27 more)
 
 ### Community 7 - "FastAPI ASGI Backend"
 Cohesion: 0.29
@@ -234,7 +234,7 @@ Nodes (15): ClientOption, SearchableClientSelect(), SearchableClientSelectProps,
 
 ### Community 39 - "User"
 Cohesion: 0.07
-Nodes (61): build_gateway_response(), create_gateway(), delete_gateway(), get_gateway(), list_gateways(), AsyncSession, delete, get (+53 more)
+Nodes (62): build_gateway_response(), create_gateway(), delete_gateway(), get_gateway(), list_gateways(), AsyncSession, delete, get (+54 more)
 
 ### Community 40 - "UserControl"
 Cohesion: 0.09
@@ -265,7 +265,7 @@ Cohesion: 0.21
 Nodes (8): DateTime, BackendSettings, SavedCredentials, TokenResponse, UserDto, UserLoginRequest, string, StorageService
 
 ### Community 47 - "ManagerX.Services"
-Cohesion: 0.33
+Cohesion: 0.29
 Nodes (4): ManagerX.Models, ManagerX.Views, ManagerX, ManagerX.Services
 
 ### Community 48 - "MainWindow"
@@ -306,7 +306,7 @@ Nodes (5): TimeEntryDto, SubmitNewTaskButton, RoutedEventArgs, TrackerView, List
 
 ### Community 58 - "projects.py"
 Cohesion: 0.09
-Nodes (47): create_project(), delete_project(), _format_project_response(), get_project(), list_projects(), list_projects_summary(), AsyncSession, delete (+39 more)
+Nodes (48): create_project(), delete_project(), _format_project_response(), get_project(), list_projects(), list_projects_summary(), AsyncSession, delete (+40 more)
 
 ### Community 59 - ".ApiStatusBadge_MouseLeftButtonDown"
 Cohesion: 0.28
@@ -333,9 +333,9 @@ Nodes (5): CurrencySetting, ClientData, ClientModal(), ClientModalProps, Currenc
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `User` connect `User` to `auth.py`, `clients.py`, `settings.py`, `Currency`, `Base`, `projects.py`?**
-  _High betweenness centrality (0.046) - this node is a cross-community bridge._
+  _High betweenness centrality (0.045) - this node is a cross-community bridge._
 - **Why does `MainWindow` connect `MainWindow` to `.ShowBackendSetupView`, `.InitializeTrayIcon`, `ShutdownPreventionService`, `Window`, `UserControl`, `ManagerX.Services`, `RoutedEventArgs`, `UserControl`, `TrackerView`, `.ApiStatusBadge_MouseLeftButtonDown`?**
-  _High betweenness centrality (0.044) - this node is a cross-community bridge._
+  _High betweenness centrality (0.043) - this node is a cross-community bridge._
 - **Why does `TrackerView` connect `TrackerView` to `.SubmitNewProject_Click`, `UserControl`, `UserControl`, `ManagerX.Services`, `MainWindow`, `.UpdateTimerUi`, `Button`, `.StopSaveButton_Click`?**
   _High betweenness centrality (0.038) - this node is a cross-community bridge._
 - **What connects `Border`, `ScrollViewer`, `ContentControl` to the rest of the system?**
@@ -343,6 +343,6 @@ _Questions this graph is uniquely positioned to answer:_
 - **Should `devDependencies` be split into smaller, more focused modules?**
   _Cohesion score 0.06060606060606061 - nodes in this community are weakly interconnected._
 - **Should `auth.py` be split into smaller, more focused modules?**
-  _Cohesion score 0.08245981830887492 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.08176100628930817 - nodes in this community are weakly interconnected._
 - **Should `Currency` be split into smaller, more focused modules?**
   _Cohesion score 0.08658536585365853 - nodes in this community are weakly interconnected._

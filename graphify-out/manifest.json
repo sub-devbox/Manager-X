@@ -25,8 +25,8 @@
     "semantic_hash": "4480e8c55a6dc4084d83173b5abf98b9"
   },
   "backend/app/main.py": {
-    "mtime": 1790444374.5439448,
-    "ast_hash": "2e271c7319720a95f94e1d97d5da00ec",
+    "mtime": 1790511186.4905193,
+    "ast_hash": "1bdcaee07fcf5518080300f9e346ea37",
     "semantic_hash": ""
   },
   "backend/app/models/user_models.py": {
@@ -55,8 +55,8 @@
     "semantic_hash": "dfa1f5f6a7037bf39dc510f30b180002"
   },
   "frontend/next.config.ts": {
-    "mtime": 1790488546.4705417,
-    "ast_hash": "c5c578904c96d41456c4f6a543de88f9",
+    "mtime": 1790511210.1938891,
+    "ast_hash": "004c74c50d0dfd4a6e4b743b78989fba",
     "semantic_hash": ""
   },
   "frontend/package.json": {
@@ -575,8 +575,8 @@
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/MainWindow.xaml.cs": {
-    "mtime": 1790510467.6812673,
-    "ast_hash": "2b4a275636f534d1f3cda4ff54adb140",
+    "mtime": 1790511271.794395,
+    "ast_hash": "461c6c8ed35d37c34270b7976bca0cf8",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/ManagerX.Desktop.csproj": {
@@ -605,8 +605,8 @@
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Services/AuthService.cs": {
-    "mtime": 1790510114.060559,
-    "ast_hash": "1dc0549ef62d7253644fb3ed48188379",
+    "mtime": 1790511259.3760633,
+    "ast_hash": "2f57787ed06bf581b9a99ad79ec7cce6",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Services/StorageService.cs": {
@@ -625,8 +625,8 @@
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Views/LoginView.xaml.cs": {
-    "mtime": 1790510127.0428014,
-    "ast_hash": "199a89319852c22458ec0dee197ed53c",
+    "mtime": 1790511281.4890716,
+    "ast_hash": "657a438e2461907c91746a36f308af70",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Views/TrackerView.xaml": {
@@ -640,8 +640,8 @@
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs": {
-    "mtime": 1790510144.4107027,
-    "ast_hash": "6981a4d127aa61efca09810b2399b899",
+    "mtime": 1790511233.5079124,
+    "ast_hash": "94ea785a463566cfb5c8a9c808e7d349",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Services/ShutdownPreventionService.cs": {
@@ -655,8 +655,8 @@
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs": {
-    "mtime": 1790510178.9521124,
-    "ast_hash": "ddcc3dba9a7f02113345551eaff13eeb",
+    "mtime": 1790511245.1678493,
+    "ast_hash": "3fe54c84ff5350f68fafc84c0cf9df03",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/app.png": {

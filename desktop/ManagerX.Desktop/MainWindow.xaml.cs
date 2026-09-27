@@ -74,8 +74,20 @@ public partial class MainWindow : Window
         LoadingOverlay.Visibility = Visibility.Visible;
         LoadingStatusText.Text = "Checking backend service...";
 
-        var saved = StorageService.LoadCredentials();
-        var serverUrl = !string.IsNullOrWhiteSpace(saved?.ServerUrl) ? saved.ServerUrl : App.AuthService.ServerUrl;
+        var backendSettings = StorageService.LoadBackendSettings();
+        string serverUrl;
+        if (backendSettings != null && backendSettings.Port > 0)
+        {
+            var host = !string.IsNullOrWhiteSpace(backendSettings.Host) ? backendSettings.Host : "127.0.0.1";
+            serverUrl = $"http://{host}:{backendSettings.Port}/api/v1";
+        }
+        else
+        {
+            var saved = StorageService.LoadCredentials();
+            serverUrl = !string.IsNullOrWhiteSpace(saved?.ServerUrl) ? saved.ServerUrl : App.AuthService.ServerUrl;
+        }
+
+        App.AuthService.UpdateServerUrl(serverUrl);
 
         var isHealthy = await BackendLauncherService.CheckHealthAsync(serverUrl);
         if (!isHealthy)
@@ -111,7 +123,7 @@ public partial class MainWindow : Window
             _backendSetupView = new BackendSetupView();
             _backendSetupView.OnBackendReady += async (url) =>
             {
-                App.ApiClient.UpdateBaseUrl(url);
+                App.AuthService.UpdateServerUrl(url);
                 await UpdateServiceBadgesAsync();
 
                 LoadingOverlay.Visibility = Visibility.Visible;
