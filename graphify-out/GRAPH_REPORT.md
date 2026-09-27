@@ -1,16 +1,16 @@
 # Graph Report - Manager-X  (2026-09-27)
 
 ## Corpus Check
-- 131 files · ~92,174 words
+- 131 files · ~92,184 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1040 nodes · 2040 edges · 67 communities (56 shown, 11 thin omitted)
+- 1040 nodes · 2041 edges · 68 communities (56 shown, 12 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 25 edges (avg confidence: 0.62)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `49f57b60`
+- Built from commit: `99ab2e66`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -68,7 +68,7 @@
 - ApiClient
 - TimerService
 - ProjectModels.cs
-- AuthModels.cs
+- project_schemas.py
 - ManagerX.Desktop.csproj
 - UserControl
 - TrackerView
@@ -81,6 +81,7 @@
 - Settings
 - test_auth_api.py
 - TimeModels.cs
+- .SubmitNewProject_Click
 
 ## God Nodes (most connected - your core abstractions)
 1. `User` - 72 edges
@@ -109,7 +110,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (67 total, 11 thin omitted)
+## Communities (68 total, 12 thin omitted)
 
 ### Community 0 - "devDependencies"
 Cohesion: 0.06
@@ -136,8 +137,8 @@ Cohesion: 0.22
 Nodes (8): Boundaries, Intensity, Output, Persistence, Ponytail, Rules, The ladder, When NOT to be lazy
 
 ### Community 6 - "time_entries.py"
-Cohesion: 0.12
-Nodes (26): create_time_entry(), delete_time_entry(), _format_time_entry_response(), get_time_entry(), list_time_entries(), AsyncSession, delete, get (+18 more)
+Cohesion: 0.17
+Nodes (21): create_time_entry(), delete_time_entry(), _format_time_entry_response(), get_time_entry(), list_time_entries(), AsyncSession, delete, get (+13 more)
 
 ### Community 7 - "FastAPI ASGI Backend"
 Cohesion: 0.29
@@ -148,8 +149,8 @@ Cohesion: 0.29
 Nodes (7): Asset Manager Module, Finance Manager Module, ITR Helper Module, Invoice Generator Module, Project Manager Module, Time Tracker Module, Wealth Manager Module
 
 ### Community 9 - "projects.py"
-Cohesion: 0.16
-Nodes (25): create_project(), delete_project(), _format_project_response(), get_project(), list_projects(), list_projects_summary(), AsyncSession, delete (+17 more)
+Cohesion: 0.21
+Nodes (18): create_project(), delete_project(), _format_project_response(), get_project(), list_projects(), list_projects_summary(), AsyncSession, delete (+10 more)
 
 ### Community 10 - "AppShell.tsx"
 Cohesion: 0.09
@@ -260,11 +261,11 @@ Cohesion: 0.09
 Nodes (25): DEFAULT_INVOICE_WIDTHS, InvoiceTable(), InvoiceTableProps, MIN_INVOICE_WIDTHS, SortDirection, SortField, DEFAULT_PROJECT_WIDTHS, MIN_PROJECT_WIDTHS (+17 more)
 
 ### Community 46 - "AuthService"
-Cohesion: 0.24
-Nodes (5): DateTime, SavedCredentials, AuthService, string, StorageService
+Cohesion: 0.17
+Nodes (9): DateTime, BackendSettings, SavedCredentials, TokenResponse, UserDto, UserLoginRequest, AuthService, string (+1 more)
 
 ### Community 47 - "ManagerX.Services"
-Cohesion: 0.27
+Cohesion: 0.29
 Nodes (4): ManagerX.Models, ManagerX.Views, ManagerX, ManagerX.Services
 
 ### Community 48 - "MainWindow"
@@ -291,9 +292,9 @@ Nodes (4): DateTime, TimerService, DispatcherTimer, TimeSpan
 Cohesion: 0.25
 Nodes (5): ClientDto, ProjectCreateRequest, ProjectDto, TaskCreateRequest, TaskDto
 
-### Community 54 - "AuthModels.cs"
-Cohesion: 0.40
-Nodes (4): BackendSettings, TokenResponse, UserDto, UserLoginRequest
+### Community 54 - "project_schemas.py"
+Cohesion: 0.16
+Nodes (15): ChecklistItem, ClientNested, ProjectBase, ProjectCreate, ProjectResponse, BaseModel, field_validator, TaskBase (+7 more)
 
 ### Community 56 - "UserControl"
 Cohesion: 0.07
@@ -304,20 +305,20 @@ Cohesion: 0.17
 Nodes (5): TimeEntryDto, SubmitNewTaskButton, RoutedEventArgs, TrackerView, List
 
 ### Community 58 - "tasks.py"
-Cohesion: 0.18
-Nodes (21): create_task(), delete_task(), _format_task_response(), get_task(), list_tasks(), AsyncSession, delete, get (+13 more)
+Cohesion: 0.23
+Nodes (18): create_task(), delete_task(), _format_task_response(), get_task(), list_tasks(), AsyncSession, delete, get (+10 more)
 
 ### Community 59 - "Base"
 Cohesion: 0.20
 Nodes (13): generate_cuid(), Generate a collision-resistant unique identifier (CUID). Structure: prefix (1)…, to_base36(), Base, set_sqlite_pragma(), Project, datetime, DeclarativeBase (+5 more)
 
 ### Community 60 - ".UpdateTimerUi"
-Cohesion: 0.17
-Nodes (7): NewProjectClientCombo, NewTaskTitleInput, ProjectCombo, TaskCombo, KeyEventArgs, SelectionChangedEventArgs, ComboBox
+Cohesion: 0.21
+Nodes (6): NewProjectClientCombo, NewTaskTitleInput, ProjectCombo, TaskCombo, SelectionChangedEventArgs, ComboBox
 
 ### Community 61 - "Button"
-Cohesion: 0.25
-Nodes (6): NewTaskHeaderButton, ResetButton, StartPauseButton, SubmitNewProjectButton, ViewTodayActivityButton, Button
+Cohesion: 0.33
+Nodes (5): NewTaskHeaderButton, ResetButton, StartPauseButton, ViewTodayActivityButton, Button
 
 ### Community 62 - "clients/page.tsx"
 Cohesion: 0.32
@@ -334,7 +335,7 @@ Nodes (3): AsyncClient, asyncio, test_full_security_and_auth_lifecycle()
 ## Knowledge Gaps
 - **218 isolated node(s):** `Border`, `ScrollViewer`, `Border`, `ContentControl`, `net8.0-windows` (+213 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **11 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **12 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
@@ -343,8 +344,8 @@ _Questions this graph is uniquely positioned to answer:_
   _High betweenness centrality (0.055) - this node is a cross-community bridge._
 - **Why does `MainWindow` connect `MainWindow` to `UserControl`, `UserControl`, `TrackerView`, `ManagerX.Services`?**
   _High betweenness centrality (0.048) - this node is a cross-community bridge._
-- **Why does `TrackerView` connect `TrackerView` to `UserControl`, `UserControl`, `ManagerX.Services`, `MainWindow`, `.UpdateTimerUi`, `Button`, `.StopSaveButton_Click`?**
-  _High betweenness centrality (0.038) - this node is a cross-community bridge._
+- **Why does `TrackerView` connect `TrackerView` to `.SubmitNewProject_Click`, `UserControl`, `UserControl`, `ManagerX.Services`, `MainWindow`, `.UpdateTimerUi`, `Button`, `.StopSaveButton_Click`?**
+  _High betweenness centrality (0.037) - this node is a cross-community bridge._
 - **Are the 13 inferred relationships involving `Base` (e.g. with `SecurityHeadersMiddleware` and `Client`) actually correct?**
   _`Base` has 13 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `Border`, `ScrollViewer`, `Border` to the rest of the system?**

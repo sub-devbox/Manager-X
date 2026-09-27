@@ -53,7 +53,7 @@
   "51": "ApiClient",
   "52": "TimerService",
   "53": "ProjectModels.cs",
-  "54": "AuthModels.cs",
+  "54": "project_schemas.py",
   "55": "ManagerX.Desktop.csproj",
   "56": "UserControl",
   "57": "TrackerView",
@@ -65,5 +65,6 @@
   "63": ".StopSaveButton_Click",
   "64": "Settings",
   "65": "test_auth_api.py",
-  "66": "TimeModels.cs"
+  "66": "TimeModels.cs",
+  "67": ".SubmitNewProject_Click"
 }

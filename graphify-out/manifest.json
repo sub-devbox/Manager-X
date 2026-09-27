@@ -575,8 +575,8 @@
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/MainWindow.xaml.cs": {
-    "mtime": 1790507320.9426882,
-    "ast_hash": "6c8cb6ff62a3efcaaa108dfac72909bd",
+    "mtime": 1790507567.991545,
+    "ast_hash": "b58bce2042aeb5a275b0faadb4a54673",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/ManagerX.Desktop.csproj": {
@@ -655,8 +655,8 @@
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Views/BackendSetupView.xaml.cs": {
-    "mtime": 1790507244.7634873,
-    "ast_hash": "efa082c0b0576549c5dc184d32f36e6f",
+    "mtime": 1790507573.0751925,
+    "ast_hash": "3d1f8848c29832a9ddfec867f221d85f",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/app.png": {

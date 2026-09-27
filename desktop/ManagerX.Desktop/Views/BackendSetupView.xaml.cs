@@ -7,6 +7,8 @@ using System.Windows.Controls;
 using ManagerX.Models;
 using ManagerX.Services;
 using Microsoft.Win32;
+using UserControl = System.Windows.Controls.UserControl;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace ManagerX.Views;
 
