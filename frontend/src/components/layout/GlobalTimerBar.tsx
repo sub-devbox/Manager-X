@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Play, Pause, Square, Clock, ChevronDown, ChevronUp } from "lucide-react";
+import { Play, Pause, Square, Clock, ChevronDown, ChevronUp, GripVertical } from "lucide-react";
 import { ProjectData, TaskData } from "@/types/project";
 import StartTimerModal from "@/components/modules/time/StartTimerModal";
 import { api } from "@/lib/api-client";
@@ -15,6 +15,11 @@ interface TimerState {
   projectTitle: string;
   startTime: string | null;
   description: string;
+}
+
+interface WidgetPosition {
+  x: number;
+  y: number;
 }
 
 export default function GlobalTimerBar() {
@@ -43,6 +48,74 @@ export default function GlobalTimerBar() {
   const [projects, setProjects] = useState<ProjectData[]>([]);
   const [tasks, setTasks] = useState<TaskData[]>([]);
   const timerStateRef = useRef<TimerState>(timerState);
+
+  // Position and dragging state
+  const [position, setPosition] = useState<WidgetPosition | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const posRef = useRef<WidgetPosition | null>(null);
+  const widgetRef = useRef<HTMLDivElement>(null);
+  const dragRef = useRef<{
+    startX: number;
+    startY: number;
+    startPosX: number;
+    startPosY: number;
+    hasMoved: boolean;
+  }>({ startX: 0, startY: 0, startPosX: 0, startPosY: 0, hasMoved: false });
+
+  useEffect(() => {
+    posRef.current = position;
+  }, [position]);
+
+  // Load saved position from localStorage or default to bottom-right
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("mx_timer_position");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (typeof parsed.x === "number" && typeof parsed.y === "number") {
+          const rect = widgetRef.current?.getBoundingClientRect();
+          const width = rect?.width || 300;
+          const height = rect?.height || 48;
+          const clampedX = Math.max(8, Math.min(window.innerWidth - width - 8, parsed.x));
+          const clampedY = Math.max(8, Math.min(window.innerHeight - height - 8, parsed.y));
+          setPosition({ x: clampedX, y: clampedY });
+          return;
+        }
+      }
+    } catch (e) {
+      console.error("Failed to parse timer position from localStorage", e);
+    }
+
+    if (typeof window !== "undefined") {
+      const width = 300;
+      const height = 48;
+      const defaultX = Math.max(8, window.innerWidth - width - 24);
+      const defaultY = Math.max(8, window.innerHeight - height - 20);
+      setPosition({ x: defaultX, y: defaultY });
+    }
+  }, []);
+
+  // Clamp position on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      setPosition((prev) => {
+        if (!prev) return prev;
+        const rect = widgetRef.current?.getBoundingClientRect();
+        const width = rect?.width || 300;
+        const height = rect?.height || 48;
+        const clampedX = Math.max(8, Math.min(window.innerWidth - width - 8, prev.x));
+        const clampedY = Math.max(8, Math.min(window.innerHeight - height - 8, prev.y));
+        if (clampedX !== prev.x || clampedY !== prev.y) {
+          const next = { x: clampedX, y: clampedY };
+          localStorage.setItem("mx_timer_position", JSON.stringify(next));
+          return next;
+        }
+        return prev;
+      });
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     timerStateRef.current = timerState;
@@ -226,6 +299,71 @@ export default function GlobalTimerBar() {
     setTimerState(resetState);
   };
 
+  // Drag handlers
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.button !== 0) return;
+    const target = e.target as HTMLElement;
+    if (target.closest("button") || target.closest("input") || target.closest("select")) {
+      return;
+    }
+
+    const rect = widgetRef.current?.getBoundingClientRect();
+    const currentX = position ? position.x : (rect?.left || Math.max(8, window.innerWidth - (rect?.width || 300) - 24));
+    const currentY = position ? position.y : (rect?.top || Math.max(8, window.innerHeight - (rect?.height || 48) - 20));
+
+    dragRef.current = {
+      startX: e.clientX,
+      startY: e.clientY,
+      startPosX: currentX,
+      startPosY: currentY,
+      hasMoved: false,
+    };
+
+    setIsDragging(true);
+    try {
+      (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    } catch {}
+  };
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDragging) return;
+
+    const dx = e.clientX - dragRef.current.startX;
+    const dy = e.clientY - dragRef.current.startY;
+
+    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+      dragRef.current.hasMoved = true;
+    }
+
+    const rect = widgetRef.current?.getBoundingClientRect();
+    const width = rect?.width || 300;
+    const height = rect?.height || 48;
+
+    const newX = Math.max(8, Math.min(window.innerWidth - width - 8, dragRef.current.startPosX + dx));
+    const newY = Math.max(8, Math.min(window.innerHeight - height - 8, dragRef.current.startPosY + dy));
+
+    setPosition({ x: newX, y: newY });
+  };
+
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDragging) return;
+    setIsDragging(false);
+    try {
+      (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
+    } catch {}
+
+    if (posRef.current) {
+      localStorage.setItem("mx_timer_position", JSON.stringify(posRef.current));
+    }
+  };
+
+  const handleTaskTitleClick = () => {
+    if (dragRef.current.hasMoved) return;
+    if (!timerState.isRunning && !timerState.taskId) {
+      openStartModal();
+    }
+  };
+
   // Listen for remote stop requests (e.g. from TimeTrackerPage)
   useEffect(() => {
     const handleStop = () => {
@@ -237,8 +375,48 @@ export default function GlobalTimerBar() {
 
   return (
     <>
-      <div className="global-timer-bar finance-panel" style={{ zIndex: 60 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+      <div
+        ref={widgetRef}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onPointerCancel={handlePointerUp}
+        className="global-timer-bar finance-panel"
+        style={{
+          zIndex: 60,
+          cursor: isDragging ? "grabbing" : "grab",
+          userSelect: isDragging ? "none" : "auto",
+          touchAction: "none",
+          position: "fixed",
+          ...(position
+            ? {
+                left: `${position.x}px`,
+                top: `${position.y}px`,
+                bottom: "auto",
+                right: "auto",
+              }
+            : {}),
+          transition: isDragging ? "none" : "transform 0.2s ease, opacity 0.2s ease",
+          boxShadow: isDragging
+            ? "0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3)"
+            : undefined,
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          {/* Drag Handle Icon */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              cursor: isDragging ? "grabbing" : "grab",
+              color: "var(--text-dim)",
+              padding: "2px 0",
+            }}
+            title="Drag to reposition timer"
+          >
+            <GripVertical size={14} />
+          </div>
+
           {timerState.isRunning ? (
             <span className="pulse-indicator" />
           ) : (
@@ -249,7 +427,7 @@ export default function GlobalTimerBar() {
 
           {!minimized && (
             <div
-              onClick={!timerState.isRunning && !timerState.taskId ? openStartModal : undefined}
+              onClick={handleTaskTitleClick}
               style={{
                 display: "flex",
                 flexDirection: "column",

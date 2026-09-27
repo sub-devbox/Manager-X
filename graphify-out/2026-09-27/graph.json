@@ -4092,7 +4092,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_clients_page",
       "community": 43,
-      "community_name": "api-client.ts",
+      "community_name": "clients/page.tsx",
       "norm_label": "clients/page.tsx"
     },
     {
@@ -4103,7 +4103,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_clients_page_currencysetting",
       "community": 43,
-      "community_name": "api-client.ts",
+      "community_name": "clients/page.tsx",
       "norm_label": "currencysetting"
     },
     {
@@ -4114,7 +4114,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_clients_page_clientspage",
       "community": 43,
-      "community_name": "api-client.ts",
+      "community_name": "clients/page.tsx",
       "norm_label": "clientspage()"
     },
     {
@@ -4146,8 +4146,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_gateways_page",
-      "community": 43,
-      "community_name": "api-client.ts",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "gateways/page.tsx"
     },
     {
@@ -4157,8 +4157,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "frontend_src_app_gateways_page_gatewayspage",
-      "community": 43,
-      "community_name": "api-client.ts",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "gatewayspage()"
     },
     {
@@ -4267,19 +4267,19 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_project_scheduler_page",
-      "community": 44,
-      "community_name": "projects/page.tsx",
+      "community": 40,
+      "community_name": "api-client.ts",
       "norm_label": "project-scheduler/page.tsx"
     },
     {
       "label": "ProjectSchedulerPage()",
       "file_type": "code",
       "source_file": "frontend/src/app/project-scheduler/page.tsx",
-      "source_location": "L17",
+      "source_location": "L18",
       "_origin": "ast",
       "id": "frontend_src_app_project_scheduler_page_projectschedulerpage",
-      "community": 44,
-      "community_name": "projects/page.tsx",
+      "community": 40,
+      "community_name": "api-client.ts",
       "norm_label": "projectschedulerpage()"
     },
     {
@@ -4289,8 +4289,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_projects_page",
-      "community": 44,
-      "community_name": "projects/page.tsx",
+      "community": 40,
+      "community_name": "api-client.ts",
       "norm_label": "projects/page.tsx"
     },
     {
@@ -4300,8 +4300,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "frontend_src_app_projects_page_projectspage",
-      "community": 44,
-      "community_name": "projects/page.tsx",
+      "community": 40,
+      "community_name": "api-client.ts",
       "norm_label": "projectspage()"
     },
     {
@@ -4312,7 +4312,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_tasks_page",
       "community": 40,
-      "community_name": "tasks/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "tasks/page.tsx"
     },
     {
@@ -4323,7 +4323,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_tasks_page_periodfilter",
       "community": 40,
-      "community_name": "tasks/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "periodfilter"
     },
     {
@@ -4334,7 +4334,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_tasks_page_taskspage",
       "community": 40,
-      "community_name": "tasks/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "taskspage()"
     },
     {
@@ -4477,7 +4477,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_common_searchableclientselect",
       "community": 40,
-      "community_name": "tasks/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "searchableclientselect.tsx"
     },
     {
@@ -4488,7 +4488,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_common_searchableclientselect_clientoption",
       "community": 40,
-      "community_name": "tasks/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "clientoption"
     },
     {
@@ -4499,7 +4499,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_common_searchableclientselect_searchableclientselectprops",
       "community": 40,
-      "community_name": "tasks/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "searchableclientselectprops"
     },
     {
@@ -4510,7 +4510,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_common_searchableclientselect_searchableclientselect",
       "community": 40,
-      "community_name": "tasks/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "searchableclientselect()"
     },
     {
@@ -4520,8 +4520,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_components_common_searchableprojectselect",
-      "community": 44,
-      "community_name": "projects/page.tsx",
+      "community": 40,
+      "community_name": "api-client.ts",
       "norm_label": "searchableprojectselect.tsx"
     },
     {
@@ -4531,8 +4531,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "frontend_src_components_common_searchableprojectselect_projectoption",
-      "community": 44,
-      "community_name": "projects/page.tsx",
+      "community": 40,
+      "community_name": "api-client.ts",
       "norm_label": "projectoption"
     },
     {
@@ -4542,8 +4542,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "frontend_src_components_common_searchableprojectselect_searchableprojectselectprops",
-      "community": 44,
-      "community_name": "projects/page.tsx",
+      "community": 40,
+      "community_name": "api-client.ts",
       "norm_label": "searchableprojectselectprops"
     },
     {
@@ -4553,8 +4553,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "frontend_src_components_common_searchableprojectselect_searchableprojectselect",
-      "community": 44,
-      "community_name": "projects/page.tsx",
+      "community": 40,
+      "community_name": "api-client.ts",
       "norm_label": "searchableprojectselect()"
     },
     {
@@ -4598,7 +4598,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_layout_globaltimerbar",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "globaltimerbar.tsx"
     },
     {
@@ -4609,7 +4609,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_layout_globaltimerbar_timerstate",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "timerstate"
     },
     {
@@ -4619,8 +4619,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "frontend_src_components_layout_globaltimerbar_globaltimerbar",
-      "community": 10,
-      "community_name": "AppShell.tsx",
+      "community": 44,
+      "community_name": "project.ts",
       "norm_label": "globaltimerbar()"
     },
     {
@@ -4630,8 +4630,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_components_layout_header",
-      "community": 43,
-      "community_name": "api-client.ts",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "header.tsx"
     },
     {
@@ -4641,8 +4641,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "frontend_src_components_layout_header_headerprops",
-      "community": 43,
-      "community_name": "api-client.ts",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "headerprops"
     },
     {
@@ -4652,8 +4652,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "frontend_src_components_layout_header_header",
-      "community": 43,
-      "community_name": "api-client.ts",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "header()"
     },
     {
@@ -4697,7 +4697,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_clients_clientmodal",
       "community": 43,
-      "community_name": "api-client.ts",
+      "community_name": "clients/page.tsx",
       "norm_label": "clientmodal.tsx"
     },
     {
@@ -4708,7 +4708,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_clients_clientmodal_clientdata",
       "community": 43,
-      "community_name": "api-client.ts",
+      "community_name": "clients/page.tsx",
       "norm_label": "clientdata"
     },
     {
@@ -4719,7 +4719,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_clients_clientmodal_currencyoption",
       "community": 43,
-      "community_name": "api-client.ts",
+      "community_name": "clients/page.tsx",
       "norm_label": "currencyoption"
     },
     {
@@ -4730,7 +4730,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_clients_clientmodal_clientmodalprops",
       "community": 43,
-      "community_name": "api-client.ts",
+      "community_name": "clients/page.tsx",
       "norm_label": "clientmodalprops"
     },
     {
@@ -4741,7 +4741,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_clients_clientmodal_clientmodal",
       "community": 43,
-      "community_name": "api-client.ts",
+      "community_name": "clients/page.tsx",
       "norm_label": "clientmodal()"
     },
     {
@@ -4917,7 +4917,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectmodal",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectmodal.tsx"
     },
     {
@@ -4928,7 +4928,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectmodal_clientoption",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "clientoption"
     },
     {
@@ -4939,7 +4939,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectmodal_projectmodalprops",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectmodalprops"
     },
     {
@@ -4949,8 +4949,8 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectmodal_projectmodal",
-      "community": 44,
-      "community_name": "projects/page.tsx",
+      "community": 40,
+      "community_name": "api-client.ts",
       "norm_label": "projectmodal()"
     },
     {
@@ -4961,51 +4961,51 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectschedulercalendar",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectschedulercalendar.tsx"
     },
     {
       "label": "ProjectSchedulerCalendarProps",
       "file_type": "code",
       "source_file": "frontend/src/components/modules/projects/ProjectSchedulerCalendar.tsx",
-      "source_location": "L17",
+      "source_location": "L15",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectschedulercalendar_projectschedulercalendarprops",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectschedulercalendarprops"
     },
     {
       "label": "MONTH_NAMES",
       "file_type": "code",
       "source_file": "frontend/src/components/modules/projects/ProjectSchedulerCalendar.tsx",
-      "source_location": "L25",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectschedulercalendar_month_names",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "month_names"
     },
     {
       "label": "WEEKDAY_NAMES",
       "file_type": "code",
       "source_file": "frontend/src/components/modules/projects/ProjectSchedulerCalendar.tsx",
-      "source_location": "L40",
+      "source_location": "L39",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectschedulercalendar_weekday_names",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "weekday_names"
     },
     {
       "label": "ProjectSchedulerCalendar()",
       "file_type": "code",
       "source_file": "frontend/src/components/modules/projects/ProjectSchedulerCalendar.tsx",
-      "source_location": "L42",
+      "source_location": "L41",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectschedulercalendar_projectschedulercalendar",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectschedulercalendar()"
     },
     {
@@ -5027,7 +5027,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable_projecttableprops",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projecttableprops"
     },
     {
@@ -5093,7 +5093,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttasksmodal",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projecttasksmodal.tsx"
     },
     {
@@ -5104,7 +5104,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttasksmodal_projecttasksmodalprops",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projecttasksmodalprops"
     },
     {
@@ -5115,7 +5115,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttasksmodal_projecttasksmodal",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projecttasksmodal()"
     },
     {
@@ -5125,8 +5125,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_taskmodal",
-      "community": 44,
-      "community_name": "projects/page.tsx",
+      "community": 40,
+      "community_name": "api-client.ts",
       "norm_label": "taskmodal.tsx"
     },
     {
@@ -5136,8 +5136,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_taskmodal_taskmodalprops",
-      "community": 44,
-      "community_name": "projects/page.tsx",
+      "community": 40,
+      "community_name": "api-client.ts",
       "norm_label": "taskmodalprops"
     },
     {
@@ -5147,8 +5147,8 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_taskmodal_taskmodal",
-      "community": 44,
-      "community_name": "projects/page.tsx",
+      "community": 40,
+      "community_name": "api-client.ts",
       "norm_label": "taskmodal()"
     },
     {
@@ -5158,8 +5158,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable",
-      "community": 40,
-      "community_name": "tasks/page.tsx",
+      "community": 46,
+      "community_name": "invoices/page.tsx",
       "norm_label": "tasktable.tsx"
     },
     {
@@ -5169,8 +5169,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_tasktableprops",
-      "community": 40,
-      "community_name": "tasks/page.tsx",
+      "community": 46,
+      "community_name": "invoices/page.tsx",
       "norm_label": "tasktableprops"
     },
     {
@@ -5180,8 +5180,8 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_sortfield",
-      "community": 40,
-      "community_name": "tasks/page.tsx",
+      "community": 46,
+      "community_name": "invoices/page.tsx",
       "norm_label": "sortfield"
     },
     {
@@ -5191,8 +5191,8 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_sortdirection",
-      "community": 40,
-      "community_name": "tasks/page.tsx",
+      "community": 46,
+      "community_name": "invoices/page.tsx",
       "norm_label": "sortdirection"
     },
     {
@@ -5202,8 +5202,8 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_default_task_widths",
-      "community": 40,
-      "community_name": "tasks/page.tsx",
+      "community": 46,
+      "community_name": "invoices/page.tsx",
       "norm_label": "default_task_widths"
     },
     {
@@ -5213,8 +5213,8 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_min_task_widths",
-      "community": 40,
-      "community_name": "tasks/page.tsx",
+      "community": 46,
+      "community_name": "invoices/page.tsx",
       "norm_label": "min_task_widths"
     },
     {
@@ -5224,8 +5224,8 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_tasktable",
-      "community": 40,
-      "community_name": "tasks/page.tsx",
+      "community": 46,
+      "community_name": "invoices/page.tsx",
       "norm_label": "tasktable()"
     },
     {
@@ -5313,7 +5313,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_starttimermodal",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "starttimermodal.tsx"
     },
     {
@@ -5324,7 +5324,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_starttimermodal_starttimermodalprops",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "starttimermodalprops"
     },
     {
@@ -5335,7 +5335,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_starttimermodal_starttimermodal",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "starttimermodal()"
     },
     {
@@ -5543,7 +5543,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_lib_api_client",
-      "community": 43,
+      "community": 40,
       "community_name": "api-client.ts",
       "norm_label": "api-client.ts"
     },
@@ -5554,7 +5554,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_lib_api_client_apierror",
-      "community": 43,
+      "community": 40,
       "community_name": "api-client.ts",
       "norm_label": "apierror"
     },
@@ -5565,7 +5565,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "frontend_src_lib_api_client_apierror_constructor",
-      "community": 43,
+      "community": 40,
       "community_name": "api-client.ts",
       "norm_label": ".constructor()"
     },
@@ -5576,7 +5576,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "frontend_src_lib_api_client_requestoptions",
-      "community": 43,
+      "community": 40,
       "community_name": "api-client.ts",
       "norm_label": "requestoptions"
     },
@@ -5587,7 +5587,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "frontend_src_lib_api_client_request",
-      "community": 43,
+      "community": 40,
       "community_name": "api-client.ts",
       "norm_label": "request()"
     },
@@ -5598,7 +5598,7 @@
       "source_location": "L75",
       "_origin": "ast",
       "id": "frontend_src_lib_api_client_api",
-      "community": 43,
+      "community": 40,
       "community_name": "api-client.ts",
       "norm_label": "api"
     },
@@ -5819,7 +5819,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "project.ts"
     },
     {
@@ -5830,7 +5830,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_taskstatus",
       "community": 40,
-      "community_name": "tasks/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "taskstatus"
     },
     {
@@ -5841,7 +5841,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_taskpriority",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "taskpriority"
     },
     {
@@ -5852,7 +5852,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_checklistitem",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "checklistitem"
     },
     {
@@ -5863,7 +5863,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_taskdata",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "taskdata"
     },
     {
@@ -5874,7 +5874,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_projectbillingtype",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectbillingtype"
     },
     {
@@ -5885,7 +5885,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_projectstatus",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectstatus"
     },
     {
@@ -5896,7 +5896,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_projectclientinfo",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectclientinfo"
     },
     {
@@ -5907,7 +5907,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_projectdata",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectdata"
     },
     {
@@ -19764,7 +19764,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/project-scheduler/page.tsx",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_app_project_scheduler_page",
@@ -19937,6 +19937,30 @@
       "_origin": "ast",
       "source": "frontend_src_app_project_scheduler_page",
       "target": "frontend_src_types_project_taskstatus",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/project-scheduler/page.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_app_project_scheduler_page",
+      "target": "frontend_src_types_time",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/project-scheduler/page.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_app_project_scheduler_page",
+      "target": "frontend_src_types_time_timeentrydata",
       "confidence_score": 1.0
     },
     {
@@ -21878,7 +21902,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/projects/ProjectSchedulerCalendar.tsx",
-      "source_location": "L25",
+      "source_location": "L24",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_projects_projectschedulercalendar",
@@ -21889,7 +21913,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/projects/ProjectSchedulerCalendar.tsx",
-      "source_location": "L42",
+      "source_location": "L41",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_projects_projectschedulercalendar",
@@ -21900,7 +21924,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/projects/ProjectSchedulerCalendar.tsx",
-      "source_location": "L17",
+      "source_location": "L15",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_projects_projectschedulercalendar",
@@ -21911,7 +21935,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/projects/ProjectSchedulerCalendar.tsx",
-      "source_location": "L40",
+      "source_location": "L39",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_projects_projectschedulercalendar",
@@ -21971,7 +21995,7 @@
       "context": "field",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/projects/ProjectSchedulerCalendar.tsx",
-      "source_location": "L19",
+      "source_location": "L17",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_projects_projectschedulercalendar_projectschedulercalendarprops",
@@ -21983,7 +22007,7 @@
       "context": "field",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/projects/ProjectSchedulerCalendar.tsx",
-      "source_location": "L18",
+      "source_location": "L16",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_projects_projectschedulercalendar_projectschedulercalendarprops",
@@ -25032,5 +25056,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "01d70b6a860edce3097aba66793eda90ae50936e"
+  "built_at_commit": "ceb5e09fb11792ff256d61b8d07dce26774764da"
 }

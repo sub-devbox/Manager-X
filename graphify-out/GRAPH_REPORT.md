@@ -1,16 +1,16 @@
 # Graph Report - Manager-X  (2026-09-27)
 
 ## Corpus Check
-- 112 files · ~84,075 words
+- 112 files · ~84,686 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 730 nodes · 1464 edges · 47 communities (39 shown, 8 thin omitted)
+- 731 nodes · 1465 edges · 46 communities (38 shown, 8 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 19 edges (avg confidence: 0.56)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `ceb5e09f`
+- Built from commit: `666acbe8`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -56,10 +56,9 @@
 - User
 - api-client.ts
 - FastAPI
+- GatewayModal.tsx
 - clients/page.tsx
-- project.ts
-- time-tracker/page.tsx
-- invoices/page.tsx
+- projects/page.tsx
 - SettingsModal.tsx
 
 ## God Nodes (most connected - your core abstractions)
@@ -89,15 +88,15 @@
 ## Import Cycles
 - None detected.
 
-## Communities (47 total, 8 thin omitted)
+## Communities (46 total, 8 thin omitted)
 
 ### Community 0 - "devDependencies"
 Cohesion: 0.06
 Nodes (32): eslint, eslint-config-next, dependencies, lucide-react, next, react, react-dom, @tanstack/react-query (+24 more)
 
 ### Community 1 - "auth.py"
-Cohesion: 0.08
-Nodes (50): check_auth_status(), get_client_ip(), get_current_user(), get_me(), get_optional_user(), login(), logout(), AsyncSession (+42 more)
+Cohesion: 0.07
+Nodes (53): check_auth_status(), get_client_ip(), get_current_user(), get_me(), get_optional_user(), login(), logout(), AsyncSession (+45 more)
 
 ### Community 2 - "Currency"
 Cohesion: 0.09
@@ -116,8 +115,8 @@ Cohesion: 0.22
 Nodes (8): Boundaries, Intensity, Output, Persistence, Ponytail, Rules, The ladder, When NOT to be lazy
 
 ### Community 6 - "Base"
-Cohesion: 0.09
-Nodes (35): create_time_entry(), delete_time_entry(), _format_time_entry_response(), get_time_entry(), list_time_entries(), AsyncSession, delete, get (+27 more)
+Cohesion: 0.10
+Nodes (34): create_time_entry(), delete_time_entry(), _format_time_entry_response(), get_time_entry(), list_time_entries(), AsyncSession, delete, get (+26 more)
 
 ### Community 7 - "FastAPI ASGI Backend"
 Cohesion: 0.29
@@ -129,11 +128,11 @@ Nodes (7): Asset Manager Module, Finance Manager Module, ITR Helper Module, Invo
 
 ### Community 9 - "projects.py"
 Cohesion: 0.09
-Nodes (49): create_project(), delete_project(), _format_project_response(), get_project(), list_projects(), list_projects_summary(), AsyncSession, delete (+41 more)
+Nodes (47): create_project(), delete_project(), _format_project_response(), get_project(), list_projects(), list_projects_summary(), AsyncSession, delete (+39 more)
 
 ### Community 10 - "AppShell.tsx"
-Cohesion: 0.12
-Nodes (11): OverviewPage(), AppShell(), AppShellProps, Header(), HeaderProps, Sidebar(), SidebarProps, AuthContext (+3 more)
+Cohesion: 0.17
+Nodes (7): OverviewPage(), AppShell(), AppShellProps, GlobalTimerBar(), Sidebar(), SidebarProps, useAuth()
 
 ### Community 11 - "Ponytail"
 Cohesion: 0.22
@@ -208,43 +207,39 @@ Cohesion: 0.29
 Nodes (6): frontend_src_app_globals, metadata, QueryProvider(), AuthProvider(), getQueryClient(), makeQueryClient()
 
 ### Community 38 - "InvoiceModal.tsx"
-Cohesion: 0.12
-Nodes (20): COMMON_CURRENCIES, CurrencyOption, GatewayModal(), GatewayModalProps, InvoiceModal(), InvoiceModalProps, InvoiceTableProps, ClientData (+12 more)
+Cohesion: 0.15
+Nodes (17): InvoiceModal(), InvoiceModalProps, DEFAULT_INVOICE_WIDTHS, InvoiceTableProps, MIN_INVOICE_WIDTHS, SortDirection, SortField, ClientData (+9 more)
 
 ### Community 39 - "User"
 Cohesion: 0.10
 Nodes (41): calculate_next_invoice_number(), create_invoice(), delete_invoice(), download_invoice_pdf(), extract_company_initials(), get_company_profile_dict(), get_invoice(), get_next_invoice_number() (+33 more)
 
 ### Community 40 - "api-client.ts"
-Cohesion: 0.14
-Nodes (14): PeriodFilter, ClientOption, SearchableClientSelect(), SearchableClientSelectProps, ProjectOption, SearchableProjectSelect(), SearchableProjectSelectProps, ProjectModal() (+6 more)
+Cohesion: 0.18
+Nodes (8): Header(), HeaderProps, AuthContext, AuthContextType, AuthUser, api, ApiError, RequestOptions
 
 ### Community 41 - "FastAPI"
 Cohesion: 0.17
 Nodes (10): health_check(), lifespan(), get, Request, SecurityHeadersMiddleware, BaseHTTPMiddleware, contextlib, FastAPI (+2 more)
 
+### Community 42 - "GatewayModal.tsx"
+Cohesion: 0.29
+Nodes (7): COMMON_CURRENCIES, CurrencyOption, GatewayModal(), GatewayModalProps, GatewayCreatePayload, GatewayData, GatewayUpdatePayload
+
 ### Community 43 - "clients/page.tsx"
 Cohesion: 0.32
 Nodes (5): CurrencySetting, ClientData, ClientModal(), ClientModalProps, CurrencyOption
 
-### Community 44 - "project.ts"
-Cohesion: 0.14
-Nodes (20): GlobalTimerBar(), TimerState, ClientOption, ProjectModalProps, MONTH_NAMES, ProjectSchedulerCalendar(), ProjectSchedulerCalendarProps, WEEKDAY_NAMES (+12 more)
-
-### Community 45 - "time-tracker/page.tsx"
-Cohesion: 0.16
-Nodes (16): PeriodFilter, ManualTimeModal(), ManualTimeModalProps, minutesToTime(), timeToMinutes(), toLocalDateStr(), toLocalTimeStr(), DEFAULT_TIME_WIDTHS (+8 more)
-
-### Community 46 - "invoices/page.tsx"
-Cohesion: 0.12
-Nodes (18): DEFAULT_INVOICE_WIDTHS, InvoiceTable(), MIN_INVOICE_WIDTHS, SortDirection, SortField, DEFAULT_PROJECT_WIDTHS, MIN_PROJECT_WIDTHS, ProjectTable() (+10 more)
+### Community 44 - "projects/page.tsx"
+Cohesion: 0.05
+Nodes (61): PeriodFilter, PeriodFilter, ClientOption, SearchableClientSelect(), SearchableClientSelectProps, ProjectOption, SearchableProjectSelect(), SearchableProjectSelectProps (+53 more)
 
 ### Community 47 - "SettingsModal.tsx"
 Cohesion: 0.29
 Nodes (6): BackupInfo, CompanyProfile, Currency, PRESET_COLORS, SettingsModal(), SettingsModalProps
 
 ## Knowledge Gaps
-- **195 isolated node(s):** `eslintConfig`, `candidateEnvPaths`, `nextConfig`, `name`, `version` (+190 more)
+- **196 isolated node(s):** `eslintConfig`, `candidateEnvPaths`, `nextConfig`, `name`, `version` (+191 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **8 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -262,6 +257,6 @@ _Questions this graph is uniquely positioned to answer:_
 - **Are the 2 inferred relationships involving `Currency` (e.g. with `Client` and `Base`) actually correct?**
   _`Currency` has 2 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `eslintConfig`, `candidateEnvPaths`, `nextConfig` to the rest of the system?**
-  _195 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _196 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `devDependencies` be split into smaller, more focused modules?**
   _Cohesion score 0.06060606060606061 - nodes in this community are weakly interconnected._
