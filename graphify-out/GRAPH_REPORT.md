@@ -1,16 +1,16 @@
 # Graph Report - Manager-X  (2026-09-27)
 
 ## Corpus Check
-- 112 files · ~83,613 words
+- 112 files · ~84,075 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 730 nodes · 1462 edges · 47 communities (39 shown, 8 thin omitted)
+- 730 nodes · 1464 edges · 47 communities (39 shown, 8 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 19 edges (avg confidence: 0.56)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `01d70b6a`
+- Built from commit: `ceb5e09f`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -54,10 +54,10 @@
 - layout.tsx
 - InvoiceModal.tsx
 - User
-- tasks/page.tsx
-- FastAPI
 - api-client.ts
-- projects/page.tsx
+- FastAPI
+- clients/page.tsx
+- project.ts
 - time-tracker/page.tsx
 - invoices/page.tsx
 - SettingsModal.tsx
@@ -132,8 +132,8 @@ Cohesion: 0.09
 Nodes (49): create_project(), delete_project(), _format_project_response(), get_project(), list_projects(), list_projects_summary(), AsyncSession, delete (+41 more)
 
 ### Community 10 - "AppShell.tsx"
-Cohesion: 0.14
-Nodes (10): OverviewPage(), AppShell(), AppShellProps, GlobalTimerBar(), Sidebar(), SidebarProps, AuthContext, AuthContextType (+2 more)
+Cohesion: 0.12
+Nodes (11): OverviewPage(), AppShell(), AppShellProps, Header(), HeaderProps, Sidebar(), SidebarProps, AuthContext (+3 more)
 
 ### Community 11 - "Ponytail"
 Cohesion: 0.22
@@ -215,29 +215,29 @@ Nodes (20): COMMON_CURRENCIES, CurrencyOption, GatewayModal(), GatewayModalProps
 Cohesion: 0.10
 Nodes (41): calculate_next_invoice_number(), create_invoice(), delete_invoice(), download_invoice_pdf(), extract_company_initials(), get_company_profile_dict(), get_invoice(), get_next_invoice_number() (+33 more)
 
-### Community 40 - "tasks/page.tsx"
-Cohesion: 0.17
-Nodes (11): PeriodFilter, ClientOption, SearchableClientSelect(), SearchableClientSelectProps, DEFAULT_TASK_WIDTHS, MIN_TASK_WIDTHS, SortDirection, SortField (+3 more)
+### Community 40 - "api-client.ts"
+Cohesion: 0.14
+Nodes (14): PeriodFilter, ClientOption, SearchableClientSelect(), SearchableClientSelectProps, ProjectOption, SearchableProjectSelect(), SearchableProjectSelectProps, ProjectModal() (+6 more)
 
 ### Community 41 - "FastAPI"
 Cohesion: 0.17
 Nodes (10): health_check(), lifespan(), get, Request, SecurityHeadersMiddleware, BaseHTTPMiddleware, contextlib, FastAPI (+2 more)
 
-### Community 43 - "api-client.ts"
-Cohesion: 0.15
-Nodes (10): CurrencySetting, Header(), HeaderProps, ClientData, ClientModal(), ClientModalProps, CurrencyOption, api (+2 more)
+### Community 43 - "clients/page.tsx"
+Cohesion: 0.32
+Nodes (5): CurrencySetting, ClientData, ClientModal(), ClientModalProps, CurrencyOption
 
-### Community 44 - "projects/page.tsx"
-Cohesion: 0.12
-Nodes (25): ProjectOption, SearchableProjectSelect(), SearchableProjectSelectProps, TimerState, ClientOption, ProjectModal(), ProjectModalProps, MONTH_NAMES (+17 more)
+### Community 44 - "project.ts"
+Cohesion: 0.14
+Nodes (20): GlobalTimerBar(), TimerState, ClientOption, ProjectModalProps, MONTH_NAMES, ProjectSchedulerCalendar(), ProjectSchedulerCalendarProps, WEEKDAY_NAMES (+12 more)
 
 ### Community 45 - "time-tracker/page.tsx"
 Cohesion: 0.16
 Nodes (16): PeriodFilter, ManualTimeModal(), ManualTimeModalProps, minutesToTime(), timeToMinutes(), toLocalDateStr(), toLocalTimeStr(), DEFAULT_TIME_WIDTHS (+8 more)
 
 ### Community 46 - "invoices/page.tsx"
-Cohesion: 0.17
-Nodes (12): DEFAULT_INVOICE_WIDTHS, InvoiceTable(), MIN_INVOICE_WIDTHS, SortDirection, SortField, DEFAULT_PROJECT_WIDTHS, MIN_PROJECT_WIDTHS, ProjectTable() (+4 more)
+Cohesion: 0.12
+Nodes (18): DEFAULT_INVOICE_WIDTHS, InvoiceTable(), MIN_INVOICE_WIDTHS, SortDirection, SortField, DEFAULT_PROJECT_WIDTHS, MIN_PROJECT_WIDTHS, ProjectTable() (+10 more)
 
 ### Community 47 - "SettingsModal.tsx"
 Cohesion: 0.29

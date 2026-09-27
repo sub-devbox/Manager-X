@@ -155,8 +155,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/projects/page.tsx": {
-    "mtime": 1790435257.9279962,
-    "ast_hash": "c4b172d438dac8b6537738f6966b460f",
+    "mtime": 1790498512.4069355,
+    "ast_hash": "9816f57cfb438e030cfe0206c0db8c4e",
     "semantic_hash": ""
   },
   "frontend/src/app/time-tracker/page.tsx": {
@@ -190,8 +190,8 @@
     "semantic_hash": ""
   },
   "frontend/src/components/layout/Sidebar.tsx": {
-    "mtime": 1790443384.1039011,
-    "ast_hash": "5a365103411979a3dedddfde0d2240c4",
+    "mtime": 1790496966.0666313,
+    "ast_hash": "c3f59e33c360abc066ef192f5a52f460",
     "semantic_hash": ""
   },
   "frontend/src/components/providers/QueryProvider.tsx": {
@@ -375,13 +375,13 @@
     "semantic_hash": ""
   },
   "frontend/src/components/modules/projects/ProjectModal.tsx": {
-    "mtime": 1790435282.7777772,
-    "ast_hash": "7453523fabf6552cee1f7bd9d853110c",
+    "mtime": 1790498468.5720937,
+    "ast_hash": "ebeeb89f6ffc6560ba0cfd75f86ea1cb",
     "semantic_hash": ""
   },
   "frontend/src/components/modules/projects/TaskModal.tsx": {
-    "mtime": 1790429006.2598786,
-    "ast_hash": "6efdcc34f1360e16566b7d61e0253d2f",
+    "mtime": 1790498407.8562033,
+    "ast_hash": "df17e27ef3cae6badc8858dcc7f6a8db",
     "semantic_hash": ""
   },
   "frontend/src/types/project.ts": {
@@ -390,13 +390,13 @@
     "semantic_hash": ""
   },
   "frontend/src/components/modules/projects/ProjectTable.tsx": {
-    "mtime": 1790435183.92672,
-    "ast_hash": "8aa828348faf456886f68ac9a6983d19",
+    "mtime": 1790498489.5183156,
+    "ast_hash": "ce8bd88f4509ec8e2f9acfd44d1de6cb",
     "semantic_hash": ""
   },
   "frontend/src/components/modules/projects/TaskTable.tsx": {
-    "mtime": 1790429040.0507991,
-    "ast_hash": "de3a053d76260d39119c160ac604f0db",
+    "mtime": 1790498444.520436,
+    "ast_hash": "a72b614781ffdfe80268bb4662ff0def",
     "semantic_hash": ""
   },
   "backend/app/api/v1/endpoints/time_entries.py": {
@@ -435,8 +435,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/tasks/page.tsx": {
-    "mtime": 1790434366.420812,
-    "ast_hash": "15395872a305dfd62d22edc2348555c4",
+    "mtime": 1790494161.236028,
+    "ast_hash": "1d644d56e23227c762bd8f6e91353931",
     "semantic_hash": ""
   },
   "frontend/src/hooks/useResizableColumns.tsx": {
@@ -450,8 +450,8 @@
     "semantic_hash": ""
   },
   "frontend/src/components/modules/projects/ProjectTasksModal.tsx": {
-    "mtime": 1790431652.7478888,
-    "ast_hash": "ba9864a1c4604b6fb3c49054e7ee488d",
+    "mtime": 1790498499.6936255,
+    "ast_hash": "efd109e72273d2fc3c88bd99e518cdaa",
     "semantic_hash": ""
   },
   "backend/app/api/v1/endpoints/invoices.py": {
@@ -547,6 +547,21 @@
   "README.md": {
     "mtime": 1790483906.436476,
     "ast_hash": "4a19acf0e06964e6b753527027439abf",
+    "semantic_hash": ""
+  },
+  "frontend/src/app/project-scheduler/page.tsx": {
+    "mtime": 1790498612.5483453,
+    "ast_hash": "1821e622772a4bbf8224c8fe028071d7",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/common/SearchableProjectSelect.tsx": {
+    "mtime": 1790491594.4026325,
+    "ast_hash": "25d85f6d6940396b9a2ebbb0a0a13bc3",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/modules/projects/ProjectSchedulerCalendar.tsx": {
+    "mtime": 1790498543.4335268,
+    "ast_hash": "36f7b92ac3e808a180e472d3c468d1ff",
     "semantic_hash": ""
   }
 }

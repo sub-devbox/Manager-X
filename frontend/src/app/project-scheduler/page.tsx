@@ -7,6 +7,7 @@ import ProjectSchedulerCalendar from "@/components/modules/projects/ProjectSched
 import SearchableClientSelect from "@/components/common/SearchableClientSelect";
 import { api } from "@/lib/api-client";
 import { ProjectData, TaskData, TaskStatus } from "@/types/project";
+import { TimeEntryData } from "@/types/time";
 import {
   Plus,
   Search,
@@ -17,6 +18,7 @@ import {
 export default function ProjectSchedulerPage() {
   const [projects, setProjects] = useState<ProjectData[]>([]);
   const [tasks, setTasks] = useState<TaskData[]>([]);
+  const [entries, setEntries] = useState<TimeEntryData[]>([]);
   const [clients, setClients] = useState<{ id: string; company_name: string }[]>([]);
   const [loading, setLoading] = useState(true);
   const [actionMsg, setActionMsg] = useState<{ type: "success" | "error"; text: string } | null>(null);
@@ -34,10 +36,11 @@ export default function ProjectSchedulerPage() {
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      const [projData, taskData, clientData] = await Promise.all([
+      const [projData, taskData, clientData, timeData] = await Promise.all([
         api.get<ProjectData[]>("/projects"),
         api.get<TaskData[]>("/tasks"),
         api.get<{ id: string; company_name: string }[]>("/clients"),
+        api.get<TimeEntryData[]>("/time-entries"),
       ]);
 
       const rawProjects = Array.isArray(projData) ? projData : [];
@@ -48,6 +51,7 @@ export default function ProjectSchedulerPage() {
       setProjects(processedProjects);
       setTasks(Array.isArray(taskData) ? taskData : []);
       setClients(Array.isArray(clientData) ? clientData : []);
+      setEntries(Array.isArray(timeData) ? timeData : []);
     } catch (err: any) {
       setActionMsg({ type: "error", text: err.message || "Failed to load project records." });
     } finally {
@@ -74,6 +78,18 @@ export default function ProjectSchedulerPage() {
     return map;
   }, [projects]);
 
+  // Tracked time map by date string YYYY-MM-DD
+  const timeTrackedByDate = useMemo(() => {
+    const map: Record<string, number> = {};
+    for (const entry of entries) {
+      if (!entry.start_time) continue;
+      const d = new Date(entry.start_time);
+      const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+      map[dateStr] = (map[dateStr] || 0) + (entry.duration_seconds || 0);
+    }
+    return map;
+  }, [entries]);
+
   // Task Actions
   const handleOpenNewTask = (defaultDate?: string) => {
     setEditingTask(null);
@@ -93,20 +109,23 @@ export default function ProjectSchedulerPage() {
     setIsTaskModalOpen(true);
   };
 
-  const handleUpdateTaskDueDate = async (taskId: string, newDueDate: string) => {
+  const handleUpdateTaskDueDate = async (taskId: string, newDueDate: string | null) => {
     const task = tasks.find((t) => t.id === taskId);
     const prevDueDate = task?.due_date;
+    const cleanDueDate = newDueDate ? newDueDate : null;
 
     // Optimistic update
     setTasks((prev) =>
-      prev.map((t) => (t.id === taskId ? { ...t, due_date: newDueDate } : t))
+      prev.map((t) => (t.id === taskId ? { ...t, due_date: cleanDueDate } : t))
     );
 
     try {
-      await api.patch(`/tasks/${taskId}`, { due_date: newDueDate });
+      await api.patch(`/tasks/${taskId}`, { due_date: cleanDueDate });
       setActionMsg({
         type: "success",
-        text: `Rescheduled "${task?.title || "Task"}" due date to ${newDueDate}.`,
+        text: cleanDueDate
+          ? `Rescheduled "${task?.title || "Task"}" due date to ${cleanDueDate}.`
+          : `Removed due date for "${task?.title || "Task"}".`,
       });
     } catch (err: any) {
       // Rollback on error
@@ -309,6 +328,7 @@ export default function ProjectSchedulerPage() {
         <ProjectSchedulerCalendar
           tasks={filteredTasks}
           projects={projects}
+          timeTrackedByDate={timeTrackedByDate}
           onUpdateTaskDueDate={handleUpdateTaskDueDate}
           onOpenNewTask={handleOpenNewTask}
           onEditTask={handleOpenEditTask}

@@ -39,10 +39,10 @@
   "37": "layout.tsx",
   "38": "InvoiceModal.tsx",
   "39": "User",
-  "40": "tasks/page.tsx",
+  "40": "api-client.ts",
   "41": "FastAPI",
-  "43": "api-client.ts",
-  "44": "projects/page.tsx",
+  "43": "clients/page.tsx",
+  "44": "project.ts",
   "45": "time-tracker/page.tsx",
   "46": "invoices/page.tsx",
   "47": "SettingsModal.tsx"
