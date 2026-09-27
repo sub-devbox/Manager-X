@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Manager X - Time Tracker" 
-        Icon="app.ico"
+        Icon="app.png"
         Height="720" 
         Width="460" 
         MinHeight="68" 
@@ -46,7 +46,7 @@
 
                         <!-- App Icon & Title -->
                         <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-                            <Image Source="app.ico" Width="16" Height="16" Margin="0,0,8,0" />
+                            <Image Source="app.png" Width="16" Height="16" Margin="0,0,8,0" />
                             <TextBlock Text="Manager X - Time Tracker"
                                        FontSize="12"
                                        FontWeight="SemiBold"
@@ -96,7 +96,7 @@
                 <!-- Startup Loading Overlay -->
                 <Grid Grid.Row="1" x:Name="LoadingOverlay" Background="{StaticResource BgAppBrush}" Visibility="Visible">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Image Source="app.ico" Width="48" Height="48" Margin="0,0,0,16" HorizontalAlignment="Center" />
+                        <Image Source="app.png" Width="48" Height="48" Margin="0,0,0,16" HorizontalAlignment="Center" />
                         <TextBlock Text="MANAGER X" 
                                    FontSize="20" 
                                    FontWeight="Bold" 

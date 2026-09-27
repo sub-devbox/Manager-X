@@ -63,12 +63,21 @@ public partial class MainWindow : Window
                 Visible = true
             };
 
-            var iconPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "app.ico");
-            if (File.Exists(iconPath))
+            try
             {
-                _notifyIcon.Icon = new System.Drawing.Icon(iconPath);
+                var sri = System.Windows.Application.GetResourceStream(new Uri("pack://application:,,,/app.ico"));
+                if (sri != null)
+                {
+                    using var stream = sri.Stream;
+                    _notifyIcon.Icon = new System.Drawing.Icon(stream);
+                }
+                else
+                {
+                    _notifyIcon.Icon = System.Drawing.Icon.ExtractAssociatedIcon(Environment.ProcessPath ?? "") 
+                                       ?? System.Drawing.SystemIcons.Application;
+                }
             }
-            else
+            catch
             {
                 _notifyIcon.Icon = System.Drawing.SystemIcons.Application;
             }
