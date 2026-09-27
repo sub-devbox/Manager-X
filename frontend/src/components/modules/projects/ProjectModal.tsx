@@ -30,6 +30,7 @@ interface ProjectModalProps {
   onDelete?: (project: ProjectData) => Promise<void> | void;
   initialData?: ProjectData | null;
   defaultClientId?: string;
+  defaultEndDate?: string;
   initialName?: string;
   zIndex?: number;
 }
@@ -41,6 +42,7 @@ export default function ProjectModal({
   onDelete,
   initialData,
   defaultClientId,
+  defaultEndDate,
   initialName,
   zIndex = 9999,
 }: ProjectModalProps) {
@@ -113,11 +115,11 @@ export default function ProjectModal({
           budget_amount: "",
           status: "active",
           start_date: new Date().toISOString().split("T")[0],
-          end_date: "",
+          end_date: defaultEndDate || "",
         });
       }
     }
-  }, [isOpen, initialData, defaultClientId, initialName]);
+  }, [isOpen, initialData, defaultClientId, defaultEndDate, initialName]);
 
   const loadClients = async () => {
     setLoadingClients(true);
