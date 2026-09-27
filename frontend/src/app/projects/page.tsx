@@ -6,7 +6,6 @@ import ProjectModal from "@/components/modules/projects/ProjectModal";
 import TaskModal from "@/components/modules/projects/TaskModal";
 import ProjectTable from "@/components/modules/projects/ProjectTable";
 import ProjectTasksModal from "@/components/modules/projects/ProjectTasksModal";
-import ProjectSchedulerCalendar from "@/components/modules/projects/ProjectSchedulerCalendar";
 import SearchableClientSelect from "@/components/common/SearchableClientSelect";
 import { api } from "@/lib/api-client";
 import { ProjectData, TaskData, TaskStatus } from "@/types/project";
@@ -18,8 +17,6 @@ import {
   Search,
   AlertCircle,
   CheckCircle2,
-  Table,
-  Calendar as CalendarIcon,
 } from "lucide-react";
 
 export default function ProjectsPage() {
@@ -37,11 +34,9 @@ export default function ProjectsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [clientFilter, setClientFilter] = useState("all");
 
-  // Modals & View State
-  const [viewMode, setViewMode] = useState<"table" | "calendar">("table");
+  // Modals state
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [editingProject, setEditingProject] = useState<ProjectData | null>(null);
-  const [newProjectDefaultEndDate, setNewProjectDefaultEndDate] = useState<string | undefined>();
 
   // Project Tasks Modal (Clicking on project row)
   const [selectedProjectForTasks, setSelectedProjectForTasks] = useState<ProjectData | null>(null);
@@ -111,43 +106,14 @@ export default function ProjectsPage() {
   }, [entries]);
 
   // Project Actions
-  const handleOpenNewProject = (defaultDate?: string) => {
+  const handleOpenNewProject = () => {
     setEditingProject(null);
-    setNewProjectDefaultEndDate(defaultDate);
     setIsProjectModalOpen(true);
   };
 
   const handleOpenEditProject = (proj: ProjectData) => {
     setEditingProject(proj);
-    setNewProjectDefaultEndDate(undefined);
     setIsProjectModalOpen(true);
-  };
-
-  const handleUpdateProjectDueDate = async (projectId: string, newEndDate: string) => {
-    const proj = projects.find((p) => p.id === projectId);
-    const prevEndDate = proj?.end_date;
-
-    // Optimistic update
-    setProjects((prev) =>
-      prev.map((p) => (p.id === projectId ? { ...p, end_date: newEndDate } : p))
-    );
-
-    try {
-      await api.patch(`/projects/${projectId}`, { end_date: newEndDate });
-      setActionMsg({
-        type: "success",
-        text: `Rescheduled "${proj?.name || "Project"}" due date to ${newEndDate}.`,
-      });
-    } catch (err: any) {
-      // Rollback on error
-      setProjects((prev) =>
-        prev.map((p) => (p.id === projectId ? { ...p, end_date: prevEndDate } : p))
-      );
-      setActionMsg({
-        type: "error",
-        text: err.message || "Failed to update project due date.",
-      });
-    }
   };
 
   const handleDeleteProject = async (proj: ProjectData) => {
@@ -394,65 +360,10 @@ export default function ProjectsPage() {
             </div>
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
-            {/* View Mode Switcher: Table vs Calendar */}
-            <div
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                background: "var(--bg-surface-subtle)",
-                padding: "3px",
-                borderRadius: "var(--radius-sm)",
-                border: "1px solid var(--border-subtle)",
-              }}
-            >
-              <button
-                type="button"
-                onClick={() => setViewMode("table")}
-                style={{
-                  padding: "5px 12px",
-                  fontSize: "12px",
-                  fontWeight: viewMode === "table" ? 600 : 500,
-                  borderRadius: "var(--radius-xs)",
-                  border: "none",
-                  cursor: "pointer",
-                  background: viewMode === "table" ? "var(--bg-surface)" : "transparent",
-                  color: viewMode === "table" ? "var(--accent-blue)" : "var(--text-muted)",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "6px",
-                  transition: "all 0.15s ease",
-                }}
-              >
-                <Table size={13} />
-                <span>Table</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setViewMode("calendar")}
-                style={{
-                  padding: "5px 12px",
-                  fontSize: "12px",
-                  fontWeight: viewMode === "calendar" ? 600 : 500,
-                  borderRadius: "var(--radius-xs)",
-                  border: "none",
-                  cursor: "pointer",
-                  background: viewMode === "calendar" ? "var(--bg-surface)" : "transparent",
-                  color: viewMode === "calendar" ? "var(--accent-blue)" : "var(--text-muted)",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "6px",
-                  transition: "all 0.15s ease",
-                }}
-              >
-                <CalendarIcon size={13} />
-                <span>Calendar Scheduler</span>
-              </button>
-            </div>
-
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <button
               type="button"
-              onClick={() => handleOpenNewProject()}
+              onClick={handleOpenNewProject}
               className="finance-button-primary"
               style={{ height: "36px", padding: "0 16px", gap: "8px", fontWeight: 600, width: "auto" }}
             >
@@ -703,35 +614,21 @@ export default function ProjectsPage() {
           </div>
         </div>
 
-        {/* View Content: Tabular Sheet OR Calendar Scheduler */}
-        {viewMode === "table" ? (
-          <ProjectTable
-            projects={filteredProjects}
-            timeSpentByProject={timeSpentByProject}
-            onSelectProject={(proj) => setSelectedProjectForTasks(proj)}
-            onEditProject={handleOpenEditProject}
-          />
-        ) : (
-          <ProjectSchedulerCalendar
-            projects={filteredProjects}
-            onUpdateProjectDueDate={handleUpdateProjectDueDate}
-            onOpenNewProject={handleOpenNewProject}
-            onEditProject={handleOpenEditProject}
-            onSelectProjectTasks={(proj) => setSelectedProjectForTasks(proj)}
-          />
-        )}
+        {/* View Content: Tabular Projects Sheet */}
+        <ProjectTable
+          projects={filteredProjects}
+          timeSpentByProject={timeSpentByProject}
+          onSelectProject={(proj) => setSelectedProjectForTasks(proj)}
+          onEditProject={handleOpenEditProject}
+        />
 
         {/* Project Edit Modal */}
         <ProjectModal
           isOpen={isProjectModalOpen}
-          onClose={() => {
-            setIsProjectModalOpen(false);
-            setNewProjectDefaultEndDate(undefined);
-          }}
+          onClose={() => setIsProjectModalOpen(false)}
           onSuccess={fetchData}
           onDelete={handleDeleteProject}
           initialData={editingProject}
-          defaultEndDate={newProjectDefaultEndDate}
         />
 
         {/* Clicking on Project Row Opens All Tasks in a Popup Modal */}

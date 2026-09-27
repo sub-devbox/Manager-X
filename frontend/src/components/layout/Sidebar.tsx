@@ -18,6 +18,7 @@ import {
   ChevronLeft,
   ChevronRight,
   CreditCard,
+  CalendarDays,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -43,6 +44,7 @@ export default function Sidebar({
       items: [
         { name: "Clients", href: "/clients", icon: Building2 },
         { name: "Projects", href: "/projects", icon: FolderKanban },
+        { name: "Project Scheduler", href: "/project-scheduler", icon: CalendarDays },
         { name: "Tasks", href: "/tasks", icon: CheckSquare },
         { name: "Time Tracker", href: "/time-tracker", icon: Clock },
         { name: "Invoices", href: "/invoices", icon: FileText },
