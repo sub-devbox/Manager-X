@@ -563,5 +563,85 @@
     "mtime": 1790499350.1501794,
     "ast_hash": "7a6b5d7511e827ae970f105d79b21222",
     "semantic_hash": ""
+  },
+  "desktop/ManagerX.Desktop/App.xaml": {
+    "mtime": 1790501669.5547638,
+    "ast_hash": "b976831e61dd1f62a9cb69594c4103eb",
+    "semantic_hash": ""
+  },
+  "desktop/ManagerX.Desktop/App.xaml.cs": {
+    "mtime": 1790501675.5166392,
+    "ast_hash": "566507956c54db498a44c54f6f1b7766",
+    "semantic_hash": ""
+  },
+  "desktop/ManagerX.Desktop/MainWindow.xaml": {
+    "mtime": 1790501781.1511738,
+    "ast_hash": "175bf229db00258b4fe9d4ed9dd2efb2",
+    "semantic_hash": ""
+  },
+  "desktop/ManagerX.Desktop/MainWindow.xaml.cs": {
+    "mtime": 1790501755.0548165,
+    "ast_hash": "14e0d684daa265f94ec95d675bcbfe17",
+    "semantic_hash": ""
+  },
+  "desktop/ManagerX.Desktop/ManagerX.Desktop.csproj": {
+    "mtime": 1790501579.724397,
+    "ast_hash": "cb8cffad2e75eb6036adabfef66e58da",
+    "semantic_hash": ""
+  },
+  "desktop/ManagerX.Desktop/Models/AuthModels.cs": {
+    "mtime": 1790501589.5621252,
+    "ast_hash": "751015554de39207d850346cb2e05ae1",
+    "semantic_hash": ""
+  },
+  "desktop/ManagerX.Desktop/Models/ProjectModels.cs": {
+    "mtime": 1790501598.217484,
+    "ast_hash": "4b2bfd732198010354b519113e25f295",
+    "semantic_hash": ""
+  },
+  "desktop/ManagerX.Desktop/Models/TimeModels.cs": {
+    "mtime": 1790501605.2135875,
+    "ast_hash": "796ba2cd25562e4af085eb501ef09633",
+    "semantic_hash": ""
+  },
+  "desktop/ManagerX.Desktop/Services/ApiClient.cs": {
+    "mtime": 1790501625.120114,
+    "ast_hash": "bd9aa986e312763d781a44648aea0a40",
+    "semantic_hash": ""
+  },
+  "desktop/ManagerX.Desktop/Services/AuthService.cs": {
+    "mtime": 1790501632.5872896,
+    "ast_hash": "e4a31d3fcd4cdb82d6b450410a11bc64",
+    "semantic_hash": ""
+  },
+  "desktop/ManagerX.Desktop/Services/StorageService.cs": {
+    "mtime": 1790501617.8776538,
+    "ast_hash": "a6b12f87b7bed4693ec9dd9c49abeed6",
+    "semantic_hash": ""
+  },
+  "desktop/ManagerX.Desktop/Services/TimerService.cs": {
+    "mtime": 1790501644.2400353,
+    "ast_hash": "e27ccd1642f8d20ba3c9c412f73ddfe3",
+    "semantic_hash": ""
+  },
+  "desktop/ManagerX.Desktop/Views/LoginView.xaml": {
+    "mtime": 1790501802.2386494,
+    "ast_hash": "734b72bf3e21a9bc46bfadb775693efe",
+    "semantic_hash": ""
+  },
+  "desktop/ManagerX.Desktop/Views/LoginView.xaml.cs": {
+    "mtime": 1790501703.0172422,
+    "ast_hash": "6e27b5b3f09413714a892d558868bfd8",
+    "semantic_hash": ""
+  },
+  "desktop/ManagerX.Desktop/Views/TrackerView.xaml": {
+    "mtime": 1790501824.7223008,
+    "ast_hash": "0735b395dfd60607c4ebf0feeafb2228",
+    "semantic_hash": ""
+  },
+  "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs": {
+    "mtime": 1790501739.5997956,
+    "ast_hash": "0688f90a1556e6af21cc6adba69ca87e",
+    "semantic_hash": ""
   }
 }

@@ -41,9 +41,8 @@
   "39": "User",
   "40": "api-client.ts",
   "41": "FastAPI",
+  "42": "GatewayModal.tsx",
   "43": "clients/page.tsx",
-  "44": "project.ts",
-  "45": "time-tracker/page.tsx",
-  "46": "invoices/page.tsx",
+  "44": "projects/page.tsx",
   "47": "SettingsModal.tsx"
 }

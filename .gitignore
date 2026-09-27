@@ -57,3 +57,14 @@ logs/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# .NET & Desktop
+bin/
+obj/
+*.user
+*.userosscache
+*.sln.docstates
+desktop/publish/
+desktop/**/bin/
+desktop/**/obj/
+

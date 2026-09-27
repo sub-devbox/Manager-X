@@ -1,0 +1,45 @@
+<Window x:Class="ManagerX.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Manager-X Desktop" 
+        Height="680" 
+        Width="440" 
+        MinHeight="500" 
+        MinWidth="380"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource BgAppBrush}">
+    <Grid>
+        <!-- Dynamic View Content -->
+        <ContentControl x:Name="MainContent" />
+
+        <!-- Startup / Loading Overlay -->
+        <Grid x:Name="LoadingOverlay" Background="{StaticResource BgAppBrush}" Visibility="Visible">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="MANAGER-X" 
+                           FontSize="24" 
+                           FontWeight="Bold" 
+                           Foreground="{StaticResource TextMainBrush}" 
+                           HorizontalAlignment="Center" />
+                <TextBlock Text="Desktop Time Tracker" 
+                           FontSize="12" 
+                           Foreground="{StaticResource TextMutedBrush}" 
+                           HorizontalAlignment="Center" 
+                           Margin="0,6,0,24" />
+                <ProgressBar IsIndeterminate="True" 
+                             Width="160" 
+                             Height="4" 
+                             Foreground="{StaticResource AccentBlueBrush}" 
+                             Background="{StaticResource BgSurfaceBrush}" 
+                             BorderThickness="0" />
+                <TextBlock Text="Connecting to backend..." 
+                           FontSize="11" 
+                           Foreground="{StaticResource TextDimBrush}" 
+                           HorizontalAlignment="Center" 
+                           Margin="0,12,0,0" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
