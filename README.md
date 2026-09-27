@@ -22,6 +22,14 @@
 - **Integrated Time Tracker**: Log billable hours with stopwatch timers or manual entries.
 - **Unbilled Task Sync**: Pull tracked billable hours directly into invoice line items without manual recalculations.
 
+### 🖥️ Windows Desktop Application (Time Tracker)
+- **Standalone 64-Bit Desktop Client**: Built with C# and WPF (`net8.0-windows`), running as a single-file self-contained `.exe` with zero runtime dependencies.
+- **Backend Auto-Launcher & Health Check**: Automatically verifies FastAPI backend availability on startup. If offline, provides an interactive UI to auto-detect `backend\venv\Scripts\python.exe`, select ports, and spawn the server in a separate terminal with live readiness polling.
+- **Compact Floating Mini-Widget**: Automatically shrinks into a sleek, draggable floating widget with 80% opacity when timing, keeping active tasks and stopwatch digits accessible without cluttering your workspace.
+- **Accidental Close Protection**: Minimizes to the Windows system tray on `✕`, `Alt+F4`, or taskbar close while a timer is running, preventing accidental tracking loss.
+- **OS Shutdown & Restart Protection**: Leverages native Win32 `ShutdownBlockReasonCreate` and `WM_QUERYENDSESSION` hooks so Windows warns and prevents unexpected system shutdown during active time tracking.
+- **Hardware-Tied Credential Security**: Encrypts stored session tokens locally using Windows Data Protection API (`DPAPI`), ensuring secure silent auto-login.
+
 ### 💳 Payment Gateways & Banking
 - **Gateway Directory**: Manage multiple payment gateways (Razorpay, Stripe, PayPal, SWIFT wire transfers, custom bank accounts).
 - **Auto Instructions**: Automatically embed selected gateway payment instructions directly into generated invoices and downloadable PDFs.
@@ -42,10 +50,11 @@
 
 | Layer | Technologies |
 |---|---|
-| **Frontend** | [Next.js](https://nextjs.org/) 16 (App Router, Turbopack), [React](https://react.dev/) 19, [TypeScript](https://www.typescriptlang.org/), [TanStack Query](https://tanstack.com/query), [Lucide React](https://lucide.dev/), Custom Vanilla CSS Design System |
+| **Web Frontend** | [Next.js](https://nextjs.org/) 16 (App Router, Turbopack), [React](https://react.dev/) 19, [TypeScript](https://www.typescriptlang.org/), [TanStack Query](https://tanstack.com/query), [Lucide React](https://lucide.dev/), Custom Vanilla CSS Design System |
+| **Desktop App** | [C# .NET 8.0](https://dotnet.microsoft.com/), [WPF](https://learn.microsoft.com/en-us/dotnet/desktop/wpf/), Windows DPAPI, Win32 P/Invoke (`user32.dll`), Single-File Self-Contained (`win-x64`) |
 | **Backend** | [FastAPI](https://fastapi.tiangolo.com/), [Python](https://www.python.org/) 3.10+, [SQLAlchemy](https://www.sqlalchemy.org/) 2.0 (Async), [aiosqlite](https://github.com/omnilib/aiosqlite), [Pydantic](https://docs.pydantic.dev/) v2, [ReportLab](https://www.reportlab.com/) |
-| **Security & Auth** | Argon2-cffi, Passlib, PyJWT (HS256), SlowAPI (Rate Limiting) |
-| **Testing** | [Pytest](https://docs.pytest.org/) (AsyncIO), Next.js Build Typechecking |
+| **Security & Auth** | Argon2-cffi, Passlib, PyJWT (HS256), Windows DPAPI, SlowAPI (Rate Limiting) |
+| **Testing** | [Pytest](https://docs.pytest.org/) (AsyncIO), Next.js Build Typechecking, .NET Release Compilation |
 
 ---
 
@@ -72,6 +81,15 @@ Manager-X/
 │   │   └── types/             # Shared TypeScript data models
 │   ├── package.json           # Frontend dependencies & scripts
 │   └── next.config.ts         # Next.js configuration & API rewrites
+├── desktop/
+│   ├── ManagerX.Desktop/      # C# WPF Desktop source project
+│   │   ├── Views/             # LoginView, TrackerView, BackendSetupView
+│   │   ├── Services/          # BackendLauncher, ShutdownPrevention, ApiClient, Storage
+│   │   └── Models/            # Desktop DTOs & DPAPI credentials models
+│   └── publish/               # Standalone 64-bit single-file ManagerX.exe (ignored)
+├── start.bat                  # One-click start for backend + frontend services
+├── stop.bat                   # Cleanly terminate running processes
+├── manager.bat                # Interactive console control menu
 ├── .env.example               # Template environment variables
 ├── .gitignore                 # Safe git ignore rules for secrets and build artifacts
 └── README.md                  # Project documentation
@@ -155,6 +173,40 @@ PROJECT_NAME="Manager X"
    ```
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser. Next.js automatically rewrites API calls (`/api/*`) to the backend running at `http://127.0.0.1:8000`.
+
+---
+
+### 4. Windows Desktop App (Time Tracker)
+
+Manager-X includes a standalone Windows 64-bit desktop client for native time tracking with floating mini-widget mode, system tray integration, and offline backend auto-launching.
+
+#### Running the App:
+- If you have compiled the desktop executable, launch:
+  ```powershell
+  .\desktop\publish\ManagerX.exe
+  ```
+- **Backend Detection**: If the FastAPI backend is not running, the application will display the **Backend Setup & Launcher** screen, auto-detect your `backend\venv\Scripts\python.exe`, and launch the backend in a separate terminal with live readiness polling.
+- **Accidental Close Prevention**: Closing the window (`✕`, `Alt+F4`, or taskbar close) while a timer is active minimizes the app to the Windows notification tray, ensuring no tracked hours are lost.
+- **Windows Shutdown Prevention**: If Windows begins an OS restart or update while tracking, native Windows blocker notifications warn you to stop and save your timer first.
+
+#### Building & Publishing from Source:
+To compile and package the standalone, self-contained 64-bit `.exe` (requires .NET 8.0 SDK):
+```powershell
+dotnet publish desktop/ManagerX.Desktop/ManagerX.Desktop.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true -o desktop/publish
+```
+
+#### Distributing to Non-Developers:
+The resulting `desktop/publish/ManagerX.exe` is **fully self-contained** (~72 MB), containing the embedded .NET runtime and native libraries. To distribute:
+1. Upload `ManagerX.exe` directly to **GitHub Releases** on your repository.
+2. End users can download and double-click to run immediately without needing Git, Python, or the .NET SDK installed.
+
+---
+
+### 5. Control Scripts (Batch)
+For quick workflow management on Windows:
+- **`start.bat`**: Launches both Backend (port 8000) and Frontend (port 3000) in separate console windows.
+- **`stop.bat`**: Stops running servers on ports 8000 and 3000.
+- **`manager.bat`**: Interactive console menu to Start, Stop, or Restart services.
 
 ---
 
