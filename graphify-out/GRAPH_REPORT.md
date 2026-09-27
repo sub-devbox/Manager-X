@@ -1,16 +1,16 @@
 # Graph Report - Manager-X  (2026-09-27)
 
 ## Corpus Check
-- 109 files · ~79,091 words
+- 109 files · ~79,241 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 717 nodes · 1424 edges · 47 communities (39 shown, 8 thin omitted)
+- 720 nodes · 1429 edges · 46 communities (38 shown, 8 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 19 edges (avg confidence: 0.56)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `077ec04c`
+- Built from commit: `dad6a0c7`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -21,10 +21,10 @@
 - settings.py
 - compilerOptions
 - Ponytail
-- time_entries.py
+- Base
 - FastAPI ASGI Backend
 - Finance Manager Module
-- User
+- projects.py
 - AppShell.tsx
 - Ponytail
 - Ponytail Help
@@ -53,13 +53,12 @@
 - gateways.py
 - layout.tsx
 - InvoiceModal.tsx
-- invoices.py
-- build_invoice_pdf
+- User
 - FastAPI
 - api-client.ts
 - projects/page.tsx
-- time-tracker/page.tsx
-- TaskTable.tsx
+- ManualTimeModal.tsx
+- InvoiceTable.tsx
 - SettingsModal.tsx
 
 ## God Nodes (most connected - your core abstractions)
@@ -81,15 +80,15 @@
   backend/app/models/client_model.py → backend/app/core/database.py
 - `PaymentGateway` --uses--> `Base`  [INFERRED]
   backend/app/models/gateway_model.py → backend/app/core/database.py
+- `InvoiceItem` --uses--> `Base`  [INFERRED]
+  backend/app/models/invoice_model.py → backend/app/core/database.py
 - `Project` --uses--> `Base`  [INFERRED]
-  backend/app/models/project_models.py → backend/app/core/database.py
-- `Task` --uses--> `Base`  [INFERRED]
   backend/app/models/project_models.py → backend/app/core/database.py
 
 ## Import Cycles
 - None detected.
 
-## Communities (47 total, 8 thin omitted)
+## Communities (46 total, 8 thin omitted)
 
 ### Community 0 - "devDependencies"
 Cohesion: 0.06
@@ -97,15 +96,15 @@ Nodes (32): eslint, eslint-config-next, dependencies, lucide-react, next, react,
 
 ### Community 1 - "auth.py"
 Cohesion: 0.08
-Nodes (51): check_auth_status(), get_client_ip(), get_current_user(), get_me(), get_optional_user(), login(), logout(), AsyncSession (+43 more)
+Nodes (50): check_auth_status(), get_client_ip(), get_current_user(), get_me(), get_optional_user(), login(), logout(), AsyncSession (+42 more)
 
 ### Community 2 - "Currency"
 Cohesion: 0.09
-Nodes (31): Currency, client(), prepare_database(), AsyncClient, asyncio, test_full_security_and_auth_lifecycle(), AsyncClient, asyncio (+23 more)
+Nodes (32): Currency, client(), prepare_database(), AsyncClient, asyncio, test_full_security_and_auth_lifecycle(), AsyncClient, asyncio (+24 more)
 
 ### Community 3 - "settings.py"
-Cohesion: 0.09
-Nodes (42): add_country(), create_backup_snapshot(), create_currency(), delete_country(), delete_currency(), download_database(), ensure_default_currencies(), _format_size() (+34 more)
+Cohesion: 0.08
+Nodes (45): add_country(), create_backup_snapshot(), create_currency(), delete_country(), delete_currency(), download_database(), ensure_default_currencies(), _format_size() (+37 more)
 
 ### Community 4 - "compilerOptions"
 Cohesion: 0.07
@@ -115,9 +114,9 @@ Nodes (28): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModu
 Cohesion: 0.22
 Nodes (8): Boundaries, Intensity, Output, Persistence, Ponytail, Rules, The ladder, When NOT to be lazy
 
-### Community 6 - "time_entries.py"
-Cohesion: 0.18
-Nodes (20): create_time_entry(), delete_time_entry(), _format_time_entry_response(), get_time_entry(), list_time_entries(), AsyncSession, delete, get (+12 more)
+### Community 6 - "Base"
+Cohesion: 0.09
+Nodes (37): create_time_entry(), delete_time_entry(), _format_time_entry_response(), get_time_entry(), list_time_entries(), AsyncSession, delete, get (+29 more)
 
 ### Community 7 - "FastAPI ASGI Backend"
 Cohesion: 0.29
@@ -127,13 +126,13 @@ Nodes (7): Argon2id Password Security, Brute-Force & Lockout System, FastAPI ASG
 Cohesion: 0.29
 Nodes (7): Asset Manager Module, Finance Manager Module, ITR Helper Module, Invoice Generator Module, Project Manager Module, Time Tracker Module, Wealth Manager Module
 
-### Community 9 - "User"
-Cohesion: 0.10
-Nodes (49): create_project(), delete_project(), _format_project_response(), get_project(), list_projects(), list_projects_summary(), AsyncSession, delete (+41 more)
+### Community 9 - "projects.py"
+Cohesion: 0.09
+Nodes (47): create_project(), delete_project(), _format_project_response(), get_project(), list_projects(), list_projects_summary(), AsyncSession, delete (+39 more)
 
 ### Community 10 - "AppShell.tsx"
 Cohesion: 0.13
-Nodes (11): OverviewPage(), AppShell(), AppShellProps, GlobalTimerBar(), Header(), Sidebar(), SidebarProps, AuthContext (+3 more)
+Nodes (11): OverviewPage(), AppShell(), AppShellProps, Header(), HeaderProps, Sidebar(), SidebarProps, AuthContext (+3 more)
 
 ### Community 11 - "Ponytail"
 Cohesion: 0.22
@@ -200,68 +199,64 @@ Cohesion: 0.10
 Nodes (20): 1. Environment Setup, 2. Backend Setup, 3. Frontend Setup, Backend Tests, 👥 Client Management, Contributing & Development Guidelines, 🛡️ Enterprise-Grade Security, Features (+12 more)
 
 ### Community 36 - "gateways.py"
-Cohesion: 0.18
-Nodes (21): build_gateway_response(), create_gateway(), delete_gateway(), get_gateway(), list_gateways(), AsyncSession, delete, get (+13 more)
+Cohesion: 0.19
+Nodes (20): build_gateway_response(), create_gateway(), delete_gateway(), get_gateway(), list_gateways(), AsyncSession, delete, get (+12 more)
 
 ### Community 37 - "layout.tsx"
 Cohesion: 0.29
 Nodes (6): frontend_src_app_globals, metadata, QueryProvider(), AuthProvider(), getQueryClient(), makeQueryClient()
 
 ### Community 38 - "InvoiceModal.tsx"
-Cohesion: 0.09
-Nodes (27): ClientOption, SearchableClientSelect(), SearchableClientSelectProps, COMMON_CURRENCIES, CurrencyOption, GatewayModal(), GatewayModalProps, InvoiceModal() (+19 more)
+Cohesion: 0.17
+Nodes (15): ClientOption, SearchableClientSelect(), SearchableClientSelectProps, InvoiceModal(), InvoiceModalProps, ClientData, ClientInvoiceSummary, CompanyProfileData (+7 more)
 
-### Community 39 - "invoices.py"
-Cohesion: 0.08
-Nodes (51): calculate_next_invoice_number(), create_invoice(), delete_invoice(), download_invoice_pdf(), extract_company_initials(), get_company_profile_dict(), get_invoice(), get_next_invoice_number() (+43 more)
-
-### Community 40 - "build_invoice_pdf"
-Cohesion: 0.24
-Nodes (6): build_invoice_pdf(), format_money(), PushToBottom, Any, Dynamically absorbs unused vertical space on the current page, pushing target…, Flowable
+### Community 39 - "User"
+Cohesion: 0.10
+Nodes (41): calculate_next_invoice_number(), create_invoice(), delete_invoice(), download_invoice_pdf(), extract_company_initials(), get_company_profile_dict(), get_invoice(), get_next_invoice_number() (+33 more)
 
 ### Community 41 - "FastAPI"
 Cohesion: 0.17
 Nodes (10): health_check(), lifespan(), get, Request, SecurityHeadersMiddleware, BaseHTTPMiddleware, contextlib, FastAPI (+2 more)
 
 ### Community 43 - "api-client.ts"
-Cohesion: 0.16
-Nodes (9): CurrencySetting, HeaderProps, ClientData, ClientModal(), ClientModalProps, CurrencyOption, api, ApiError (+1 more)
+Cohesion: 0.13
+Nodes (15): CurrencySetting, ClientData, ClientModal(), ClientModalProps, CurrencyOption, COMMON_CURRENCIES, CurrencyOption, GatewayModal() (+7 more)
 
 ### Community 44 - "projects/page.tsx"
-Cohesion: 0.15
-Nodes (21): PeriodFilter, TimerState, ClientOption, ProjectModal(), ProjectModalProps, ProjectTasksModal(), ProjectTasksModalProps, ProjectOption (+13 more)
+Cohesion: 0.13
+Nodes (23): PeriodFilter, PeriodFilter, GlobalTimerBar(), TimerState, ClientOption, ProjectModal(), ProjectModalProps, ProjectTasksModal() (+15 more)
 
-### Community 45 - "time-tracker/page.tsx"
-Cohesion: 0.22
-Nodes (11): PeriodFilter, ManualTimeModal(), ManualTimeModalProps, minutesToTime(), timeToMinutes(), toLocalDateStr(), toLocalTimeStr(), TimeEntryTableProps (+3 more)
+### Community 45 - "ManualTimeModal.tsx"
+Cohesion: 0.16
+Nodes (15): ManualTimeModal(), ManualTimeModalProps, minutesToTime(), timeToMinutes(), toLocalDateStr(), toLocalTimeStr(), DEFAULT_TIME_WIDTHS, MIN_TIME_WIDTHS (+7 more)
 
-### Community 46 - "TaskTable.tsx"
+### Community 46 - "InvoiceTable.tsx"
 Cohesion: 0.12
-Nodes (19): InvoiceTable(), DEFAULT_PROJECT_WIDTHS, MIN_PROJECT_WIDTHS, ProjectTable(), ProjectTableProps, SortDirection, SortField, DEFAULT_TASK_WIDTHS (+11 more)
+Nodes (19): DEFAULT_INVOICE_WIDTHS, InvoiceTable(), InvoiceTableProps, MIN_INVOICE_WIDTHS, SortDirection, SortField, DEFAULT_PROJECT_WIDTHS, MIN_PROJECT_WIDTHS (+11 more)
 
 ### Community 47 - "SettingsModal.tsx"
 Cohesion: 0.29
 Nodes (6): BackupInfo, CompanyProfile, Currency, PRESET_COLORS, SettingsModal(), SettingsModalProps
 
 ## Knowledge Gaps
-- **192 isolated node(s):** `eslintConfig`, `nextConfig`, `name`, `version`, `private` (+187 more)
+- **193 isolated node(s):** `eslintConfig`, `candidateEnvPaths`, `nextConfig`, `name`, `version` (+188 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **8 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `User` connect `User` to `auth.py`, `clients.py`, `settings.py`, `gateways.py`, `Currency`, `time_entries.py`, `invoices.py`?**
-  _High betweenness centrality (0.097) - this node is a cross-community bridge._
-- **Why does `Currency` connect `Currency` to `clients.py`, `settings.py`, `invoices.py`?**
+- **Why does `User` connect `User` to `auth.py`, `clients.py`, `settings.py`, `gateways.py`, `Currency`, `Base`, `projects.py`?**
+  _High betweenness centrality (0.094) - this node is a cross-community bridge._
+- **Why does `Currency` connect `Currency` to `clients.py`, `settings.py`, `Base`?**
   _High betweenness centrality (0.025) - this node is a cross-community bridge._
-- **Why does `Base` connect `invoices.py` to `auth.py`, `clients.py`, `Currency`, `gateways.py`, `time_entries.py`, `FastAPI`, `User`?**
+- **Why does `Base` connect `Base` to `auth.py`, `clients.py`, `Currency`, `gateways.py`, `User`, `FastAPI`, `projects.py`?**
   _High betweenness centrality (0.019) - this node is a cross-community bridge._
 - **Are the 13 inferred relationships involving `Base` (e.g. with `SecurityHeadersMiddleware` and `Client`) actually correct?**
   _`Base` has 13 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 2 inferred relationships involving `Currency` (e.g. with `Client` and `Base`) actually correct?**
   _`Currency` has 2 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `eslintConfig`, `nextConfig`, `name` to the rest of the system?**
-  _192 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **What connects `eslintConfig`, `candidateEnvPaths`, `nextConfig` to the rest of the system?**
+  _193 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `devDependencies` be split into smaller, more focused modules?**
   _Cohesion score 0.06060606060606061 - nodes in this community are weakly interconnected._

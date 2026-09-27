@@ -10,9 +10,9 @@
     "semantic_hash": ""
   },
   "backend/app/core/config.py": {
-    "mtime": 1790260053.2006822,
-    "ast_hash": "b27015ff8ce8bbe7f29c8fd8620f0fe7",
-    "semantic_hash": "b27015ff8ce8bbe7f29c8fd8620f0fe7"
+    "mtime": 1790488569.176655,
+    "ast_hash": "d25b6df8ea1839c5a2208bcb08125cfc",
+    "semantic_hash": ""
   },
   "backend/app/core/database.py": {
     "mtime": 1790260063.093161,
@@ -55,8 +55,8 @@
     "semantic_hash": "dfa1f5f6a7037bf39dc510f30b180002"
   },
   "frontend/next.config.ts": {
-    "mtime": 1790481663.6560116,
-    "ast_hash": "096106bf19427677b60ea44907b1510f",
+    "mtime": 1790488546.4705417,
+    "ast_hash": "c5c578904c96d41456c4f6a543de88f9",
     "semantic_hash": ""
   },
   "frontend/package.json": {
