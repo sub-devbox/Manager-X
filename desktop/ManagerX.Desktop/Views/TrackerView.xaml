@@ -26,41 +26,6 @@
             <!-- Scrollable Body -->
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="14">
                 <StackPanel>
-                    <!-- 0. USER ACCOUNT STRIP -->
-                    <Border Background="{StaticResource BgSurfaceSubtleBrush}" 
-                            BorderBrush="{StaticResource BorderSubtleBrush}" 
-                            BorderThickness="1" 
-                            CornerRadius="8" 
-                            Padding="12,8" 
-                            Margin="0,0,0,12">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-
-                            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-                                <Border Width="26" Height="26" CornerRadius="13" Background="#1E3A8A" Margin="0,0,10,0">
-                                    <TextBlock Text="👤" FontSize="11" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                </Border>
-                                <StackPanel VerticalAlignment="Center">
-                                    <TextBlock x:Name="UserGreetingText" Text="Signed in" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource TextMainBrush}" />
-                                    <TextBlock x:Name="UserEmailText" Text="user@example.com" FontSize="10" Foreground="{StaticResource TextDimBrush}" />
-                                </StackPanel>
-                            </StackPanel>
-
-                            <Button Grid.Column="1" 
-                                    x:Name="LogoutButton" 
-                                    Content="Sign Out" 
-                                    FontSize="11" 
-                                    Padding="10,4" 
-                                    Style="{StaticResource DangerOutlineButton}" 
-                                    Cursor="Hand"
-                                    Click="LogoutButton_Click" 
-                                    ToolTip="Log out of Manager X" />
-                        </Grid>
-                    </Border>
-
                     <!-- 1. METRICS HEADER CARDS -->
                     <Grid Margin="0,0,0,12">
                         <Grid.ColumnDefinitions>

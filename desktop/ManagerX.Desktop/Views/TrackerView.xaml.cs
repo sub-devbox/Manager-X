@@ -43,33 +43,8 @@ public partial class TrackerView : UserControl
         App.TimerService.Ticked += OnTimerTicked;
         App.TimerService.StateChanged += OnTimerStateChanged;
 
-        var user = App.AuthService.CurrentUser;
-        if (user != null)
-        {
-            UserGreetingText.Text = !string.IsNullOrWhiteSpace(user.FullName) ? user.FullName : "Signed In";
-            UserEmailText.Text = user.Email;
-        }
-
         UpdateTimerUi(App.TimerService.ElapsedSeconds, App.TimerService.IsRunning);
         _ = LoadInitialDataAsync();
-    }
-
-    private async void LogoutButton_Click(object sender, RoutedEventArgs e)
-    {
-        if (App.TimerService.IsRunning || App.TimerService.ElapsedSeconds > 0)
-        {
-            var res = MessageBox.Show(
-                "A timer is currently active. Logging out will stop and reset the timer without saving.\n\nDo you want to log out?",
-                "Confirm Sign Out",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Warning);
-
-            if (res != MessageBoxResult.Yes) return;
-
-            App.TimerService.Reset();
-        }
-
-        await App.AuthService.LogoutAsync();
     }
 
     private void TrackerView_Unloaded(object sender, RoutedEventArgs e)
