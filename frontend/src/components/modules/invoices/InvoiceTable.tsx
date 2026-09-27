@@ -16,7 +16,6 @@ import {
   FileText,
   DollarSign,
   Download,
-  CheckCircle2,
   RotateCcw,
   AlertCircle,
   X,
@@ -595,7 +594,7 @@ export default function InvoiceTable({
                       style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}
                       onClick={(e) => e.stopPropagation()}
                     >
-                      {/* Paid Button */}
+                      {/* Paid / Undo Paid Action */}
                       {inv.status !== "paid" ? (
                         <button
                           type="button"
@@ -616,32 +615,6 @@ export default function InvoiceTable({
                           <span>Paid</span>
                         </button>
                       ) : (
-                        <button
-                          type="button"
-                          onClick={() => handleOpenPayModal(inv)}
-                          className="finance-button-secondary"
-                          style={{
-                            padding: "3px 7px",
-                            fontSize: "10.5px",
-                            fontWeight: 600,
-                            color: "var(--accent-emerald)",
-                            borderColor: "rgba(16, 185, 129, 0.35)",
-                            background: "rgba(16, 185, 129, 0.15)",
-                            gap: "3px",
-                          }}
-                          title={
-                            inv.received_amount_inr
-                              ? `Paid: ₹${inv.received_amount_inr.toLocaleString()} on ${inv.payment_date || ""} (Click to edit payment)`
-                              : "Paid (Click to edit payment)"
-                          }
-                        >
-                          <CheckCircle2 size={11} />
-                          <span>Paid</span>
-                        </button>
-                      )}
-
-                      {/* Undo Paid Button */}
-                      {inv.status === "paid" && (
                         <button
                           type="button"
                           onClick={() => handleUndoPaid(inv)}

@@ -55,8 +55,8 @@
     "semantic_hash": "dfa1f5f6a7037bf39dc510f30b180002"
   },
   "frontend/next.config.ts": {
-    "mtime": 1790401395.7626483,
-    "ast_hash": "b559228161aeccd5b0d99e179408da80",
+    "mtime": 1790481663.6560116,
+    "ast_hash": "096106bf19427677b60ea44907b1510f",
     "semantic_hash": ""
   },
   "frontend/package.json": {
@@ -320,8 +320,8 @@
     "semantic_hash": ""
   },
   "backend/app/api/v1/endpoints/clients.py": {
-    "mtime": 1790404646.019386,
-    "ast_hash": "625a299534e4d81e2a3cef82a7cb9015",
+    "mtime": 1790444857.7337732,
+    "ast_hash": "1581e018fce69217a727b8ebd278be87",
     "semantic_hash": ""
   },
   "backend/app/models/client_model.py": {
@@ -330,23 +330,23 @@
     "semantic_hash": ""
   },
   "backend/app/schemas/client_schemas.py": {
-    "mtime": 1790404721.1045575,
-    "ast_hash": "10b0bc436e913384d7817626f1bfe60a",
+    "mtime": 1790444831.9777143,
+    "ast_hash": "3ff36202166f15c1c6fe7b37cf275e68",
     "semantic_hash": ""
   },
   "backend/tests/test_clients_api.py": {
-    "mtime": 1790404701.6864784,
-    "ast_hash": "81527779bc9c5296c2f1bf33c4b7e0f7",
+    "mtime": 1790444885.1647375,
+    "ast_hash": "aef2e12dbdb3e27a613879000bee227f",
     "semantic_hash": ""
   },
   "frontend/src/app/clients/page.tsx": {
-    "mtime": 1790404760.8186388,
-    "ast_hash": "fd73b2bc5a0fb137ca7fad937d9e9107",
+    "mtime": 1790445654.8469405,
+    "ast_hash": "ba88cf071bec51e04aebc10c6120cde0",
     "semantic_hash": ""
   },
   "frontend/src/components/modules/clients/ClientModal.tsx": {
-    "mtime": 1790407755.5786388,
-    "ast_hash": "80c56bbce1d2e02a7db59d95956a4175",
+    "mtime": 1790445617.122821,
+    "ast_hash": "05bbace57465970c666c382c54963ef1",
     "semantic_hash": ""
   },
   "backend/app/api/v1/endpoints/projects.py": {
@@ -455,8 +455,8 @@
     "semantic_hash": ""
   },
   "backend/app/api/v1/endpoints/invoices.py": {
-    "mtime": 1790444440.4354792,
-    "ast_hash": "405c48a20bfe53502999a37f5db33f33",
+    "mtime": 1790481937.6263082,
+    "ast_hash": "f0d74407facf859a2523100680ca8897",
     "semantic_hash": ""
   },
   "backend/app/models/invoice_model.py": {
@@ -470,23 +470,23 @@
     "semantic_hash": ""
   },
   "backend/tests/test_invoices_api.py": {
-    "mtime": 1790442989.7353568,
-    "ast_hash": "f258a9658e3d2b330f86fd525bf9ffcc",
+    "mtime": 1790481921.227106,
+    "ast_hash": "7249f92e6135e720afe5f65674a7bfe9",
     "semantic_hash": ""
   },
   "frontend/src/components/modules/invoices/InvoiceModal.tsx": {
-    "mtime": 1790443907.9976165,
-    "ast_hash": "0eb099218884ab4f0d1cf6e2d2a61923",
+    "mtime": 1790445406.8267179,
+    "ast_hash": "c04d1f3eab356aa34eaafc609a3db780",
     "semantic_hash": ""
   },
   "frontend/src/components/modules/invoices/InvoiceTable.tsx": {
-    "mtime": 1790442754.1197236,
-    "ast_hash": "71722fb4e3d032238568b897d40b30cd",
+    "mtime": 1790482070.8185532,
+    "ast_hash": "dcd699ce5f6562aa8f3737fd412f95ce",
     "semantic_hash": ""
   },
   "frontend/src/types/client.ts": {
-    "mtime": 1790437667.4355237,
-    "ast_hash": "c2e0567ee2a6d488b35733fc0999c51b",
+    "mtime": 1790444904.8476822,
+    "ast_hash": "bf7b95d9e237a4dfc27e4dad53461329",
     "semantic_hash": ""
   },
   "frontend/src/types/invoice.ts": {
@@ -495,8 +495,8 @@
     "semantic_hash": ""
   },
   "backend/app/services/invoice_pdf.py": {
-    "mtime": 1790442517.4584658,
-    "ast_hash": "52858ec3884140724d0b189616a61579",
+    "mtime": 1790481555.7334535,
+    "ast_hash": "5327ef98cc21f235c4b5101e1e98f69e",
     "semantic_hash": ""
   },
   "backend/app/api/v1/endpoints/gateways.py": {

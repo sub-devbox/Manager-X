@@ -480,8 +480,8 @@
     "semantic_hash": ""
   },
   "frontend/src/components/modules/invoices/InvoiceTable.tsx": {
-    "mtime": 1790482070.8185532,
-    "ast_hash": "dcd699ce5f6562aa8f3737fd412f95ce",
+    "mtime": 1790482297.922547,
+    "ast_hash": "1d4232a5b4addc7a27ff2b3ab8279805",
     "semantic_hash": ""
   },
   "frontend/src/types/client.ts": {

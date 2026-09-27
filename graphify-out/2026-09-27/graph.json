@@ -257,6 +257,39 @@
       "norm_label": "clients.py"
     },
     {
+      "label": "get_client_aggregates()",
+      "file_type": "code",
+      "source_file": "backend/app/api/v1/endpoints/clients.py",
+      "source_location": "L22",
+      "_origin": "ast",
+      "id": "backend_app_api_v1_endpoints_clients_get_client_aggregates",
+      "community": 34,
+      "community_name": "clients.py",
+      "norm_label": "get_client_aggregates()"
+    },
+    {
+      "label": "AsyncSession",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "backend_app_api_v1_endpoints_clients_py_asyncsession",
+      "community": 34,
+      "community_name": "clients.py",
+      "norm_label": "asyncsession"
+    },
+    {
+      "label": "build_client_response()",
+      "file_type": "code",
+      "source_file": "backend/app/api/v1/endpoints/clients.py",
+      "source_location": "L44",
+      "_origin": "ast",
+      "id": "backend_app_api_v1_endpoints_clients_build_client_response",
+      "community": 34,
+      "community_name": "clients.py",
+      "norm_label": "build_client_response()"
+    },
+    {
       "label": "get",
       "file_type": "code",
       "source_file": "",
@@ -271,7 +304,7 @@
       "label": "list_clients()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L21",
+      "source_location": "L52",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_list_clients",
       "community": 34,
@@ -279,21 +312,10 @@
       "norm_label": "list_clients()"
     },
     {
-      "label": "AsyncSession",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "backend_app_api_v1_endpoints_clients_py_asyncsession",
-      "community": 34,
-      "community_name": "clients.py",
-      "norm_label": "asyncsession"
-    },
-    {
       "label": "list_clients_summary()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L47",
+      "source_location": "L111",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_list_clients_summary",
       "community": 34,
@@ -315,7 +337,7 @@
       "label": "create_client()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L57",
+      "source_location": "L122",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_create_client",
       "community": 34,
@@ -326,7 +348,7 @@
       "label": "get_client()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L83",
+      "source_location": "L149",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_get_client",
       "community": 34,
@@ -348,7 +370,7 @@
       "label": "update_client()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L99",
+      "source_location": "L167",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_update_client",
       "community": 34,
@@ -370,7 +392,7 @@
       "label": "toggle_client_status()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L134",
+      "source_location": "L204",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_toggle_client_status",
       "community": 34,
@@ -392,12 +414,23 @@
       "label": "delete_client()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L154",
+      "source_location": "L225",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_clients_delete_client",
       "community": 34,
       "community_name": "clients.py",
       "norm_label": "delete_client()"
+    },
+    {
+      "label": "Helper to auto-calculate incoming amounts and equivalent INR from paid invoices\u2026",
+      "file_type": "rationale",
+      "source_file": "backend/app/api/v1/endpoints/clients.py",
+      "source_location": "L23",
+      "_origin": "ast",
+      "id": "backend_app_api_v1_endpoints_clients_rationale_23",
+      "community": 34,
+      "community_name": "clients.py",
+      "norm_label": "helper to auto-calculate incoming amounts and equivalent inr from paid invoices..."
     },
     {
       "label": "gateways.py",
@@ -572,18 +605,18 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "invoices.py"
     },
     {
       "label": "get_company_profile_dict()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L29",
+      "source_location": "L30",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_get_company_profile_dict",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "get_company_profile_dict()"
     },
     {
@@ -594,7 +627,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_py_asyncsession",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "asyncsession"
     },
     {
@@ -605,29 +638,29 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_py_any",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "any"
     },
     {
       "label": "extract_company_initials()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L40",
+      "source_location": "L41",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_extract_company_initials",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "extract_company_initials()"
     },
     {
       "label": "get_next_invoice_number()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L47",
+      "source_location": "L48",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_get_next_invoice_number",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "get_next_invoice_number()"
     },
     {
@@ -638,40 +671,40 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_py_get",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "get"
     },
     {
       "label": "calculate_next_invoice_number()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L84",
+      "source_location": "L85",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_calculate_next_invoice_number",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "calculate_next_invoice_number()"
     },
     {
       "label": "get_unbilled_tasks()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L94",
+      "source_location": "L95",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_get_unbilled_tasks",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "get_unbilled_tasks()"
     },
     {
       "label": "list_invoices()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L183",
+      "source_location": "L184",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_list_invoices",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "list_invoices()"
     },
     {
@@ -682,29 +715,29 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_py_post",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "post"
     },
     {
       "label": "create_invoice()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L205",
+      "source_location": "L206",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_create_invoice",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "create_invoice()"
     },
     {
       "label": "get_invoice()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L335",
+      "source_location": "L336",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_get_invoice",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "get_invoice()"
     },
     {
@@ -715,40 +748,51 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_py_put",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "put"
     },
     {
       "label": "update_invoice()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L352",
+      "source_location": "L353",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_update_invoice",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "update_invoice()"
     },
     {
       "label": "record_invoice_payment()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L528",
+      "source_location": "L529",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_record_invoice_payment",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "record_invoice_payment()"
+    },
+    {
+      "label": "undo_invoice_payment()",
+      "file_type": "code",
+      "source_file": "backend/app/api/v1/endpoints/invoices.py",
+      "source_location": "L575",
+      "_origin": "ast",
+      "id": "backend_app_api_v1_endpoints_invoices_undo_invoice_payment",
+      "community": 39,
+      "community_name": "invoices.py",
+      "norm_label": "undo_invoice_payment()"
     },
     {
       "label": "reconcile_invoice()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L574",
+      "source_location": "L615",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_reconcile_invoice",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "reconcile_invoice()"
     },
     {
@@ -759,40 +803,40 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_py_delete",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "delete"
     },
     {
       "label": "delete_invoice()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L608",
+      "source_location": "L649",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_delete_invoice",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "delete_invoice()"
     },
     {
       "label": "download_invoice_pdf()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L631",
+      "source_location": "L672",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_download_invoice_pdf",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "download_invoice_pdf()"
     },
     {
       "label": "render_custom_invoice_pdf()",
       "file_type": "code",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L705",
+      "source_location": "L747",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_render_custom_invoice_pdf",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "render_custom_invoice_pdf()"
     },
     {
@@ -803,7 +847,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "projects.py"
     },
     {
@@ -814,7 +858,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_format_project_response",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "_format_project_response()"
     },
     {
@@ -825,7 +869,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_py_get",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "get"
     },
     {
@@ -836,7 +880,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_list_projects",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "list_projects()"
     },
     {
@@ -847,7 +891,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_py_asyncsession",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "asyncsession"
     },
     {
@@ -858,7 +902,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_list_projects_summary",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "list_projects_summary()"
     },
     {
@@ -869,7 +913,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_py_post",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "post"
     },
     {
@@ -880,7 +924,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_create_project",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "create_project()"
     },
     {
@@ -891,7 +935,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_get_project",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "get_project()"
     },
     {
@@ -902,7 +946,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_py_put",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "put"
     },
     {
@@ -913,7 +957,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_py_patch",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "patch"
     },
     {
@@ -924,7 +968,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_update_project",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "update_project()"
     },
     {
@@ -935,7 +979,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_update_project_status",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "update_project_status()"
     },
     {
@@ -946,7 +990,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_py_delete",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "delete"
     },
     {
@@ -957,7 +1001,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_delete_project",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "delete_project()"
     },
     {
@@ -1276,7 +1320,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "tasks.py"
     },
     {
@@ -1287,7 +1331,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_format_task_response",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "_format_task_response()"
     },
     {
@@ -1298,7 +1342,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_sync_project_status",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "_sync_project_status()"
     },
     {
@@ -1309,7 +1353,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_py_asyncsession",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "asyncsession"
     },
     {
@@ -1320,7 +1364,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_py_get",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "get"
     },
     {
@@ -1331,7 +1375,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_list_tasks",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "list_tasks()"
     },
     {
@@ -1342,7 +1386,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_py_post",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "post"
     },
     {
@@ -1353,7 +1397,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_create_task",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "create_task()"
     },
     {
@@ -1364,7 +1408,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_get_task",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "get_task()"
     },
     {
@@ -1375,7 +1419,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_py_put",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "put"
     },
     {
@@ -1386,7 +1430,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_py_patch",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "patch"
     },
     {
@@ -1397,7 +1441,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_update_task",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "update_task()"
     },
     {
@@ -1408,7 +1452,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_update_task_status",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "update_task_status()"
     },
     {
@@ -1419,7 +1463,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_py_delete",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "delete"
     },
     {
@@ -1430,7 +1474,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_delete_task",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "delete_task()"
     },
     {
@@ -1628,7 +1672,7 @@
       "_origin": "ast",
       "id": "backend_app_core_cuid",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "cuid.py"
     },
     {
@@ -1639,7 +1683,7 @@
       "_origin": "ast",
       "id": "backend_app_core_cuid_to_base36",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "to_base36()"
     },
     {
@@ -1650,7 +1694,7 @@
       "_origin": "ast",
       "id": "backend_app_core_cuid_generate_cuid",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "generate_cuid()"
     },
     {
@@ -1661,7 +1705,7 @@
       "_origin": "ast",
       "id": "backend_app_core_cuid_rationale_17",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "generate a collision-resistant unique identifier (cuid). structure: prefix (1)..."
     },
     {
@@ -1672,7 +1716,7 @@
       "_origin": "ast",
       "id": "backend_app_core_database",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "database.py"
     },
     {
@@ -1683,7 +1727,7 @@
       "_origin": "ast",
       "id": "listens_for",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "listens_for"
     },
     {
@@ -1694,7 +1738,7 @@
       "_origin": "ast",
       "id": "backend_app_core_database_set_sqlite_pragma",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "set_sqlite_pragma()"
     },
     {
@@ -1705,7 +1749,7 @@
       "_origin": "ast",
       "id": "backend_app_core_database_base",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "base"
     },
     {
@@ -1716,7 +1760,7 @@
       "_origin": "ast",
       "id": "declarativebase",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "declarativebase"
     },
     {
@@ -1727,7 +1771,7 @@
       "_origin": "ast",
       "id": "backend_app_core_database_get_db",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "get_db()"
     },
     {
@@ -1738,7 +1782,7 @@
       "_origin": "ast",
       "id": "backend_app_core_database_py_asyncsession",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "asyncsession"
     },
     {
@@ -2024,7 +2068,7 @@
       "_origin": "ast",
       "id": "backend_app_models_client_model",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "client_model.py"
     },
     {
@@ -2034,8 +2078,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "backend_app_models_client_model_client",
-      "community": 39,
-      "community_name": "User",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "client"
     },
     {
@@ -2046,7 +2090,7 @@
       "_origin": "ast",
       "id": "backend_app_models_gateway_model",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "gateway_model.py"
     },
     {
@@ -2068,7 +2112,7 @@
       "_origin": "ast",
       "id": "backend_app_models_invoice_model",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "invoice_model.py"
     },
     {
@@ -2079,7 +2123,7 @@
       "_origin": "ast",
       "id": "backend_app_models_invoice_model_invoice",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "invoice"
     },
     {
@@ -2090,7 +2134,7 @@
       "_origin": "ast",
       "id": "backend_app_models_invoice_model_invoiceitem",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "invoiceitem"
     },
     {
@@ -2101,7 +2145,7 @@
       "_origin": "ast",
       "id": "backend_app_models_project_models",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "project_models.py"
     },
     {
@@ -2112,7 +2156,7 @@
       "_origin": "ast",
       "id": "backend_app_models_project_models_project",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "project"
     },
     {
@@ -2123,7 +2167,7 @@
       "_origin": "ast",
       "id": "backend_app_models_project_models_task",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "task"
     },
     {
@@ -2145,7 +2189,7 @@
       "_origin": "ast",
       "id": "backend_app_models_settings_models",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "settings_models.py"
     },
     {
@@ -2156,7 +2200,7 @@
       "_origin": "ast",
       "id": "backend_app_models_settings_models_systemsetting",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "systemsetting"
     },
     {
@@ -2177,8 +2221,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_models_user_models",
-      "community": 1,
-      "community_name": "auth.py",
+      "community": 39,
+      "community_name": "invoices.py",
       "norm_label": "user_models.py"
     },
     {
@@ -2188,8 +2232,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "backend_app_models_user_models_generate_uuid",
-      "community": 1,
-      "community_name": "auth.py",
+      "community": 39,
+      "community_name": "invoices.py",
       "norm_label": "generate_uuid()"
     },
     {
@@ -2199,8 +2243,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "backend_app_models_user_models_utc_now",
-      "community": 1,
-      "community_name": "auth.py",
+      "community": 39,
+      "community_name": "invoices.py",
       "norm_label": "utc_now()"
     },
     {
@@ -2210,8 +2254,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_models_user_models_py_datetime",
-      "community": 1,
-      "community_name": "auth.py",
+      "community": 39,
+      "community_name": "invoices.py",
       "norm_label": "datetime"
     },
     {
@@ -2221,7 +2265,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "backend_app_models_user_models_user",
-      "community": 39,
+      "community": 9,
       "community_name": "User",
       "norm_label": "user"
     },
@@ -2232,8 +2276,8 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "backend_app_models_user_models_usersession",
-      "community": 1,
-      "community_name": "auth.py",
+      "community": 39,
+      "community_name": "invoices.py",
       "norm_label": "usersession"
     },
     {
@@ -2416,7 +2460,7 @@
       "label": "ClientSummary",
       "file_type": "code",
       "source_file": "backend/app/schemas/client_schemas.py",
-      "source_location": "L60",
+      "source_location": "L62",
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_clientsummary",
       "community": 34,
@@ -2497,7 +2541,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "invoice_schemas.py"
     },
     {
@@ -2508,7 +2552,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoiceitembase",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "invoiceitembase"
     },
     {
@@ -2519,7 +2563,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_py_basemodel",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "basemodel"
     },
     {
@@ -2530,7 +2574,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoiceitemcreate",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "invoiceitemcreate"
     },
     {
@@ -2541,7 +2585,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoiceitemresponse",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "invoiceitemresponse"
     },
     {
@@ -2552,7 +2596,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_clientsummary",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "clientsummary"
     },
     {
@@ -2563,7 +2607,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoicebase",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "invoicebase"
     },
     {
@@ -2574,7 +2618,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoicecreate",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "invoicecreate"
     },
     {
@@ -2585,7 +2629,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoiceupdate",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "invoiceupdate"
     },
     {
@@ -2596,7 +2640,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_recordpaymentrequest",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "recordpaymentrequest"
     },
     {
@@ -2607,7 +2651,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_reconcilerequest",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "reconcilerequest"
     },
     {
@@ -2618,7 +2662,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoiceresponse",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "invoiceresponse"
     },
     {
@@ -2629,7 +2673,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_unbilledtaskout",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "norm_label": "unbilledtaskout"
     },
     {
@@ -2640,7 +2684,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "project_schemas.py"
     },
     {
@@ -2651,7 +2695,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_checklistitem",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "checklistitem"
     },
     {
@@ -2662,7 +2706,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_py_basemodel",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "basemodel"
     },
     {
@@ -2673,7 +2717,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_taskbase",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "taskbase"
     },
     {
@@ -2684,7 +2728,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_py_field_validator",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "field_validator"
     },
     {
@@ -2695,7 +2739,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_taskbase_ensure_checklist",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": ".ensure_checklist()"
     },
     {
@@ -2706,7 +2750,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_taskcreate",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "taskcreate"
     },
     {
@@ -2717,7 +2761,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_taskupdate",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "taskupdate"
     },
     {
@@ -2728,7 +2772,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_taskstatusupdate",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "taskstatusupdate"
     },
     {
@@ -2739,7 +2783,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_taskresponse",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "taskresponse"
     },
     {
@@ -2750,7 +2794,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_tasksummary",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "tasksummary"
     },
     {
@@ -2761,7 +2805,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_clientnested",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "clientnested"
     },
     {
@@ -2772,7 +2816,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_projectbase",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "projectbase"
     },
     {
@@ -2783,7 +2827,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_projectcreate",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "projectcreate"
     },
     {
@@ -2794,7 +2838,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_projectupdate",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "projectupdate"
     },
     {
@@ -2805,7 +2849,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_projectstatusupdate",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "projectstatusupdate"
     },
     {
@@ -2816,7 +2860,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_projectresponse",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "projectresponse"
     },
     {
@@ -2827,7 +2871,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_projectsummary",
       "community": 9,
-      "community_name": "projects.py",
+      "community_name": "User",
       "norm_label": "projectsummary"
     },
     {
@@ -3035,8 +3079,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf",
-      "community": 40,
-      "community_name": "build_invoice_pdf",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": "invoice_pdf.py"
     },
     {
@@ -3046,8 +3090,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_pushtobottom",
-      "community": 40,
-      "community_name": "build_invoice_pdf",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": "pushtobottom"
     },
     {
@@ -3057,8 +3101,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "flowable",
-      "community": 40,
-      "community_name": "build_invoice_pdf",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": "flowable"
     },
     {
@@ -3068,8 +3112,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_pushtobottom_init",
-      "community": 40,
-      "community_name": "build_invoice_pdf",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": ".__init__()"
     },
     {
@@ -3079,8 +3123,8 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_pushtobottom_wrap",
-      "community": 40,
-      "community_name": "build_invoice_pdf",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": ".wrap()"
     },
     {
@@ -3090,8 +3134,8 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_pushtobottom_draw",
-      "community": 40,
-      "community_name": "build_invoice_pdf",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": ".draw()"
     },
     {
@@ -3101,8 +3145,8 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_format_money",
-      "community": 40,
-      "community_name": "build_invoice_pdf",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": "format_money()"
     },
     {
@@ -3112,8 +3156,8 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_build_invoice_pdf",
-      "community": 40,
-      "community_name": "build_invoice_pdf",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": "build_invoice_pdf()"
     },
     {
@@ -3123,8 +3167,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_py_any",
-      "community": 40,
-      "community_name": "build_invoice_pdf",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": "any"
     },
     {
@@ -3134,8 +3178,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_rationale_20",
-      "community": 40,
-      "community_name": "build_invoice_pdf",
+      "community": 36,
+      "community_name": "gateways.py",
       "norm_label": "dynamically absorbs unused vertical space on the current page, pushing target..."
     },
     {
@@ -3324,6 +3368,17 @@
       "community": 2,
       "community_name": "Currency",
       "norm_label": "asyncclient"
+    },
+    {
+      "label": "test_client_incoming_currency_and_equivalent_inr_auto_calc()",
+      "file_type": "code",
+      "source_file": "backend/tests/test_clients_api.py",
+      "source_location": "L147",
+      "_origin": "ast",
+      "id": "backend_tests_test_clients_api_test_client_incoming_currency_and_equivalent_inr_auto_calc",
+      "community": 2,
+      "community_name": "Currency",
+      "norm_label": "test_client_incoming_currency_and_equivalent_inr_auto_calc()"
     },
     {
       "label": "test_gateways_api.py",
@@ -4008,10 +4063,21 @@
       "norm_label": "clients/page.tsx"
     },
     {
+      "label": "CurrencySetting",
+      "file_type": "code",
+      "source_file": "frontend/src/app/clients/page.tsx",
+      "source_location": "L24",
+      "_origin": "ast",
+      "id": "frontend_src_app_clients_page_currencysetting",
+      "community": 43,
+      "community_name": "clients/page.tsx",
+      "norm_label": "currencysetting"
+    },
+    {
       "label": "ClientsPage()",
       "file_type": "code",
       "source_file": "frontend/src/app/clients/page.tsx",
-      "source_location": "L23",
+      "source_location": "L31",
       "_origin": "ast",
       "id": "frontend_src_app_clients_page_clientspage",
       "community": 43,
@@ -4146,8 +4212,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_page",
-      "community": 37,
-      "community_name": "AuthContext.tsx",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "app/page.tsx"
     },
     {
@@ -4157,8 +4223,8 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "frontend_src_app_page_overviewpage",
-      "community": 37,
-      "community_name": "AuthContext.tsx",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "overviewpage()"
     },
     {
@@ -4190,8 +4256,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_tasks_page",
-      "community": 42,
-      "community_name": "tasks/page.tsx",
+      "community": 44,
+      "community_name": "projects/page.tsx",
       "norm_label": "tasks/page.tsx"
     },
     {
@@ -4201,8 +4267,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "frontend_src_app_tasks_page_periodfilter",
-      "community": 42,
-      "community_name": "tasks/page.tsx",
+      "community": 44,
+      "community_name": "projects/page.tsx",
       "norm_label": "periodfilter"
     },
     {
@@ -4212,8 +4278,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "frontend_src_app_tasks_page_taskspage",
-      "community": 42,
-      "community_name": "tasks/page.tsx",
+      "community": 44,
+      "community_name": "projects/page.tsx",
       "norm_label": "taskspage()"
     },
     {
@@ -4223,8 +4289,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_time_tracker_page",
-      "community": 35,
-      "community_name": "project.ts",
+      "community": 45,
+      "community_name": "time-tracker/page.tsx",
       "norm_label": "time-tracker/page.tsx"
     },
     {
@@ -4234,8 +4300,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "frontend_src_app_time_tracker_page_periodfilter",
-      "community": 35,
-      "community_name": "project.ts",
+      "community": 45,
+      "community_name": "time-tracker/page.tsx",
       "norm_label": "periodfilter"
     },
     {
@@ -4245,8 +4311,8 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "frontend_src_app_time_tracker_page_timetrackerpage",
-      "community": 35,
-      "community_name": "project.ts",
+      "community": 45,
+      "community_name": "time-tracker/page.tsx",
       "norm_label": "timetrackerpage()"
     },
     {
@@ -4433,7 +4499,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_layout_globaltimerbar",
       "community": 35,
-      "community_name": "project.ts",
+      "community_name": "GlobalTimerBar.tsx",
       "norm_label": "globaltimerbar.tsx"
     },
     {
@@ -4444,7 +4510,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_layout_globaltimerbar_timerstate",
       "community": 35,
-      "community_name": "project.ts",
+      "community_name": "GlobalTimerBar.tsx",
       "norm_label": "timerstate"
     },
     {
@@ -4454,8 +4520,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "frontend_src_components_layout_globaltimerbar_globaltimerbar",
-      "community": 10,
-      "community_name": "AppShell.tsx",
+      "community": 35,
+      "community_name": "GlobalTimerBar.tsx",
       "norm_label": "globaltimerbar()"
     },
     {
@@ -4550,7 +4616,7 @@
       "label": "CurrencyOption",
       "file_type": "code",
       "source_file": "frontend/src/components/modules/clients/ClientModal.tsx",
-      "source_location": "L27",
+      "source_location": "L29",
       "_origin": "ast",
       "id": "frontend_src_components_modules_clients_clientmodal_currencyoption",
       "community": 43,
@@ -4561,7 +4627,7 @@
       "label": "ClientModalProps",
       "file_type": "code",
       "source_file": "frontend/src/components/modules/clients/ClientModal.tsx",
-      "source_location": "L33",
+      "source_location": "L36",
       "_origin": "ast",
       "id": "frontend_src_components_modules_clients_clientmodal_clientmodalprops",
       "community": 43,
@@ -4572,7 +4638,7 @@
       "label": "ClientModal()",
       "file_type": "code",
       "source_file": "frontend/src/components/modules/clients/ClientModal.tsx",
-      "source_location": "L40",
+      "source_location": "L43",
       "_origin": "ast",
       "id": "frontend_src_components_modules_clients_clientmodal_clientmodal",
       "community": 43,
@@ -4740,8 +4806,8 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "frontend_src_components_modules_invoices_invoicetable_invoicetable",
-      "community": 38,
-      "community_name": "InvoiceModal.tsx",
+      "community": 46,
+      "community_name": "TaskTable.tsx",
       "norm_label": "invoicetable()"
     },
     {
@@ -4751,8 +4817,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectmodal",
-      "community": 35,
-      "community_name": "project.ts",
+      "community": 44,
+      "community_name": "projects/page.tsx",
       "norm_label": "projectmodal.tsx"
     },
     {
@@ -4762,8 +4828,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectmodal_clientoption",
-      "community": 35,
-      "community_name": "project.ts",
+      "community": 44,
+      "community_name": "projects/page.tsx",
       "norm_label": "clientoption"
     },
     {
@@ -4773,8 +4839,8 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectmodal_projectmodalprops",
-      "community": 35,
-      "community_name": "project.ts",
+      "community": 44,
+      "community_name": "projects/page.tsx",
       "norm_label": "projectmodalprops"
     },
     {
@@ -4796,7 +4862,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable",
       "community": 46,
-      "community_name": "ProjectTable.tsx",
+      "community_name": "TaskTable.tsx",
       "norm_label": "projecttable.tsx"
     },
     {
@@ -4807,7 +4873,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable_projecttableprops",
       "community": 46,
-      "community_name": "ProjectTable.tsx",
+      "community_name": "TaskTable.tsx",
       "norm_label": "projecttableprops"
     },
     {
@@ -4818,7 +4884,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable_sortfield",
       "community": 46,
-      "community_name": "ProjectTable.tsx",
+      "community_name": "TaskTable.tsx",
       "norm_label": "sortfield"
     },
     {
@@ -4829,7 +4895,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable_sortdirection",
       "community": 46,
-      "community_name": "ProjectTable.tsx",
+      "community_name": "TaskTable.tsx",
       "norm_label": "sortdirection"
     },
     {
@@ -4840,7 +4906,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable_default_project_widths",
       "community": 46,
-      "community_name": "ProjectTable.tsx",
+      "community_name": "TaskTable.tsx",
       "norm_label": "default_project_widths"
     },
     {
@@ -4851,7 +4917,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable_min_project_widths",
       "community": 46,
-      "community_name": "ProjectTable.tsx",
+      "community_name": "TaskTable.tsx",
       "norm_label": "min_project_widths"
     },
     {
@@ -4862,7 +4928,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable_projecttable",
       "community": 46,
-      "community_name": "ProjectTable.tsx",
+      "community_name": "TaskTable.tsx",
       "norm_label": "projecttable()"
     },
     {
@@ -4949,8 +5015,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable",
-      "community": 42,
-      "community_name": "tasks/page.tsx",
+      "community": 46,
+      "community_name": "TaskTable.tsx",
       "norm_label": "tasktable.tsx"
     },
     {
@@ -4971,8 +5037,8 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_sortfield",
-      "community": 42,
-      "community_name": "tasks/page.tsx",
+      "community": 46,
+      "community_name": "TaskTable.tsx",
       "norm_label": "sortfield"
     },
     {
@@ -4982,8 +5048,8 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_sortdirection",
-      "community": 42,
-      "community_name": "tasks/page.tsx",
+      "community": 46,
+      "community_name": "TaskTable.tsx",
       "norm_label": "sortdirection"
     },
     {
@@ -4993,8 +5059,8 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_default_task_widths",
-      "community": 42,
-      "community_name": "tasks/page.tsx",
+      "community": 46,
+      "community_name": "TaskTable.tsx",
       "norm_label": "default_task_widths"
     },
     {
@@ -5004,8 +5070,8 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_min_task_widths",
-      "community": 42,
-      "community_name": "tasks/page.tsx",
+      "community": 46,
+      "community_name": "TaskTable.tsx",
       "norm_label": "min_task_widths"
     },
     {
@@ -5015,8 +5081,8 @@
       "source_location": "L55",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_tasktable",
-      "community": 42,
-      "community_name": "tasks/page.tsx",
+      "community": 46,
+      "community_name": "TaskTable.tsx",
       "norm_label": "tasktable()"
     },
     {
@@ -5027,7 +5093,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal",
       "community": 45,
-      "community_name": "ManualTimeModal.tsx",
+      "community_name": "time-tracker/page.tsx",
       "norm_label": "manualtimemodal.tsx"
     },
     {
@@ -5038,7 +5104,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_manualtimemodalprops",
       "community": 45,
-      "community_name": "ManualTimeModal.tsx",
+      "community_name": "time-tracker/page.tsx",
       "norm_label": "manualtimemodalprops"
     },
     {
@@ -5049,7 +5115,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_tolocaldatestr",
       "community": 45,
-      "community_name": "ManualTimeModal.tsx",
+      "community_name": "time-tracker/page.tsx",
       "norm_label": "tolocaldatestr()"
     },
     {
@@ -5060,7 +5126,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_tolocaltimestr",
       "community": 45,
-      "community_name": "ManualTimeModal.tsx",
+      "community_name": "time-tracker/page.tsx",
       "norm_label": "tolocaltimestr()"
     },
     {
@@ -5071,7 +5137,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_timetominutes",
       "community": 45,
-      "community_name": "ManualTimeModal.tsx",
+      "community_name": "time-tracker/page.tsx",
       "norm_label": "timetominutes()"
     },
     {
@@ -5082,7 +5148,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_minutestotime",
       "community": 45,
-      "community_name": "ManualTimeModal.tsx",
+      "community_name": "time-tracker/page.tsx",
       "norm_label": "minutestotime()"
     },
     {
@@ -5093,7 +5159,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_manualtimemodal",
       "community": 45,
-      "community_name": "ManualTimeModal.tsx",
+      "community_name": "time-tracker/page.tsx",
       "norm_label": "manualtimemodal()"
     },
     {
@@ -5104,7 +5170,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_starttimermodal",
       "community": 35,
-      "community_name": "project.ts",
+      "community_name": "GlobalTimerBar.tsx",
       "norm_label": "starttimermodal.tsx"
     },
     {
@@ -5114,8 +5180,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_starttimermodal_starttimermodalprops",
-      "community": 35,
-      "community_name": "project.ts",
+      "community": 44,
+      "community_name": "projects/page.tsx",
       "norm_label": "starttimermodalprops"
     },
     {
@@ -5126,7 +5192,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_starttimermodal_starttimermodal",
       "community": 35,
-      "community_name": "project.ts",
+      "community_name": "GlobalTimerBar.tsx",
       "norm_label": "starttimermodal()"
     },
     {
@@ -5136,8 +5202,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable",
-      "community": 38,
-      "community_name": "InvoiceModal.tsx",
+      "community": 46,
+      "community_name": "TaskTable.tsx",
       "norm_label": "timeentrytable.tsx"
     },
     {
@@ -5147,8 +5213,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_timeentrytableprops",
-      "community": 38,
-      "community_name": "InvoiceModal.tsx",
+      "community": 45,
+      "community_name": "time-tracker/page.tsx",
       "norm_label": "timeentrytableprops"
     },
     {
@@ -5158,8 +5224,8 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_sortfield",
-      "community": 38,
-      "community_name": "InvoiceModal.tsx",
+      "community": 46,
+      "community_name": "TaskTable.tsx",
       "norm_label": "sortfield"
     },
     {
@@ -5169,8 +5235,8 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_sortdirection",
-      "community": 38,
-      "community_name": "InvoiceModal.tsx",
+      "community": 46,
+      "community_name": "TaskTable.tsx",
       "norm_label": "sortdirection"
     },
     {
@@ -5180,8 +5246,8 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_default_time_widths",
-      "community": 38,
-      "community_name": "InvoiceModal.tsx",
+      "community": 46,
+      "community_name": "TaskTable.tsx",
       "norm_label": "default_time_widths"
     },
     {
@@ -5191,8 +5257,8 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_min_time_widths",
-      "community": 38,
-      "community_name": "InvoiceModal.tsx",
+      "community": 46,
+      "community_name": "TaskTable.tsx",
       "norm_label": "min_time_widths"
     },
     {
@@ -5202,8 +5268,8 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_timeentrytable",
-      "community": 38,
-      "community_name": "InvoiceModal.tsx",
+      "community": 46,
+      "community_name": "TaskTable.tsx",
       "norm_label": "timeentrytable()"
     },
     {
@@ -5290,8 +5356,8 @@
       "source_location": "L85",
       "_origin": "ast",
       "id": "frontend_src_context_authcontext_useauth",
-      "community": 37,
-      "community_name": "AuthContext.tsx",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "useauth()"
     },
     {
@@ -5301,8 +5367,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_hooks_useresizablecolumns",
-      "community": 38,
-      "community_name": "InvoiceModal.tsx",
+      "community": 46,
+      "community_name": "TaskTable.tsx",
       "norm_label": "useresizablecolumns.tsx"
     },
     {
@@ -5312,8 +5378,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "frontend_src_hooks_useresizablecolumns_useresizablecolumns",
-      "community": 38,
-      "community_name": "InvoiceModal.tsx",
+      "community": 46,
+      "community_name": "TaskTable.tsx",
       "norm_label": "useresizablecolumns()"
     },
     {
@@ -5323,8 +5389,8 @@
       "source_location": "L77",
       "_origin": "ast",
       "id": "frontend_src_hooks_useresizablecolumns_resizehandle",
-      "community": 38,
-      "community_name": "InvoiceModal.tsx",
+      "community": 46,
+      "community_name": "TaskTable.tsx",
       "norm_label": "resizehandle()"
     },
     {
@@ -5510,8 +5576,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_types_project",
-      "community": 35,
-      "community_name": "project.ts",
+      "community": 44,
+      "community_name": "projects/page.tsx",
       "norm_label": "project.ts"
     },
     {
@@ -5532,8 +5598,8 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "frontend_src_types_project_taskpriority",
-      "community": 35,
-      "community_name": "project.ts",
+      "community": 44,
+      "community_name": "projects/page.tsx",
       "norm_label": "taskpriority"
     },
     {
@@ -5543,8 +5609,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "frontend_src_types_project_checklistitem",
-      "community": 35,
-      "community_name": "project.ts",
+      "community": 44,
+      "community_name": "projects/page.tsx",
       "norm_label": "checklistitem"
     },
     {
@@ -5565,8 +5631,8 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "frontend_src_types_project_projectbillingtype",
-      "community": 35,
-      "community_name": "project.ts",
+      "community": 44,
+      "community_name": "projects/page.tsx",
       "norm_label": "projectbillingtype"
     },
     {
@@ -5576,8 +5642,8 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "frontend_src_types_project_projectstatus",
-      "community": 35,
-      "community_name": "project.ts",
+      "community": 44,
+      "community_name": "projects/page.tsx",
       "norm_label": "projectstatus"
     },
     {
@@ -5587,8 +5653,8 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "frontend_src_types_project_projectclientinfo",
-      "community": 35,
-      "community_name": "project.ts",
+      "community": 44,
+      "community_name": "projects/page.tsx",
       "norm_label": "projectclientinfo"
     },
     {
@@ -5598,8 +5664,8 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "frontend_src_types_project_projectdata",
-      "community": 35,
-      "community_name": "project.ts",
+      "community": 44,
+      "community_name": "projects/page.tsx",
       "norm_label": "projectdata"
     },
     {
@@ -5610,7 +5676,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_time",
       "community": 45,
-      "community_name": "ManualTimeModal.tsx",
+      "community_name": "time-tracker/page.tsx",
       "norm_label": "time.ts"
     },
     {
@@ -5621,7 +5687,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_time_timeentrydata",
       "community": 45,
-      "community_name": "ManualTimeModal.tsx",
+      "community_name": "time-tracker/page.tsx",
       "norm_label": "timeentrydata"
     },
     {
@@ -5632,7 +5698,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_time_timeentrycreatepayload",
       "community": 45,
-      "community_name": "ManualTimeModal.tsx",
+      "community_name": "time-tracker/page.tsx",
       "norm_label": "timeentrycreatepayload"
     },
     {
@@ -5643,7 +5709,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_time_timeentryupdatepayload",
       "community": 45,
-      "community_name": "ManualTimeModal.tsx",
+      "community_name": "time-tracker/page.tsx",
       "norm_label": "timeentryupdatepayload"
     },
     {
@@ -7148,8 +7214,8 @@
     },
     {
       "label": "uuid",
-      "community": 1,
-      "community_name": "auth.py",
+      "community": 39,
+      "community_name": "invoices.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "uuid",
@@ -7197,7 +7263,7 @@
     {
       "label": "sqlalchemy",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "sqlalchemy",
@@ -7209,7 +7275,7 @@
     {
       "label": "sqlalchemy_ext_asyncio",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "sqlalchemy_ext_asyncio",
@@ -7221,7 +7287,7 @@
     {
       "label": "sqlalchemy_orm",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "sqlalchemy_orm",
@@ -7232,8 +7298,8 @@
     },
     {
       "label": "sqlite3",
-      "community": 3,
-      "community_name": "settings.py",
+      "community": 39,
+      "community_name": "invoices.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "sqlite3",
@@ -7244,8 +7310,8 @@
     },
     {
       "label": "typing",
-      "community": 9,
-      "community_name": "projects.py",
+      "community": 36,
+      "community_name": "gateways.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "typing",
@@ -7257,7 +7323,7 @@
     {
       "label": "datetime",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "datetime",
@@ -7268,8 +7334,8 @@
     },
     {
       "label": "pydantic",
-      "community": 34,
-      "community_name": "clients.py",
+      "community": 6,
+      "community_name": "time_entries.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "pydantic",
@@ -7521,7 +7587,7 @@
     {
       "label": "secrets",
       "community": 39,
-      "community_name": "User",
+      "community_name": "invoices.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "secrets",
@@ -8648,7 +8714,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L57",
+      "source_location": "L44",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_clients",
+      "target": "backend_app_api_v1_endpoints_clients_build_client_response",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/clients.py",
+      "source_location": "L122",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients",
@@ -8659,7 +8736,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L154",
+      "source_location": "L225",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients",
@@ -8670,7 +8747,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L83",
+      "source_location": "L149",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients",
@@ -8681,7 +8758,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L21",
+      "source_location": "L22",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_clients",
+      "target": "backend_app_api_v1_endpoints_clients_get_client_aggregates",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/clients.py",
+      "source_location": "L52",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients",
@@ -8692,7 +8780,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L47",
+      "source_location": "L111",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients",
@@ -8703,7 +8791,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L134",
+      "source_location": "L204",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients",
@@ -8714,7 +8802,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L99",
+      "source_location": "L167",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients",
@@ -8750,6 +8838,18 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_clients",
+      "target": "backend_app_models_invoice_model_invoice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/clients.py",
       "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
@@ -8774,7 +8874,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L11",
+      "source_location": "L12",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients",
@@ -8786,7 +8886,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L11",
+      "source_location": "L12",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients",
@@ -8798,7 +8898,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L11",
+      "source_location": "L12",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients",
@@ -8810,7 +8910,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L11",
+      "source_location": "L12",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients",
@@ -8866,39 +8966,15 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "references",
+      "relation": "calls",
+      "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L82",
+      "source_location": "L162",
       "weight": 1.0,
-      "context": "decorator",
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients_get_client",
-      "target": "backend_app_api_v1_endpoints_clients_py_get",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L20",
-      "weight": 1.0,
-      "context": "decorator",
-      "_origin": "ast",
-      "source": "backend_app_api_v1_endpoints_clients_list_clients",
-      "target": "backend_app_api_v1_endpoints_clients_py_get",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L46",
-      "weight": 1.0,
-      "context": "decorator",
-      "_origin": "ast",
-      "source": "backend_app_api_v1_endpoints_clients_list_clients_summary",
-      "target": "backend_app_api_v1_endpoints_clients_py_get",
+      "target": "backend_app_api_v1_endpoints_clients_get_client_aggregates",
       "confidence_score": 1.0
     },
     {
@@ -8906,23 +8982,46 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "backend_app_api_v1_endpoints_clients_list_clients",
+      "source": "backend_app_api_v1_endpoints_clients_get_client_aggregates",
       "target": "backend_app_api_v1_endpoints_clients_py_asyncsession",
       "confidence_score": 1.0
     },
     {
-      "relation": "references",
-      "context": "parameter_type",
+      "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L21",
+      "source_location": "L23",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "backend_app_api_v1_endpoints_clients_list_clients",
-      "target": "backend_app_models_user_models_user",
+      "source": "backend_app_api_v1_endpoints_clients_rationale_23",
+      "target": "backend_app_api_v1_endpoints_clients_get_client_aggregates",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/clients.py",
+      "source_location": "L221",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_clients_toggle_client_status",
+      "target": "backend_app_api_v1_endpoints_clients_get_client_aggregates",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/clients.py",
+      "source_location": "L199",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_clients_update_client",
+      "target": "backend_app_api_v1_endpoints_clients_get_client_aggregates",
       "confidence_score": 1.0
     },
     {
@@ -8930,7 +9029,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L57",
+      "source_location": "L122",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients_create_client",
@@ -8942,7 +9041,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L154",
+      "source_location": "L225",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients_delete_client",
@@ -8954,7 +9053,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L83",
+      "source_location": "L149",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients_get_client",
@@ -8966,7 +9065,19 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L47",
+      "source_location": "L52",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_clients_list_clients",
+      "target": "backend_app_api_v1_endpoints_clients_py_asyncsession",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/clients.py",
+      "source_location": "L111",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients_list_clients_summary",
@@ -8978,7 +9089,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L134",
+      "source_location": "L204",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients_toggle_client_status",
@@ -8990,7 +9101,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L99",
+      "source_location": "L167",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients_update_client",
@@ -9002,7 +9113,139 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L47",
+      "source_location": "L44",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_clients_build_client_response",
+      "target": "backend_app_models_client_model_client",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/clients.py",
+      "source_location": "L44",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_clients_build_client_response",
+      "target": "backend_app_schemas_client_schemas_clientresponse",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/clients.py",
+      "source_location": "L145",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_clients_create_client",
+      "target": "backend_app_api_v1_endpoints_clients_build_client_response",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/clients.py",
+      "source_location": "L163",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_clients_get_client",
+      "target": "backend_app_api_v1_endpoints_clients_build_client_response",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/clients.py",
+      "source_location": "L105",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_clients_list_clients",
+      "target": "backend_app_api_v1_endpoints_clients_build_client_response",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/clients.py",
+      "source_location": "L222",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_clients_toggle_client_status",
+      "target": "backend_app_api_v1_endpoints_clients_build_client_response",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/clients.py",
+      "source_location": "L200",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_clients_update_client",
+      "target": "backend_app_api_v1_endpoints_clients_build_client_response",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/clients.py",
+      "source_location": "L148",
+      "weight": 1.0,
+      "context": "decorator",
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_clients_get_client",
+      "target": "backend_app_api_v1_endpoints_clients_py_get",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "decorator",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/clients.py",
+      "source_location": "L51",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_clients_list_clients",
+      "target": "backend_app_api_v1_endpoints_clients_py_get",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/clients.py",
+      "source_location": "L110",
+      "weight": 1.0,
+      "context": "decorator",
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_clients_list_clients_summary",
+      "target": "backend_app_api_v1_endpoints_clients_py_get",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/clients.py",
+      "source_location": "L52",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_clients_list_clients",
+      "target": "backend_app_models_user_models_user",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/clients.py",
+      "source_location": "L111",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients_list_clients_summary",
@@ -9013,7 +9256,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L56",
+      "source_location": "L121",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -9025,20 +9268,20 @@
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L76",
+      "source_location": "L141",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients_create_client",
-      "target": "backend_app_models_client_model_client"
+      "target": "backend_app_models_client_model_client",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L57",
+      "source_location": "L122",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients_create_client",
@@ -9050,7 +9293,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L57",
+      "source_location": "L122",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients_create_client",
@@ -9062,7 +9305,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L83",
+      "source_location": "L149",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients_get_client",
@@ -9073,7 +9316,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L98",
+      "source_location": "L166",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -9086,7 +9329,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L99",
+      "source_location": "L167",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients_update_client",
@@ -9098,7 +9341,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L99",
+      "source_location": "L167",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients_update_client",
@@ -9109,7 +9352,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L133",
+      "source_location": "L203",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -9122,7 +9365,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L134",
+      "source_location": "L204",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients_toggle_client_status",
@@ -9134,7 +9377,7 @@
       "context": "decorator",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L153",
+      "source_location": "L224",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients_delete_client",
@@ -9146,7 +9389,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/clients.py",
-      "source_location": "L154",
+      "source_location": "L225",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_clients_delete_client",
@@ -9725,7 +9968,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L84",
+      "source_location": "L85",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -9736,7 +9979,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L205",
+      "source_location": "L206",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -9747,7 +9990,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L608",
+      "source_location": "L649",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -9758,7 +10001,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L631",
+      "source_location": "L672",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -9769,7 +10012,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L40",
+      "source_location": "L41",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -9780,7 +10023,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L29",
+      "source_location": "L30",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -9791,7 +10034,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L335",
+      "source_location": "L336",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -9802,7 +10045,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L47",
+      "source_location": "L48",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -9813,7 +10056,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L94",
+      "source_location": "L95",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -9824,7 +10067,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L183",
+      "source_location": "L184",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -9835,7 +10078,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L574",
+      "source_location": "L615",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -9846,7 +10089,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L528",
+      "source_location": "L529",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -9857,7 +10100,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L705",
+      "source_location": "L747",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -9868,7 +10111,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L352",
+      "source_location": "L575",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_invoices",
+      "target": "backend_app_api_v1_endpoints_invoices_undo_invoice_payment",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/invoices.py",
+      "source_location": "L353",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -9892,7 +10146,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L13",
+      "source_location": "L14",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -9904,7 +10158,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L14",
+      "source_location": "L15",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -9916,7 +10170,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -9928,7 +10182,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -9940,7 +10194,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L15",
+      "source_location": "L16",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -9952,7 +10206,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L15",
+      "source_location": "L16",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -9964,7 +10218,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L15",
+      "source_location": "L16",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -9976,7 +10230,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -9988,7 +10242,19 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L18",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_invoices",
+      "target": "backend_app_models_user_models_user",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/invoices.py",
+      "source_location": "L19",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -10000,7 +10266,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -10012,7 +10278,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -10024,7 +10290,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -10036,7 +10302,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -10048,7 +10314,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -10060,7 +10326,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices",
@@ -10156,7 +10422,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L646",
+      "source_location": "L687",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_download_invoice_pdf",
@@ -10168,7 +10434,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L29",
+      "source_location": "L30",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_get_company_profile_dict",
@@ -10180,7 +10446,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L29",
+      "source_location": "L30",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_get_company_profile_dict",
@@ -10192,7 +10458,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L710",
+      "source_location": "L752",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_render_custom_invoice_pdf",
@@ -10204,7 +10470,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L84",
+      "source_location": "L85",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_calculate_next_invoice_number",
@@ -10216,7 +10482,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L205",
+      "source_location": "L206",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_create_invoice",
@@ -10228,7 +10494,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L608",
+      "source_location": "L649",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_delete_invoice",
@@ -10240,7 +10506,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L631",
+      "source_location": "L672",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_download_invoice_pdf",
@@ -10252,7 +10518,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L335",
+      "source_location": "L336",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_get_invoice",
@@ -10264,7 +10530,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L47",
+      "source_location": "L48",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_get_next_invoice_number",
@@ -10276,7 +10542,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L94",
+      "source_location": "L95",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_get_unbilled_tasks",
@@ -10288,7 +10554,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L183",
+      "source_location": "L184",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_list_invoices",
@@ -10300,7 +10566,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L574",
+      "source_location": "L615",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_reconcile_invoice",
@@ -10312,7 +10578,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L528",
+      "source_location": "L529",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_record_invoice_payment",
@@ -10324,7 +10590,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L705",
+      "source_location": "L747",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_render_custom_invoice_pdf",
@@ -10336,7 +10602,19 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L352",
+      "source_location": "L575",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_invoices_undo_invoice_payment",
+      "target": "backend_app_api_v1_endpoints_invoices_py_asyncsession",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/invoices.py",
+      "source_location": "L353",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_update_invoice",
@@ -10348,7 +10626,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L705",
+      "source_location": "L747",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_render_custom_invoice_pdf",
@@ -10360,7 +10638,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L53",
+      "source_location": "L54",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_get_next_invoice_number",
@@ -10372,7 +10650,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L90",
+      "source_location": "L91",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_calculate_next_invoice_number",
@@ -10384,7 +10662,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L220",
+      "source_location": "L221",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_create_invoice",
@@ -10395,7 +10673,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L83",
+      "source_location": "L84",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -10407,7 +10685,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L630",
+      "source_location": "L671",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -10419,7 +10697,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L334",
+      "source_location": "L335",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -10432,7 +10710,7 @@
       "context": "decorator",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L93",
+      "source_location": "L94",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_get_unbilled_tasks",
@@ -10443,7 +10721,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L182",
+      "source_location": "L183",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -10456,7 +10734,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L712",
+      "source_location": "L754",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_render_custom_invoice_pdf",
@@ -10468,7 +10746,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L84",
+      "source_location": "L85",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_calculate_next_invoice_number",
@@ -10480,7 +10758,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L94",
+      "source_location": "L95",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_get_unbilled_tasks",
@@ -10493,7 +10771,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L156",
+      "source_location": "L157",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_get_unbilled_tasks",
@@ -10504,7 +10782,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L183",
+      "source_location": "L184",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_list_invoices",
@@ -10515,7 +10793,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L204",
+      "source_location": "L205",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -10527,7 +10805,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L573",
+      "source_location": "L614",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -10539,7 +10817,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L527",
+      "source_location": "L528",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -10551,11 +10829,23 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L704",
+      "source_location": "L746",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_render_custom_invoice_pdf",
+      "target": "backend_app_api_v1_endpoints_invoices_py_post",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/invoices.py",
+      "source_location": "L574",
+      "weight": 1.0,
+      "context": "decorator",
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_invoices_undo_invoice_payment",
       "target": "backend_app_api_v1_endpoints_invoices_py_post",
       "confidence_score": 1.0
     },
@@ -10565,7 +10855,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L277",
+      "source_location": "L278",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_create_invoice",
@@ -10577,7 +10867,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L235",
+      "source_location": "L236",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_create_invoice",
@@ -10588,7 +10878,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L205",
+      "source_location": "L206",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_create_invoice",
@@ -10600,7 +10890,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L205",
+      "source_location": "L206",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_create_invoice",
@@ -10612,7 +10902,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L335",
+      "source_location": "L336",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_get_invoice",
@@ -10623,7 +10913,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L351",
+      "source_location": "L352",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -10637,7 +10927,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L450",
+      "source_location": "L451",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_update_invoice",
@@ -10648,7 +10938,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L352",
+      "source_location": "L353",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_update_invoice",
@@ -10660,7 +10950,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L352",
+      "source_location": "L353",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_update_invoice",
@@ -10672,7 +10962,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L528",
+      "source_location": "L529",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_record_invoice_payment",
@@ -10684,7 +10974,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L528",
+      "source_location": "L529",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_record_invoice_payment",
@@ -10696,7 +10986,19 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L574",
+      "source_location": "L575",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_app_api_v1_endpoints_invoices_undo_invoice_payment",
+      "target": "backend_app_models_user_models_user",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/api/v1/endpoints/invoices.py",
+      "source_location": "L615",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_reconcile_invoice",
@@ -10708,7 +11010,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L574",
+      "source_location": "L615",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_reconcile_invoice",
@@ -10720,7 +11022,7 @@
       "context": "decorator",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L607",
+      "source_location": "L648",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_delete_invoice",
@@ -10732,7 +11034,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L608",
+      "source_location": "L649",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_delete_invoice",
@@ -10744,7 +11046,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L631",
+      "source_location": "L672",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_download_invoice_pdf",
@@ -10757,7 +11059,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L692",
+      "source_location": "L734",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_download_invoice_pdf",
@@ -10768,7 +11070,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L705",
+      "source_location": "L747",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_render_custom_invoice_pdf",
@@ -10781,7 +11083,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/api/v1/endpoints/invoices.py",
-      "source_location": "L732",
+      "source_location": "L775",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_api_v1_endpoints_invoices_render_custom_invoice_pdf",
@@ -15298,6 +15600,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/tests/test_clients_api.py",
+      "source_location": "L168",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_tests_test_clients_api_test_client_incoming_currency_and_equivalent_inr_auto_calc",
+      "target": "backend_app_models_settings_models_currency"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/tests/test_clients_api.py",
       "source_location": "L29",
       "weight": 1.0,
       "_origin": "ast",
@@ -15744,7 +16058,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/schemas/client_schemas.py",
-      "source_location": "L60",
+      "source_location": "L62",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_schemas_client_schemas",
@@ -15823,7 +16137,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/schemas/client_schemas.py",
-      "source_location": "L60",
+      "source_location": "L62",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_schemas_client_schemas_clientsummary",
@@ -17017,7 +17331,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/services/invoice_pdf.py",
-      "source_location": "L600",
+      "source_location": "L602",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_services_invoice_pdf_build_invoice_pdf",
@@ -17084,7 +17398,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/services/invoice_pdf.py",
-      "source_location": "L415",
+      "source_location": "L417",
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_app_services_invoice_pdf_build_invoice_pdf",
@@ -17389,6 +17703,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/tests/test_clients_api.py",
+      "source_location": "L147",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_tests_test_clients_api",
+      "target": "backend_tests_test_clients_api_test_client_incoming_currency_and_equivalent_inr_auto_calc",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/tests/test_clients_api.py",
       "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
@@ -17424,6 +17749,18 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/tests/test_clients_api.py",
+      "source_location": "L146",
+      "weight": 1.0,
+      "context": "decorator",
+      "_origin": "ast",
+      "source": "backend_tests_test_clients_api_test_client_incoming_currency_and_equivalent_inr_auto_calc",
+      "target": "backend_tests_test_clients_api_py_asyncio",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/tests/test_clients_api.py",
       "source_location": "L6",
       "weight": 1.0,
       "context": "decorator",
@@ -17441,6 +17778,18 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "backend_tests_test_clients_api_test_client_lifecycle_and_address_validation",
+      "target": "backend_tests_test_clients_api_py_asyncclient",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/tests/test_clients_api.py",
+      "source_location": "L147",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "backend_tests_test_clients_api_test_client_incoming_currency_and_equivalent_inr_auto_calc",
       "target": "backend_tests_test_clients_api_py_asyncclient",
       "confidence_score": 1.0
     },
@@ -18245,11 +18594,22 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/clients/page.tsx",
-      "source_location": "L23",
+      "source_location": "L31",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_app_clients_page",
       "target": "frontend_src_app_clients_page_clientspage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/clients/page.tsx",
+      "source_location": "L24",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "frontend_src_app_clients_page",
+      "target": "frontend_src_app_clients_page_currencysetting",
       "confidence_score": 1.0
     },
     {
@@ -19821,7 +20181,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/clients/ClientModal.tsx",
-      "source_location": "L40",
+      "source_location": "L43",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_clients_clientmodal",
@@ -19832,7 +20192,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/clients/ClientModal.tsx",
-      "source_location": "L33",
+      "source_location": "L36",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_clients_clientmodal",
@@ -19843,7 +20203,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/modules/clients/ClientModal.tsx",
-      "source_location": "L27",
+      "source_location": "L29",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_clients_clientmodal",
@@ -20252,7 +20612,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/modules/invoices/InvoiceTable.tsx",
-      "source_location": "L83",
+      "source_location": "L75",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_modules_invoices_invoicetable_invoicetable",
@@ -22975,5 +23335,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "5541a9b26ea500448123b7ecd443a7992e219eee"
+  "built_at_commit": "125fa520ec0834f3c685a63a4774481786363923"
 }
