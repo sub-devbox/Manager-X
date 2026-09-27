@@ -465,3 +465,14 @@ async def test_invoice_payment_and_reconciliation(client: AsyncClient):
     assert pdf_res.headers["content-type"] == "application/pdf"
     assert pdf_res.content.startswith(b"%PDF")
 
+    # Test POST /api/v1/invoices/{id}/unpay
+    unpay_res = await client.post(f"/api/v1/invoices/{inv_id}/unpay")
+    assert unpay_res.status_code == 200
+    unpaid_inv = unpay_res.json()
+    assert unpaid_inv["status"] == "sent"
+    assert unpaid_inv["received_amount_inr"] is None
+    assert unpaid_inv["payment_date"] is None
+    assert unpaid_inv["is_reconciled"] is False
+    assert unpaid_inv["bank_transaction_id"] is None
+
+

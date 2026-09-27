@@ -9,6 +9,7 @@ from sqlalchemy.orm import selectinload
 
 from app.core.database import get_db
 from app.api.v1.endpoints.auth import get_optional_user
+from app.models.user_models import User
 from app.models.invoice_model import Invoice, InvoiceItem
 from app.models.client_model import Client
 from app.models.gateway_model import PaymentGateway
@@ -557,6 +558,46 @@ async def record_invoice_payment(
         update(TimeEntry)
         .where(TimeEntry.invoice_id == invoice.id)
         .values(invoiced=True)
+    )
+
+    await db.commit()
+    await db.refresh(invoice)
+
+    reload_stmt = (
+        select(Invoice)
+        .options(selectinload(Invoice.client), selectinload(Invoice.items))
+        .where(Invoice.id == invoice.id)
+    )
+    reload_res = await db.execute(reload_stmt)
+    return reload_res.scalar_one()
+
+@router.post("/{invoice_id}/unpay", response_model=InvoiceResponse)
+async def undo_invoice_payment(
+    invoice_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user: Optional[User] = Depends(get_optional_user),
+):
+    stmt = (
+        select(Invoice)
+        .options(selectinload(Invoice.client), selectinload(Invoice.items))
+        .where(Invoice.id == invoice_id)
+    )
+    res = await db.execute(stmt)
+    invoice = res.scalar_one_or_none()
+    if not invoice:
+        raise HTTPException(status_code=404, detail="Invoice not found")
+
+    invoice.status = "sent"
+    invoice.received_amount_inr = None
+    invoice.payment_date = None
+    invoice.is_reconciled = False
+    invoice.bank_transaction_id = None
+
+    # Unmark linked time entries as invoiced (unpaid)
+    await db.execute(
+        update(TimeEntry)
+        .where(TimeEntry.invoice_id == invoice.id)
+        .values(invoiced=False)
     )
 
     await db.commit()

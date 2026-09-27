@@ -17,10 +17,9 @@ import {
   DollarSign,
   Download,
   CheckCircle2,
-  RefreshCw,
+  RotateCcw,
   AlertCircle,
   X,
-  CheckCheck,
   Phone,
 } from "lucide-react";
 
@@ -72,14 +71,6 @@ export default function InvoiceTable({
   const [payRef, setPayRef] = useState("");
   const [paySubmitting, setPaySubmitting] = useState(false);
   const [payError, setPayError] = useState("");
-
-  // Reconcile Modal State
-  const [reconcileModalOpen, setReconcileModalOpen] = useState(false);
-  const [reconcilingInvoice, setReconcilingInvoice] = useState<InvoiceData | null>(null);
-  const [reconcileTxId, setReconcileTxId] = useState("");
-  const [reconcileDate, setReconcileDate] = useState("");
-  const [reconcileSubmitting, setReconcileSubmitting] = useState(false);
-  const [reconcileError, setReconcileError] = useState("");
 
   const { widths, totalWidth, startResize } = useResizableColumns(
     "mx_col_widths_invoices",
@@ -261,52 +252,25 @@ export default function InvoiceTable({
     }
   };
 
-  // Open Reconcile Modal
-  const handleOpenReconcileModal = (inv: InvoiceData) => {
-    setReconcilingInvoice(inv);
-    setReconcileTxId(inv.bank_transaction_id || "");
-    setReconcileDate(inv.payment_date || new Date().toISOString().slice(0, 10));
-    setReconcileError("");
-    setReconcileModalOpen(true);
-  };
+  // Undo Payment
+  const [undoSubmittingId, setUndoSubmittingId] = useState<string | null>(null);
 
-  // Submit Reconcile
-  const handleConfirmReconcile = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!reconcilingInvoice) return;
-    setReconcileSubmitting(true);
-    setReconcileError("");
-    try {
-      await api.post(`/invoices/${reconcilingInvoice.id}/reconcile`, {
-        bank_transaction_id: reconcileTxId.trim() || undefined,
-        payment_date: reconcileDate || undefined,
-      });
-      setReconcileModalOpen(false);
-      setReconcilingInvoice(null);
-      if (onInvoiceUpdated) onInvoiceUpdated();
-    } catch (err: any) {
-      setReconcileError(err.message || "Failed to reconcile invoice.");
-    } finally {
-      setReconcileSubmitting(false);
+  const handleUndoPaid = async (inv: InvoiceData) => {
+    if (
+      !window.confirm(
+        `Undo paid status for invoice "${inv.invoice_number || "this invoice"}"?\n\nThis will reset status to Sent and remove recorded payment details.`
+      )
+    ) {
+      return;
     }
-  };
-
-  // Un-reconcile
-  const handleUnreconcile = async () => {
-    if (!reconcilingInvoice) return;
-    setReconcileSubmitting(true);
+    setUndoSubmittingId(inv.id);
     try {
-      await api.put(`/invoices/${reconcilingInvoice.id}`, {
-        is_reconciled: false,
-        bank_transaction_id: null,
-      });
-      setReconcileModalOpen(false);
-      setReconcilingInvoice(null);
+      await api.post(`/invoices/${inv.id}/unpay`);
       if (onInvoiceUpdated) onInvoiceUpdated();
     } catch (err: any) {
-      setReconcileError(err.message || "Failed to un-reconcile invoice.");
+      alert(err.message || "Failed to undo payment.");
     } finally {
-      setReconcileSubmitting(false);
+      setUndoSubmittingId(null);
     }
   };
 
@@ -585,26 +549,6 @@ export default function InvoiceTable({
                       >
                         {badge.label}
                       </span>
-                      {inv.is_reconciled && (
-                        <span
-                          style={{
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: "3px",
-                            padding: "1px 6px",
-                            borderRadius: "4px",
-                            fontSize: "10px",
-                            fontWeight: 600,
-                            background: "rgba(16, 185, 129, 0.12)",
-                            color: "var(--accent-emerald)",
-                            border: "1px solid rgba(16, 185, 129, 0.25)",
-                          }}
-                          title={`Reconciled with Bank (Date: ${inv.payment_date || "Matched"})`}
-                        >
-                          <CheckCheck size={10} />
-                          <span>Rec</span>
-                        </span>
-                      )}
                     </div>
                   </td>
 
@@ -696,29 +640,28 @@ export default function InvoiceTable({
                         </button>
                       )}
 
-                      {/* Reconcile Button */}
-                      <button
-                        type="button"
-                        onClick={() => handleOpenReconcileModal(inv)}
-                        className="finance-button-secondary"
-                        style={{
-                          padding: "3px 7px",
-                          fontSize: "10.5px",
-                          fontWeight: 500,
-                          color: inv.is_reconciled ? "var(--accent-emerald)" : "var(--accent-blue)",
-                          borderColor: inv.is_reconciled ? "rgba(16, 185, 129, 0.35)" : "rgba(59, 130, 246, 0.35)",
-                          background: inv.is_reconciled ? "rgba(16, 185, 129, 0.08)" : "rgba(59, 130, 246, 0.08)",
-                          gap: "3px",
-                        }}
-                        title={
-                          inv.is_reconciled
-                            ? `Reconciled with Bank Transaction ${inv.bank_transaction_id ? `(${inv.bank_transaction_id})` : ""}`
-                            : "Match bank transaction and reconcile"
-                        }
-                      >
-                        <RefreshCw size={11} />
-                        <span>{inv.is_reconciled ? "Reconciled" : "Reconcile"}</span>
-                      </button>
+                      {/* Undo Paid Button */}
+                      {inv.status === "paid" && (
+                        <button
+                          type="button"
+                          onClick={() => handleUndoPaid(inv)}
+                          disabled={undoSubmittingId === inv.id}
+                          className="finance-button-secondary"
+                          style={{
+                            padding: "3px 7px",
+                            fontSize: "10.5px",
+                            fontWeight: 600,
+                            color: "#f59e0b",
+                            borderColor: "rgba(245, 158, 11, 0.35)",
+                            background: "rgba(245, 158, 11, 0.08)",
+                            gap: "3px",
+                          }}
+                          title="Undo payment: reset status to sent and clear payment details"
+                        >
+                          <RotateCcw size={11} className={undoSubmittingId === inv.id ? "animate-spin" : ""} />
+                          <span>{undoSubmittingId === inv.id ? "Undoing..." : "Undo Paid"}</span>
+                        </button>
+                      )}
 
                       {/* Download PDF */}
                       <button
@@ -1011,6 +954,32 @@ export default function InvoiceTable({
                 >
                   Cancel
                 </button>
+                {payingInvoice.status === "paid" && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const inv = payingInvoice;
+                      setPayModalOpen(false);
+                      handleUndoPaid(inv);
+                    }}
+                    disabled={paySubmitting}
+                    className="finance-button-secondary"
+                    style={{
+                      height: "34px",
+                      padding: "0 12px",
+                      fontSize: "12px",
+                      color: "#f59e0b",
+                      borderColor: "rgba(245, 158, 11, 0.35)",
+                      background: "rgba(245, 158, 11, 0.08)",
+                      fontWeight: 600,
+                      gap: "4px",
+                    }}
+                    title="Undo payment for this invoice"
+                  >
+                    <RotateCcw size={12} />
+                    <span>Undo Paid</span>
+                  </button>
+                )}
                 <button
                   type="submit"
                   disabled={paySubmitting}
@@ -1026,7 +995,7 @@ export default function InvoiceTable({
                     width: "auto",
                   }}
                 >
-                  {paySubmitting ? "Recording..." : "Confirm & Mark Paid"}
+                  {paySubmitting ? "Recording..." : payingInvoice.status === "paid" ? "Update Payment" : "Confirm & Mark Paid"}
                 </button>
               </div>
             </form>
@@ -1034,243 +1003,7 @@ export default function InvoiceTable({
         </div>
       )}
 
-      {/* ========================================================= */}
-      {/* 2. POPUP: BANK TRANSACTION RECONCILIATION MODAL           */}
-      {/* ========================================================= */}
-      {reconcileModalOpen && reconcilingInvoice && (
-        <div
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 99999,
-            background: "rgba(0, 0, 0, 0.75)",
-            backdropFilter: "blur(4px)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "16px",
-          }}
-          onClick={() => setReconcileModalOpen(false)}
-        >
-          <div
-            className="finance-panel animate-fade-in"
-            style={{
-              width: "100%",
-              maxWidth: "480px",
-              background: "var(--bg-surface)",
-              border: "1px solid var(--border-subtle)",
-              borderRadius: "var(--radius-md)",
-              boxShadow: "0 20px 40px rgba(0, 0, 0, 0.5)",
-              overflow: "hidden",
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Header */}
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "14px 18px",
-                borderBottom: "1px solid var(--border-subtle)",
-                background: "var(--bg-surface-subtle)",
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                <div
-                  style={{
-                    width: "28px",
-                    height: "28px",
-                    borderRadius: "var(--radius-xs)",
-                    background: "rgba(59, 130, 246, 0.15)",
-                    color: "var(--accent-blue)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <RefreshCw size={15} />
-                </div>
-                <div>
-                  <div style={{ fontSize: "14px", fontWeight: 700, color: "var(--text-main)" }}>
-                    Bank Transaction Reconciliation
-                  </div>
-                  <div style={{ fontSize: "11px", color: "var(--text-dim)" }}>
-                    Invoice #{reconcilingInvoice.invoice_number}
-                  </div>
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={() => setReconcileModalOpen(false)}
-                className="finance-button-secondary"
-                style={{ width: "26px", height: "26px", padding: 0, justifyContent: "center" }}
-              >
-                <X size={14} />
-              </button>
-            </div>
-
-            {/* Content */}
-            <form onSubmit={handleConfirmReconcile} style={{ padding: "18px 20px", display: "flex", flexDirection: "column", gap: "14px" }}>
-              {/* Summary Cards */}
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr",
-                  gap: "10px",
-                  padding: "10px 12px",
-                  borderRadius: "var(--radius-xs)",
-                  background: "var(--bg-surface-subtle)",
-                  border: "1px solid var(--border-subtle)",
-                  fontSize: "12px",
-                }}
-              >
-                <div>
-                  <div style={{ fontSize: "11px", color: "var(--text-dim)" }}>Billed Amount</div>
-                  <div className="mono" style={{ fontWeight: 600, color: "var(--text-main)" }}>
-                    {formatCurrency(reconcilingInvoice.final_amount, reconcilingInvoice.currency_code)}
-                  </div>
-                </div>
-                <div>
-                  <div style={{ fontSize: "11px", color: "var(--text-dim)" }}>Bank INR Credited</div>
-                  <div className="mono" style={{ fontWeight: 600, color: reconcilingInvoice.received_amount_inr ? "var(--accent-emerald)" : "var(--text-muted)" }}>
-                    {reconcilingInvoice.received_amount_inr ? `₹${reconcilingInvoice.received_amount_inr.toLocaleString()}` : "Not recorded"}
-                  </div>
-                </div>
-              </div>
-
-              {/* Future Integration Explainer Box */}
-              <div
-                style={{
-                  padding: "10px 12px",
-                  borderRadius: "var(--radius-xs)",
-                  background: "rgba(59, 130, 246, 0.08)",
-                  border: "1px solid rgba(59, 130, 246, 0.25)",
-                  fontSize: "11.5px",
-                  color: "var(--text-muted)",
-                  lineHeight: "1.5",
-                }}
-              >
-                <div style={{ fontWeight: 600, color: "var(--accent-blue)", marginBottom: "3px" }}>
-                  Automated Bank Statement Matching
-                </div>
-                Once you import your bank statement or connect bank feed, Manager-X will automatically match incoming transaction credits with this invoice and auto-populate the confirmed payment date.
-              </div>
-
-              {reconcileError && (
-                <div
-                  style={{
-                    padding: "8px 12px",
-                    borderRadius: "var(--radius-xs)",
-                    background: "rgba(244, 63, 94, 0.1)",
-                    border: "1px solid var(--accent-rose)",
-                    color: "var(--accent-rose)",
-                    fontSize: "12px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "6px",
-                  }}
-                >
-                  <AlertCircle size={14} />
-                  <span>{reconcileError}</span>
-                </div>
-              )}
-
-              {/* Matched Transaction Reference */}
-              <div>
-                <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "var(--text-main)", marginBottom: "4px" }}>
-                  Bank Transaction ID / Reference
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g. TXN-2026-HDFC-99120"
-                  value={reconcileTxId}
-                  onChange={(e) => setReconcileTxId(e.target.value)}
-                  className="finance-input mono"
-                  style={{ height: "34px", fontSize: "12px" }}
-                />
-              </div>
-
-              {/* Matched Payment Date */}
-              <div>
-                <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "var(--text-main)", marginBottom: "4px" }}>
-                  Payment Date (from Bank Transaction)
-                </label>
-                <input
-                  type="date"
-                  value={reconcileDate}
-                  onChange={(e) => setReconcileDate(e.target.value)}
-                  className="finance-input mono"
-                  style={{ height: "34px", fontSize: "12px" }}
-                />
-                <span style={{ display: "block", fontSize: "11px", color: "var(--text-dim)", marginTop: "4px" }}>
-                  Setting this will update the invoice's payment date to match the bank transaction.
-                </span>
-              </div>
-
-              {/* Footer */}
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: reconcilingInvoice.is_reconciled ? "space-between" : "flex-end",
-                  alignItems: "center",
-                  gap: "8px",
-                  marginTop: "8px",
-                  paddingTop: "12px",
-                  borderTop: "1px solid var(--border-subtle)",
-                }}
-              >
-                {reconcilingInvoice.is_reconciled && (
-                  <button
-                    type="button"
-                    onClick={handleUnreconcile}
-                    disabled={reconcileSubmitting}
-                    className="finance-button-secondary"
-                    style={{
-                      height: "34px",
-                      padding: "0 12px",
-                      fontSize: "12px",
-                      color: "var(--accent-rose)",
-                      borderColor: "rgba(244, 63, 94, 0.2)",
-                    }}
-                  >
-                    Un-reconcile
-                  </button>
-                )}
-
-                <div style={{ display: "flex", gap: "8px" }}>
-                  <button
-                    type="button"
-                    onClick={() => setReconcileModalOpen(false)}
-                    disabled={reconcileSubmitting}
-                    className="finance-button-secondary"
-                    style={{ height: "34px", padding: "0 14px", fontSize: "12px" }}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={reconcileSubmitting}
-                    className="finance-button-primary"
-                    style={{
-                      height: "34px",
-                      padding: "0 16px",
-                      fontSize: "12px",
-                      background: "var(--accent-blue)",
-                      borderColor: "var(--accent-blue)",
-                      color: "#ffffff",
-                      fontWeight: 600,
-                      width: "auto",
-                    }}
-                  >
-                    {reconcileSubmitting ? "Matching..." : reconcilingInvoice.is_reconciled ? "Update Match" : "Confirm & Reconcile"}
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+      {/* Reconcile Modal hidden */}
     </div>
   );
 }
