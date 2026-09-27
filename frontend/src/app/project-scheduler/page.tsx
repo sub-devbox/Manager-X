@@ -2,28 +2,21 @@
 
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import AppShell from "@/components/layout/AppShell";
-import ProjectModal from "@/components/modules/projects/ProjectModal";
 import TaskModal from "@/components/modules/projects/TaskModal";
-import ProjectTasksModal from "@/components/modules/projects/ProjectTasksModal";
 import ProjectSchedulerCalendar from "@/components/modules/projects/ProjectSchedulerCalendar";
 import SearchableClientSelect from "@/components/common/SearchableClientSelect";
 import { api } from "@/lib/api-client";
 import { ProjectData, TaskData, TaskStatus } from "@/types/project";
-import { TimeEntryData } from "@/types/time";
 import {
-  CalendarDays,
   Plus,
   Search,
   AlertCircle,
   CheckCircle2,
-  Clock,
-  Layers,
 } from "lucide-react";
 
 export default function ProjectSchedulerPage() {
   const [projects, setProjects] = useState<ProjectData[]>([]);
   const [tasks, setTasks] = useState<TaskData[]>([]);
-  const [entries, setEntries] = useState<TimeEntryData[]>([]);
   const [clients, setClients] = useState<{ id: string; company_name: string }[]>([]);
   const [loading, setLoading] = useState(true);
   const [actionMsg, setActionMsg] = useState<{ type: "success" | "error"; text: string } | null>(null);
@@ -31,14 +24,6 @@ export default function ProjectSchedulerPage() {
   // Filters
   const [searchQuery, setSearchQuery] = useState("");
   const [clientFilter, setClientFilter] = useState("all");
-
-  // Modals state
-  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
-  const [editingProject, setEditingProject] = useState<ProjectData | null>(null);
-  const [newProjectDefaultEndDate, setNewProjectDefaultEndDate] = useState<string | undefined>();
-
-  // Project Tasks Modal
-  const [selectedProjectForTasks, setSelectedProjectForTasks] = useState<ProjectData | null>(null);
 
   // Task Modal state
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
@@ -49,11 +34,10 @@ export default function ProjectSchedulerPage() {
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      const [projData, taskData, clientData, timeData] = await Promise.all([
+      const [projData, taskData, clientData] = await Promise.all([
         api.get<ProjectData[]>("/projects"),
         api.get<TaskData[]>("/tasks"),
         api.get<{ id: string; company_name: string }[]>("/clients"),
-        api.get<TimeEntryData[]>("/time-entries"),
       ]);
 
       const rawProjects = Array.isArray(projData) ? projData : [];
@@ -64,7 +48,6 @@ export default function ProjectSchedulerPage() {
       setProjects(processedProjects);
       setTasks(Array.isArray(taskData) ? taskData : []);
       setClients(Array.isArray(clientData) ? clientData : []);
-      setEntries(Array.isArray(timeData) ? timeData : []);
     } catch (err: any) {
       setActionMsg({ type: "error", text: err.message || "Failed to load project records." });
     } finally {
@@ -82,121 +65,94 @@ export default function ProjectSchedulerPage() {
     return () => window.removeEventListener("mx_timer_saved", handleTimerSaved);
   }, [fetchData]);
 
-  // Total time spent per task ID
-  const timeTrackedByTask = useMemo(() => {
-    const map: Record<string, number> = {};
-    for (const entry of entries) {
-      if (entry.task_id) {
-        map[entry.task_id] = (map[entry.task_id] || 0) + (entry.duration_seconds || 0);
-      }
+  // Project lookup map
+  const projectMap = useMemo(() => {
+    const map = new Map<string, ProjectData>();
+    for (const p of projects) {
+      map.set(p.id, p);
     }
     return map;
-  }, [entries]);
-
-  // Project Actions
-  const handleOpenNewProject = (defaultDate?: string) => {
-    setEditingProject(null);
-    setNewProjectDefaultEndDate(defaultDate);
-    setIsProjectModalOpen(true);
-  };
-
-  const handleOpenEditProject = (proj: ProjectData) => {
-    setEditingProject(proj);
-    setNewProjectDefaultEndDate(undefined);
-    setIsProjectModalOpen(true);
-  };
-
-  const handleUpdateProjectDueDate = async (projectId: string, newEndDate: string) => {
-    const proj = projects.find((p) => p.id === projectId);
-    const prevEndDate = proj?.end_date;
-
-    // Optimistic update
-    setProjects((prev) =>
-      prev.map((p) => (p.id === projectId ? { ...p, end_date: newEndDate } : p))
-    );
-
-    try {
-      await api.patch(`/projects/${projectId}`, { end_date: newEndDate });
-      setActionMsg({
-        type: "success",
-        text: `Rescheduled "${proj?.name || "Project"}" due date to ${newEndDate}.`,
-      });
-    } catch (err: any) {
-      // Rollback on error
-      setProjects((prev) =>
-        prev.map((p) => (p.id === projectId ? { ...p, end_date: prevEndDate } : p))
-      );
-      setActionMsg({
-        type: "error",
-        text: err.message || "Failed to update project due date.",
-      });
-    }
-  };
-
-  const handleDeleteProject = async (proj: ProjectData) => {
-    setActionMsg(null);
-    try {
-      await api.delete(`/projects/${proj.id}`);
-      setActionMsg({ type: "success", text: `Project "${proj.name}" deleted.` });
-      fetchData();
-    } catch (err: any) {
-      setActionMsg({ type: "error", text: err.message || "Failed to delete project." });
-      throw err;
-    }
-  };
+  }, [projects]);
 
   // Task Actions
-  const handleOpenNewTask = (projectId?: string, defaultCol: TaskStatus = "backlog") => {
+  const handleOpenNewTask = (defaultDate?: string) => {
     setEditingTask(null);
-    setTaskDefaultProjectId(projectId);
-    setTaskDefaultStatus(defaultCol);
+    setTaskDefaultProjectId(undefined);
+    setTaskDefaultStatus("backlog");
+    setTaskDefaultDueDate(defaultDate);
     setIsTaskModalOpen(true);
   };
+
+  const [taskDefaultDueDate, setTaskDefaultDueDate] = useState<string | undefined>();
 
   const handleOpenEditTask = (task: TaskData) => {
     setEditingTask(task);
     setTaskDefaultProjectId(task.project_id);
     setTaskDefaultStatus(task.status);
+    setTaskDefaultDueDate(task.due_date || undefined);
     setIsTaskModalOpen(true);
   };
 
-  const handleTaskStatusChange = async (taskId: string, newStatus: TaskStatus) => {
+  const handleUpdateTaskDueDate = async (taskId: string, newDueDate: string) => {
+    const task = tasks.find((t) => t.id === taskId);
+    const prevDueDate = task?.due_date;
+
+    // Optimistic update
+    setTasks((prev) =>
+      prev.map((t) => (t.id === taskId ? { ...t, due_date: newDueDate } : t))
+    );
+
     try {
-      setTasks((prev) =>
-        prev.map((t) => (t.id === taskId ? { ...t, status: newStatus } : t))
-      );
-      await api.patch(`/tasks/${taskId}/status`, { status: newStatus });
-      fetchData();
+      await api.patch(`/tasks/${taskId}`, { due_date: newDueDate });
+      setActionMsg({
+        type: "success",
+        text: `Rescheduled "${task?.title || "Task"}" due date to ${newDueDate}.`,
+      });
     } catch (err: any) {
-      setActionMsg({ type: "error", text: err.message || "Failed to update task status." });
-      fetchData();
+      // Rollback on error
+      setTasks((prev) =>
+        prev.map((t) => (t.id === taskId ? { ...t, due_date: prevDueDate } : t))
+      );
+      setActionMsg({
+        type: "error",
+        text: err.message || "Failed to update task due date.",
+      });
     }
   };
 
-  // Filtered Projects
-  const filteredProjects = useMemo(() => {
-    return projects.filter((p) => {
+  // Filtered Tasks
+  const filteredTasks = useMemo(() => {
+    return tasks.filter((t) => {
+      const proj = projectMap.get(t.project_id);
+
       // 1. Search query filter
       const q = searchQuery.trim().toLowerCase();
-      const matchesSearch =
-        !q ||
-        p.name.toLowerCase().includes(q) ||
-        (p.description && p.description.toLowerCase().includes(q)) ||
-        (p.client?.company_name && p.client.company_name.toLowerCase().includes(q));
-
-      if (!matchesSearch) return false;
+      if (q) {
+        const titleMatch = t.title.toLowerCase().includes(q);
+        const descMatch = Boolean(t.description && t.description.toLowerCase().includes(q));
+        const projMatch = Boolean(proj?.name && proj.name.toLowerCase().includes(q));
+        const clientMatch = Boolean(proj?.client?.company_name && proj.client.company_name.toLowerCase().includes(q));
+        if (!titleMatch && !descMatch && !projMatch && !clientMatch) {
+          return false;
+        }
+      }
 
       // 2. Client filter
-      const matchesClient = clientFilter === "all" || p.client_id === clientFilter;
-      return matchesClient;
+      if (clientFilter !== "all") {
+        if (!proj || proj.client_id !== clientFilter) {
+          return false;
+        }
+      }
+
+      return true;
     });
-  }, [projects, searchQuery, clientFilter]);
+  }, [tasks, projectMap, searchQuery, clientFilter]);
 
   const scheduledCount = useMemo(() => {
-    return filteredProjects.filter((p) => Boolean(p.end_date)).length;
-  }, [filteredProjects]);
+    return filteredTasks.filter((t) => Boolean(t.due_date)).length;
+  }, [filteredTasks]);
 
-  const unscheduledCount = filteredProjects.length - scheduledCount;
+  const unscheduledCount = filteredTasks.length - scheduledCount;
 
   return (
     <AppShell title="Project Scheduler">
@@ -254,7 +210,7 @@ export default function ProjectSchedulerPage() {
                 letterSpacing: "0.5px",
               }}
             >
-              Timeline & Deadlines
+              Task Timelines & Deadlines
             </span>
             <div style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "2px" }}>
               <span style={{ fontSize: "15px", fontWeight: 600, color: "var(--text-main)" }}>
@@ -308,13 +264,13 @@ export default function ProjectSchedulerPage() {
                   position: "absolute",
                   left: "10px",
                   top: "50%",
-                  transform: "translateY(-50)",
+                  transform: "translateY(-50%)",
                   color: "var(--text-dim)",
                 }}
               />
               <input
                 type="text"
-                placeholder="Search projects..."
+                placeholder="Search tasks, projects..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="finance-input"
@@ -339,59 +295,37 @@ export default function ProjectSchedulerPage() {
 
             <button
               type="button"
-              onClick={() => handleOpenNewProject()}
+              onClick={() => handleOpenNewTask()}
               className="finance-button-primary"
               style={{ height: "34px", padding: "0 14px", gap: "6px", fontWeight: 600, width: "auto" }}
             >
               <Plus size={13} />
-              <span>New Project</span>
+              <span>New Task</span>
             </button>
           </div>
         </div>
 
-        {/* Full-Page Calendar Scheduler Grid */}
+        {/* Full-Page Calendar Scheduler Grid for Tasks */}
         <ProjectSchedulerCalendar
-          projects={filteredProjects}
-          onUpdateProjectDueDate={handleUpdateProjectDueDate}
-          onOpenNewProject={handleOpenNewProject}
-          onEditProject={handleOpenEditProject}
-          onSelectProjectTasks={(proj) => setSelectedProjectForTasks(proj)}
-        />
-
-        {/* Project Edit Modal */}
-        <ProjectModal
-          isOpen={isProjectModalOpen}
-          onClose={() => {
-            setIsProjectModalOpen(false);
-            setNewProjectDefaultEndDate(undefined);
-          }}
-          onSuccess={fetchData}
-          onDelete={handleDeleteProject}
-          initialData={editingProject}
-          defaultEndDate={newProjectDefaultEndDate}
-        />
-
-        {/* Clicking on Project Deliverables Counter Opens ProjectTasksModal */}
-        <ProjectTasksModal
-          isOpen={Boolean(selectedProjectForTasks)}
-          onClose={() => setSelectedProjectForTasks(null)}
-          project={selectedProjectForTasks}
-          tasks={tasks}
-          timeTrackedMap={timeTrackedByTask}
-          onAddTask={(projId) => handleOpenNewTask(projId)}
+          tasks={filteredTasks}
+          projects={projects}
+          onUpdateTaskDueDate={handleUpdateTaskDueDate}
+          onOpenNewTask={handleOpenNewTask}
           onEditTask={handleOpenEditTask}
-          onTaskStatusChange={handleTaskStatusChange}
-          onTimerNotice={setActionMsg}
         />
 
-        {/* Task Modal for Editing or Creating Tasks from Tasks Modal */}
+        {/* Task Modal for Creating or Editing Tasks */}
         <TaskModal
           isOpen={isTaskModalOpen}
-          onClose={() => setIsTaskModalOpen(false)}
+          onClose={() => {
+            setIsTaskModalOpen(false);
+            setTaskDefaultDueDate(undefined);
+          }}
           onSuccess={fetchData}
           initialData={editingTask}
           defaultProjectId={taskDefaultProjectId}
           defaultStatus={taskDefaultStatus}
+          defaultDueDate={taskDefaultDueDate}
         />
       </div>
     </AppShell>

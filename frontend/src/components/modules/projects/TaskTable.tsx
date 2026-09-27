@@ -27,19 +27,20 @@ interface TaskTableProps {
   onTimerNotice?: (msg: { type: "success" | "error"; text: string }) => void;
 }
 
-type SortField = "project" | "title" | "client" | "estimated_time" | "time_tracked" | "status";
+type SortField = "project" | "title" | "client" | "estimated_time" | "time_tracked" | "due_date" | "status";
 type SortDirection = "asc" | "desc";
 
 const PAGE_SIZE = 50;
 
 const DEFAULT_TASK_WIDTHS = {
-  project: 190,
-  title: 270,
-  client: 160,
-  estimated_time: 120,
-  time_tracked: 120,
-  status: 130,
-  actions: 100,
+  project: 170,
+  title: 250,
+  client: 140,
+  estimated_time: 110,
+  time_tracked: 110,
+  due_date: 110,
+  status: 120,
+  actions: 90,
 };
 
 const MIN_TASK_WIDTHS = {
@@ -48,6 +49,7 @@ const MIN_TASK_WIDTHS = {
   client: 100,
   estimated_time: 90,
   time_tracked: 90,
+  due_date: 90,
   status: 100,
   actions: 80,
 };
@@ -165,6 +167,12 @@ export default function TaskTable({
         case "time_tracked":
           comparison = (timeTrackedMap[a.id] || 0) - (timeTrackedMap[b.id] || 0);
           break;
+        case "due_date": {
+          const dateA = a.due_date || "9999-12-31";
+          const dateB = b.due_date || "9999-12-31";
+          comparison = dateA.localeCompare(dateB);
+          break;
+        }
         case "status": {
           const statusOrder: Record<TaskStatus, number> = {
             backlog: 1,
@@ -415,7 +423,31 @@ export default function TaskTable({
                 <ResizeHandle onMouseDown={(e) => startResize("time_tracked", e)} />
               </th>
 
-              {/* 6. Status */}
+              {/* 6. Due Date */}
+              <th
+                onClick={() => handleSort("due_date")}
+                style={{
+                  position: "relative",
+                  width: `${widths.due_date}px`,
+                  minWidth: `${MIN_TASK_WIDTHS.due_date}px`,
+                  padding: "6px 12px",
+                  fontWeight: 600,
+                  color: sortField === "due_date" ? "var(--text-main)" : "var(--text-dim)",
+                  cursor: "pointer",
+                  userSelect: "none",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                  <span>Due Date</span>
+                  {renderSortIndicator("due_date")}
+                </div>
+                <ResizeHandle onMouseDown={(e) => startResize("due_date", e)} />
+              </th>
+
+              {/* 7. Status */}
               <th
                 onClick={() => handleSort("status")}
                 style={{
@@ -615,7 +647,39 @@ export default function TaskTable({
                     )}
                   </td>
 
-                  {/* 6. Status Dropdown */}
+                  {/* 6. Due Date */}
+                  <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
+                    {task.due_date ? (
+                      <span
+                        className="mono"
+                        style={{
+                          fontSize: "11px",
+                          color:
+                            task.status !== "done" &&
+                            task.due_date.slice(0, 10) < new Date().toISOString().slice(0, 10)
+                              ? "var(--accent-rose)"
+                              : "var(--text-main)",
+                          fontWeight:
+                            task.status !== "done" &&
+                            task.due_date.slice(0, 10) < new Date().toISOString().slice(0, 10)
+                              ? 600
+                              : 400,
+                        }}
+                        title={
+                          task.status !== "done" &&
+                          task.due_date.slice(0, 10) < new Date().toISOString().slice(0, 10)
+                            ? `Overdue: Due date was ${task.due_date.slice(0, 10)}`
+                            : `Due: ${task.due_date.slice(0, 10)}`
+                        }
+                      >
+                        {task.due_date.slice(0, 10)}
+                      </span>
+                    ) : (
+                      <span style={{ color: "var(--text-dim)", fontSize: "11px" }}>—</span>
+                    )}
+                  </td>
+
+                  {/* 7. Status Dropdown */}
                   <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }}>
                     <select
                       value={task.status}

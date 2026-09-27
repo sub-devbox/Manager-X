@@ -24,6 +24,7 @@ interface TaskModalProps {
   initialData?: TaskData | null;
   defaultProjectId?: string;
   defaultStatus?: TaskStatus;
+  defaultDueDate?: string;
 }
 
 export default function TaskModal({
@@ -34,6 +35,7 @@ export default function TaskModal({
   initialData,
   defaultProjectId,
   defaultStatus = "backlog",
+  defaultDueDate,
 }: TaskModalProps) {
   const [mounted, setMounted] = useState(false);
   const [projects, setProjects] = useState<ProjectOption[]>([]);
@@ -50,6 +52,7 @@ export default function TaskModal({
     project_id: "",
     status: "backlog" as TaskStatus,
     estimated_hours: 0,
+    due_date: "",
     checklist: [] as ChecklistItem[],
   });
 
@@ -84,6 +87,7 @@ export default function TaskModal({
           project_id: initialData.project_id,
           status: initialData.status,
           estimated_hours: initialData.estimated_hours || 0,
+          due_date: initialData.due_date ? initialData.due_date.slice(0, 10) : "",
           checklist: Array.isArray(initialData.checklist) ? [...initialData.checklist] : [],
         });
       } else {
@@ -92,11 +96,12 @@ export default function TaskModal({
           project_id: defaultProjectId || "",
           status: defaultStatus,
           estimated_hours: 0,
+          due_date: defaultDueDate || "",
           checklist: [],
         });
       }
     }
-  }, [isOpen, initialData, defaultProjectId, defaultStatus]);
+  }, [isOpen, initialData, defaultProjectId, defaultStatus, defaultDueDate]);
 
   const loadProjects = async () => {
     setLoadingProjects(true);
@@ -188,11 +193,12 @@ export default function TaskModal({
 
     setSubmitting(true);
     try {
-      const payload = {
+      const payload: Record<string, any> = {
         title: formData.title.trim(),
         project_id: formData.project_id,
         status: formData.status,
         estimated_hours: Number(formData.estimated_hours) || 0,
+        due_date: formData.due_date ? formData.due_date : null,
         checklist: formData.checklist,
       };
 
@@ -388,8 +394,8 @@ export default function TaskModal({
             />
           </div>
 
-          {/* Task Status & Estimated Hours */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
+          {/* Task Status, Estimated Hours & Due Date */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "10px" }}>
             <div>
               <label style={{ display: "block", fontSize: "12px", color: "var(--text-muted)", marginBottom: "4px" }}>
                 Task Status
@@ -436,6 +442,19 @@ export default function TaskModal({
                   hrs
                 </span>
               </div>
+            </div>
+
+            <div>
+              <label style={{ display: "block", fontSize: "12px", color: "var(--text-muted)", marginBottom: "4px" }}>
+                Due Date
+              </label>
+              <input
+                type="date"
+                value={formData.due_date}
+                onChange={(e) => setFormData({ ...formData, due_date: e.target.value })}
+                className="finance-input mono"
+                style={{ fontSize: "12px" }}
+              />
             </div>
           </div>
 

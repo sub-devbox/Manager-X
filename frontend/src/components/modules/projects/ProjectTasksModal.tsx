@@ -241,12 +241,6 @@ export default function ProjectTasksModal({
                   {project.client.company_name}
                 </span>
               )}
-              {project.end_date && (
-                <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-                  <Calendar size={12} style={{ color: "var(--text-dim)" }} />
-                  Due {project.end_date}
-                </span>
-              )}
               <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
                 <Clock size={12} style={{ color: "var(--accent-emerald)" }} />
                 {formatDuration(totalDurationSeconds)} spent

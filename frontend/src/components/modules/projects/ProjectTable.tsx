@@ -24,24 +24,22 @@ interface ProjectTableProps {
   onDeleteProject?: (project: ProjectData) => void;
 }
 
-type SortField = "name" | "client" | "due_date" | "time_spent" | "completion";
+type SortField = "name" | "client" | "time_spent" | "completion";
 type SortDirection = "asc" | "desc";
 
 const PAGE_SIZE = 50;
 
 const DEFAULT_PROJECT_WIDTHS = {
-  name: 260,
-  client: 180,
-  due_date: 130,
-  time_spent: 140,
-  completion: 160,
+  name: 290,
+  client: 200,
+  time_spent: 150,
+  completion: 170,
   actions: 90,
 };
 
 const MIN_PROJECT_WIDTHS = {
-  name: 150,
-  client: 110,
-  due_date: 90,
+  name: 180,
+  client: 120,
   time_spent: 100,
   completion: 110,
   actions: 70,
@@ -87,12 +85,6 @@ export default function ProjectTable({
           const clientA = a.client?.company_name || "";
           const clientB = b.client?.company_name || "";
           comparison = clientA.localeCompare(clientB, undefined, { sensitivity: "base" });
-          break;
-        }
-        case "due_date": {
-          const dateA = a.end_date || "9999-12-31";
-          const dateB = b.end_date || "9999-12-31";
-          comparison = dateA.localeCompare(dateB);
           break;
         }
         case "time_spent": {
@@ -260,29 +252,7 @@ export default function ProjectTable({
                 <ResizeHandle onMouseDown={(e) => startResize("client", e)} />
               </th>
 
-              {/* 3. Due Date */}
-              <th
-                onClick={() => handleSort("due_date")}
-                style={{
-                  position: "relative",
-                  width: `${widths.due_date}px`,
-                  minWidth: `${MIN_PROJECT_WIDTHS.due_date}px`,
-                  padding: "6px 12px",
-                  fontWeight: 600,
-                  color: "var(--text-dim)",
-                  cursor: "pointer",
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                }}
-              >
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                  <span>Due Date</span>
-                  {renderSortIndicator("due_date")}
-                </div>
-                <ResizeHandle onMouseDown={(e) => startResize("due_date", e)} />
-              </th>
-
-              {/* 4. Total Time Spent */}
+              {/* 3. Total Time Spent */}
               <th
                 onClick={() => handleSort("time_spent")}
                 style={{
@@ -427,19 +397,7 @@ export default function ProjectTable({
                     )}
                   </td>
 
-                  {/* 3. Due Date */}
-                  <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }} className="mono">
-                    {proj.end_date ? (
-                      <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-                        <Calendar size={11} style={{ color: "var(--text-dim)" }} />
-                        <span>{proj.end_date}</span>
-                      </div>
-                    ) : (
-                      <span style={{ color: "var(--text-dim)" }}>—</span>
-                    )}
-                  </td>
-
-                  {/* 4. Total Time Spent */}
+                  {/* 3. Total Time Spent */}
                   <td style={{ padding: "6px 12px", whiteSpace: "nowrap" }} className="mono">
                     <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
                       <Clock size={11} style={{ color: spentSeconds > 0 ? "var(--accent-emerald)" : "var(--text-dim)" }} />

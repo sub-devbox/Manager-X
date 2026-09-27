@@ -233,20 +233,18 @@ export default function ProjectsPage() {
       let matchesPeriod = hasTimeInPeriod;
 
       if (!matchesPeriod) {
-        const projDateStr = p.end_date ? p.end_date.slice(0, 10) : (p.updated_at || p.created_at || "").slice(0, 10);
+        const projDateStr = (p.updated_at || p.created_at || "").slice(0, 10);
         const projDate = projDateStr ? new Date(projDateStr) : null;
 
         if (periodFilter === "today") {
           matchesPeriod = projDateStr === todayStr || (p.status === "active" && (p.updated_at || "").slice(0, 10) === todayStr);
         } else if (periodFilter === "this_week") {
           if (!projDate) matchesPeriod = true;
-          else if (p.end_date) matchesPeriod = projDate >= monday && projDate <= sunday;
           else matchesPeriod = projDate >= monday;
         } else if (periodFilter === "this_month") {
-          // In "this month", active projects or projects with activity/due this month are visible
+          // In "this month", active projects or projects with activity this month are visible
           if (!projDate) matchesPeriod = true;
           else if (p.status === "active") matchesPeriod = true;
-          else if (p.end_date) matchesPeriod = projDate >= firstOfMonth && projDate <= lastOfMonth;
           else matchesPeriod = projDate >= firstOfMonth;
         } else if (periodFilter === "custom") {
           if (!projDateStr) matchesPeriod = true;

@@ -30,7 +30,6 @@ interface ProjectModalProps {
   onDelete?: (project: ProjectData) => Promise<void> | void;
   initialData?: ProjectData | null;
   defaultClientId?: string;
-  defaultEndDate?: string;
   initialName?: string;
   zIndex?: number;
 }
@@ -42,7 +41,6 @@ export default function ProjectModal({
   onDelete,
   initialData,
   defaultClientId,
-  defaultEndDate,
   initialName,
   zIndex = 9999,
 }: ProjectModalProps) {
@@ -63,7 +61,6 @@ export default function ProjectModal({
     budget_amount: "" as string | number,
     status: "active" as ProjectStatus,
     start_date: "",
-    end_date: "",
   });
 
   useEffect(() => {
@@ -103,7 +100,6 @@ export default function ProjectModal({
           budget_amount: initialData.budget_amount != null ? initialData.budget_amount : "",
           status: initialData.status,
           start_date: initialData.start_date || "",
-          end_date: initialData.end_date || "",
         });
       } else {
         setFormData({
@@ -115,11 +111,10 @@ export default function ProjectModal({
           budget_amount: "",
           status: "active",
           start_date: new Date().toISOString().split("T")[0],
-          end_date: defaultEndDate || "",
         });
       }
     }
-  }, [isOpen, initialData, defaultClientId, defaultEndDate, initialName]);
+  }, [isOpen, initialData, defaultClientId, initialName]);
 
   const loadClients = async () => {
     setLoadingClients(true);
@@ -185,7 +180,7 @@ export default function ProjectModal({
         billing_type: formData.billing_type,
         status: formData.status,
         start_date: formData.start_date || null,
-        end_date: formData.end_date || null,
+        end_date: null,
       };
 
       if (formData.billing_type === "hourly") {
@@ -517,30 +512,17 @@ export default function ProjectModal({
             </select>
           </div>
 
-          {/* Dates: Start & End */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
-            <div>
-              <label style={{ display: "block", fontSize: "12px", color: "var(--text-muted)", marginBottom: "4px" }}>
-                Start Date
-              </label>
-              <input
-                type="date"
-                value={formData.start_date}
-                onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
-                className="finance-input mono"
-              />
-            </div>
-            <div>
-              <label style={{ display: "block", fontSize: "12px", color: "var(--text-muted)", marginBottom: "4px" }}>
-                Target End Date (Optional)
-              </label>
-              <input
-                type="date"
-                value={formData.end_date}
-                onChange={(e) => setFormData({ ...formData, end_date: e.target.value })}
-                className="finance-input mono"
-              />
-            </div>
+          {/* Start Date */}
+          <div>
+            <label style={{ display: "block", fontSize: "12px", color: "var(--text-muted)", marginBottom: "4px" }}>
+              Start Date
+            </label>
+            <input
+              type="date"
+              value={formData.start_date}
+              onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
+              className="finance-input mono"
+            />
           </div>
 
           {/* Description */}

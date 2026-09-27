@@ -1,27 +1,25 @@
 "use client";
 
-import React, { useState, useMemo, useEffect, useRef } from "react";
-import { ProjectData, ProjectStatus } from "@/types/project";
+import React, { useState, useMemo, useEffect } from "react";
+import { TaskData, TaskStatus, ProjectData } from "@/types/project";
 import {
   ChevronLeft,
   ChevronRight,
   Plus,
   Maximize2,
   Minimize2,
-  FolderKanban,
-  CheckCircle2,
-  Calendar as CalendarIcon,
+  CheckSquare,
   Layers,
-  Building2,
   GripVertical,
+  Clock,
 } from "lucide-react";
 
 interface ProjectSchedulerCalendarProps {
+  tasks: TaskData[];
   projects: ProjectData[];
-  onUpdateProjectDueDate: (projectId: string, newEndDate: string) => Promise<void> | void;
-  onOpenNewProject: (defaultDate?: string) => void;
-  onEditProject: (project: ProjectData) => void;
-  onSelectProjectTasks?: (project: ProjectData) => void;
+  onUpdateTaskDueDate: (taskId: string, newDueDate: string) => Promise<void> | void;
+  onOpenNewTask: (defaultDate?: string) => void;
+  onEditTask: (task: TaskData) => void;
 }
 
 const MONTH_NAMES = [
@@ -42,16 +40,16 @@ const MONTH_NAMES = [
 const WEEKDAY_NAMES = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 export default function ProjectSchedulerCalendar({
+  tasks,
   projects,
-  onUpdateProjectDueDate,
-  onOpenNewProject,
-  onEditProject,
-  onSelectProjectTasks,
+  onUpdateTaskDueDate,
+  onOpenNewTask,
+  onEditTask,
 }: ProjectSchedulerCalendarProps) {
   const [currentDate, setCurrentDate] = useState(() => new Date());
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isUnscheduledOpen, setIsUnscheduledOpen] = useState(false);
-  const [draggedProjectId, setDraggedProjectId] = useState<string | null>(null);
+  const [draggedTaskId, setDraggedTaskId] = useState<string | null>(null);
   const [dragOverDate, setDragOverDate] = useState<string | null>(null);
 
   // Close full screen on Escape
@@ -89,6 +87,15 @@ export default function ProjectSchedulerCalendar({
       now.getDate()
     ).padStart(2, "0")}`;
   }, []);
+
+  // Quick project lookup map
+  const projectMap = useMemo(() => {
+    const map = new Map<string, ProjectData>();
+    for (const p of projects) {
+      map.set(p.id, p);
+    }
+    return map;
+  }, [projects]);
 
   // Compute 7xN Calendar Grid cells for current month
   const { calendarDays, weeksCount } = useMemo(() => {
@@ -149,33 +156,33 @@ export default function ProjectSchedulerCalendar({
     return { calendarDays: days, weeksCount: totalWeeks };
   }, [year, month, todayStr]);
 
-  // Group projects by due date (end_date)
-  const { projectsByDate, unscheduledProjects } = useMemo(() => {
-    const map: Record<string, ProjectData[]> = {};
-    const unscheduled: ProjectData[] = [];
+  // Group tasks by due date
+  const { tasksByDate, unscheduledTasks } = useMemo(() => {
+    const map: Record<string, TaskData[]> = {};
+    const unscheduled: TaskData[] = [];
 
-    for (const p of projects) {
-      if (p.end_date) {
-        const d = p.end_date.slice(0, 10);
+    for (const t of tasks) {
+      if (t.due_date) {
+        const d = t.due_date.slice(0, 10);
         if (!map[d]) map[d] = [];
-        map[d].push(p);
+        map[d].push(t);
       } else {
-        unscheduled.push(p);
+        unscheduled.push(t);
       }
     }
 
-    return { projectsByDate: map, unscheduledProjects: unscheduled };
-  }, [projects]);
+    return { tasksByDate: map, unscheduledTasks: unscheduled };
+  }, [tasks]);
 
   // Drag and drop handlers
-  const handleDragStart = (e: React.DragEvent, projectId: string) => {
-    e.dataTransfer.setData("text/plain", projectId);
+  const handleDragStart = (e: React.DragEvent, taskId: string) => {
+    e.dataTransfer.setData("text/plain", taskId);
     e.dataTransfer.effectAllowed = "move";
-    setDraggedProjectId(projectId);
+    setDraggedTaskId(taskId);
   };
 
   const handleDragEnd = () => {
-    setDraggedProjectId(null);
+    setDraggedTaskId(null);
     setDragOverDate(null);
   };
 
@@ -195,34 +202,34 @@ export default function ProjectSchedulerCalendar({
 
   const handleDrop = async (e: React.DragEvent, targetDateStr: string) => {
     e.preventDefault();
-    const projectId = e.dataTransfer.getData("text/plain") || draggedProjectId;
-    setDraggedProjectId(null);
+    const taskId = e.dataTransfer.getData("text/plain") || draggedTaskId;
+    setDraggedTaskId(null);
     setDragOverDate(null);
 
-    if (!projectId) return;
+    if (!taskId) return;
 
-    const targetProject = projects.find((p) => p.id === projectId);
-    if (!targetProject) return;
+    const targetTask = tasks.find((t) => t.id === taskId);
+    if (!targetTask) return;
 
-    if (targetProject.end_date?.slice(0, 10) === targetDateStr) {
+    if (targetTask.due_date?.slice(0, 10) === targetDateStr) {
       return;
     }
 
-    await onUpdateProjectDueDate(projectId, targetDateStr);
+    await onUpdateTaskDueDate(taskId, targetDateStr);
   };
 
-  const getStatusColor = (status: ProjectStatus) => {
+  const getStatusColor = (status: TaskStatus) => {
     switch (status) {
-      case "active":
-        return "var(--accent-blue)";
-      case "completed":
-        return "var(--accent-emerald)";
-      case "on_hold":
+      case "backlog":
+        return "var(--text-muted)";
+      case "in_progress":
         return "var(--accent-amber)";
-      case "archived":
-        return "var(--text-dim)";
-      default:
+      case "review":
         return "var(--accent-blue)";
+      case "done":
+        return "var(--accent-emerald)";
+      default:
+        return "var(--text-muted)";
     }
   };
 
@@ -241,7 +248,7 @@ export default function ProjectSchedulerCalendar({
               boxSizing: "border-box",
             }
           : {
-              height: "calc(100vh - 200px)",
+              height: "calc(100vh - 190px)",
               minHeight: "560px",
               display: "flex",
               flexDirection: "column",
@@ -281,7 +288,7 @@ export default function ProjectSchedulerCalendar({
                 alignItems: "center",
                 justifyContent: "center",
               }}
-              title="Previous Month"
+              title="Previous Month (<)"
             >
               <ChevronLeft size={16} />
             </button>
@@ -297,7 +304,7 @@ export default function ProjectSchedulerCalendar({
                 alignItems: "center",
                 justifyContent: "center",
               }}
-              title="Next Month"
+              title="Next Month (>)"
             >
               <ChevronRight size={16} />
             </button>
@@ -333,7 +340,7 @@ export default function ProjectSchedulerCalendar({
 
         {/* Right: Actions */}
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          {/* Unscheduled Drawer Toggle */}
+          {/* Unscheduled Tasks Drawer Toggle */}
           <button
             type="button"
             onClick={() => setIsUnscheduledOpen((prev) => !prev)}
@@ -348,10 +355,10 @@ export default function ProjectSchedulerCalendar({
               borderColor: isUnscheduledOpen ? "var(--accent-blue)" : undefined,
               color: isUnscheduledOpen ? "var(--accent-blue)" : undefined,
             }}
-            title="Projects without due dates"
+            title="Tasks without due dates"
           >
             <Layers size={13} />
-            <span>Unscheduled ({unscheduledProjects.length})</span>
+            <span>Unscheduled Tasks ({unscheduledTasks.length})</span>
           </button>
 
           {/* Full Screen Toggle */}
@@ -372,10 +379,10 @@ export default function ProjectSchedulerCalendar({
             {isFullScreen ? <Minimize2 size={15} /> : <Maximize2 size={15} />}
           </button>
 
-          {/* Quick Create Project */}
+          {/* Quick Create Task */}
           <button
             type="button"
-            onClick={() => onOpenNewProject()}
+            onClick={() => onOpenNewTask()}
             className="finance-button-primary"
             style={{
               height: "32px",
@@ -388,7 +395,7 @@ export default function ProjectSchedulerCalendar({
             }}
           >
             <Plus size={13} />
-            <span>New Project</span>
+            <span>New Task</span>
           </button>
         </div>
       </div>
@@ -434,8 +441,13 @@ export default function ProjectSchedulerCalendar({
         }}
       >
         {calendarDays.map((day) => {
-          const dayProjects = projectsByDate[day.dateStr] || [];
+          const dayTasks = tasksByDate[day.dateStr] || [];
           const isOver = dragOverDate === day.dateStr;
+          // Calculate total estimated hours for this date
+          const dayTotalEstHours = dayTasks.reduce(
+            (sum, t) => sum + (t.estimated_hours || 0),
+            0
+          );
 
           return (
             <div
@@ -449,7 +461,7 @@ export default function ProjectSchedulerCalendar({
                   : day.isCurrentMonth
                   ? "var(--bg-surface)"
                   : "var(--bg-app)",
-                padding: "6px 8px",
+                padding: "5px 7px",
                 display: "flex",
                 flexDirection: "column",
                 overflow: "hidden",
@@ -469,30 +481,56 @@ export default function ProjectSchedulerCalendar({
                   flexShrink: 0,
                 }}
               >
-                <span
-                  style={{
-                    fontSize: "11px",
-                    fontWeight: day.isToday ? 700 : 500,
-                    color: day.isToday
-                      ? "#ffffff"
-                      : day.isCurrentMonth
-                      ? "var(--text-main)"
-                      : "var(--text-dim)",
-                    background: day.isToday ? "var(--accent-blue)" : "transparent",
-                    padding: day.isToday ? "1px 6px" : "0",
-                    borderRadius: day.isToday ? "10px" : "0",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  {day.dayNumber}
-                </span>
+                <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                  <span
+                    style={{
+                      fontSize: "11px",
+                      fontWeight: day.isToday ? 700 : 500,
+                      color: day.isToday
+                        ? "#ffffff"
+                        : day.isCurrentMonth
+                        ? "var(--text-main)"
+                        : "var(--text-dim)",
+                      background: day.isToday ? "var(--accent-blue)" : "transparent",
+                      padding: day.isToday ? "1px 6px" : "0",
+                      borderRadius: day.isToday ? "10px" : "0",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {day.dayNumber}
+                  </span>
 
-                {/* Add Project on this specific date */}
+                  {/* All date cells show total estimated hr assigned */}
+                  <span
+                    className="mono"
+                    style={{
+                      fontSize: "10px",
+                      fontWeight: dayTotalEstHours > 0 ? 600 : 400,
+                      color:
+                        dayTotalEstHours > 0 ? "var(--accent-amber)" : "var(--text-dim)",
+                      background:
+                        dayTotalEstHours > 0
+                          ? "rgba(245, 158, 11, 0.12)"
+                          : "rgba(255, 255, 255, 0.03)",
+                      border:
+                        dayTotalEstHours > 0
+                          ? "1px solid rgba(245, 158, 11, 0.3)"
+                          : "1px solid transparent",
+                      padding: "0 4px",
+                      borderRadius: "3px",
+                    }}
+                    title={`Total estimated hours assigned for ${day.dateStr}: ${dayTotalEstHours}h`}
+                  >
+                    {dayTotalEstHours > 0 ? `${Number(dayTotalEstHours.toFixed(1))}h` : "0h"}
+                  </span>
+                </div>
+
+                {/* Add Task on this date */}
                 <button
                   type="button"
-                  onClick={() => onOpenNewProject(day.dateStr)}
+                  onClick={() => onOpenNewTask(day.dateStr)}
                   style={{
                     background: "transparent",
                     border: "none",
@@ -513,13 +551,13 @@ export default function ProjectSchedulerCalendar({
                     e.currentTarget.style.opacity = "0.6";
                     e.currentTarget.style.color = "var(--text-dim)";
                   }}
-                  title={`Add project due on ${day.dateStr}`}
+                  title={`Add task due on ${day.dateStr}`}
                 >
                   <Plus size={12} />
                 </button>
               </div>
 
-              {/* Projects List on this day */}
+              {/* Tasks List on this day */}
               <div
                 style={{
                   flex: 1,
@@ -527,22 +565,25 @@ export default function ProjectSchedulerCalendar({
                   overflowY: "auto",
                   display: "flex",
                   flexDirection: "column",
-                  gap: "4px",
+                  gap: "3px",
                 }}
               >
-                {dayProjects.map((project) => {
-                  const statusColor = getStatusColor(project.status);
-                  const isDragging = draggedProjectId === project.id;
+                {dayTasks.map((task) => {
+                  const statusColor = getStatusColor(task.status);
+                  const isDragging = draggedTaskId === task.id;
+                  const proj = projectMap.get(task.project_id);
+                  const projectName = task.project_name || proj?.name || "Untitled Project";
+                  const clientName = task.client_name || proj?.client?.company_name || "";
 
                   return (
                     <div
-                      key={project.id}
+                      key={task.id}
                       draggable={true}
-                      onDragStart={(e) => handleDragStart(e, project.id)}
+                      onDragStart={(e) => handleDragStart(e, task.id)}
                       onDragEnd={handleDragEnd}
-                      onClick={() => onEditProject(project)}
+                      onClick={() => onEditTask(task)}
                       style={{
-                        padding: "4px 6px",
+                        padding: "3px 6px",
                         background: "var(--bg-surface-subtle)",
                         border: "1px solid var(--border-subtle)",
                         borderLeft: `3px solid ${statusColor}`,
@@ -550,9 +591,10 @@ export default function ProjectSchedulerCalendar({
                         cursor: "grab",
                         opacity: isDragging ? 0.35 : 1,
                         display: "flex",
-                        flexDirection: "column",
-                        gap: "2px",
-                        transition: "transform 0.1s ease, border-color 0.15s ease",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        gap: "4px",
+                        transition: "border-color 0.15s ease, background 0.15s ease",
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.borderColor = "var(--border-strong)";
@@ -560,70 +602,79 @@ export default function ProjectSchedulerCalendar({
                       onMouseLeave={(e) => {
                         e.currentTarget.style.borderColor = "var(--border-subtle)";
                       }}
-                      title={`${project.name}\nDue Date: ${project.end_date?.slice(0, 10)}\nStatus: ${
-                        project.status
+                      /* Rich Hover Tooltip */
+                      title={`Task: ${task.title}\nProject: ${projectName}\nClient: ${
+                        clientName || "None"
+                      }\nEst: ${task.estimated_hours || 0} hrs | Status: ${
+                        task.status
                       }\n(Drag to reschedule)`}
                     >
                       <div
                         style={{
                           display: "flex",
                           alignItems: "center",
-                          justifyContent: "space-between",
-                          gap: "4px",
+                          gap: "5px",
+                          overflow: "hidden",
+                          flex: 1,
+                          minWidth: 0,
                         }}
                       >
+                        {/* Small Task Icon */}
+                        <CheckSquare
+                          size={10}
+                          style={{
+                            color: statusColor,
+                            flexShrink: 0,
+                          }}
+                        />
+
+                        {/* Task Title */}
                         <span
                           style={{
-                            fontSize: "11px",
-                            fontWeight: 600,
+                            fontSize: "10.5px",
+                            fontWeight: 500,
                             color: "var(--text-main)",
                             overflow: "hidden",
                             textOverflow: "ellipsis",
                             whiteSpace: "nowrap",
+                            flex: 1,
                           }}
                         >
-                          {project.name}
+                          {task.title}
                         </span>
-                        {project.task_count > 0 && (
-                          <span
-                            onClick={(e) => {
-                              if (onSelectProjectTasks) {
-                                e.stopPropagation();
-                                onSelectProjectTasks(project);
-                              }
-                            }}
-                            style={{
-                              fontSize: "9.5px",
-                              color:
-                                project.completed_task_count === project.task_count
-                                  ? "var(--accent-emerald)"
-                                  : "var(--text-dim)",
-                              fontWeight: 500,
-                              flexShrink: 0,
-                            }}
-                            title="Click to view tasks"
-                          >
-                            {project.completed_task_count}/{project.task_count}
-                          </span>
-                        )}
-                      </div>
 
-                      {project.client?.company_name && (
-                        <div
+                        {/* Partially shown project name */}
+                        <span
                           style={{
-                            fontSize: "9.5px",
+                            fontSize: "9px",
                             color: "var(--text-dim)",
+                            background: "var(--bg-surface)",
+                            border: "1px solid var(--border-subtle)",
+                            padding: "0 3px",
+                            borderRadius: "2px",
+                            maxWidth: "55px",
                             overflow: "hidden",
                             textOverflow: "ellipsis",
                             whiteSpace: "nowrap",
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "3px",
+                            flexShrink: 0,
                           }}
                         >
-                          <Building2 size={9} />
-                          <span>{project.client.company_name}</span>
-                        </div>
+                          {projectName}
+                        </span>
+                      </div>
+
+                      {/* Estimated hours pill if > 0 */}
+                      {task.estimated_hours > 0 && (
+                        <span
+                          className="mono"
+                          style={{
+                            fontSize: "9px",
+                            color: "var(--text-dim)",
+                            flexShrink: 0,
+                          }}
+                        >
+                          {task.estimated_hours}h
+                        </span>
                       )}
                     </div>
                   );
@@ -634,7 +685,7 @@ export default function ProjectSchedulerCalendar({
         })}
       </div>
 
-      {/* Unscheduled Projects Dock / Drawer */}
+      {/* Unscheduled Tasks Dock / Drawer */}
       {isUnscheduledOpen && (
         <div
           style={{
@@ -655,7 +706,7 @@ export default function ProjectSchedulerCalendar({
             }}
           >
             <span style={{ fontSize: "11px", fontWeight: 600, color: "var(--text-muted)" }}>
-              UNSCHEDULED PROJECTS (Drag onto any calendar date to set due date)
+              UNSCHEDULED TASKS (Drag onto any calendar date to set due date)
             </span>
             <button
               type="button"
@@ -680,50 +731,60 @@ export default function ProjectSchedulerCalendar({
               paddingBottom: "4px",
             }}
           >
-            {unscheduledProjects.length === 0 ? (
+            {unscheduledTasks.length === 0 ? (
               <span style={{ fontSize: "11.5px", color: "var(--text-dim)" }}>
-                All projects currently have scheduled due dates.
+                All deliverables currently have scheduled due dates.
               </span>
             ) : (
-              unscheduledProjects.map((p) => (
-                <div
-                  key={p.id}
-                  draggable={true}
-                  onDragStart={(e) => handleDragStart(e, p.id)}
-                  onDragEnd={handleDragEnd}
-                  onClick={() => onEditProject(p)}
-                  style={{
-                    padding: "6px 10px",
-                    background: "var(--bg-surface-subtle)",
-                    border: "1px solid var(--border-subtle)",
-                    borderRadius: "var(--radius-xs)",
-                    cursor: "grab",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "6px",
-                    flexShrink: 0,
-                  }}
-                  title="Drag onto a calendar date to set due date"
-                >
-                  <GripVertical size={12} style={{ color: "var(--text-dim)" }} />
-                  <span style={{ fontSize: "11.5px", fontWeight: 500, color: "var(--text-main)" }}>
-                    {p.name}
-                  </span>
-                  {p.client?.company_name && (
+              unscheduledTasks.map((t) => {
+                const proj = projectMap.get(t.project_id);
+                const projectName = t.project_name || proj?.name || "Untitled Project";
+                const clientName = t.client_name || proj?.client?.company_name || "";
+
+                return (
+                  <div
+                    key={t.id}
+                    draggable={true}
+                    onDragStart={(e) => handleDragStart(e, t.id)}
+                    onDragEnd={handleDragEnd}
+                    onClick={() => onEditTask(t)}
+                    style={{
+                      padding: "5px 8px",
+                      background: "var(--bg-surface-subtle)",
+                      border: "1px solid var(--border-subtle)",
+                      borderRadius: "var(--radius-xs)",
+                      cursor: "grab",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      flexShrink: 0,
+                    }}
+                    title={`Task: ${t.title}\nProject: ${projectName}\nClient: ${
+                      clientName || "None"
+                    }\n(Drag onto a calendar date to set due date)`}
+                  >
+                    <GripVertical size={11} style={{ color: "var(--text-dim)" }} />
+                    <span style={{ fontSize: "11px", fontWeight: 500, color: "var(--text-main)" }}>
+                      {t.title}
+                    </span>
                     <span
                       style={{
-                        fontSize: "10px",
+                        fontSize: "9px",
                         color: "var(--text-dim)",
                         background: "var(--bg-surface)",
-                        padding: "1px 5px",
-                        borderRadius: "3px",
+                        padding: "1px 4px",
+                        borderRadius: "2px",
+                        maxWidth: "60px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
                       }}
                     >
-                      {p.client.company_name}
+                      {projectName}
                     </span>
-                  )}
-                </div>
-              ))
+                  </div>
+                );
+              })
             )}
           </div>
         </div>
