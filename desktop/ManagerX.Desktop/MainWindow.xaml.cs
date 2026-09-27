@@ -87,6 +87,7 @@ public partial class MainWindow : Window
             contextMenu.Items.Add("Start / Pause Timer", null, (s, e) => ToggleTimerFromTray());
             contextMenu.Items.Add("Stop & Save Timer", null, (s, e) => StopTimerFromTray());
             contextMenu.Items.Add(new Forms.ToolStripSeparator());
+            contextMenu.Items.Add("Log Out", null, async (s, e) => await Dispatcher.InvokeAsync(ConfirmAndLogoutAsync));
             contextMenu.Items.Add("Exit", null, (s, e) => ExitApplication());
 
             _notifyIcon.ContextMenuStrip = contextMenu;
@@ -172,6 +173,8 @@ public partial class MainWindow : Window
 
     private void ShowLoginView()
     {
+        TitleLogoutButton.Visibility = Visibility.Collapsed;
+        _trackerView = null; // Reset TrackerView so subsequent login fetches fresh user data
         if (_loginView == null)
         {
             _loginView = new LoginView();
@@ -182,12 +185,36 @@ public partial class MainWindow : Window
 
     private void ShowTrackerView()
     {
+        TitleLogoutButton.Visibility = Visibility.Visible;
         if (_trackerView == null)
         {
             _trackerView = new TrackerView();
             _trackerView.RequestMiniMode += SwitchToMiniMode;
         }
         MainContent.Content = _trackerView;
+    }
+
+    private async void TitleLogoutButton_Click(object sender, RoutedEventArgs e)
+    {
+        await ConfirmAndLogoutAsync();
+    }
+
+    public async Task ConfirmAndLogoutAsync()
+    {
+        if (App.TimerService.IsRunning || App.TimerService.ElapsedSeconds > 0)
+        {
+            var res = System.Windows.MessageBox.Show(
+                "A timer is currently active. Logging out will stop and reset the timer without saving.\n\nDo you want to log out?",
+                "Confirm Log Out",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning);
+
+            if (res != MessageBoxResult.Yes) return;
+
+            App.TimerService.Reset();
+        }
+
+        await App.AuthService.LogoutAsync();
     }
 
     private void OnTimerTicked(int seconds)
