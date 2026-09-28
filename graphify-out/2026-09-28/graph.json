@@ -440,7 +440,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways",
       "community": 39,
-      "community_name": "gateways.py",
+      "community_name": "User",
       "norm_label": "gateways.py"
     },
     {
@@ -451,7 +451,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_build_gateway_response",
       "community": 39,
-      "community_name": "gateways.py",
+      "community_name": "User",
       "norm_label": "build_gateway_response()"
     },
     {
@@ -462,7 +462,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_py_asyncsession",
       "community": 39,
-      "community_name": "gateways.py",
+      "community_name": "User",
       "norm_label": "asyncsession"
     },
     {
@@ -473,7 +473,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_py_get",
       "community": 39,
-      "community_name": "gateways.py",
+      "community_name": "User",
       "norm_label": "get"
     },
     {
@@ -484,7 +484,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_list_gateways",
       "community": 39,
-      "community_name": "gateways.py",
+      "community_name": "User",
       "norm_label": "list_gateways()"
     },
     {
@@ -495,7 +495,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_py_post",
       "community": 39,
-      "community_name": "gateways.py",
+      "community_name": "User",
       "norm_label": "post"
     },
     {
@@ -506,7 +506,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_create_gateway",
       "community": 39,
-      "community_name": "gateways.py",
+      "community_name": "User",
       "norm_label": "create_gateway()"
     },
     {
@@ -517,7 +517,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_get_gateway",
       "community": 39,
-      "community_name": "gateways.py",
+      "community_name": "User",
       "norm_label": "get_gateway()"
     },
     {
@@ -528,7 +528,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_py_put",
       "community": 39,
-      "community_name": "gateways.py",
+      "community_name": "User",
       "norm_label": "put"
     },
     {
@@ -539,7 +539,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_update_gateway",
       "community": 39,
-      "community_name": "gateways.py",
+      "community_name": "User",
       "norm_label": "update_gateway()"
     },
     {
@@ -550,7 +550,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_py_patch",
       "community": 39,
-      "community_name": "gateways.py",
+      "community_name": "User",
       "norm_label": "patch"
     },
     {
@@ -561,7 +561,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_toggle_gateway_status",
       "community": 39,
-      "community_name": "gateways.py",
+      "community_name": "User",
       "norm_label": "toggle_gateway_status()"
     },
     {
@@ -572,7 +572,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_py_delete",
       "community": 39,
-      "community_name": "gateways.py",
+      "community_name": "User",
       "norm_label": "delete"
     },
     {
@@ -583,7 +583,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_delete_gateway",
       "community": 39,
-      "community_name": "gateways.py",
+      "community_name": "User",
       "norm_label": "delete_gateway()"
     },
     {
@@ -594,7 +594,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_rationale_21",
       "community": 39,
-      "community_name": "gateways.py",
+      "community_name": "User",
       "norm_label": "helper to auto-calculate incoming amounts, equivalent inr, and realized average..."
     },
     {
@@ -604,7 +604,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "invoices.py"
     },
@@ -615,7 +615,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_get_company_profile_dict",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "get_company_profile_dict()"
     },
@@ -626,7 +626,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_py_asyncsession",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "asyncsession"
     },
@@ -637,7 +637,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_py_any",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "any"
     },
@@ -648,7 +648,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_extract_company_initials",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "extract_company_initials()"
     },
@@ -659,7 +659,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_get_next_invoice_number",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "get_next_invoice_number()"
     },
@@ -670,7 +670,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_py_get",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "get"
     },
@@ -681,7 +681,7 @@
       "source_location": "L85",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_calculate_next_invoice_number",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "calculate_next_invoice_number()"
     },
@@ -692,7 +692,7 @@
       "source_location": "L95",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_get_unbilled_tasks",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "get_unbilled_tasks()"
     },
@@ -703,7 +703,7 @@
       "source_location": "L184",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_list_invoices",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "list_invoices()"
     },
@@ -714,7 +714,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_py_post",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "post"
     },
@@ -725,7 +725,7 @@
       "source_location": "L206",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_create_invoice",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "create_invoice()"
     },
@@ -736,7 +736,7 @@
       "source_location": "L336",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_get_invoice",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "get_invoice()"
     },
@@ -747,7 +747,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_py_put",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "put"
     },
@@ -758,7 +758,7 @@
       "source_location": "L353",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_update_invoice",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "update_invoice()"
     },
@@ -769,7 +769,7 @@
       "source_location": "L529",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_record_invoice_payment",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "record_invoice_payment()"
     },
@@ -780,7 +780,7 @@
       "source_location": "L575",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_undo_invoice_payment",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "undo_invoice_payment()"
     },
@@ -791,7 +791,7 @@
       "source_location": "L615",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_reconcile_invoice",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "reconcile_invoice()"
     },
@@ -802,7 +802,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_py_delete",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "delete"
     },
@@ -813,7 +813,7 @@
       "source_location": "L649",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_delete_invoice",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "delete_invoice()"
     },
@@ -824,7 +824,7 @@
       "source_location": "L672",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_download_invoice_pdf",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "download_invoice_pdf()"
     },
@@ -835,7 +835,7 @@
       "source_location": "L747",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_invoices_render_custom_invoice_pdf",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "render_custom_invoice_pdf()"
     },
@@ -1012,7 +1012,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "settings.py"
     },
     {
@@ -1023,7 +1023,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_py_get",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "get"
     },
     {
@@ -1034,7 +1034,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_get_company_profile",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "get_company_profile()"
     },
     {
@@ -1045,7 +1045,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_py_asyncsession",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "asyncsession"
     },
     {
@@ -1056,7 +1056,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_py_put",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "put"
     },
     {
@@ -1067,7 +1067,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_update_company_profile",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "update_company_profile()"
     },
     {
@@ -1078,7 +1078,7 @@
       "_origin": "ast",
       "id": "companyprofile",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "companyprofile"
     },
     {
@@ -1089,7 +1089,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_get_theme_settings",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "get_theme_settings()"
     },
     {
@@ -1100,7 +1100,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_update_theme_settings",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "update_theme_settings()"
     },
     {
@@ -1111,7 +1111,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_get_countries",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "get_countries()"
     },
     {
@@ -1122,7 +1122,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_py_post",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "post"
     },
     {
@@ -1133,7 +1133,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_add_country",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "add_country()"
     },
     {
@@ -1144,7 +1144,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_py_delete",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "delete"
     },
     {
@@ -1155,7 +1155,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_delete_country",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "delete_country()"
     },
     {
@@ -1166,7 +1166,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_ensure_default_currencies",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "ensure_default_currencies()"
     },
     {
@@ -1177,7 +1177,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_list_currencies",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "list_currencies()"
     },
     {
@@ -1188,7 +1188,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_create_currency",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "create_currency()"
     },
     {
@@ -1199,7 +1199,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_update_currency",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "update_currency()"
     },
     {
@@ -1210,7 +1210,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_delete_currency",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "delete_currency()"
     },
     {
@@ -1221,7 +1221,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_format_size",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "_format_size()"
     },
     {
@@ -1232,7 +1232,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_list_backups",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "list_backups()"
     },
     {
@@ -1243,7 +1243,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_create_backup_snapshot",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "create_backup_snapshot()"
     },
     {
@@ -1254,7 +1254,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_download_database",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "download_database()"
     },
     {
@@ -1265,7 +1265,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_restore_database",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "restore_database()"
     },
     {
@@ -1276,7 +1276,7 @@
       "_origin": "ast",
       "id": "uploadfile",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "uploadfile"
     },
     {
@@ -1287,7 +1287,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_rationale_232",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "seed standard currencies if none exist."
     },
     {
@@ -1298,7 +1298,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_rationale_397",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "download a live, wal-consistent copy of the sqlite database."
     },
     {
@@ -1309,7 +1309,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_settings_rationale_421",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "restore database from an existing snapshot or an uploaded .db file."
     },
     {
@@ -1639,7 +1639,7 @@
       "_origin": "ast",
       "id": "backend_app_core_config",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "config.py"
     },
     {
@@ -1650,7 +1650,7 @@
       "_origin": "ast",
       "id": "backend_app_core_config_settings",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "settings"
     },
     {
@@ -1661,7 +1661,7 @@
       "_origin": "ast",
       "id": "basesettings",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "basesettings"
     },
     {
@@ -1672,7 +1672,7 @@
       "_origin": "ast",
       "id": "backend_app_core_config_py_field_validator",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "field_validator"
     },
     {
@@ -1683,7 +1683,7 @@
       "_origin": "ast",
       "id": "backend_app_core_config_settings_assemble_cors_origins",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": ".assemble_cors_origins()"
     },
     {
@@ -2123,7 +2123,7 @@
       "_origin": "ast",
       "id": "backend_app_models_gateway_model_paymentgateway",
       "community": 39,
-      "community_name": "gateways.py",
+      "community_name": "User",
       "norm_label": "paymentgateway"
     },
     {
@@ -2155,7 +2155,7 @@
       "source_location": "L70",
       "_origin": "ast",
       "id": "backend_app_models_invoice_model_invoiceitem",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "invoiceitem"
     },
@@ -2221,8 +2221,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "backend_app_models_settings_models_systemsetting",
-      "community": 3,
-      "community_name": "User",
+      "community": 6,
+      "community_name": "Base",
       "norm_label": "systemsetting"
     },
     {
@@ -2287,7 +2287,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "backend_app_models_user_models_user",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "user"
     },
@@ -2497,7 +2497,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_gateway_schemas",
       "community": 39,
-      "community_name": "gateways.py",
+      "community_name": "User",
       "norm_label": "gateway_schemas.py"
     },
     {
@@ -2508,7 +2508,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_gateway_schemas_gatewaybase",
       "community": 39,
-      "community_name": "gateways.py",
+      "community_name": "User",
       "norm_label": "gatewaybase"
     },
     {
@@ -2519,7 +2519,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_gateway_schemas_py_basemodel",
       "community": 39,
-      "community_name": "gateways.py",
+      "community_name": "User",
       "norm_label": "basemodel"
     },
     {
@@ -2530,7 +2530,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_gateway_schemas_gatewaycreate",
       "community": 39,
-      "community_name": "gateways.py",
+      "community_name": "User",
       "norm_label": "gatewaycreate"
     },
     {
@@ -2541,7 +2541,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_gateway_schemas_gatewayupdate",
       "community": 39,
-      "community_name": "gateways.py",
+      "community_name": "User",
       "norm_label": "gatewayupdate"
     },
     {
@@ -2552,7 +2552,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_gateway_schemas_gatewayresponse",
       "community": 39,
-      "community_name": "gateways.py",
+      "community_name": "User",
       "norm_label": "gatewayresponse"
     },
     {
@@ -2562,7 +2562,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "invoice_schemas.py"
     },
@@ -2573,7 +2573,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoiceitembase",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "invoiceitembase"
     },
@@ -2584,7 +2584,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_py_basemodel",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "basemodel"
     },
@@ -2595,7 +2595,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoiceitemcreate",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "invoiceitemcreate"
     },
@@ -2606,7 +2606,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoiceitemresponse",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "invoiceitemresponse"
     },
@@ -2617,7 +2617,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_clientsummary",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "clientsummary"
     },
@@ -2628,7 +2628,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoicebase",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "invoicebase"
     },
@@ -2639,7 +2639,7 @@
       "source_location": "L58",
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoicecreate",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "invoicecreate"
     },
@@ -2650,7 +2650,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoiceupdate",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "invoiceupdate"
     },
@@ -2661,7 +2661,7 @@
       "source_location": "L87",
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_recordpaymentrequest",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "recordpaymentrequest"
     },
@@ -2672,7 +2672,7 @@
       "source_location": "L92",
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_reconcilerequest",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "reconcilerequest"
     },
@@ -2683,7 +2683,7 @@
       "source_location": "L96",
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoiceresponse",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "invoiceresponse"
     },
@@ -2694,7 +2694,7 @@
       "source_location": "L108",
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_unbilledtaskout",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "unbilledtaskout"
     },
@@ -2904,7 +2904,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_settings_schemas",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "settings_schemas.py"
     },
     {
@@ -2915,7 +2915,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_settings_schemas_companyprofile",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "companyprofile"
     },
     {
@@ -2926,7 +2926,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_settings_schemas_py_basemodel",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "basemodel"
     },
     {
@@ -2937,7 +2937,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_settings_schemas_themesettings",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "themesettings"
     },
     {
@@ -2948,7 +2948,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_settings_schemas_currencybase",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "currencybase"
     },
     {
@@ -2959,7 +2959,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_settings_schemas_py_field_validator",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "field_validator"
     },
     {
@@ -2970,7 +2970,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_settings_schemas_currencybase_uppercase_code",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": ".uppercase_code()"
     },
     {
@@ -2981,7 +2981,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_settings_schemas_currencycreate",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "currencycreate"
     },
     {
@@ -2992,7 +2992,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_settings_schemas_currencyupdate",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "currencyupdate"
     },
     {
@@ -3003,7 +3003,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_settings_schemas_currencyout",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "currencyout"
     },
     {
@@ -3014,7 +3014,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_settings_schemas_backupinfo",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "backupinfo"
     },
     {
@@ -3025,7 +3025,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_settings_schemas_messageresponse",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "norm_label": "messageresponse"
     },
     {
@@ -3101,7 +3101,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "invoice_pdf.py"
     },
@@ -3112,7 +3112,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_pushtobottom",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "pushtobottom"
     },
@@ -3123,7 +3123,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "flowable",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "flowable"
     },
@@ -3134,7 +3134,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_pushtobottom_init",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": ".__init__()"
     },
@@ -3145,7 +3145,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_pushtobottom_wrap",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": ".wrap()"
     },
@@ -3156,7 +3156,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_pushtobottom_draw",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": ".draw()"
     },
@@ -3167,7 +3167,7 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_format_money",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "format_money()"
     },
@@ -3178,7 +3178,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_build_invoice_pdf",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "build_invoice_pdf()"
     },
@@ -3189,7 +3189,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_py_any",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "any"
     },
@@ -3200,7 +3200,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_rationale_20",
-      "community": 3,
+      "community": 39,
       "community_name": "User",
       "norm_label": "dynamically absorbs unused vertical space on the current page, pushing target..."
     },
@@ -3871,7 +3871,7 @@
       "label": ".TitleBar_MouseLeftButtonDown()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L526",
+      "source_location": "L511",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
@@ -3932,7 +3932,7 @@
       "label": ".TitleRefreshButton_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L394",
+      "source_location": "L379",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
@@ -3960,7 +3960,7 @@
       "label": ".TitleLogoutButton_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L410",
+      "source_location": "L395",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
@@ -3977,7 +3977,7 @@
       "label": ".TitleMinimize_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L542",
+      "source_location": "L527",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
@@ -3994,7 +3994,7 @@
       "label": ".TitleClose_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L548",
+      "source_location": "L533",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
@@ -4003,8 +4003,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_titleclose_click",
-      "community": 64,
-      "community_name": ".ExitApplicationAsync",
+      "community": 65,
+      "community_name": ".InitializeTrayIcon",
       "norm_label": ".titleclose_click()"
     },
     {
@@ -4022,7 +4022,7 @@
       "label": ".ApiStatusBadge_MouseLeftButtonDown()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L657",
+      "source_location": "L642",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
@@ -4083,7 +4083,7 @@
       "label": ".WebStatusBadge_MouseLeftButtonDown()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L680",
+      "source_location": "L665",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
@@ -4133,7 +4133,7 @@
       "label": ".StopServicesButton_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L704",
+      "source_location": "L689",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
@@ -4142,8 +4142,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_stopservicesbutton_click",
-      "community": 54,
-      "community_name": "RoutedEventArgs",
+      "community": 65,
+      "community_name": ".InitializeTrayIcon",
       "norm_label": ".stopservicesbutton_click()"
     },
     {
@@ -4205,7 +4205,7 @@
       "label": ".MiniWidget_MouseLeftButtonDown()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L534",
+      "source_location": "L519",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
@@ -4266,7 +4266,7 @@
       "label": ".MiniPauseButton_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L561",
+      "source_location": "L546",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
@@ -4294,7 +4294,7 @@
       "label": ".MiniStopButton_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L573",
+      "source_location": "L558",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
@@ -4303,15 +4303,15 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_ministopbutton_click",
-      "community": 54,
-      "community_name": "RoutedEventArgs",
+      "community": 48,
+      "community_name": "MainWindow",
       "norm_label": ".ministopbutton_click()"
     },
     {
       "label": ".MiniExpandButton_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L579",
+      "source_location": "L564",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
@@ -4425,8 +4425,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_mainwindow_loaded",
-      "community": 48,
-      "community_name": "MainWindow",
+      "community": 65,
+      "community_name": ".InitializeTrayIcon",
       "norm_label": ".mainwindow_loaded()"
     },
     {
@@ -4453,8 +4453,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_checkbackendandinitializeasync",
-      "community": 48,
-      "community_name": "MainWindow",
+      "community": 64,
+      "community_name": ".ShowBackendSetupView",
       "norm_label": ".checkbackendandinitializeasync()"
     },
     {
@@ -4470,8 +4470,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_showbackendsetupview",
-      "community": 48,
-      "community_name": "MainWindow",
+      "community": 64,
+      "community_name": ".ShowBackendSetupView",
       "norm_label": ".showbackendsetupview()"
     },
     {
@@ -4555,8 +4555,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_istimeractive",
-      "community": 64,
-      "community_name": ".ExitApplicationAsync",
+      "community": 65,
+      "community_name": ".InitializeTrayIcon",
       "norm_label": ".istimeractive()"
     },
     {
@@ -4572,8 +4572,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_onsessionending",
-      "community": 64,
-      "community_name": ".ExitApplicationAsync",
+      "community": 36,
+      "community_name": "ShutdownPreventionService",
       "norm_label": ".onsessionending()"
     },
     {
@@ -4583,8 +4583,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "sessionendingcanceleventargs",
-      "community": 64,
-      "community_name": ".ExitApplicationAsync",
+      "community": 36,
+      "community_name": "ShutdownPreventionService",
       "norm_label": "sessionendingcanceleventargs"
     },
     {
@@ -4605,7 +4605,7 @@
       "norm_label": ".hwndmessagehook()"
     },
     {
-      "label": ".ExitApplicationAsync()",
+      "label": ".ExitApplication()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
       "source_location": "L268",
@@ -4616,16 +4616,16 @@
         ]
       },
       "_origin": "ast",
-      "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_exitapplicationasync",
-      "community": 64,
-      "community_name": ".ExitApplicationAsync",
-      "norm_label": ".exitapplicationasync()"
+      "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_exitapplication",
+      "community": 65,
+      "community_name": ".InitializeTrayIcon",
+      "norm_label": ".exitapplication()"
     },
     {
       "label": ".MainWindow_Closing()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L319",
+      "source_location": "L304",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
@@ -4634,8 +4634,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_mainwindow_closing",
-      "community": 64,
-      "community_name": ".ExitApplicationAsync",
+      "community": 36,
+      "community_name": "ShutdownPreventionService",
       "norm_label": ".mainwindow_closing()"
     },
     {
@@ -4645,15 +4645,15 @@
       "source_location": "",
       "_origin": "ast",
       "id": "canceleventargs",
-      "community": 64,
-      "community_name": ".ExitApplicationAsync",
+      "community": 36,
+      "community_name": "ShutdownPreventionService",
       "norm_label": "canceleventargs"
     },
     {
       "label": ".OnAuthStateChanged()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L337",
+      "source_location": "L322",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
@@ -4662,15 +4662,15 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_onauthstatechanged",
-      "community": 48,
-      "community_name": "MainWindow",
+      "community": 64,
+      "community_name": ".ShowBackendSetupView",
       "norm_label": ".onauthstatechanged()"
     },
     {
       "label": ".UpdateWindowTitle()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L354",
+      "source_location": "L339",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
@@ -4679,12 +4679,29 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_updatewindowtitle",
-      "community": 48,
-      "community_name": "MainWindow",
+      "community": 64,
+      "community_name": ".ShowBackendSetupView",
       "norm_label": ".updatewindowtitle()"
     },
     {
       "label": ".ShowLoginView()",
+      "file_type": "code",
+      "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
+      "source_location": "L351",
+      "metadata": {
+        "namespace": "ManagerX",
+        "scope_chain": [
+          "s248"
+        ]
+      },
+      "_origin": "ast",
+      "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_showloginview",
+      "community": 64,
+      "community_name": ".ShowBackendSetupView",
+      "norm_label": ".showloginview()"
+    },
+    {
+      "label": ".ShowTrackerView()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
       "source_location": "L366",
@@ -4695,33 +4712,16 @@
         ]
       },
       "_origin": "ast",
-      "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_showloginview",
-      "community": 48,
-      "community_name": "MainWindow",
-      "norm_label": ".showloginview()"
-    },
-    {
-      "label": ".ShowTrackerView()",
-      "file_type": "code",
-      "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L381",
-      "metadata": {
-        "namespace": "ManagerX",
-        "scope_chain": [
-          "s248"
-        ]
-      },
-      "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_showtrackerview",
-      "community": 48,
-      "community_name": "MainWindow",
+      "community": 64,
+      "community_name": ".ShowBackendSetupView",
       "norm_label": ".showtrackerview()"
     },
     {
       "label": ".ConfirmAndLogoutAsync()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L415",
+      "source_location": "L400",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
@@ -4738,7 +4738,7 @@
       "label": ".OnTimerTicked()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L433",
+      "source_location": "L418",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
@@ -4755,7 +4755,7 @@
       "label": ".OnTimerStateChanged()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L441",
+      "source_location": "L426",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
@@ -4764,15 +4764,15 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_ontimerstatechanged",
-      "community": 36,
-      "community_name": "ShutdownPreventionService",
+      "community": 48,
+      "community_name": "MainWindow",
       "norm_label": ".ontimerstatechanged()"
     },
     {
       "label": ".SwitchToMiniMode()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L471",
+      "source_location": "L456",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
@@ -4789,7 +4789,7 @@
       "label": ".RestoreFullMode()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L495",
+      "source_location": "L480",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
@@ -4806,7 +4806,7 @@
       "label": ".MainWindow_MouseEnter()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L509",
+      "source_location": "L494",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
@@ -4834,7 +4834,7 @@
       "label": ".MainWindow_MouseLeave()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L517",
+      "source_location": "L502",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
@@ -4862,7 +4862,7 @@
       "label": ".UpdateServiceBadgesAsync()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L584",
+      "source_location": "L569",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
@@ -4871,15 +4871,15 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_updateservicebadgesasync",
-      "community": 56,
-      "community_name": "UserControl",
+      "community": 65,
+      "community_name": ".InitializeTrayIcon",
       "norm_label": ".updateservicebadgesasync()"
     },
     {
       "label": ".OpenInBrowser()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L733",
+      "source_location": "L718",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
@@ -4896,7 +4896,7 @@
       "label": ".FormatSeconds()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L749",
+      "source_location": "L734",
       "metadata": {
         "namespace": "ManagerX",
         "scope_chain": [
@@ -5033,8 +5033,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_models_authmodels_managerx_models_connectionmode",
-      "community": 56,
-      "community_name": "UserControl",
+      "community": 46,
+      "community_name": "AuthModels.cs",
       "norm_label": "connectionmode"
     },
     {
@@ -5078,8 +5078,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_models_authmodels_managerx_models_backendsettings",
-      "community": 56,
-      "community_name": "UserControl",
+      "community": 46,
+      "community_name": "AuthModels.cs",
       "norm_label": "backendsettings"
     },
     {
@@ -5182,7 +5182,7 @@
       "label": ".ToString()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Models/ProjectModels.cs",
-      "source_location": "L89",
+      "source_location": "L71",
       "metadata": {
         "namespace": "ManagerX.Models",
         "scope_chain": [
@@ -5196,27 +5196,10 @@
       "norm_label": ".tostring()"
     },
     {
-      "label": "TaskStatusUpdateRequest",
-      "file_type": "code",
-      "source_file": "desktop/ManagerX.Desktop/Models/ProjectModels.cs",
-      "source_location": "L92",
-      "metadata": {
-        "namespace": "ManagerX.Models",
-        "scope_chain": [
-          "s39"
-        ]
-      },
-      "_origin": "ast",
-      "id": "desktop_managerx_desktop_models_projectmodels_managerx_models_taskstatusupdaterequest",
-      "community": 53,
-      "community_name": "ProjectModels.cs",
-      "norm_label": "taskstatusupdaterequest"
-    },
-    {
       "label": "ProjectCreateRequest",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Models/ProjectModels.cs",
-      "source_location": "L98",
+      "source_location": "L74",
       "metadata": {
         "namespace": "ManagerX.Models",
         "scope_chain": [
@@ -5233,7 +5216,7 @@
       "label": "TaskCreateRequest",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Models/ProjectModels.cs",
-      "source_location": "L116",
+      "source_location": "L92",
       "metadata": {
         "namespace": "ManagerX.Models",
         "scope_chain": [
@@ -5253,8 +5236,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "desktop_managerx_desktop_models_timemodels",
-      "community": 47,
-      "community_name": "ManagerX.Services",
+      "community": 66,
+      "community_name": "TimeModels.cs",
       "norm_label": "timemodels.cs"
     },
     {
@@ -5287,8 +5270,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_models_timemodels_managerx_models_timeentrycreaterequest",
-      "community": 47,
-      "community_name": "ManagerX.Services",
+      "community": 66,
+      "community_name": "TimeModels.cs",
       "norm_label": "timeentrycreaterequest"
     },
     {
@@ -5304,8 +5287,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_models_timemodels_managerx_models_timeentryupdaterequest",
-      "community": 47,
-      "community_name": "ManagerX.Services",
+      "community": 66,
+      "community_name": "TimeModels.cs",
       "norm_label": "timeentryupdaterequest"
     },
     {
@@ -5528,8 +5511,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "desktop_managerx_desktop_services_authservice",
-      "community": 68,
-      "community_name": "AuthService",
+      "community": 47,
+      "community_name": "ManagerX.Services",
       "norm_label": "authservice.cs"
     },
     {
@@ -5660,7 +5643,7 @@
       "label": ".CheckHealthAsync()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L17",
+      "source_location": "L14",
       "metadata": {
         "namespace": "ManagerX.Services",
         "scope_chain": [
@@ -5677,7 +5660,7 @@
       "label": ".CheckFrontendHealthAsync()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L52",
+      "source_location": "L49",
       "metadata": {
         "namespace": "ManagerX.Services",
         "scope_chain": [
@@ -5694,7 +5677,7 @@
       "label": ".FindDefaultPythonPath()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L67",
+      "source_location": "L64",
       "metadata": {
         "namespace": "ManagerX.Services",
         "scope_chain": [
@@ -5711,7 +5694,7 @@
       "label": ".ResolveBackendDirectory()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L107",
+      "source_location": "L104",
       "metadata": {
         "namespace": "ManagerX.Services",
         "scope_chain": [
@@ -5728,7 +5711,7 @@
       "label": ".FindDefaultFrontendPath()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L149",
+      "source_location": "L146",
       "metadata": {
         "namespace": "ManagerX.Services",
         "scope_chain": [
@@ -5745,7 +5728,7 @@
       "label": ".StartBackend()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L185",
+      "source_location": "L182",
       "metadata": {
         "namespace": "ManagerX.Services",
         "scope_chain": [
@@ -5762,7 +5745,7 @@
       "label": ".StartFrontend()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L234",
+      "source_location": "L227",
       "metadata": {
         "namespace": "ManagerX.Services",
         "scope_chain": [
@@ -5779,7 +5762,7 @@
       "label": ".SyncEnvFile()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L285",
+      "source_location": "L274",
       "metadata": {
         "namespace": "ManagerX.Services",
         "scope_chain": [
@@ -5796,7 +5779,7 @@
       "label": ".FindEnvFilePath()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L301",
+      "source_location": "L290",
       "metadata": {
         "namespace": "ManagerX.Services",
         "scope_chain": [
@@ -5813,7 +5796,7 @@
       "label": ".UpdateEnvFile()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L346",
+      "source_location": "L335",
       "metadata": {
         "namespace": "ManagerX.Services",
         "scope_chain": [
@@ -5827,27 +5810,10 @@
       "norm_label": ".updateenvfile()"
     },
     {
-      "label": ".KillProcessTreeByIdAsync()",
-      "file_type": "code",
-      "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L417",
-      "metadata": {
-        "namespace": "ManagerX.Services",
-        "scope_chain": [
-          "s135"
-        ]
-      },
-      "_origin": "ast",
-      "id": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice_killprocesstreebyidasync",
-      "community": 56,
-      "community_name": "UserControl",
-      "norm_label": ".killprocesstreebyidasync()"
-    },
-    {
       "label": ".StopServiceByPortAsync()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L439",
+      "source_location": "L406",
       "metadata": {
         "namespace": "ManagerX.Services",
         "scope_chain": [
@@ -5864,7 +5830,7 @@
       "label": ".StopAllServicesAsync()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L466",
+      "source_location": "L432",
       "metadata": {
         "namespace": "ManagerX.Services",
         "scope_chain": [
@@ -5873,15 +5839,15 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice_stopallservicesasync",
-      "community": 56,
-      "community_name": "UserControl",
+      "community": 65,
+      "community_name": ".InitializeTrayIcon",
       "norm_label": ".stopallservicesasync()"
     },
     {
       "label": ".WaitForHealthyAsync()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L506",
+      "source_location": "L456",
       "metadata": {
         "namespace": "ManagerX.Services",
         "scope_chain": [
@@ -6124,8 +6090,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "desktop_managerx_desktop_services_storageservice",
-      "community": 68,
-      "community_name": "AuthService",
+      "community": 47,
+      "community_name": "ManagerX.Services",
       "norm_label": "storageservice.cs"
     },
     {
@@ -7471,7 +7437,7 @@
       "label": ".NoticeClose_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L726",
+      "source_location": "L660",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -7576,7 +7542,7 @@
       "label": ".StartPauseButton_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L386",
+      "source_location": "L320",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -7585,8 +7551,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_startpausebutton_click",
-      "community": 57,
-      "community_name": "TrackerView",
+      "community": 61,
+      "community_name": "Button",
       "norm_label": ".startpausebutton_click()"
     },
     {
@@ -7604,7 +7570,7 @@
       "label": ".StopSaveButton_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L418",
+      "source_location": "L352",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -7632,7 +7598,7 @@
       "label": ".ResetButton_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L476",
+      "source_location": "L410",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -7649,7 +7615,7 @@
       "label": ".NewProjectButton_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L578",
+      "source_location": "L512",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -7714,8 +7680,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_projectcombo_keyup",
-      "community": 60,
-      "community_name": ".UpdateTimerUi",
+      "community": 67,
+      "community_name": ".SubmitNewProject_Click",
       "norm_label": ".projectcombo_keyup()"
     },
     {
@@ -7733,7 +7699,7 @@
       "label": ".NewTaskButton_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L654",
+      "source_location": "L588",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -7798,8 +7764,8 @@
       "source_location": "L194",
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_descriptioninput",
-      "community": 43,
-      "community_name": "TextBox",
+      "community": 40,
+      "community_name": "UserControl",
       "norm_label": "descriptioninput"
     },
     {
@@ -7809,8 +7775,8 @@
       "source_location": "L194",
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_xaml_xaml_textbox",
-      "community": 43,
-      "community_name": "TextBox",
+      "community": 40,
+      "community_name": "UserControl",
       "norm_label": "textbox"
     },
     {
@@ -7850,7 +7816,7 @@
       "label": "Title",
       "file_type": "concept",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L229",
+      "source_location": "L228",
       "_origin": "ast",
       "id": "binding_title",
       "community": 40,
@@ -7858,54 +7824,10 @@
       "norm_label": "title"
     },
     {
-      "label": "ScheduleBadgeBgColor",
-      "file_type": "concept",
-      "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L230",
-      "_origin": "ast",
-      "id": "binding_schedulebadgebgcolor",
-      "community": 40,
-      "community_name": "UserControl",
-      "norm_label": "schedulebadgebgcolor"
-    },
-    {
-      "label": "ScheduleBadgeBorderColor",
-      "file_type": "concept",
-      "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L231",
-      "_origin": "ast",
-      "id": "binding_schedulebadgebordercolor",
-      "community": 40,
-      "community_name": "UserControl",
-      "norm_label": "schedulebadgebordercolor"
-    },
-    {
-      "label": "BadgeVisibility",
-      "file_type": "concept",
-      "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L237",
-      "_origin": "ast",
-      "id": "binding_badgevisibility",
-      "community": 40,
-      "community_name": "UserControl",
-      "norm_label": "badgevisibility"
-    },
-    {
-      "label": "ScheduleBadgeText",
-      "file_type": "concept",
-      "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L238",
-      "_origin": "ast",
-      "id": "binding_schedulebadgetext",
-      "community": 40,
-      "community_name": "UserControl",
-      "norm_label": "schedulebadgetext"
-    },
-    {
       "label": "ProjectName",
       "file_type": "concept",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L244",
+      "source_location": "L229",
       "_origin": "ast",
       "id": "binding_projectname",
       "community": 40,
@@ -7916,7 +7838,7 @@
       "label": "EstimatedHours",
       "file_type": "concept",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L248",
+      "source_location": "L233",
       "_origin": "ast",
       "id": "binding_estimatedhours",
       "community": 40,
@@ -7924,27 +7846,10 @@
       "norm_label": "estimatedhours"
     },
     {
-      "label": ".CompleteScheduledTask_Click()",
-      "file_type": "code",
-      "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L343",
-      "metadata": {
-        "namespace": "ManagerX.Views",
-        "scope_chain": [
-          "s745"
-        ]
-      },
-      "_origin": "ast",
-      "id": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_completescheduledtask_click",
-      "community": 57,
-      "community_name": "TrackerView",
-      "norm_label": ".completescheduledtask_click()"
-    },
-    {
       "label": ".StartScheduledTask_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L365",
+      "source_location": "L299",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -7961,7 +7866,7 @@
       "label": "NoScheduleText",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L278",
+      "source_location": "L253",
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_noscheduletext",
       "community": 40,
@@ -7972,7 +7877,7 @@
       "label": "ViewTodayActivityButton",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L289",
+      "source_location": "L264",
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_viewtodayactivitybutton",
       "community": 61,
@@ -7983,7 +7888,7 @@
       "label": ".ViewTodayActivityButton_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L496",
+      "source_location": "L430",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -8000,7 +7905,7 @@
       "label": "ActivityModalOverlay",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L302",
+      "source_location": "L277",
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_activitymodaloverlay",
       "community": 40,
@@ -8011,7 +7916,7 @@
       "label": "Grid",
       "file_type": "concept",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L302",
+      "source_location": "L277",
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_xaml_xaml_grid",
       "community": 40,
@@ -8022,7 +7927,7 @@
       "label": ".CloseActivityModal_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L501",
+      "source_location": "L435",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -8039,7 +7944,7 @@
       "label": "ModalEntriesList",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L327",
+      "source_location": "L302",
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_modalentrieslist",
       "community": 40,
@@ -8050,7 +7955,7 @@
       "label": "TaskTitle",
       "file_type": "concept",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L343",
+      "source_location": "L318",
       "_origin": "ast",
       "id": "binding_tasktitle",
       "community": 40,
@@ -8061,7 +7966,7 @@
       "label": "Description",
       "file_type": "concept",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L345",
+      "source_location": "L320",
       "_origin": "ast",
       "id": "binding_description",
       "community": 40,
@@ -8072,7 +7977,7 @@
       "label": "FormattedDuration",
       "file_type": "concept",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L349",
+      "source_location": "L324",
       "_origin": "ast",
       "id": "binding_formattedduration",
       "community": 40,
@@ -8083,7 +7988,7 @@
       "label": ".EditEntry_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L506",
+      "source_location": "L440",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -8100,7 +8005,7 @@
       "label": ".DeleteEntry_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L554",
+      "source_location": "L488",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -8117,7 +8022,7 @@
       "label": "NoModalEntriesText",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L373",
+      "source_location": "L348",
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_nomodalentriestext",
       "community": 40,
@@ -8128,7 +8033,7 @@
       "label": "EditEntryOverlay",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L381",
+      "source_location": "L356",
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_editentryoverlay",
       "community": 40,
@@ -8139,29 +8044,29 @@
       "label": "EditDurationMinutesInput",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L393",
+      "source_location": "L368",
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_editdurationminutesinput",
-      "community": 43,
-      "community_name": "TextBox",
+      "community": 40,
+      "community_name": "UserControl",
       "norm_label": "editdurationminutesinput"
     },
     {
       "label": "EditDescriptionInput",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L396",
+      "source_location": "L371",
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_editdescriptioninput",
-      "community": 43,
-      "community_name": "TextBox",
+      "community": 40,
+      "community_name": "UserControl",
       "norm_label": "editdescriptioninput"
     },
     {
       "label": ".CancelEditEntry_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L518",
+      "source_location": "L452",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -8178,7 +8083,7 @@
       "label": ".SaveEditEntry_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L524",
+      "source_location": "L458",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -8195,7 +8100,7 @@
       "label": "NewProjectOverlay",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L407",
+      "source_location": "L382",
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_newprojectoverlay",
       "community": 40,
@@ -8206,18 +8111,18 @@
       "label": "NewProjectNameInput",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L419",
+      "source_location": "L394",
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_newprojectnameinput",
-      "community": 43,
-      "community_name": "TextBox",
+      "community": 40,
+      "community_name": "UserControl",
       "norm_label": "newprojectnameinput"
     },
     {
       "label": "NewProjectClientCombo",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L422",
+      "source_location": "L397",
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_newprojectclientcombo",
       "community": 60,
@@ -8228,7 +8133,7 @@
       "label": ".CancelNewProject_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L602",
+      "source_location": "L536",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -8245,18 +8150,18 @@
       "label": "SubmitNewProjectButton",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L426",
+      "source_location": "L401",
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_submitnewprojectbutton",
-      "community": 61,
-      "community_name": "Button",
+      "community": 67,
+      "community_name": ".SubmitNewProject_Click",
       "norm_label": "submitnewprojectbutton"
     },
     {
       "label": ".SubmitNewProject_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L607",
+      "source_location": "L541",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -8265,15 +8170,15 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_submitnewproject_click",
-      "community": 61,
-      "community_name": "Button",
+      "community": 67,
+      "community_name": ".SubmitNewProject_Click",
       "norm_label": ".submitnewproject_click()"
     },
     {
       "label": "NewTaskOverlay",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L433",
+      "source_location": "L408",
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_newtaskoverlay",
       "community": 40,
@@ -8284,29 +8189,29 @@
       "label": "NewTaskTitleInput",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L445",
+      "source_location": "L420",
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_newtasktitleinput",
-      "community": 43,
-      "community_name": "TextBox",
+      "community": 60,
+      "community_name": ".UpdateTimerUi",
       "norm_label": "newtasktitleinput"
     },
     {
       "label": "NewTaskEstHoursInput",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L448",
+      "source_location": "L423",
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_newtaskesthoursinput",
-      "community": 43,
-      "community_name": "TextBox",
+      "community": 40,
+      "community_name": "UserControl",
       "norm_label": "newtaskesthoursinput"
     },
     {
       "label": ".CancelNewTask_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L674",
+      "source_location": "L608",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -8323,7 +8228,7 @@
       "label": "SubmitNewTaskButton",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L452",
+      "source_location": "L427",
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_submitnewtaskbutton",
       "community": 57,
@@ -8334,7 +8239,7 @@
       "label": ".SubmitNewTask_Click()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L679",
+      "source_location": "L613",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -8512,8 +8417,8 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_populateprojectscombo",
-      "community": 60,
-      "community_name": ".UpdateTimerUi",
+      "community": 67,
+      "community_name": ".SubmitNewProject_Click",
       "norm_label": ".populateprojectscombo()"
     },
     {
@@ -8523,8 +8428,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_xaml_cs_keyeventargs",
-      "community": 60,
-      "community_name": ".UpdateTimerUi",
+      "community": 67,
+      "community_name": ".SubmitNewProject_Click",
       "norm_label": "keyeventargs"
     },
     {
@@ -8576,7 +8481,7 @@
       "label": ".TriggerStopAndLog()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L413",
+      "source_location": "L347",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -8593,7 +8498,7 @@
       "label": ".ReloadEntriesAsync()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L485",
+      "source_location": "L419",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -8610,7 +8515,7 @@
       "label": ".OpenNewProjectModal()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L583",
+      "source_location": "L517",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -8619,15 +8524,15 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_opennewprojectmodal",
-      "community": 43,
-      "community_name": "TextBox",
+      "community": 57,
+      "community_name": "TrackerView",
       "norm_label": ".opennewprojectmodal()"
     },
     {
       "label": ".OpenNewTaskModal()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L659",
+      "source_location": "L593",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -8636,15 +8541,15 @@
       },
       "_origin": "ast",
       "id": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_opennewtaskmodal",
-      "community": 43,
-      "community_name": "TextBox",
+      "community": 60,
+      "community_name": ".UpdateTimerUi",
       "norm_label": ".opennewtaskmodal()"
     },
     {
       "label": ".ShowNotice()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L731",
+      "source_location": "L665",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -8661,7 +8566,7 @@
       "label": ".FormatSeconds()",
       "file_type": "code",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L749",
+      "source_location": "L683",
       "metadata": {
         "namespace": "ManagerX.Views",
         "scope_chain": [
@@ -9122,7 +9027,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_clients_page",
       "community": 62,
-      "community_name": "api-client.ts",
+      "community_name": "clients/page.tsx",
       "norm_label": "clients/page.tsx"
     },
     {
@@ -9133,7 +9038,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_clients_page_currencysetting",
       "community": 62,
-      "community_name": "api-client.ts",
+      "community_name": "clients/page.tsx",
       "norm_label": "currencysetting"
     },
     {
@@ -9144,7 +9049,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_clients_page_clientspage",
       "community": 62,
-      "community_name": "api-client.ts",
+      "community_name": "clients/page.tsx",
       "norm_label": "clientspage()"
     },
     {
@@ -9243,7 +9148,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_layout",
       "community": 37,
-      "community_name": "AuthContext.tsx",
+      "community_name": "layout.tsx",
       "norm_label": "layout.tsx"
     },
     {
@@ -9254,7 +9159,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_layout_metadata",
       "community": 37,
-      "community_name": "AuthContext.tsx",
+      "community_name": "layout.tsx",
       "norm_label": "metadata"
     },
     {
@@ -9265,7 +9170,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_layout_rootlayout",
       "community": 37,
-      "community_name": "AuthContext.tsx",
+      "community_name": "layout.tsx",
       "norm_label": "rootlayout()"
     },
     {
@@ -9298,7 +9203,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_project_scheduler_page",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "project-scheduler/page.tsx"
     },
     {
@@ -9309,7 +9214,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_project_scheduler_page_projectschedulerpage",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "projectschedulerpage()"
     },
     {
@@ -9320,7 +9225,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_projects_page",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "projects/page.tsx"
     },
     {
@@ -9331,7 +9236,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_projects_page_projectspage",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "projectspage()"
     },
     {
@@ -9342,7 +9247,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_tasks_page",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "tasks/page.tsx"
     },
     {
@@ -9353,7 +9258,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_tasks_page_periodfilter",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "periodfilter"
     },
     {
@@ -9364,7 +9269,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_tasks_page_taskspage",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "taskspage()"
     },
     {
@@ -9374,8 +9279,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_time_tracker_page",
-      "community": 49,
-      "community_name": "time-tracker/page.tsx",
+      "community": 44,
+      "community_name": "api-client.ts",
       "norm_label": "time-tracker/page.tsx"
     },
     {
@@ -9385,8 +9290,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "frontend_src_app_time_tracker_page_periodfilter",
-      "community": 49,
-      "community_name": "time-tracker/page.tsx",
+      "community": 44,
+      "community_name": "api-client.ts",
       "norm_label": "periodfilter"
     },
     {
@@ -9396,8 +9301,8 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "frontend_src_app_time_tracker_page_timetrackerpage",
-      "community": 49,
-      "community_name": "time-tracker/page.tsx",
+      "community": 44,
+      "community_name": "api-client.ts",
       "norm_label": "timetrackerpage()"
     },
     {
@@ -9539,8 +9444,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "frontend_src_components_common_searchableclientselect_searchableclientselect",
-      "community": 44,
-      "community_name": "projects/page.tsx",
+      "community": 38,
+      "community_name": "InvoiceModal.tsx",
       "norm_label": "searchableclientselect()"
     },
     {
@@ -9550,8 +9455,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_components_common_searchableprojectselect",
-      "community": 44,
-      "community_name": "projects/page.tsx",
+      "community": 43,
+      "community_name": "SearchableProjectSelect.tsx",
       "norm_label": "searchableprojectselect.tsx"
     },
     {
@@ -9561,8 +9466,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "frontend_src_components_common_searchableprojectselect_projectoption",
-      "community": 44,
-      "community_name": "projects/page.tsx",
+      "community": 43,
+      "community_name": "SearchableProjectSelect.tsx",
       "norm_label": "projectoption"
     },
     {
@@ -9572,8 +9477,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "frontend_src_components_common_searchableprojectselect_searchableprojectselectprops",
-      "community": 44,
-      "community_name": "projects/page.tsx",
+      "community": 43,
+      "community_name": "SearchableProjectSelect.tsx",
       "norm_label": "searchableprojectselectprops"
     },
     {
@@ -9583,8 +9488,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "frontend_src_components_common_searchableprojectselect_searchableprojectselect",
-      "community": 44,
-      "community_name": "projects/page.tsx",
+      "community": 43,
+      "community_name": "SearchableProjectSelect.tsx",
       "norm_label": "searchableprojectselect()"
     },
     {
@@ -9627,8 +9532,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_components_layout_header",
-      "community": 62,
-      "community_name": "api-client.ts",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "header.tsx"
     },
     {
@@ -9638,8 +9543,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "frontend_src_components_layout_header_headerprops",
-      "community": 62,
-      "community_name": "api-client.ts",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "headerprops"
     },
     {
@@ -9649,8 +9554,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "frontend_src_components_layout_header_header",
-      "community": 62,
-      "community_name": "api-client.ts",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "header()"
     },
     {
@@ -9694,7 +9599,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_clients_clientmodal",
       "community": 62,
-      "community_name": "api-client.ts",
+      "community_name": "clients/page.tsx",
       "norm_label": "clientmodal.tsx"
     },
     {
@@ -9705,7 +9610,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_clients_clientmodal_clientdata",
       "community": 62,
-      "community_name": "api-client.ts",
+      "community_name": "clients/page.tsx",
       "norm_label": "clientdata"
     },
     {
@@ -9716,7 +9621,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_clients_clientmodal_currencyoption",
       "community": 62,
-      "community_name": "api-client.ts",
+      "community_name": "clients/page.tsx",
       "norm_label": "currencyoption"
     },
     {
@@ -9727,7 +9632,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_clients_clientmodal_clientmodalprops",
       "community": 62,
-      "community_name": "api-client.ts",
+      "community_name": "clients/page.tsx",
       "norm_label": "clientmodalprops"
     },
     {
@@ -9738,7 +9643,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_clients_clientmodal_clientmodal",
       "community": 62,
-      "community_name": "api-client.ts",
+      "community_name": "clients/page.tsx",
       "norm_label": "clientmodal()"
     },
     {
@@ -9914,7 +9819,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectmodal",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "projectmodal.tsx"
     },
     {
@@ -9925,7 +9830,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectmodal_clientoption",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "clientoption"
     },
     {
@@ -9936,7 +9841,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectmodal_projectmodalprops",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "projectmodalprops"
     },
     {
@@ -9947,7 +9852,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectmodal_projectmodal",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "projectmodal()"
     },
     {
@@ -9958,7 +9863,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectschedulercalendar",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "projectschedulercalendar.tsx"
     },
     {
@@ -9969,7 +9874,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectschedulercalendar_projectschedulercalendarprops",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "projectschedulercalendarprops"
     },
     {
@@ -9980,7 +9885,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectschedulercalendar_month_names",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "month_names"
     },
     {
@@ -9991,7 +9896,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectschedulercalendar_weekday_names",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "weekday_names"
     },
     {
@@ -10002,7 +9907,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectschedulercalendar_projectschedulercalendar",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "projectschedulercalendar()"
     },
     {
@@ -10090,7 +9995,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttasksmodal",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "projecttasksmodal.tsx"
     },
     {
@@ -10101,7 +10006,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttasksmodal_projecttasksmodalprops",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "projecttasksmodalprops"
     },
     {
@@ -10112,7 +10017,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttasksmodal_projecttasksmodal",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "projecttasksmodal()"
     },
     {
@@ -10123,7 +10028,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_taskmodal",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "taskmodal.tsx"
     },
     {
@@ -10134,7 +10039,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_taskmodal_taskmodalprops",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "taskmodalprops"
     },
     {
@@ -10145,7 +10050,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_taskmodal_taskmodal",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "taskmodal()"
     },
     {
@@ -10166,8 +10071,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_tasktableprops",
-      "community": 44,
-      "community_name": "projects/page.tsx",
+      "community": 45,
+      "community_name": "InvoiceTable.tsx",
       "norm_label": "tasktableprops"
     },
     {
@@ -10233,7 +10138,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal",
       "community": 49,
-      "community_name": "time-tracker/page.tsx",
+      "community_name": "ManualTimeModal.tsx",
       "norm_label": "manualtimemodal.tsx"
     },
     {
@@ -10244,7 +10149,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_manualtimemodalprops",
       "community": 49,
-      "community_name": "time-tracker/page.tsx",
+      "community_name": "ManualTimeModal.tsx",
       "norm_label": "manualtimemodalprops"
     },
     {
@@ -10255,7 +10160,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_tolocaldatestr",
       "community": 49,
-      "community_name": "time-tracker/page.tsx",
+      "community_name": "ManualTimeModal.tsx",
       "norm_label": "tolocaldatestr()"
     },
     {
@@ -10266,7 +10171,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_tolocaltimestr",
       "community": 49,
-      "community_name": "time-tracker/page.tsx",
+      "community_name": "ManualTimeModal.tsx",
       "norm_label": "tolocaltimestr()"
     },
     {
@@ -10277,7 +10182,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_timetominutes",
       "community": 49,
-      "community_name": "time-tracker/page.tsx",
+      "community_name": "ManualTimeModal.tsx",
       "norm_label": "timetominutes()"
     },
     {
@@ -10288,7 +10193,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_minutestotime",
       "community": 49,
-      "community_name": "time-tracker/page.tsx",
+      "community_name": "ManualTimeModal.tsx",
       "norm_label": "minutestotime()"
     },
     {
@@ -10299,7 +10204,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_manualtimemodal",
       "community": 49,
-      "community_name": "time-tracker/page.tsx",
+      "community_name": "ManualTimeModal.tsx",
       "norm_label": "manualtimemodal()"
     },
     {
@@ -10310,7 +10215,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_starttimermodal",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "starttimermodal.tsx"
     },
     {
@@ -10321,7 +10226,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_starttimermodal_starttimermodalprops",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "starttimermodalprops"
     },
     {
@@ -10331,8 +10236,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_starttimermodal_starttimermodal",
-      "community": 49,
-      "community_name": "time-tracker/page.tsx",
+      "community": 44,
+      "community_name": "api-client.ts",
       "norm_label": "starttimermodal()"
     },
     {
@@ -10342,8 +10247,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable",
-      "community": 49,
-      "community_name": "time-tracker/page.tsx",
+      "community": 45,
+      "community_name": "InvoiceTable.tsx",
       "norm_label": "timeentrytable.tsx"
     },
     {
@@ -10354,7 +10259,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_timeentrytableprops",
       "community": 49,
-      "community_name": "time-tracker/page.tsx",
+      "community_name": "ManualTimeModal.tsx",
       "norm_label": "timeentrytableprops"
     },
     {
@@ -10364,8 +10269,8 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_sortfield",
-      "community": 49,
-      "community_name": "time-tracker/page.tsx",
+      "community": 45,
+      "community_name": "InvoiceTable.tsx",
       "norm_label": "sortfield"
     },
     {
@@ -10375,8 +10280,8 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_sortdirection",
-      "community": 49,
-      "community_name": "time-tracker/page.tsx",
+      "community": 45,
+      "community_name": "InvoiceTable.tsx",
       "norm_label": "sortdirection"
     },
     {
@@ -10386,8 +10291,8 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_default_time_widths",
-      "community": 49,
-      "community_name": "time-tracker/page.tsx",
+      "community": 45,
+      "community_name": "InvoiceTable.tsx",
       "norm_label": "default_time_widths"
     },
     {
@@ -10397,8 +10302,8 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_min_time_widths",
-      "community": 49,
-      "community_name": "time-tracker/page.tsx",
+      "community": 45,
+      "community_name": "InvoiceTable.tsx",
       "norm_label": "min_time_widths"
     },
     {
@@ -10408,8 +10313,8 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_timeentrytable",
-      "community": 49,
-      "community_name": "time-tracker/page.tsx",
+      "community": 45,
+      "community_name": "InvoiceTable.tsx",
       "norm_label": "timeentrytable()"
     },
     {
@@ -10420,7 +10325,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_providers_queryprovider",
       "community": 37,
-      "community_name": "AuthContext.tsx",
+      "community_name": "layout.tsx",
       "norm_label": "queryprovider.tsx"
     },
     {
@@ -10431,7 +10336,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_providers_queryprovider_queryprovider",
       "community": 37,
-      "community_name": "AuthContext.tsx",
+      "community_name": "layout.tsx",
       "norm_label": "queryprovider()"
     },
     {
@@ -10441,8 +10346,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_context_authcontext",
-      "community": 37,
-      "community_name": "AuthContext.tsx",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "authcontext.tsx"
     },
     {
@@ -10452,8 +10357,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "frontend_src_context_authcontext_authuser",
-      "community": 37,
-      "community_name": "AuthContext.tsx",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "authuser"
     },
     {
@@ -10463,8 +10368,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "frontend_src_context_authcontext_authcontexttype",
-      "community": 37,
-      "community_name": "AuthContext.tsx",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "authcontexttype"
     },
     {
@@ -10474,8 +10379,8 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "frontend_src_context_authcontext_authcontext",
-      "community": 37,
-      "community_name": "AuthContext.tsx",
+      "community": 10,
+      "community_name": "AppShell.tsx",
       "norm_label": "authcontext"
     },
     {
@@ -10486,7 +10391,7 @@
       "_origin": "ast",
       "id": "frontend_src_context_authcontext_authprovider",
       "community": 37,
-      "community_name": "AuthContext.tsx",
+      "community_name": "layout.tsx",
       "norm_label": "authprovider()"
     },
     {
@@ -10540,7 +10445,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_lib_api_client",
-      "community": 62,
+      "community": 44,
       "community_name": "api-client.ts",
       "norm_label": "api-client.ts"
     },
@@ -10551,8 +10456,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_lib_api_client_apierror",
-      "community": 62,
-      "community_name": "api-client.ts",
+      "community": 43,
+      "community_name": "SearchableProjectSelect.tsx",
       "norm_label": "apierror"
     },
     {
@@ -10562,8 +10467,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "frontend_src_lib_api_client_apierror_constructor",
-      "community": 62,
-      "community_name": "api-client.ts",
+      "community": 43,
+      "community_name": "SearchableProjectSelect.tsx",
       "norm_label": ".constructor()"
     },
     {
@@ -10573,7 +10478,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "frontend_src_lib_api_client_requestoptions",
-      "community": 62,
+      "community": 44,
       "community_name": "api-client.ts",
       "norm_label": "requestoptions"
     },
@@ -10584,7 +10489,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "frontend_src_lib_api_client_request",
-      "community": 62,
+      "community": 44,
       "community_name": "api-client.ts",
       "norm_label": "request()"
     },
@@ -10595,7 +10500,7 @@
       "source_location": "L75",
       "_origin": "ast",
       "id": "frontend_src_lib_api_client_api",
-      "community": 62,
+      "community": 44,
       "community_name": "api-client.ts",
       "norm_label": "api"
     },
@@ -10607,7 +10512,7 @@
       "_origin": "ast",
       "id": "frontend_src_lib_query_client",
       "community": 37,
-      "community_name": "AuthContext.tsx",
+      "community_name": "layout.tsx",
       "norm_label": "query-client.ts"
     },
     {
@@ -10618,7 +10523,7 @@
       "_origin": "ast",
       "id": "frontend_src_lib_query_client_makequeryclient",
       "community": 37,
-      "community_name": "AuthContext.tsx",
+      "community_name": "layout.tsx",
       "norm_label": "makequeryclient()"
     },
     {
@@ -10629,7 +10534,7 @@
       "_origin": "ast",
       "id": "frontend_src_lib_query_client_getqueryclient",
       "community": 37,
-      "community_name": "AuthContext.tsx",
+      "community_name": "layout.tsx",
       "norm_label": "getqueryclient()"
     },
     {
@@ -10816,7 +10721,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "project.ts"
     },
     {
@@ -10827,7 +10732,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_taskstatus",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "taskstatus"
     },
     {
@@ -10838,7 +10743,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_taskpriority",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "taskpriority"
     },
     {
@@ -10849,7 +10754,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_checklistitem",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "checklistitem"
     },
     {
@@ -10860,7 +10765,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_taskdata",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "taskdata"
     },
     {
@@ -10871,7 +10776,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_projectbillingtype",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "projectbillingtype"
     },
     {
@@ -10882,7 +10787,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_projectstatus",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "projectstatus"
     },
     {
@@ -10893,7 +10798,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_projectclientinfo",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "projectclientinfo"
     },
     {
@@ -10904,7 +10809,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_projectdata",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "projectdata"
     },
     {
@@ -10915,7 +10820,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_time",
       "community": 49,
-      "community_name": "time-tracker/page.tsx",
+      "community_name": "ManualTimeModal.tsx",
       "norm_label": "time.ts"
     },
     {
@@ -10926,7 +10831,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_time_timeentrydata",
       "community": 49,
-      "community_name": "time-tracker/page.tsx",
+      "community_name": "ManualTimeModal.tsx",
       "norm_label": "timeentrydata"
     },
     {
@@ -10937,7 +10842,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_time_timeentrycreatepayload",
       "community": 49,
-      "community_name": "time-tracker/page.tsx",
+      "community_name": "ManualTimeModal.tsx",
       "norm_label": "timeentrycreatepayload"
     },
     {
@@ -10948,7 +10853,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_time_timeentryupdatepayload",
       "community": 49,
-      "community_name": "time-tracker/page.tsx",
+      "community_name": "ManualTimeModal.tsx",
       "norm_label": "timeentryupdatepayload"
     },
     {
@@ -12750,8 +12655,8 @@
     },
     {
       "label": "uuid",
-      "community": 1,
-      "community_name": "auth.py",
+      "community": 6,
+      "community_name": "Base",
       "external": true,
       "file_type": "concept",
       "norm_label": "uuid",
@@ -12763,7 +12668,7 @@
     {
       "label": "frontend_src_app_globals",
       "community": 37,
-      "community_name": "AuthContext.tsx",
+      "community_name": "layout.tsx",
       "external": true,
       "file_type": "concept",
       "norm_label": "frontend_src_app_globals",
@@ -12834,8 +12739,8 @@
     },
     {
       "label": "sqlite3",
-      "community": 6,
-      "community_name": "Base",
+      "community": 3,
+      "community_name": "settings.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "sqlite3",
@@ -12846,8 +12751,8 @@
     },
     {
       "label": "typing",
-      "community": 3,
-      "community_name": "User",
+      "community": 58,
+      "community_name": "projects.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "typing",
@@ -12871,7 +12776,7 @@
     {
       "label": "pydantic",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "pydantic",
@@ -13087,7 +12992,7 @@
     {
       "label": "os",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "os",
@@ -13099,7 +13004,7 @@
     {
       "label": "pathlib",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "pathlib",
@@ -13111,7 +13016,7 @@
     {
       "label": "pydantic_settings",
       "community": 3,
-      "community_name": "User",
+      "community_name": "settings.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "pydantic_settings",
@@ -24345,7 +24250,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L657",
+      "source_location": "L642",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -24367,7 +24272,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L415",
+      "source_location": "L400",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -24382,14 +24287,14 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
-      "target": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_exitapplicationasync",
+      "target": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_exitapplication",
       "confidence_score": 1.0
     },
     {
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L749",
+      "source_location": "L734",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -24433,7 +24338,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L319",
+      "source_location": "L304",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -24455,7 +24360,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L509",
+      "source_location": "L494",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -24466,7 +24371,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L517",
+      "source_location": "L502",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -24477,7 +24382,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L579",
+      "source_location": "L564",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -24488,7 +24393,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L561",
+      "source_location": "L546",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -24499,7 +24404,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L573",
+      "source_location": "L558",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -24510,7 +24415,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L534",
+      "source_location": "L519",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -24521,7 +24426,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L337",
+      "source_location": "L322",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -24543,7 +24448,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L441",
+      "source_location": "L426",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -24554,7 +24459,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L433",
+      "source_location": "L418",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -24565,7 +24470,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L733",
+      "source_location": "L718",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -24587,7 +24492,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L495",
+      "source_location": "L480",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -24609,7 +24514,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L366",
+      "source_location": "L351",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -24620,7 +24525,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L381",
+      "source_location": "L366",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -24631,7 +24536,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L704",
+      "source_location": "L689",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -24653,7 +24558,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L471",
+      "source_location": "L456",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -24664,7 +24569,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L526",
+      "source_location": "L511",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -24675,7 +24580,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L548",
+      "source_location": "L533",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -24686,7 +24591,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L410",
+      "source_location": "L395",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -24697,7 +24602,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L542",
+      "source_location": "L527",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -24708,7 +24613,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L394",
+      "source_location": "L379",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -24730,7 +24635,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L584",
+      "source_location": "L569",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -24741,7 +24646,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L354",
+      "source_location": "L339",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -24752,7 +24657,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L680",
+      "source_location": "L665",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow",
@@ -24912,7 +24817,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L526",
+      "source_location": "L511",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -25083,7 +24988,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L394",
+      "source_location": "L379",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -25100,7 +25005,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L401",
+      "source_location": "L386",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_titlerefreshbutton_click",
@@ -25122,7 +25027,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L410",
+      "source_location": "L395",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -25138,7 +25043,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L412",
+      "source_location": "L397",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_titlelogoutbutton_click",
@@ -25149,7 +25054,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L542",
+      "source_location": "L527",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -25164,7 +25069,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L548",
+      "source_location": "L533",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -25180,11 +25085,11 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L557",
+      "source_location": "L542",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_titleclose_click",
-      "target": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_exitapplicationasync",
+      "target": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_exitapplication",
       "confidence_score": 1.0
     },
     {
@@ -25192,7 +25097,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L550",
+      "source_location": "L535",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_titleclose_click",
@@ -25216,7 +25121,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L664",
+      "source_location": "L649",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_apistatusbadge_mouseleftbuttondown",
@@ -25228,7 +25133,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L675",
+      "source_location": "L660",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_apistatusbadge_mouseleftbuttondown",
@@ -25239,7 +25144,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L657",
+      "source_location": "L642",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -25291,7 +25196,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L687",
+      "source_location": "L672",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_webstatusbadge_mouseleftbuttondown",
@@ -25303,7 +25208,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L699",
+      "source_location": "L684",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_webstatusbadge_mouseleftbuttondown",
@@ -25314,7 +25219,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L680",
+      "source_location": "L665",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -25341,7 +25246,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L704",
+      "source_location": "L689",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -25357,7 +25262,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L708",
+      "source_location": "L693",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_stopservicesbutton_click",
@@ -25369,7 +25274,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L724",
+      "source_location": "L709",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_stopservicesbutton_click",
@@ -25382,7 +25287,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L723",
+      "source_location": "L708",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_stopservicesbutton_click",
@@ -25416,7 +25321,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L534",
+      "source_location": "L519",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -25443,7 +25348,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L561",
+      "source_location": "L546",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -25470,7 +25375,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L573",
+      "source_location": "L558",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -25486,7 +25391,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L575",
+      "source_location": "L560",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_ministopbutton_click",
@@ -25497,7 +25402,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L579",
+      "source_location": "L564",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -25513,7 +25418,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L581",
+      "source_location": "L566",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_miniexpandbutton_click",
@@ -25762,6 +25667,18 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
+      "source_location": "L205",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_initializetrayicon",
+      "target": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_exitapplication",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
       "source_location": "L193",
       "weight": 1.0,
       "_origin": "ast",
@@ -25837,7 +25754,7 @@
       "source_location": "L272",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_exitapplicationasync",
+      "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_exitapplication",
       "target": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_restorefromtray",
       "confidence_score": 1.0
     },
@@ -25873,7 +25790,7 @@
       "source_location": "L270",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_exitapplicationasync",
+      "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_exitapplication",
       "target": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_istimeractive",
       "confidence_score": 1.0
     },
@@ -25882,7 +25799,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L322",
+      "source_location": "L307",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_mainwindow_closing",
@@ -25946,10 +25863,10 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L301",
+      "source_location": "L293",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_exitapplicationasync",
+      "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_exitapplication",
       "target": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice_stopallservicesasync"
     },
     {
@@ -25958,17 +25875,17 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L313",
+      "source_location": "L298",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_exitapplicationasync",
+      "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_exitapplication",
       "target": "desktop_managerx_desktop_services_shutdownpreventionservice_managerx_services_shutdownpreventionservice_disableshutdownblock"
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L319",
+      "source_location": "L304",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -25987,7 +25904,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L331",
+      "source_location": "L316",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_mainwindow_closing",
@@ -25998,7 +25915,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L348",
+      "source_location": "L333",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_onauthstatechanged",
@@ -26010,7 +25927,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L349",
+      "source_location": "L334",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_onauthstatechanged",
@@ -26022,7 +25939,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L344",
+      "source_location": "L329",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_onauthstatechanged",
@@ -26034,7 +25951,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L341",
+      "source_location": "L326",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_onauthstatechanged",
@@ -26045,7 +25962,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L337",
+      "source_location": "L322",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -26061,7 +25978,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L368",
+      "source_location": "L353",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_showloginview",
@@ -26073,7 +25990,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L383",
+      "source_location": "L368",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_showtrackerview",
@@ -26084,7 +26001,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L354",
+      "source_location": "L339",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -26100,7 +26017,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L375",
+      "source_location": "L360",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_showloginview",
@@ -26112,7 +26029,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L437",
+      "source_location": "L422",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_ontimerticked",
@@ -26124,7 +26041,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L462",
+      "source_location": "L447",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_ontimerstatechanged",
@@ -26136,7 +26053,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L457",
+      "source_location": "L442",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_ontimerstatechanged",
@@ -26149,7 +26066,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L451",
+      "source_location": "L436",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_ontimerstatechanged",
@@ -26161,7 +26078,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L447",
+      "source_location": "L432",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_ontimerstatechanged",
@@ -26172,7 +26089,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L491",
+      "source_location": "L476",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_switchtominimode",
@@ -26183,7 +26100,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L509",
+      "source_location": "L494",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -26198,7 +26115,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L517",
+      "source_location": "L502",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -26215,7 +26132,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L614",
+      "source_location": "L599",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_updateservicebadgesasync",
@@ -26227,7 +26144,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L606",
+      "source_location": "L591",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_updateservicebadgesasync",
@@ -26239,7 +26156,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/MainWindow.xaml.cs",
-      "source_location": "L586",
+      "source_location": "L571",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_mainwindow_xaml_managerx_mainwindow_updateservicebadgesasync",
@@ -26599,7 +26516,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Models/ProjectModels.cs",
-      "source_location": "L98",
+      "source_location": "L74",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_models_projectmodels",
@@ -26621,7 +26538,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Models/ProjectModels.cs",
-      "source_location": "L116",
+      "source_location": "L92",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_models_projectmodels",
@@ -26637,17 +26554,6 @@
       "_origin": "ast",
       "source": "desktop_managerx_desktop_models_projectmodels",
       "target": "desktop_managerx_desktop_models_projectmodels_managerx_models_taskdto",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "desktop/ManagerX.Desktop/Models/ProjectModels.cs",
-      "source_location": "L92",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "desktop_managerx_desktop_models_projectmodels",
-      "target": "desktop_managerx_desktop_models_projectmodels_managerx_models_taskstatusupdaterequest",
       "confidence_score": 1.0
     },
     {
@@ -26691,7 +26597,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Models/ProjectModels.cs",
-      "source_location": "L89",
+      "source_location": "L71",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_models_projectmodels_managerx_models_taskdto",
@@ -27313,7 +27219,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L52",
+      "source_location": "L49",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice",
@@ -27324,7 +27230,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L17",
+      "source_location": "L14",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice",
@@ -27335,7 +27241,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L149",
+      "source_location": "L146",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice",
@@ -27346,7 +27252,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L67",
+      "source_location": "L64",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice",
@@ -27357,7 +27263,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L301",
+      "source_location": "L290",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice",
@@ -27368,18 +27274,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L417",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice",
-      "target": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice_killprocesstreebyidasync",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L107",
+      "source_location": "L104",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice",
@@ -27390,7 +27285,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L190",
+      "source_location": "L187",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice",
@@ -27401,7 +27296,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L242",
+      "source_location": "L235",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice",
@@ -27412,7 +27307,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L466",
+      "source_location": "L432",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice",
@@ -27423,7 +27318,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L439",
+      "source_location": "L406",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice",
@@ -27434,7 +27329,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L285",
+      "source_location": "L274",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice",
@@ -27445,7 +27340,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L346",
+      "source_location": "L335",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice",
@@ -27456,7 +27351,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L506",
+      "source_location": "L456",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice",
@@ -27468,7 +27363,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L519",
+      "source_location": "L469",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice_waitforhealthyasync",
@@ -27505,7 +27400,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L69",
+      "source_location": "L66",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice_finddefaultpythonpath",
@@ -27529,7 +27424,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L109",
+      "source_location": "L106",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice_resolvebackenddirectory",
@@ -27553,7 +27448,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L151",
+      "source_location": "L148",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice_finddefaultfrontendpath",
@@ -27588,7 +27483,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L250",
+      "source_location": "L243",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice_startfrontend",
@@ -27601,7 +27496,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L236",
+      "source_location": "L229",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice_startfrontend",
@@ -27624,7 +27519,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L289",
+      "source_location": "L278",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice_syncenvfile",
@@ -27636,7 +27531,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L292",
+      "source_location": "L281",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice_syncenvfile",
@@ -27661,7 +27556,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L304",
+      "source_location": "L293",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice_findenvfilepath",
@@ -27672,19 +27567,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L471",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice_stopallservicesasync",
-      "target": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice_killprocesstreebyidasync",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L482",
+      "source_location": "L434",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_services_backendlauncherservice_managerx_services_backendlauncherservice_stopallservicesasync",
@@ -27695,7 +27578,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L506",
+      "source_location": "L456",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -27710,7 +27593,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L506",
+      "source_location": "L456",
       "weight": 1.0,
       "context": "generic_arg",
       "metadata": {
@@ -27725,7 +27608,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L506",
+      "source_location": "L456",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -27740,7 +27623,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L506",
+      "source_location": "L456",
       "weight": 1.0,
       "context": "generic_arg",
       "metadata": {
@@ -27755,7 +27638,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs",
-      "source_location": "L506",
+      "source_location": "L456",
       "weight": 1.0,
       "context": "generic_arg",
       "metadata": {
@@ -29988,19 +29871,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L237",
-      "weight": 1.0,
-      "context": "binding_path",
-      "_origin": "ast",
-      "source": "desktop_managerx_desktop_views_trackerview_usercontrol",
-      "target": "binding_badgevisibility",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L345",
+      "source_location": "L320",
       "weight": 1.0,
       "context": "binding_path",
       "_origin": "ast",
@@ -30012,7 +29883,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L248",
+      "source_location": "L233",
       "weight": 1.0,
       "context": "binding_path",
       "_origin": "ast",
@@ -30024,7 +29895,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L349",
+      "source_location": "L324",
       "weight": 1.0,
       "context": "binding_path",
       "_origin": "ast",
@@ -30036,7 +29907,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L244",
+      "source_location": "L229",
       "weight": 1.0,
       "context": "binding_path",
       "_origin": "ast",
@@ -30048,43 +29919,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L230",
-      "weight": 1.0,
-      "context": "binding_path",
-      "_origin": "ast",
-      "source": "desktop_managerx_desktop_views_trackerview_usercontrol",
-      "target": "binding_schedulebadgebgcolor",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L231",
-      "weight": 1.0,
-      "context": "binding_path",
-      "_origin": "ast",
-      "source": "desktop_managerx_desktop_views_trackerview_usercontrol",
-      "target": "binding_schedulebadgebordercolor",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L238",
-      "weight": 1.0,
-      "context": "binding_path",
-      "_origin": "ast",
-      "source": "desktop_managerx_desktop_views_trackerview_usercontrol",
-      "target": "binding_schedulebadgetext",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L343",
+      "source_location": "L318",
       "weight": 1.0,
       "context": "binding_path",
       "_origin": "ast",
@@ -30096,7 +29931,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L229",
+      "source_location": "L228",
       "weight": 1.0,
       "context": "binding_path",
       "_origin": "ast",
@@ -30119,7 +29954,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L302",
+      "source_location": "L277",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_usercontrol",
@@ -30141,7 +29976,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L396",
+      "source_location": "L371",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_usercontrol",
@@ -30152,7 +29987,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L393",
+      "source_location": "L368",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_usercontrol",
@@ -30163,7 +29998,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L381",
+      "source_location": "L356",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_usercontrol",
@@ -30185,7 +30020,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L327",
+      "source_location": "L302",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_usercontrol",
@@ -30196,7 +30031,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L422",
+      "source_location": "L397",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_usercontrol",
@@ -30207,7 +30042,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L419",
+      "source_location": "L394",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_usercontrol",
@@ -30218,7 +30053,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L407",
+      "source_location": "L382",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_usercontrol",
@@ -30229,7 +30064,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L448",
+      "source_location": "L423",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_usercontrol",
@@ -30251,7 +30086,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L433",
+      "source_location": "L408",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_usercontrol",
@@ -30262,7 +30097,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L445",
+      "source_location": "L420",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_usercontrol",
@@ -30273,7 +30108,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L373",
+      "source_location": "L348",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_usercontrol",
@@ -30284,7 +30119,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L278",
+      "source_location": "L253",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_usercontrol",
@@ -30372,7 +30207,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L426",
+      "source_location": "L401",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_usercontrol",
@@ -30383,7 +30218,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L452",
+      "source_location": "L427",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_usercontrol",
@@ -30460,7 +30295,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L289",
+      "source_location": "L264",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_usercontrol",
@@ -30483,7 +30318,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L399",
+      "source_location": "L374",
       "weight": 1.0,
       "context": "event",
       "_origin": "ast",
@@ -30495,7 +30330,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L425",
+      "source_location": "L400",
       "weight": 1.0,
       "context": "event",
       "_origin": "ast",
@@ -30507,7 +30342,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L451",
+      "source_location": "L426",
       "weight": 1.0,
       "context": "event",
       "_origin": "ast",
@@ -30519,7 +30354,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L320",
+      "source_location": "L295",
       "weight": 1.0,
       "context": "event",
       "_origin": "ast",
@@ -30531,19 +30366,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L263",
-      "weight": 1.0,
-      "context": "event",
-      "_origin": "ast",
-      "source": "desktop_managerx_desktop_views_trackerview_usercontrol",
-      "target": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_completescheduledtask_click",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L364",
+      "source_location": "L339",
       "weight": 1.0,
       "context": "event",
       "_origin": "ast",
@@ -30555,7 +30378,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L357",
+      "source_location": "L332",
       "weight": 1.0,
       "context": "event",
       "_origin": "ast",
@@ -30591,7 +30414,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L400",
+      "source_location": "L375",
       "weight": 1.0,
       "context": "event",
       "_origin": "ast",
@@ -30603,7 +30426,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L270",
+      "source_location": "L246",
       "weight": 1.0,
       "context": "event",
       "_origin": "ast",
@@ -30626,7 +30449,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L518",
+      "source_location": "L452",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview",
@@ -30637,7 +30460,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L602",
+      "source_location": "L536",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview",
@@ -30648,7 +30471,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L674",
+      "source_location": "L608",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview",
@@ -30659,7 +30482,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L501",
+      "source_location": "L435",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview",
@@ -30670,18 +30493,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L343",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview",
-      "target": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_completescheduledtask_click",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L554",
+      "source_location": "L488",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview",
@@ -30692,7 +30504,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L506",
+      "source_location": "L440",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview",
@@ -30703,7 +30515,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L749",
+      "source_location": "L683",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview",
@@ -30725,7 +30537,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L578",
+      "source_location": "L512",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview",
@@ -30736,7 +30548,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L654",
+      "source_location": "L588",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview",
@@ -30747,7 +30559,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L726",
+      "source_location": "L660",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview",
@@ -30780,7 +30592,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L583",
+      "source_location": "L517",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview",
@@ -30791,7 +30603,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L659",
+      "source_location": "L593",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview",
@@ -30868,7 +30680,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L485",
+      "source_location": "L419",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview",
@@ -30879,7 +30691,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L476",
+      "source_location": "L410",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview",
@@ -30890,7 +30702,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L524",
+      "source_location": "L458",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview",
@@ -30901,7 +30713,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L731",
+      "source_location": "L665",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview",
@@ -30912,7 +30724,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L386",
+      "source_location": "L320",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview",
@@ -30923,7 +30735,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L365",
+      "source_location": "L299",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview",
@@ -30934,7 +30746,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L418",
+      "source_location": "L352",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview",
@@ -30945,7 +30757,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L607",
+      "source_location": "L541",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview",
@@ -30956,7 +30768,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L679",
+      "source_location": "L613",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview",
@@ -31011,7 +30823,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L413",
+      "source_location": "L347",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview",
@@ -31033,7 +30845,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L496",
+      "source_location": "L430",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview",
@@ -31119,7 +30931,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L373",
+      "source_location": "L348",
       "weight": 1.0,
       "context": "type",
       "_origin": "ast",
@@ -31131,7 +30943,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L278",
+      "source_location": "L253",
       "weight": 1.0,
       "context": "type",
       "_origin": "ast",
@@ -31191,7 +31003,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L726",
+      "source_location": "L660",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -31266,7 +31078,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L426",
+      "source_location": "L401",
       "weight": 1.0,
       "context": "type",
       "_origin": "ast",
@@ -31278,7 +31090,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L452",
+      "source_location": "L427",
       "weight": 1.0,
       "context": "type",
       "_origin": "ast",
@@ -31290,7 +31102,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L289",
+      "source_location": "L264",
       "weight": 1.0,
       "context": "type",
       "_origin": "ast",
@@ -31302,7 +31114,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L386",
+      "source_location": "L320",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -31318,7 +31130,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L403",
+      "source_location": "L337",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_startpausebutton_click",
@@ -31341,7 +31153,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L418",
+      "source_location": "L352",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -31357,7 +31169,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L463",
+      "source_location": "L397",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_stopsavebutton_click",
@@ -31369,7 +31181,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L464",
+      "source_location": "L398",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_stopsavebutton_click",
@@ -31381,7 +31193,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L435",
+      "source_location": "L369",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_stopsavebutton_click",
@@ -31393,7 +31205,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L415",
+      "source_location": "L349",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_triggerstopandlog",
@@ -31416,7 +31228,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L476",
+      "source_location": "L410",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -31432,7 +31244,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L481",
+      "source_location": "L415",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_resetbutton_click",
@@ -31443,7 +31255,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L578",
+      "source_location": "L512",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -31459,7 +31271,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L580",
+      "source_location": "L514",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_newprojectbutton_click",
@@ -31506,7 +31318,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L422",
+      "source_location": "L397",
       "weight": 1.0,
       "context": "type",
       "_origin": "ast",
@@ -31620,7 +31432,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L654",
+      "source_location": "L588",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -31636,7 +31448,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L656",
+      "source_location": "L590",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_newtaskbutton_click",
@@ -31749,7 +31561,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L396",
+      "source_location": "L371",
       "weight": 1.0,
       "context": "type",
       "_origin": "ast",
@@ -31761,7 +31573,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L393",
+      "source_location": "L368",
       "weight": 1.0,
       "context": "type",
       "_origin": "ast",
@@ -31773,7 +31585,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L419",
+      "source_location": "L394",
       "weight": 1.0,
       "context": "type",
       "_origin": "ast",
@@ -31785,7 +31597,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L448",
+      "source_location": "L423",
       "weight": 1.0,
       "context": "type",
       "_origin": "ast",
@@ -31797,7 +31609,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L445",
+      "source_location": "L420",
       "weight": 1.0,
       "context": "type",
       "_origin": "ast",
@@ -31821,7 +31633,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L327",
+      "source_location": "L302",
       "weight": 1.0,
       "context": "type",
       "_origin": "ast",
@@ -31833,46 +31645,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L343",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "metadata": {
-        "ref_token": "RoutedEventArgs"
-      },
-      "_origin": "ast",
-      "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_completescheduledtask_click",
-      "target": "desktop_managerx_desktop_views_trackerview_xaml_cs_routedeventargs",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L356",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_completescheduledtask_click",
-      "target": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_refreshscheduleandmetrics",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L355",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_completescheduledtask_click",
-      "target": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_shownotice",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L365",
+      "source_location": "L299",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -31888,7 +31661,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L382",
+      "source_location": "L316",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_startscheduledtask_click",
@@ -31899,7 +31672,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L296",
+      "source_location": "L271",
       "weight": 1.0,
       "context": "event",
       "_origin": "ast",
@@ -31911,7 +31684,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L496",
+      "source_location": "L430",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -31926,7 +31699,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L302",
+      "source_location": "L277",
       "weight": 1.0,
       "context": "type",
       "_origin": "ast",
@@ -31938,7 +31711,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L381",
+      "source_location": "L356",
       "weight": 1.0,
       "context": "type",
       "_origin": "ast",
@@ -31950,7 +31723,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L407",
+      "source_location": "L382",
       "weight": 1.0,
       "context": "type",
       "_origin": "ast",
@@ -31962,7 +31735,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L433",
+      "source_location": "L408",
       "weight": 1.0,
       "context": "type",
       "_origin": "ast",
@@ -31974,7 +31747,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L501",
+      "source_location": "L435",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -31989,7 +31762,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L506",
+      "source_location": "L440",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -32004,7 +31777,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L554",
+      "source_location": "L488",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -32020,7 +31793,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L569",
+      "source_location": "L503",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_deleteentry_click",
@@ -32032,7 +31805,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L568",
+      "source_location": "L502",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_deleteentry_click",
@@ -32043,7 +31816,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L518",
+      "source_location": "L452",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -32058,7 +31831,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L524",
+      "source_location": "L458",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -32074,7 +31847,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L546",
+      "source_location": "L480",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_saveeditentry_click",
@@ -32086,7 +31859,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L530",
+      "source_location": "L464",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_saveeditentry_click",
@@ -32099,7 +31872,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L599",
+      "source_location": "L533",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_opennewprojectmodal",
@@ -32109,7 +31882,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L602",
+      "source_location": "L536",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -32124,7 +31897,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L426",
+      "source_location": "L401",
       "weight": 1.0,
       "context": "event",
       "_origin": "ast",
@@ -32136,7 +31909,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L607",
+      "source_location": "L541",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -32152,7 +31925,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L637",
+      "source_location": "L571",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_submitnewproject_click",
@@ -32164,7 +31937,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L614",
+      "source_location": "L548",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_submitnewproject_click",
@@ -32177,7 +31950,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L671",
+      "source_location": "L605",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_opennewtaskmodal",
@@ -32187,7 +31960,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L674",
+      "source_location": "L608",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -32202,7 +31975,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml",
-      "source_location": "L452",
+      "source_location": "L427",
       "weight": 1.0,
       "context": "event",
       "_origin": "ast",
@@ -32214,7 +31987,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L679",
+      "source_location": "L613",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -32230,7 +32003,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L709",
+      "source_location": "L643",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_submitnewtask_click",
@@ -32242,7 +32015,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L713",
+      "source_location": "L647",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_submitnewtask_click",
@@ -32254,7 +32027,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L687",
+      "source_location": "L621",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_submitnewtask_click",
@@ -32443,7 +32216,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L490",
+      "source_location": "L424",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_reloadentriesasync",
@@ -32455,7 +32228,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs",
-      "source_location": "L664",
+      "source_location": "L598",
       "weight": 1.0,
       "_origin": "ast",
       "source": "desktop_managerx_desktop_views_trackerview_xaml_managerx_views_trackerview_opennewtaskmodal",
@@ -38764,5 +38537,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "0b1bf23481fb699d495ea3c7c4e1f857bd09afb9"
+  "built_at_commit": "dfecda7b8c139b47e6c6e88193592766983872dc"
 }
