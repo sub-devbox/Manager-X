@@ -105,18 +105,18 @@
                             <!-- Timer Action Buttons -->
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Button x:Name="StartPauseButton" 
-                                        Content="▶ Start Timer" 
+                                        Content="▶ Start" 
                                         Style="{StaticResource PrimaryButton}" 
-                                        Width="100" 
+                                        Width="76" 
                                         Height="28" 
                                         FontSize="11" 
                                         Margin="0,0,4,0" 
                                         IsEnabled="False" 
                                         Click="StartPauseButton_Click" />
                                 <Button x:Name="StopSaveButton" 
-                                        Content="■ Stop &amp; Log" 
+                                        Content="■ Stop" 
                                         Style="{StaticResource SecondaryButton}" 
-                                        Width="90" 
+                                        Width="70" 
                                         Height="28" 
                                         FontSize="11" 
                                         Margin="0,0,4,0" 
@@ -125,11 +125,20 @@
                                 <Button x:Name="ResetButton" 
                                         Content="Reset" 
                                         Style="{StaticResource SecondaryButton}" 
-                                        Width="55" 
+                                        Width="52" 
                                         Height="28" 
                                         FontSize="11" 
+                                        Margin="0,0,4,0" 
                                         IsEnabled="False" 
                                         Click="ResetButton_Click" />
+                                <Button x:Name="ManualLogButton" 
+                                        Content="⏱ + Log Time" 
+                                        Style="{StaticResource SecondaryButton}" 
+                                        Width="90" 
+                                        Height="28" 
+                                        FontSize="11" 
+                                        Click="ManualLogButton_Click" 
+                                        ToolTip="Manually enter and log time in hours" />
                             </StackPanel>
                         </StackPanel>
                     </Border>
@@ -317,7 +326,10 @@
                     <Border Grid.Row="0" Background="{StaticResource BgSurfaceSubtleBrush}" BorderBrush="{StaticResource BorderSubtleBrush}" BorderThickness="0,0,0,1" Padding="14,10" CornerRadius="9,9,0,0">
                         <Grid>
                             <TextBlock Text="Today's Time Entries" FontSize="13" FontWeight="Bold" Foreground="{StaticResource TextMainBrush}" VerticalAlignment="Center" />
-                            <Button Content="✕" HorizontalAlignment="Right" Background="Transparent" Foreground="{StaticResource TextMutedBrush}" BorderThickness="0" Cursor="Hand" Click="CloseActivityModal_Click" />
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button Content="+ Log Time" Style="{StaticResource SecondaryButton}" Padding="8,2" FontSize="10.5" Margin="0,0,8,0" Click="ManualLogButton_Click" ToolTip="Log manual time in hours" />
+                                <Button Content="✕" Background="Transparent" Foreground="{StaticResource TextMutedBrush}" BorderThickness="0" Cursor="Hand" Click="CloseActivityModal_Click" />
+                            </StackPanel>
                         </Grid>
                     </Border>
 
@@ -389,8 +401,8 @@
                 <StackPanel>
                     <TextBlock Text="Edit Time Entry" FontSize="13" FontWeight="Bold" Foreground="{StaticResource TextMainBrush}" Margin="0,0,0,12" />
 
-                    <TextBlock Text="DURATION (MINUTES)" FontSize="10.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,4" />
-                    <TextBox x:Name="EditDurationMinutesInput" Height="32" Margin="0,0,0,10" />
+                    <TextBlock Text="DURATION (HOURS) *" FontSize="10.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,4" />
+                    <TextBox x:Name="EditDurationHoursInput" Height="32" Margin="0,0,0,10" />
 
                     <TextBlock Text="DESCRIPTION / NOTE" FontSize="10.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,4" />
                     <TextBox x:Name="EditDescriptionInput" Height="32" Margin="0,0,0,14" />
@@ -398,6 +410,60 @@
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button Content="Cancel" Style="{StaticResource SecondaryButton}" Margin="0,0,8,0" Click="CancelEditEntry_Click" />
                         <Button Content="Save Changes" Style="{StaticResource PrimaryButton}" Click="SaveEditEntry_Click" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- 7b. MODAL OVERLAY: LOG MANUAL TIME ENTRY -->
+        <Grid x:Name="ManualTimeOverlay" Background="#90000000" Visibility="Collapsed">
+            <Border Background="{StaticResource BgSurfaceBrush}" 
+                    BorderBrush="{StaticResource BorderSubtleBrush}" 
+                    BorderThickness="1" 
+                    CornerRadius="10" 
+                    Margin="20" 
+                    Padding="16" 
+                    VerticalAlignment="Center">
+                <StackPanel>
+                    <TextBlock Text="Log Manual Time" FontSize="13" FontWeight="Bold" Foreground="{StaticResource TextMainBrush}" Margin="0,0,0,12" />
+
+                    <!-- Project Selection -->
+                    <TextBlock Text="PROJECT *" FontSize="9.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,4" />
+                    <ComboBox x:Name="ManualProjectCombo" Height="28" FontSize="11" Margin="0,0,0,8" SelectionChanged="ManualProjectCombo_SelectionChanged" />
+
+                    <!-- Task Selection -->
+                    <TextBlock Text="TASK *" FontSize="9.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,4" />
+                    <ComboBox x:Name="ManualTaskCombo" Height="28" FontSize="11" Margin="0,0,0,8" />
+
+                    <!-- Date & Duration Grid -->
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="8" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Date -->
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="DATE (YYYY-MM-DD) *" FontSize="9.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,4" />
+                            <TextBox x:Name="ManualDateInput" Height="28" FontSize="11" />
+                        </StackPanel>
+
+                        <!-- Duration in Hours -->
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="DURATION (HOURS) *" FontSize="9.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,4" />
+                            <TextBox x:Name="ManualDurationHoursInput" Text="1.0" Height="28" FontSize="11" />
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Description -->
+                    <TextBlock Text="DESCRIPTION / NOTE (OPTIONAL)" FontSize="9.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,4" />
+                    <TextBox x:Name="ManualDescriptionInput" Height="28" FontSize="11" Margin="0,0,0,12" />
+
+                    <!-- Buttons -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="Cancel" Style="{StaticResource SecondaryButton}" Margin="0,0,8,0" Click="CancelManualTime_Click" />
+                        <Button x:Name="SubmitManualTimeButton" Content="Log Time" Style="{StaticResource PrimaryButton}" Click="SubmitManualTime_Click" />
                     </StackPanel>
                 </StackPanel>
             </Border>

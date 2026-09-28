@@ -34,6 +34,66 @@ public class TimeEntryDto
     [JsonPropertyName("project_name")]
     public string? ProjectName { get; set; }
 
+    [JsonPropertyName("created_at")]
+    public string? CreatedAt { get; set; }
+
+    [JsonPropertyName("updated_at")]
+    public string? UpdatedAt { get; set; }
+
+    [JsonPropertyName("hourly_rate")]
+    public double? HourlyRate { get; set; }
+
+    [JsonIgnore]
+    public double DurationHours => Math.Round(DurationSeconds / 3600.0, 2);
+
+    [JsonIgnore]
+    public bool IsToday
+    {
+        get
+        {
+            var today = DateTime.Today;
+            var todayStr = today.ToString("yyyy-MM-dd");
+
+            if (!string.IsNullOrWhiteSpace(StartTime))
+            {
+                if (DateTimeOffset.TryParse(StartTime, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out var dto))
+                {
+                    if (dto.ToLocalTime().Date == today || dto.UtcDateTime.Date == DateTime.UtcNow.Date)
+                        return true;
+                }
+                else if (DateTime.TryParse(StartTime, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out var dt))
+                {
+                    if (dt.Date == today || dt.Date == DateTime.UtcNow.Date ||
+                        DateTime.SpecifyKind(dt, DateTimeKind.Utc).ToLocalTime().Date == today)
+                        return true;
+                }
+
+                if (StartTime.StartsWith(todayStr, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+
+            if (!string.IsNullOrWhiteSpace(CreatedAt))
+            {
+                if (DateTimeOffset.TryParse(CreatedAt, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out var dtoCreated))
+                {
+                    if (dtoCreated.ToLocalTime().Date == today || dtoCreated.UtcDateTime.Date == DateTime.UtcNow.Date)
+                        return true;
+                }
+                else if (DateTime.TryParse(CreatedAt, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out var dtCreated))
+                {
+                    if (dtCreated.Date == today || dtCreated.Date == DateTime.UtcNow.Date ||
+                        DateTime.SpecifyKind(dtCreated, DateTimeKind.Utc).ToLocalTime().Date == today)
+                        return true;
+                }
+
+                if (CreatedAt.StartsWith(todayStr, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+
+            return false;
+        }
+    }
+
     public string FormattedDuration
     {
         get
