@@ -1,7 +1,7 @@
 # Graph Report - Manager-X  (2026-09-28)
 
 ## Corpus Check
-- 131 files · ~96,215 words
+- 131 files · ~96,356 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `0b1bf234`
+- Built from commit: `5734b9bb`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -267,7 +267,7 @@ Cohesion: 0.24
 Nodes (6): ManagerX.Models, ManagerX.Views, ManagerX, ManagerX.Services, TimeEntryCreateRequest, TimeEntryUpdateRequest
 
 ### Community 48 - "MainWindow"
-Cohesion: 0.15
+Cohesion: 0.16
 Nodes (9): bool, DispatcherTimer, int, IntPtr, string, MainWindow, double, MouseEventArgs (+1 more)
 
 ### Community 49 - "time-tracker/page.tsx"
@@ -291,7 +291,7 @@ Cohesion: 0.22
 Nodes (6): ClientDto, ProjectCreateRequest, ProjectDto, TaskCreateRequest, TaskDto, TaskStatusUpdateRequest
 
 ### Community 54 - "RoutedEventArgs"
-Cohesion: 0.19
+Cohesion: 0.17
 Nodes (7): MiniPauseButton, MiniStopButton, StopServicesButton, TitleLogoutButton, TitleRefreshButton, RoutedEventArgs, Button
 
 ### Community 56 - "UserControl"

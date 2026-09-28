@@ -70,8 +70,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/page.tsx": {
-    "mtime": 1790435000.9044507,
-    "ast_hash": "d34fbffa61a29228e2964ed311635e92",
+    "mtime": 1790573616.549613,
+    "ast_hash": "30b678a0a27a9ce0226cc988f8def271",
     "semantic_hash": ""
   },
   "frontend/tsconfig.json": {
@@ -175,18 +175,18 @@
     "semantic_hash": ""
   },
   "frontend/src/components/layout/AppShell.tsx": {
-    "mtime": 1790506097.7148414,
-    "ast_hash": "fffed0f28ed6e912a8b8d70b2e363e22",
+    "mtime": 1790573562.7491727,
+    "ast_hash": "b90958556aa7c1413d2bee4f6b1c7129",
     "semantic_hash": ""
   },
   "frontend/src/components/layout/Header.tsx": {
-    "mtime": 1790403272.44776,
-    "ast_hash": "92206b8dfe0e96c8f80b44ca923ec00a",
+    "mtime": 1790573473.175662,
+    "ast_hash": "8ddcc1d88b0857aa48eb226398a3e251",
     "semantic_hash": ""
   },
   "frontend/src/components/layout/Sidebar.tsx": {
-    "mtime": 1790496966.0666313,
-    "ast_hash": "c3f59e33c360abc066ef192f5a52f460",
+    "mtime": 1790573520.5539162,
+    "ast_hash": "bb9470d2ac650e65a8ec64799e3445f1",
     "semantic_hash": ""
   },
   "frontend/src/components/providers/QueryProvider.tsx": {

@@ -575,8 +575,8 @@
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/MainWindow.xaml.cs": {
-    "mtime": 1790512944.3645482,
-    "ast_hash": "558cb0d569d8e459bb75a56f04e318b2",
+    "mtime": 1790571294.000752,
+    "ast_hash": "e429a9a4642db366d6a1735d777220e2",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/ManagerX.Desktop.csproj": {
@@ -590,8 +590,8 @@
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Models/ProjectModels.cs": {
-    "mtime": 1790503661.0797098,
-    "ast_hash": "9ef54a1b44eeb075085ba720f4f7f2cb",
+    "mtime": 1790571312.2060559,
+    "ast_hash": "7ea75b40707a49ae166cf209bc4cc786",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Models/TimeModels.cs": {
@@ -630,18 +630,18 @@
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Views/TrackerView.xaml": {
-    "mtime": 1790510230.3804214,
-    "ast_hash": "c083fd8240104c5259c51f9de91806c4",
+    "mtime": 1790571331.3117423,
+    "ast_hash": "4166567504f9f1190fbc5f48f1fca4ae",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs": {
-    "mtime": 1790505671.9310203,
-    "ast_hash": "f675f09234d087a88405d074c8d4c4e1",
+    "mtime": 1790571665.1809733,
+    "ast_hash": "990fde7fc897eefb93e6001a577c1ae4",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs": {
-    "mtime": 1790511891.5593896,
-    "ast_hash": "cbd7e6a2934b0137c50bce25d057f7e8",
+    "mtime": 1790571244.1412542,
+    "ast_hash": "2d0192fe8bc6f6c80382d4f038d98ce9",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Services/ShutdownPreventionService.cs": {
