@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo } from "react";
+import { usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
@@ -14,6 +15,7 @@ interface AppShellProps {
 }
 
 export default function AppShell({ children, title }: AppShellProps) {
+  const pathname = usePathname();
   const {
     user,
     loading,
@@ -27,6 +29,12 @@ export default function AppShell({ children, title }: AppShellProps) {
   } = useAuth();
 
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
+
+  // Auto-close mobile drawer on route navigation
+  useEffect(() => {
+    setMobileNavOpen(false);
+  }, [pathname]);
 
   // Auth Form State
   const [email, setEmail] = useState("");
@@ -407,10 +415,21 @@ export default function AppShell({ children, title }: AppShellProps) {
   // Authenticated Layout Shell
   return (
     <div className="app-shell">
+      {/* Mobile Backdrop */}
+      {mobileNavOpen && (
+        <div
+          className="sidebar-backdrop"
+          onClick={() => setMobileNavOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
       <Sidebar
         collapsed={sidebarCollapsed}
         onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
         onOpenSettings={openSettings}
+        mobileOpen={mobileNavOpen}
+        onCloseMobile={() => setMobileNavOpen(false)}
       />
 
       <div className="app-main-wrapper">
@@ -419,6 +438,7 @@ export default function AppShell({ children, title }: AppShellProps) {
           userEmail={user.email}
           onLogout={logout}
           onOpenSettings={openSettings}
+          onToggleMobileNav={() => setMobileNavOpen((prev) => !prev)}
         />
 
         <main className="app-content">{children}</main>

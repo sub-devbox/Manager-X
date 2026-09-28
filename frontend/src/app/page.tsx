@@ -262,6 +262,7 @@ export default function OverviewPage() {
 
         {/* Quick KPI Stat Cards */}
         <div
+          className="kpi-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
@@ -397,7 +398,7 @@ export default function OverviewPage() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
               gap: "12px",
             }}
           >

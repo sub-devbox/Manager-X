@@ -308,3 +308,133 @@ body {
   100% { transform: scale(0.95); opacity: 0.8; }
 }
 
+/* ========================================================
+   Responsive Utilities & Mobile Navigation System
+   ======================================================== */
+
+.mobile-only {
+  display: none !important;
+}
+
+.desktop-only {
+  display: inline-flex !important;
+}
+
+/* Mobile Off-Canvas Backdrop */
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(2px);
+  z-index: 45;
+  animation: fadeIn 0.15s ease-out;
+}
+
+/* Smooth Touch Scrolling on Mobile */
+.table-container-scroll,
+div[style*="overflowX: auto"],
+div[style*="overflow-x: auto"] {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile & Tablet Breakpoint (max-width: 768px) */
+@media (max-width: 768px) {
+  .mobile-only {
+    display: inline-flex !important;
+  }
+
+  .desktop-only {
+    display: none !important;
+  }
+
+  /* Off-canvas mobile drawer */
+  .app-sidebar {
+    width: 275px !important;
+    transform: translateX(-100%);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 50;
+    box-shadow: none;
+  }
+
+  .app-sidebar.mobile-open {
+    transform: translateX(0);
+    box-shadow: 4px 0 28px rgba(0, 0, 0, 0.75);
+  }
+
+  .app-main-wrapper {
+    margin-left: 0 !important;
+  }
+
+  .app-sidebar.collapsed + .app-main-wrapper {
+    margin-left: 0 !important;
+  }
+
+  /* Header & Content Spacing on Mobile */
+  .app-header {
+    padding: 0 12px;
+  }
+
+  .app-content {
+    padding: 16px 12px;
+  }
+
+  /* Floating Timer Bar: clean mobile dock */
+  .global-timer-bar {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    width: auto;
+    justify-content: space-between;
+    padding: 8px 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Android / iOS form usability: prevent auto-zoom on focus */
+  input,
+  select,
+  textarea,
+  .finance-input {
+    font-size: 16px !important;
+  }
+
+  /* Modals on Mobile: full viewport adaptation */
+  .finance-panel.animate-fade-in {
+    max-width: 95vw !important;
+    width: 95vw !important;
+    max-height: 90vh !important;
+  }
+
+  /* Responsive action bars and toolbars */
+  .responsive-action-bar {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+  }
+
+  .responsive-action-bar > * {
+    width: 100% !important;
+  }
+
+  /* Dashboard overview KPI card wrap */
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+}
+
+/* Small Smartphone Breakpoint (max-width: 480px) */
+@media (max-width: 480px) {
+  .app-header h1 {
+    font-size: 13px !important;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .kpi-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+

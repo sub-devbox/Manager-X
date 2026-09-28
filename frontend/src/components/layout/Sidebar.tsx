@@ -19,18 +19,23 @@ import {
   ChevronRight,
   CreditCard,
   CalendarDays,
+  X,
 } from "lucide-react";
 
 interface SidebarProps {
   onOpenSettings?: () => void;
   collapsed?: boolean;
   onToggleCollapse?: () => void;
+  mobileOpen?: boolean;
+  onCloseMobile?: () => void;
 }
 
 export default function Sidebar({
   onOpenSettings,
   collapsed = false,
   onToggleCollapse,
+  mobileOpen = false,
+  onCloseMobile,
 }: SidebarProps) {
   const pathname = usePathname();
 
@@ -63,7 +68,7 @@ export default function Sidebar({
   ];
 
   return (
-    <aside className={`app-sidebar ${collapsed ? "collapsed" : ""}`}>
+    <aside className={`app-sidebar ${collapsed ? "collapsed" : ""} ${mobileOpen ? "mobile-open" : ""}`}>
       {/* Top Brand Logo */}
       <div
         style={{
@@ -77,6 +82,7 @@ export default function Sidebar({
       >
         <Link
           href="/"
+          onClick={onCloseMobile}
           style={{
             display: "flex",
             alignItems: "center",
@@ -109,6 +115,19 @@ export default function Sidebar({
             </span>
           )}
         </Link>
+
+        {/* Mobile Close Button */}
+        {onCloseMobile && (
+          <button
+            type="button"
+            onClick={onCloseMobile}
+            className="finance-button-secondary mobile-only"
+            style={{ padding: "4px 6px" }}
+            aria-label="Close menu"
+          >
+            <X size={15} />
+          </button>
+        )}
       </div>
 
       {/* Nav List */}
@@ -123,6 +142,7 @@ export default function Sidebar({
                 <Link
                   key={item.href}
                   href={item.href}
+                  onClick={onCloseMobile}
                   className={`nav-item ${isActive ? "active" : ""}`}
                   title={collapsed ? item.name : undefined}
                   style={{
@@ -151,7 +171,10 @@ export default function Sidebar({
       >
         {onOpenSettings && (
           <button
-            onClick={onOpenSettings}
+            onClick={() => {
+              onOpenSettings();
+              onCloseMobile?.();
+            }}
             className="nav-item"
             style={{
               width: "100%",
@@ -171,7 +194,7 @@ export default function Sidebar({
         {onToggleCollapse && (
           <button
             onClick={onToggleCollapse}
-            className="nav-item"
+            className="nav-item desktop-only"
             style={{
               width: "100%",
               background: "none",

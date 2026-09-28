@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Sun, Moon, LogOut, Settings } from "lucide-react";
+import { Sun, Moon, LogOut, Settings, Menu } from "lucide-react";
 import { api } from "@/lib/api-client";
 
 interface HeaderProps {
   userEmail?: string;
   onLogout?: () => void;
   onOpenSettings?: () => void;
+  onToggleMobileNav?: () => void;
   title?: string;
 }
 
@@ -15,6 +16,7 @@ export default function Header({
   userEmail,
   onLogout,
   onOpenSettings,
+  onToggleMobileNav,
   title,
 }: HeaderProps) {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
@@ -34,7 +36,19 @@ export default function Header({
 
   return (
     <header className="app-header">
-      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+        {onToggleMobileNav && (
+          <button
+            type="button"
+            onClick={onToggleMobileNav}
+            className="finance-button-secondary mobile-only"
+            title="Open Menu"
+            style={{ padding: "6px 8px" }}
+            aria-label="Toggle navigation menu"
+          >
+            <Menu size={16} />
+          </button>
+        )}
         {title && (
           <h1
             style={{
@@ -49,9 +63,10 @@ export default function Header({
         )}
       </div>
 
-      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        {/* System Status Pill */}
+      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+        {/* System Status Pill (Desktop only) */}
         <div
+          className="desktop-only"
           style={{
             display: "flex",
             alignItems: "center",
@@ -110,6 +125,7 @@ export default function Header({
             }}
           >
             <span
+              className="desktop-only"
               style={{
                 fontSize: "12px",
                 color: "var(--text-muted)",
