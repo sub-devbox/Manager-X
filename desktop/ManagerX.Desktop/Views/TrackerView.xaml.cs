@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 using ManagerX.Models;
 using ManagerX.Services;
 using UserControl = System.Windows.Controls.UserControl;
