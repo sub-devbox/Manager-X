@@ -8,6 +8,7 @@ import ProjectTable from "@/components/modules/projects/ProjectTable";
 import ProjectTasksModal from "@/components/modules/projects/ProjectTasksModal";
 import SearchableClientSelect from "@/components/common/SearchableClientSelect";
 import { api } from "@/lib/api-client";
+import { parseUtcDate, formatLocalDateStr } from "@/lib/date";
 import { ProjectData, TaskData, TaskStatus } from "@/types/project";
 import { TimeEntryData } from "@/types/time";
 import {
@@ -206,8 +207,8 @@ export default function ProjectsPage() {
     const projectIdsWithTimeInPeriod = new Set<string>();
     for (const entry of entries) {
       if (!entry.project_id) continue;
-      const entryDateStr = entry.start_time ? entry.start_time.slice(0, 10) : "";
-      const entryDate = entry.start_time ? new Date(entry.start_time) : null;
+      const entryDate = entry.start_time ? parseUtcDate(entry.start_time) : null;
+      const entryDateStr = entryDate ? formatLocalDateStr(entryDate) : "";
       let inPeriod = false;
 
       if (periodFilter === "today") {

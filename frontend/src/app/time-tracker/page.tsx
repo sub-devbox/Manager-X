@@ -6,6 +6,7 @@ import TimeEntryTable from "@/components/modules/time/TimeEntryTable";
 import ManualTimeModal from "@/components/modules/time/ManualTimeModal";
 import StartTimerModal from "@/components/modules/time/StartTimerModal";
 import { api } from "@/lib/api-client";
+import { parseUtcDate } from "@/lib/date";
 import { TimeEntryData } from "@/types/time";
 import { TaskData, ProjectData } from "@/types/project";
 import {
@@ -211,7 +212,7 @@ export default function TimeTrackerPage() {
 
     return entries.filter((entry) => {
       // Period filter evaluated in local user timezone
-      const entryDate = new Date(entry.start_time);
+      const entryDate = parseUtcDate(entry.start_time);
       const eYear = entryDate.getFullYear();
       const eMonth = String(entryDate.getMonth() + 1).padStart(2, "0");
       const eDay = String(entryDate.getDate()).padStart(2, "0");

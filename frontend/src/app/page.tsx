@@ -5,6 +5,7 @@ import Link from "next/link";
 import AppShell from "@/components/layout/AppShell";
 import { useAuth } from "@/context/AuthContext";
 import { api } from "@/lib/api-client";
+import { parseUtcDate } from "@/lib/date";
 import {
   Building2,
   FolderKanban,
@@ -63,7 +64,7 @@ export default function OverviewPage() {
 
           if (timeRes.status === "fulfilled" && Array.isArray(timeRes.value)) {
             for (const entry of timeRes.value as any[]) {
-              const entryDate = entry.start_time ? new Date(entry.start_time) : null;
+              const entryDate = entry.start_time ? parseUtcDate(entry.start_time) : null;
               if (entryDate && entryDate >= firstOfMonth && entryDate <= lastOfMonth) {
                 monthSeconds += entry.duration_seconds || 0;
                 if (entry.project_id) {

@@ -6,6 +6,7 @@ import TaskModal from "@/components/modules/projects/TaskModal";
 import TaskTable from "@/components/modules/projects/TaskTable";
 import SearchableClientSelect from "@/components/common/SearchableClientSelect";
 import { api } from "@/lib/api-client";
+import { parseUtcDate, formatLocalDateStr } from "@/lib/date";
 import { TaskData, TaskStatus, ProjectData } from "@/types/project";
 import { TimeEntryData } from "@/types/time";
 import {
@@ -160,8 +161,8 @@ export default function TasksPage() {
     const taskIdsWithTimeInPeriod = new Set<string>();
     for (const entry of entries) {
       if (!entry.task_id) continue;
-      const entryDateStr = entry.start_time ? entry.start_time.slice(0, 10) : "";
-      const entryDate = entry.start_time ? new Date(entry.start_time) : null;
+      const entryDate = entry.start_time ? parseUtcDate(entry.start_time) : null;
+      const entryDateStr = entryDate ? formatLocalDateStr(entryDate) : "";
       let inPeriod = false;
 
       if (periodFilter === "today") {

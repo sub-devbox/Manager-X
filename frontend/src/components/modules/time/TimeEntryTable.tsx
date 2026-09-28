@@ -3,6 +3,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { TimeEntryData } from "@/types/time";
 import { useResizableColumns, ResizeHandle } from "@/hooks/useResizableColumns";
+import { parseUtcDate } from "@/lib/date";
 import {
   Clock,
   FolderKanban,
@@ -82,8 +83,8 @@ export default function TimeEntryTable({
 
       switch (sortField) {
         case "date": {
-          const dateA = new Date(a.start_time).getTime();
-          const dateB = new Date(b.start_time).getTime();
+          const dateA = parseUtcDate(a.start_time).getTime();
+          const dateB = parseUtcDate(b.start_time).getTime();
           comparison = dateA - dateB;
           break;
         }
@@ -136,7 +137,7 @@ export default function TimeEntryTable({
 
   const formatDate = (isoString: string) => {
     try {
-      const d = new Date(isoString);
+      const d = parseUtcDate(isoString);
       return d.toLocaleDateString(undefined, {
         month: "short",
         day: "numeric",
@@ -149,10 +150,10 @@ export default function TimeEntryTable({
 
   const formatTimeRange = (startIso: string, endIso?: string | null) => {
     try {
-      const s = new Date(startIso);
+      const s = parseUtcDate(startIso);
       const sStr = s.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
       if (!endIso) return `${sStr} — ongoing`;
-      const e = new Date(endIso);
+      const e = parseUtcDate(endIso);
       const eStr = e.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
       return `${sStr} — ${eStr}`;
     } catch {

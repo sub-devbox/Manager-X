@@ -6,6 +6,7 @@ import TaskModal from "@/components/modules/projects/TaskModal";
 import ProjectSchedulerCalendar from "@/components/modules/projects/ProjectSchedulerCalendar";
 import SearchableClientSelect from "@/components/common/SearchableClientSelect";
 import { api } from "@/lib/api-client";
+import { parseUtcDate, formatLocalDateStr } from "@/lib/date";
 import { ProjectData, TaskData, TaskStatus } from "@/types/project";
 import { TimeEntryData } from "@/types/time";
 import {
@@ -83,8 +84,8 @@ export default function ProjectSchedulerPage() {
     const map: Record<string, number> = {};
     for (const entry of entries) {
       if (!entry.start_time) continue;
-      const d = new Date(entry.start_time);
-      const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+      const d = parseUtcDate(entry.start_time);
+      const dateStr = formatLocalDateStr(d);
       map[dateStr] = (map[dateStr] || 0) + (entry.duration_seconds || 0);
     }
     return map;

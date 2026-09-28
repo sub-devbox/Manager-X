@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { api } from "@/lib/api-client";
+import { parseUtcDate } from "@/lib/date";
 import { TimeEntryData } from "@/types/time";
 import { TaskData } from "@/types/project";
 import { X, Clock, Calendar, ArrowRight, DollarSign, Trash2 } from "lucide-react";
@@ -79,13 +80,13 @@ export default function ManualTimeModal({
 
     if (initialEntry) {
       setTaskId(initialEntry.task_id);
-      const s = new Date(initialEntry.start_time);
+      const s = parseUtcDate(initialEntry.start_time);
       setDateStr(toLocalDateStr(s));
       const sTime = toLocalTimeStr(s);
       setStartTime(sTime);
 
       if (initialEntry.end_time) {
-        const e = new Date(initialEntry.end_time);
+        const e = parseUtcDate(initialEntry.end_time);
         setStopTime(toLocalTimeStr(e));
       } else {
         const startMin = timeToMinutes(sTime);

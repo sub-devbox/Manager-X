@@ -70,8 +70,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/page.tsx": {
-    "mtime": 1790573616.549613,
-    "ast_hash": "30b678a0a27a9ce0226cc988f8def271",
+    "mtime": 1790594132.0087647,
+    "ast_hash": "02e5d27725c4a9726afa760f6ab9cea1",
     "semantic_hash": ""
   },
   "frontend/tsconfig.json": {
@@ -155,13 +155,13 @@
     "semantic_hash": ""
   },
   "frontend/src/app/projects/page.tsx": {
-    "mtime": 1790498512.4069355,
-    "ast_hash": "9816f57cfb438e030cfe0206c0db8c4e",
+    "mtime": 1790594108.6773186,
+    "ast_hash": "79fa2585be336cb3802e1c65d109fa12",
     "semantic_hash": ""
   },
   "frontend/src/app/time-tracker/page.tsx": {
-    "mtime": 1790506117.7624595,
-    "ast_hash": "6e6cb9c0f8874294847ce3910d2fa59d",
+    "mtime": 1790594050.5728347,
+    "ast_hash": "3ae8a15c36b2544b96aa668e2d8534b1",
     "semantic_hash": ""
   },
   "frontend/src/app/wealth/page.tsx": {
@@ -395,28 +395,28 @@
     "semantic_hash": ""
   },
   "backend/app/api/v1/endpoints/time_entries.py": {
-    "mtime": 1790440971.7605405,
-    "ast_hash": "b3b47985325ce7c9060581284d4f0c73",
+    "mtime": 1790591304.7423668,
+    "ast_hash": "83bc165631bfbeb0cfdc1d08d01cf38b",
     "semantic_hash": ""
   },
   "backend/app/schemas/time_schemas.py": {
-    "mtime": 1790440932.4578223,
-    "ast_hash": "36c1bb162fcfc2ef9bceaf854ff71fd9",
+    "mtime": 1790593908.5778584,
+    "ast_hash": "1aa7f6df7f4b2443bd2cf75837eb2a00",
     "semantic_hash": ""
   },
   "backend/tests/test_time_entries_api.py": {
-    "mtime": 1790416121.0306146,
-    "ast_hash": "6e23b8b72032042ca6e8fc81e4af7562",
+    "mtime": 1790593957.784988,
+    "ast_hash": "f29572c49402933c1857f5d0bcdc6b4d",
     "semantic_hash": ""
   },
   "frontend/src/components/modules/time/ManualTimeModal.tsx": {
-    "mtime": 1790429868.093896,
-    "ast_hash": "e15b16bccc832eee4ad2777f130603cb",
+    "mtime": 1790594028.6874354,
+    "ast_hash": "eba88eb6bea08a8ccfdb43906fb08b26",
     "semantic_hash": ""
   },
   "frontend/src/components/modules/time/TimeEntryTable.tsx": {
-    "mtime": 1790441403.5336275,
-    "ast_hash": "e771b793fa4ba485cdc9854fea3018d8",
+    "mtime": 1790594008.731869,
+    "ast_hash": "ca47906e38931f81f1fb09db07913564",
     "semantic_hash": ""
   },
   "frontend/src/types/time.ts": {
@@ -430,8 +430,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/tasks/page.tsx": {
-    "mtime": 1790506132.6542962,
-    "ast_hash": "7d5c4526e890420647e567fd0845e63d",
+    "mtime": 1790594083.569105,
+    "ast_hash": "3afeeb805928de004e76e397eb2ea80a",
     "semantic_hash": ""
   },
   "frontend/src/hooks/useResizableColumns.tsx": {
@@ -545,8 +545,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/project-scheduler/page.tsx": {
-    "mtime": 1790499272.3849998,
-    "ast_hash": "5f8869f129daba54525622e1cd9e388b",
+    "mtime": 1790594150.7358632,
+    "ast_hash": "9c0f31c2ee919d09f28fbbe0ab8ea5f1",
     "semantic_hash": ""
   },
   "frontend/src/components/common/SearchableProjectSelect.tsx": {
@@ -560,8 +560,8 @@
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/App.xaml": {
-    "mtime": 1790512967.1685991,
-    "ast_hash": "2c01df7da4a4fcbf1bf73d958baef5bb",
+    "mtime": 1790592747.7464812,
+    "ast_hash": "419af1add5fcc4d8fcdf269446058297",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/App.xaml.cs": {
@@ -595,13 +595,13 @@
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Models/TimeModels.cs": {
-    "mtime": 1790503667.968131,
-    "ast_hash": "3afbaaa136315686a193f2e3b9a68deb",
+    "mtime": 1790591310.103886,
+    "ast_hash": "6171a162508ead76b74ae958285762cf",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Services/ApiClient.cs": {
-    "mtime": 1790503682.2626991,
-    "ast_hash": "7d33ad09f21cd58c1d6f5267f6f3d330",
+    "mtime": 1790591322.964988,
+    "ast_hash": "ef85e2c7a74e72c680932eae6e1ad23a",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Services/AuthService.cs": {
@@ -615,8 +615,8 @@
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Services/TimerService.cs": {
-    "mtime": 1790501644.2400353,
-    "ast_hash": "e27ccd1642f8d20ba3c9c412f73ddfe3",
+    "mtime": 1790591316.471929,
+    "ast_hash": "aeaeae147af5d45da4e1dc1bb618d47e",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Views/LoginView.xaml": {
@@ -630,13 +630,13 @@
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Views/TrackerView.xaml": {
-    "mtime": 1790571331.3117423,
-    "ast_hash": "4166567504f9f1190fbc5f48f1fca4ae",
+    "mtime": 1790592792.5358899,
+    "ast_hash": "2293e5e7c386667e8bf59f5b795f2a97",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs": {
-    "mtime": 1790571665.1809733,
-    "ast_hash": "990fde7fc897eefb93e6001a577c1ae4",
+    "mtime": 1790592846.6061957,
+    "ast_hash": "85d9593e325f1e154215de0f7800fd05",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs": {
@@ -662,6 +662,11 @@
   "desktop/ManagerX.Desktop/app.png": {
     "mtime": 1790503623.53565,
     "ast_hash": "532a0d1efb11ea5dcd0b7fcadb733959",
+    "semantic_hash": ""
+  },
+  "frontend/src/lib/date.ts": {
+    "mtime": 1790594064.0457604,
+    "ast_hash": "ba7439bd3929d67f5733a9536c6ec049",
     "semantic_hash": ""
   }
 }

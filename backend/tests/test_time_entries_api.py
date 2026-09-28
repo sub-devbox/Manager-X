@@ -104,6 +104,8 @@ async def test_time_entries_lifecycle_and_task_tracking(client: AsyncClient):
     assert entry_data["task_title"] == "Configure VPC Peering"
     assert entry_data["project_name"] == "Cloud Migration"
     assert entry_data["client_name"] == "Apex Innovations"
+    assert entry_data["start_time"].endswith("Z")
+    assert entry_data["end_time"].endswith("Z")
 
     # 5b. Manual Entry: time stop = time start + manual time
     manual_start = datetime(2026, 9, 26, 14, 0, 0, tzinfo=timezone.utc)
@@ -123,6 +125,8 @@ async def test_time_entries_lifecycle_and_task_tracking(client: AsyncClient):
     assert manual_data["duration_seconds"] == 5400
     expected_stop = manual_start + timedelta(seconds=manual_duration)
     assert manual_data["end_time"] is not None
+    assert manual_data["start_time"].endswith("Z")
+    assert manual_data["end_time"].endswith("Z")
     # Parse returned end_time and verify it matches start + manual duration
     actual_stop = datetime.fromisoformat(manual_data["end_time"])
     if actual_stop.tzinfo is None:
@@ -143,6 +147,8 @@ async def test_time_entries_lifecycle_and_task_tracking(client: AsyncClient):
     entries = list_res.json()
     assert len(entries) == 1
     assert entries[0]["id"] == entry_id
+    assert entries[0]["start_time"].endswith("Z")
+    assert entries[0]["end_time"].endswith("Z")
 
     # 7. Update Time Entry notes & duration
     patch_res = await client.patch(

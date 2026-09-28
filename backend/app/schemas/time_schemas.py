@@ -1,5 +1,5 @@
-from datetime import datetime
-from pydantic import BaseModel, Field, ConfigDict
+from datetime import datetime, timezone
+from pydantic import BaseModel, Field, ConfigDict, field_validator
 
 class TimeEntryBase(BaseModel):
     task_id: str = Field(..., min_length=1, max_length=32)
@@ -40,3 +40,12 @@ class TimeEntryResponse(TimeEntryBase):
     updated_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
+
+    @field_validator("start_time", "end_time", "created_at", "updated_at", mode="after")
+    @classmethod
+    def ensure_utc(cls, v: datetime | None) -> datetime | None:
+        if v is None:
+            return None
+        if v.tzinfo is None:
+            return v.replace(tzinfo=timezone.utc)
+        return v.astimezone(timezone.utc)
