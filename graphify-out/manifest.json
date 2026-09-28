@@ -635,8 +635,8 @@
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Views/TrackerView.xaml.cs": {
-    "mtime": 1790571373.6989672,
-    "ast_hash": "7ac4a42fa6339de2305a86ee4c76eba0",
+    "mtime": 1790571665.1809733,
+    "ast_hash": "990fde7fc897eefb93e6001a577c1ae4",
     "semantic_hash": ""
   },
   "desktop/ManagerX.Desktop/Services/BackendLauncherService.cs": {
