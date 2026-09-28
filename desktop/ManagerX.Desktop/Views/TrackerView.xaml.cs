@@ -344,7 +344,7 @@ public partial class TrackerView : UserControl
     {
         var button = sender as Button;
         var task = button?.Tag as TaskDto;
-        if (task == null) return;
+        if (button == null || task == null) return;
 
         button.IsEnabled = false;
         try
