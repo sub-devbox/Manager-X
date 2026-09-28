@@ -11,6 +11,9 @@ public static class BackendLauncherService
 {
     private static readonly HttpClient _probeClient = new HttpClient { Timeout = TimeSpan.FromSeconds(2) };
 
+    public static int? BackendRootPid { get; private set; }
+    public static int? FrontendRootPid { get; private set; }
+
     public static async Task<bool> CheckHealthAsync(string baseUrl, int timeoutMs = 2000)
     {
         if (string.IsNullOrWhiteSpace(baseUrl)) return false;
@@ -221,7 +224,11 @@ public static class BackendLauncherService
             psi.CreateNoWindow = false;
         }
 
-        Process.Start(psi);
+        var proc = Process.Start(psi);
+        if (proc != null)
+        {
+            try { BackendRootPid = proc.Id; } catch {}
+        }
     }
 
     public static void StartFrontend(string frontendDir, string host, int port, bool runSilently)
@@ -268,7 +275,11 @@ public static class BackendLauncherService
             psi.CreateNoWindow = false;
         }
 
-        Process.Start(psi);
+        var proc = Process.Start(psi);
+        if (proc != null)
+        {
+            try { FrontendRootPid = proc.Id; } catch {}
+        }
     }
 
     public static void SyncEnvFile(string backendHost, int backendPort, int frontendPort)
@@ -403,6 +414,28 @@ public static class BackendLauncherService
         File.Move(tempPath, filePath, overwrite: true);
     }
 
+    public static async Task KillProcessTreeByIdAsync(int pid)
+    {
+        try
+        {
+            var psi = new ProcessStartInfo
+            {
+                FileName = "taskkill.exe",
+                Arguments = $"/F /T /PID {pid}",
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                WindowStyle = ProcessWindowStyle.Hidden
+            };
+            using var proc = Process.Start(psi);
+            if (proc != null)
+            {
+                using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(2));
+                await proc.WaitForExitAsync(cts.Token).ConfigureAwait(false);
+            }
+        }
+        catch {}
+    }
+
     public static async Task StopServiceByPortAsync(int port)
     {
         if (port < 1 || port > 65535) return;
@@ -420,7 +453,8 @@ public static class BackendLauncherService
             using var proc = Process.Start(psi);
             if (proc != null)
             {
-                await proc.WaitForExitAsync();
+                using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(3));
+                await proc.WaitForExitAsync(cts.Token).ConfigureAwait(false);
             }
         }
         catch (Exception ex)
@@ -431,9 +465,24 @@ public static class BackendLauncherService
 
     public static async Task StopAllServicesAsync(int backendPort = 8000, int frontendPort = 3000)
     {
-        await StopServiceByPortAsync(backendPort);
-        await StopServiceByPortAsync(frontendPort);
+        // 1. If we tracked root process IDs, kill their entire process trees first (fastest and cleanest)
+        if (FrontendRootPid.HasValue)
+        {
+            await KillProcessTreeByIdAsync(FrontendRootPid.Value).ConfigureAwait(false);
+            FrontendRootPid = null;
+        }
 
+        if (BackendRootPid.HasValue)
+        {
+            await KillProcessTreeByIdAsync(BackendRootPid.Value).ConfigureAwait(false);
+            BackendRootPid = null;
+        }
+
+        // 2. Terminate any processes still listening on the ports
+        await StopServiceByPortAsync(backendPort).ConfigureAwait(false);
+        await StopServiceByPortAsync(frontendPort).ConfigureAwait(false);
+
+        // 3. Fallback: kill any command prompt windows titled ManagerX-*
         try
         {
             var psi = new ProcessStartInfo
@@ -447,7 +496,8 @@ public static class BackendLauncherService
             using var proc = Process.Start(psi);
             if (proc != null)
             {
-                await proc.WaitForExitAsync();
+                using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(2));
+                await proc.WaitForExitAsync(cts.Token).ConfigureAwait(false);
             }
         }
         catch {}

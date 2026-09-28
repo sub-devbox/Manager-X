@@ -265,35 +265,101 @@ public partial class TrackerView : UserControl
 
     private void RefreshScheduleAndMetrics(List<TimeEntryDto>? entries = null)
     {
+        var today = DateTime.Today.ToString("yyyy-MM-dd");
+
         if (entries != null)
         {
-            var todayStr = DateTime.UtcNow.ToString("yyyy-MM-dd");
             _todayEntries = entries
-                .Where(e => !string.IsNullOrEmpty(e.StartTime) && e.StartTime.StartsWith(todayStr))
+                .Where(e => !string.IsNullOrEmpty(e.StartTime) && e.StartTime.StartsWith(today))
                 .OrderByDescending(e => e.StartTime)
                 .ToList();
         }
 
-        var today = DateTime.UtcNow.ToString("yyyy-MM-dd");
-        var scheduledToday = _allTasks.Where(t => !string.IsNullOrEmpty(t.DueDate) && t.DueDate.StartsWith(today)).ToList();
+        // 1. Tasks due today
+        var scheduledToday = _allTasks
+            .Where(t => !string.IsNullOrEmpty(t.DueDate) && t.DueDate.StartsWith(today))
+            .ToList();
+
+        foreach (var t in scheduledToday)
+        {
+            t.IsOverdue = false;
+            t.ScheduleBadgeText = t.Status == "done" ? "DONE" : "TODAY";
+            t.ScheduleBadgeBgColor = t.Status == "done" ? "#143023" : "#1B2F4A";
+            t.ScheduleBadgeBorderColor = t.Status == "done" ? "#10B981" : "#3B82F6";
+        }
+
+        // 2. Pending / Overdue tasks from previous days (not completed)
+        var pendingPrevious = _allTasks
+            .Where(t => t.Status != "done" &&
+                        ((!string.IsNullOrEmpty(t.DueDate) && string.Compare(t.DueDate.Substring(0, Math.Min(10, t.DueDate.Length)), today, StringComparison.OrdinalIgnoreCase) < 0) ||
+                         (string.IsNullOrEmpty(t.DueDate) && !string.IsNullOrEmpty(t.CreatedAt) && string.Compare(t.CreatedAt.Substring(0, Math.Min(10, t.CreatedAt.Length)), today, StringComparison.OrdinalIgnoreCase) < 0)))
+            .OrderBy(t => t.DueDate ?? t.CreatedAt)
+            .ToList();
+
+        foreach (var t in pendingPrevious)
+        {
+            t.IsOverdue = true;
+            var dateStr = !string.IsNullOrEmpty(t.DueDate) ? t.DueDate.Substring(0, Math.Min(10, t.DueDate.Length)) : "PREV";
+            t.ScheduleBadgeText = $"PENDING ({dateStr})";
+            t.ScheduleBadgeBgColor = "#38151E";
+            t.ScheduleBadgeBorderColor = "#F43F5E";
+        }
+
+        // Combine: overdue/pending first, then today's scheduled
+        var combinedSchedule = new List<TaskDto>();
+        combinedSchedule.AddRange(pendingPrevious);
+        combinedSchedule.AddRange(scheduledToday.Where(t => !pendingPrevious.Any(p => p.Id == t.Id)));
 
         // 1. Metrics
-        var totalEstHours = scheduledToday.Sum(t => t.EstimatedHours);
+        var totalEstHours = combinedSchedule.Sum(t => t.EstimatedHours);
         var totalTrackedSeconds = _todayEntries.Sum(e => e.DurationSeconds);
         var totalTrackedHours = totalTrackedSeconds / 3600.0;
 
         EstTimeTodayText.Text = $"{totalEstHours:F1} hrs";
         TrackedTodayText.Text = $"{totalTrackedHours:F1} hrs";
 
-        // 2. Today's Schedule List
-        TodayScheduleList.ItemsSource = scheduledToday;
-        ScheduleCountText.Text = $"{scheduledToday.Count} task(s) due";
-        NoScheduleText.Visibility = scheduledToday.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+        // 2. Schedule List
+        TodayScheduleList.ItemsSource = null;
+        TodayScheduleList.ItemsSource = combinedSchedule;
+
+        if (pendingPrevious.Count > 0)
+        {
+            ScheduleCountText.Text = $"{combinedSchedule.Count} task(s) ({pendingPrevious.Count} pending)";
+        }
+        else
+        {
+            ScheduleCountText.Text = $"{combinedSchedule.Count} task(s) due";
+        }
+
+        NoScheduleText.Visibility = combinedSchedule.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
 
         // 3. Activity Button Label
         ViewTodayActivityButton.Content = $"📋 View Today's Activity & Logs ({_todayEntries.Count})";
+        ModalEntriesList.ItemsSource = null;
         ModalEntriesList.ItemsSource = _todayEntries;
         NoModalEntriesText.Visibility = _todayEntries.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+    }
+
+    private async void CompleteScheduledTask_Click(object sender, RoutedEventArgs e)
+    {
+        var button = sender as Button;
+        var task = button?.Tag as TaskDto;
+        if (task == null) return;
+
+        button.IsEnabled = false;
+        try
+        {
+            var req = new TaskStatusUpdateRequest { Status = "done" };
+            await App.ApiClient.PatchAsync<TaskStatusUpdateRequest, TaskDto>($"/tasks/{task.Id}/status", req);
+            task.Status = "done";
+            ShowNotice($"Task \"{task.Title}\" marked as completed!");
+            RefreshScheduleAndMetrics();
+        }
+        catch (Exception ex)
+        {
+            ShowNotice($"Failed to mark complete: {ex.Message}", isError: true);
+            button.IsEnabled = true;
+        }
     }
 
     private void StartScheduledTask_Click(object sender, RoutedEventArgs e)
@@ -632,7 +698,7 @@ public partial class TrackerView : UserControl
                 Title = title,
                 ProjectId = project.Id,
                 EstimatedHours = estHours,
-                DueDate = DateTime.UtcNow.ToString("yyyy-MM-dd"),
+                DueDate = DateTime.Today.ToString("yyyy-MM-dd"),
             };
 
             var created = await App.ApiClient.PostAsync<TaskCreateRequest, TaskDto>("/tasks", req);

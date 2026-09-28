@@ -68,7 +68,31 @@ public class TaskDto
     [JsonPropertyName("due_date")]
     public string? DueDate { get; set; }
 
+    [JsonPropertyName("created_at")]
+    public string? CreatedAt { get; set; }
+
+    [JsonIgnore]
+    public bool IsOverdue { get; set; }
+
+    [JsonIgnore]
+    public string ScheduleBadgeText { get; set; } = string.Empty;
+
+    [JsonIgnore]
+    public string ScheduleBadgeBgColor { get; set; } = "#38151E";
+
+    [JsonIgnore]
+    public string ScheduleBadgeBorderColor { get; set; } = "#F43F5E";
+
+    [JsonIgnore]
+    public string BadgeVisibility => !string.IsNullOrEmpty(ScheduleBadgeText) ? "Visible" : "Collapsed";
+
     public override string ToString() => Title;
+}
+
+public class TaskStatusUpdateRequest
+{
+    [JsonPropertyName("status")]
+    public string Status { get; set; } = "done";
 }
 
 public class ProjectCreateRequest

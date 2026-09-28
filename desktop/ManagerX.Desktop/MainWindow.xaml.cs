@@ -202,7 +202,7 @@ public partial class MainWindow : Window
                 await UpdateServiceBadgesAsync();
             });
             contextMenu.Items.Add("Log Out", null, async (s, e) => await Dispatcher.InvokeAsync(ConfirmAndLogoutAsync));
-            contextMenu.Items.Add("Exit", null, (s, e) => ExitApplication());
+            contextMenu.Items.Add("Exit", null, async (s, e) => await Dispatcher.InvokeAsync(ExitApplicationAsync));
 
             _notifyIcon.ContextMenuStrip = contextMenu;
             _notifyIcon.DoubleClick += (s, e) => RestoreFromTray();
@@ -265,7 +265,7 @@ public partial class MainWindow : Window
         return ShutdownPreventionService.WindowProcHook(hwnd, msg, wParam, lParam, ref handled, IsTimerActive);
     }
 
-    private void ExitApplication()
+    private async Task ExitApplicationAsync()
     {
         if (IsTimerActive())
         {
@@ -290,7 +290,22 @@ public partial class MainWindow : Window
 
             if (stopServers == MessageBoxResult.Yes)
             {
-                BackendLauncherService.StopAllServicesAsync(_currentBackendPort, _currentFrontendPort).GetAwaiter().GetResult();
+                Hide();
+                _notifyIcon?.ShowBalloonTip(1500, "Manager X", "Stopping local background servers...", Forms.ToolTipIcon.Info);
+
+                try
+                {
+                    // Run shutdown on background thread with safety timeout so UI never freezes
+                    await Task.Run(async () =>
+                    {
+                        var stopTask = BackendLauncherService.StopAllServicesAsync(_currentBackendPort, _currentFrontendPort);
+                        await Task.WhenAny(stopTask, Task.Delay(4000)).ConfigureAwait(false);
+                    }).ConfigureAwait(false);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error during server shutdown: {ex.Message}");
+                }
             }
         }
 
@@ -539,7 +554,7 @@ public partial class MainWindow : Window
         }
         else
         {
-            ExitApplication();
+            _ = ExitApplicationAsync();
         }
     }
 
