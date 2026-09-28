@@ -116,8 +116,8 @@
             <Setter Property="Foreground" Value="{StaticResource TextMainBrush}" />
             <Setter Property="BorderBrush" Value="{StaticResource BorderSubtleBrush}" />
             <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="Padding" Value="8,4" />
-            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Padding" Value="8,5" />
+            <Setter Property="FontSize" Value="12.5" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="CaretBrush" Value="{StaticResource TextMainBrush}" />
             <Setter Property="SelectionBrush" Value="{StaticResource AccentBlueBrush}" />
@@ -127,15 +127,11 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
-                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6" SnapsToDevicePixels="True">
                             <ScrollViewer x:Name="PART_ContentHost" 
                                           Focusable="False" 
                                           HorizontalScrollBarVisibility="Hidden" 
-                                          VerticalScrollBarVisibility="Hidden" 
-                                          VerticalAlignment="Center"
-                                          Foreground="{TemplateBinding Foreground}" 
-                                          TextElement.Foreground="{TemplateBinding Foreground}"
-                                          Margin="{TemplateBinding Padding}" />
+                                          VerticalScrollBarVisibility="Hidden" />
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsFocused" Value="True">
@@ -156,8 +152,8 @@
             <Setter Property="Foreground" Value="{StaticResource TextMainBrush}" />
             <Setter Property="BorderBrush" Value="{StaticResource BorderSubtleBrush}" />
             <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="Padding" Value="8,4" />
-            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Padding" Value="8,5" />
+            <Setter Property="FontSize" Value="12.5" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="CaretBrush" Value="{StaticResource TextMainBrush}" />
             <Setter Property="SelectionBrush" Value="{StaticResource AccentBlueBrush}" />
@@ -167,15 +163,11 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="PasswordBox">
-                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6" SnapsToDevicePixels="True">
                             <ScrollViewer x:Name="PART_ContentHost" 
                                           Focusable="False" 
                                           HorizontalScrollBarVisibility="Hidden" 
-                                          VerticalScrollBarVisibility="Hidden" 
-                                          VerticalAlignment="Center"
-                                          Foreground="{TemplateBinding Foreground}" 
-                                          TextElement.Foreground="{TemplateBinding Foreground}"
-                                          Margin="{TemplateBinding Padding}" />
+                                          VerticalScrollBarVisibility="Hidden" />
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsFocused" Value="True">

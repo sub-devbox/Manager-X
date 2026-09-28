@@ -53,8 +53,7 @@ public partial class TrackerView : UserControl
             _syncTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(30) };
             _syncTimer.Tick += async (s, args) =>
             {
-                if (ManualTimeOverlay.Visibility != Visibility.Visible &&
-                    EditEntryOverlay.Visibility != Visibility.Visible &&
+                if (EditEntryOverlay.Visibility != Visibility.Visible &&
                     NewProjectOverlay.Visibility != Visibility.Visible &&
                     NewTaskOverlay.Visibility != Visibility.Visible &&
                     ActivityModalOverlay.Visibility != Visibility.Visible)
@@ -458,8 +457,7 @@ public partial class TrackerView : UserControl
 
         if (seconds < 1)
         {
-            OpenManualTimeModal();
-            ShowNotice("Enter duration in hours to log time manually.");
+            ShowNotice("Timer must run for at least 1 second before saving.", isError: true);
             return;
         }
 
@@ -579,139 +577,6 @@ public partial class TrackerView : UserControl
         }
     }
 
-    // --- LOG MANUAL TIME MODAL ---
-    public void OpenManualTimeModal()
-    {
-        ManualProjectCombo.Items.Clear();
-        foreach (var p in _allProjects)
-        {
-            ManualProjectCombo.Items.Add(p);
-        }
-
-        if (ProjectCombo.SelectedItem is ProjectDto curProj && curProj.Id != "__CREATE__")
-        {
-            ManualProjectCombo.SelectedItem = _allProjects.FirstOrDefault(p => p.Id == curProj.Id);
-        }
-        else if (_allProjects.Count > 0)
-        {
-            ManualProjectCombo.SelectedIndex = 0;
-        }
-
-        PopulateManualTasks();
-
-        if (TaskCombo.SelectedItem is TaskDto curTask && curTask.Id != "__CREATE__")
-        {
-            var matched = ManualTaskCombo.Items.OfType<TaskDto>().FirstOrDefault(t => t.Id == curTask.Id);
-            if (matched != null)
-            {
-                ManualTaskCombo.SelectedItem = matched;
-            }
-        }
-
-        ManualDateInput.Text = DateTime.Today.ToString("yyyy-MM-dd");
-        if (string.IsNullOrWhiteSpace(ManualDurationHoursInput.Text))
-        {
-            ManualDurationHoursInput.Text = "1.0";
-        }
-        ManualDescriptionInput.Text = DescriptionInput.Text.Trim();
-
-        ManualTimeOverlay.Visibility = Visibility.Visible;
-    }
-
-    private void ManualLogButton_Click(object sender, RoutedEventArgs e)
-    {
-        OpenManualTimeModal();
-    }
-
-    private void CancelManualTime_Click(object sender, RoutedEventArgs e)
-    {
-        ManualTimeOverlay.Visibility = Visibility.Collapsed;
-    }
-
-    private void ManualProjectCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        PopulateManualTasks();
-    }
-
-    private void PopulateManualTasks()
-    {
-        var proj = ManualProjectCombo.SelectedItem as ProjectDto;
-        ManualTaskCombo.Items.Clear();
-        if (proj == null) return;
-
-        var tasks = _allTasks.Where(t => t.ProjectId == proj.Id).ToList();
-        foreach (var t in tasks)
-        {
-            ManualTaskCombo.Items.Add(t);
-        }
-        if (ManualTaskCombo.Items.Count > 0)
-        {
-            ManualTaskCombo.SelectedIndex = 0;
-        }
-    }
-
-    private async void SubmitManualTime_Click(object sender, RoutedEventArgs e)
-    {
-        var proj = ManualProjectCombo.SelectedItem as ProjectDto;
-        var task = ManualTaskCombo.SelectedItem as TaskDto;
-
-        if (proj == null || task == null)
-        {
-            ShowNotice("Please select a valid project and task.", isError: true);
-            return;
-        }
-
-        var hoursText = ManualDurationHoursInput.Text.Trim().Replace(',', '.');
-        if (!double.TryParse(hoursText, NumberStyles.Float, CultureInfo.InvariantCulture, out var hours) || hours <= 0)
-        {
-            ShowNotice("Please enter a valid positive duration in hours (e.g. 1.5).", isError: true);
-            return;
-        }
-
-        var dateText = ManualDateInput.Text.Trim();
-        DateTime entryDate = DateTime.Today;
-        if (!string.IsNullOrWhiteSpace(dateText))
-        {
-            if (!DateTime.TryParse(dateText, CultureInfo.InvariantCulture, DateTimeStyles.None, out entryDate))
-            {
-                ShowNotice("Please enter a valid date in YYYY-MM-DD format.", isError: true);
-                return;
-            }
-        }
-
-        var durationSeconds = Math.Max(1, (int)Math.Round(hours * 3600.0));
-        var startDateTime = entryDate.Date.Add(DateTime.Now.TimeOfDay);
-        var endDateTime = startDateTime.AddSeconds(durationSeconds);
-        var desc = ManualDescriptionInput.Text.Trim();
-
-        SubmitManualTimeButton.IsEnabled = false;
-        try
-        {
-            var payload = new TimeEntryCreateRequest
-            {
-                TaskId = task.Id,
-                ProjectId = proj.Id,
-                Description = string.IsNullOrEmpty(desc) ? "Manual entry via Manager X Desktop" : desc,
-                StartTime = startDateTime.ToUniversalTime().ToString("o"),
-                EndTime = endDateTime.ToUniversalTime().ToString("o"),
-                DurationSeconds = durationSeconds,
-                IsBillable = true,
-            };
-
-            await App.ApiClient.PostAsync("/time-entries", payload);
-            ManualTimeOverlay.Visibility = Visibility.Collapsed;
-            ShowNotice($"Logged {hours:0.##} hr(s) successfully!");
-            await ReloadEntriesAsync();
-        }
-        catch (Exception ex)
-        {
-            ShowNotice($"Failed to log time: {ex.Message}", isError: true);
-        }
-        finally
-        {
-            SubmitManualTimeButton.IsEnabled = true;
-        }
-    }
 
     private async void DeleteEntry_Click(object sender, RoutedEventArgs e)
     {
