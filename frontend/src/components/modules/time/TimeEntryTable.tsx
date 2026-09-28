@@ -31,7 +31,7 @@ type SortDirection = "asc" | "desc";
 const PAGE_SIZE = 50;
 
 const DEFAULT_TIME_WIDTHS = {
-  date: 150,
+  date: 160,
   project_task: 330,
   client: 160,
   duration: 130,
@@ -151,10 +151,10 @@ export default function TimeEntryTable({
   const formatTimeRange = (startIso: string, endIso?: string | null) => {
     try {
       const s = parseUtcDate(startIso);
-      const sStr = s.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
+      const sStr = s.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
       if (!endIso) return `${sStr} — ongoing`;
       const e = parseUtcDate(endIso);
-      const eStr = e.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
+      const eStr = e.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
       return `${sStr} — ${eStr}`;
     } catch {
       return "";
