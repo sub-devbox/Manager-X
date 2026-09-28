@@ -201,7 +201,7 @@
 
                             <!-- Work Description / Memo -->
                             <TextBlock Text="DESCRIPTION (OPTIONAL)" FontSize="9" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,2" />
-                            <TextBox x:Name="DescriptionInput" Height="26" FontSize="11" Margin="0,0,0,4" />
+                            <TextBox x:Name="DescriptionInput" Height="28" FontSize="11" Foreground="{StaticResource TextMainBrush}" Background="{StaticResource BgSurfaceSubtleBrush}" BorderBrush="{StaticResource BorderSubtleBrush}" Padding="8,4" VerticalContentAlignment="Center" Margin="0,0,0,4" />
                         </StackPanel>
                     </Border>
 
@@ -403,10 +403,26 @@
                     <TextBlock Text="Edit Time Entry" FontSize="13" FontWeight="Bold" Foreground="{StaticResource TextMainBrush}" Margin="0,0,0,12" />
 
                     <TextBlock Text="DURATION (HOURS) *" FontSize="10.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,4" />
-                    <TextBox x:Name="EditDurationHoursInput" Height="32" Margin="0,0,0,10" />
+                    <TextBox x:Name="EditDurationHoursInput" 
+                             Height="32" 
+                             FontSize="12" 
+                             Foreground="{StaticResource TextMainBrush}" 
+                             Background="{StaticResource BgSurfaceSubtleBrush}" 
+                             BorderBrush="{StaticResource BorderSubtleBrush}" 
+                             Padding="8,5" 
+                             VerticalContentAlignment="Center" 
+                             Margin="0,0,0,10" />
 
                     <TextBlock Text="DESCRIPTION / NOTE" FontSize="10.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,4" />
-                    <TextBox x:Name="EditDescriptionInput" Height="32" Margin="0,0,0,14" />
+                    <TextBox x:Name="EditDescriptionInput" 
+                             Height="32" 
+                             FontSize="12" 
+                             Foreground="{StaticResource TextMainBrush}" 
+                             Background="{StaticResource BgSurfaceSubtleBrush}" 
+                             BorderBrush="{StaticResource BorderSubtleBrush}" 
+                             Padding="8,5" 
+                             VerticalContentAlignment="Center" 
+                             Margin="0,0,0,14" />
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button Content="Cancel" Style="{StaticResource SecondaryButton}" Margin="0,0,8,0" Click="CancelEditEntry_Click" />
@@ -447,19 +463,42 @@
                         <!-- Date -->
                         <StackPanel Grid.Column="0">
                             <TextBlock Text="DATE (YYYY-MM-DD) *" FontSize="9.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,4" />
-                            <TextBox x:Name="ManualDateInput" Height="28" FontSize="11" />
+                            <TextBox x:Name="ManualDateInput" 
+                                     Height="28" 
+                                     FontSize="11" 
+                                     Foreground="{StaticResource TextMainBrush}" 
+                                     Background="{StaticResource BgSurfaceSubtleBrush}" 
+                                     BorderBrush="{StaticResource BorderSubtleBrush}" 
+                                     Padding="8,4" 
+                                     VerticalContentAlignment="Center" />
                         </StackPanel>
 
                         <!-- Duration in Hours -->
                         <StackPanel Grid.Column="2">
                             <TextBlock Text="DURATION (HOURS) *" FontSize="9.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,4" />
-                            <TextBox x:Name="ManualDurationHoursInput" Text="1.0" Height="28" FontSize="11" />
+                            <TextBox x:Name="ManualDurationHoursInput" 
+                                     Text="1.0" 
+                                     Height="28" 
+                                     FontSize="11" 
+                                     Foreground="{StaticResource TextMainBrush}" 
+                                     Background="{StaticResource BgSurfaceSubtleBrush}" 
+                                     BorderBrush="{StaticResource BorderSubtleBrush}" 
+                                     Padding="8,4" 
+                                     VerticalContentAlignment="Center" />
                         </StackPanel>
                     </Grid>
 
                     <!-- Description -->
                     <TextBlock Text="DESCRIPTION / NOTE (OPTIONAL)" FontSize="9.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,4" />
-                    <TextBox x:Name="ManualDescriptionInput" Height="28" FontSize="11" Margin="0,0,0,12" />
+                    <TextBox x:Name="ManualDescriptionInput" 
+                             Height="28" 
+                             FontSize="11" 
+                             Foreground="{StaticResource TextMainBrush}" 
+                             Background="{StaticResource BgSurfaceSubtleBrush}" 
+                             BorderBrush="{StaticResource BorderSubtleBrush}" 
+                             Padding="8,4" 
+                             VerticalContentAlignment="Center" 
+                             Margin="0,0,0,12" />
 
                     <!-- Buttons -->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -483,7 +522,15 @@
                     <TextBlock Text="Create New Project" FontSize="13" FontWeight="Bold" Foreground="{StaticResource TextMainBrush}" Margin="0,0,0,12" />
 
                     <TextBlock Text="PROJECT NAME *" FontSize="10.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,4" />
-                    <TextBox x:Name="NewProjectNameInput" Height="32" Margin="0,0,0,10" />
+                    <TextBox x:Name="NewProjectNameInput" 
+                             Height="32" 
+                             FontSize="12" 
+                             Foreground="{StaticResource TextMainBrush}" 
+                             Background="{StaticResource BgSurfaceSubtleBrush}" 
+                             BorderBrush="{StaticResource BorderSubtleBrush}" 
+                             Padding="8,5" 
+                             VerticalContentAlignment="Center" 
+                             Margin="0,0,0,10" />
 
                     <TextBlock Text="CLIENT *" FontSize="10.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,4" />
                     <ComboBox x:Name="NewProjectClientCombo" Height="32" Margin="0,0,0,14" />
@@ -509,10 +556,27 @@
                     <TextBlock Text="Create New Task" FontSize="13" FontWeight="Bold" Foreground="{StaticResource TextMainBrush}" Margin="0,0,0,12" />
 
                     <TextBlock Text="TASK TITLE *" FontSize="10.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,4" />
-                    <TextBox x:Name="NewTaskTitleInput" Height="32" Margin="0,0,0,10" />
+                    <TextBox x:Name="NewTaskTitleInput" 
+                             Height="32" 
+                             FontSize="12" 
+                             Foreground="{StaticResource TextMainBrush}" 
+                             Background="{StaticResource BgSurfaceSubtleBrush}" 
+                             BorderBrush="{StaticResource BorderSubtleBrush}" 
+                             Padding="8,5" 
+                             VerticalContentAlignment="Center" 
+                             Margin="0,0,0,10" />
 
                     <TextBlock Text="ESTIMATED HOURS (OPTIONAL)" FontSize="10.5" FontWeight="SemiBold" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,4" />
-                    <TextBox x:Name="NewTaskEstHoursInput" Text="1.0" Height="32" Margin="0,0,0,14" />
+                    <TextBox x:Name="NewTaskEstHoursInput" 
+                             Text="1.0" 
+                             Height="32" 
+                             FontSize="12" 
+                             Foreground="{StaticResource TextMainBrush}" 
+                             Background="{StaticResource BgSurfaceSubtleBrush}" 
+                             BorderBrush="{StaticResource BorderSubtleBrush}" 
+                             Padding="8,5" 
+                             VerticalContentAlignment="Center" 
+                             Margin="0,0,0,14" />
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button Content="Cancel" Style="{StaticResource SecondaryButton}" Margin="0,0,8,0" Click="CancelNewTask_Click" />
