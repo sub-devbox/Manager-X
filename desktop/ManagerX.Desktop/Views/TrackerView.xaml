@@ -6,25 +6,26 @@
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="460">
     <Grid Background="{StaticResource BgAppBrush}">
+        <!-- Status Notice Banner (Floats on Top of Content & Overlays) -->
+        <Border x:Name="NoticeBorder" 
+                Panel.ZIndex="1000" 
+                VerticalAlignment="Top" 
+                Background="#163828" 
+                BorderBrush="{StaticResource AccentEmeraldBrush}" 
+                BorderThickness="0,0,0,1" 
+                Padding="12,8" 
+                Visibility="Collapsed">
+            <Grid>
+                <TextBlock x:Name="NoticeText" Foreground="{StaticResource AccentEmeraldBrush}" FontSize="12" TextWrapping="Wrap" Margin="0,0,24,0" />
+                <Button Content="✕" HorizontalAlignment="Right" Background="Transparent" Foreground="{StaticResource AccentEmeraldBrush}" BorderThickness="0" Cursor="Hand" Click="NoticeClose_Click" />
+            </Grid>
+        </Border>
+
         <!-- Main Content -->
         <Grid>
-            <Grid.RowDefinitions>
-                <!-- Notification Banner -->
-                <RowDefinition Height="Auto" />
-                <!-- Scrollable Body -->
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-
-            <!-- Status Notice Banner -->
-            <Border Grid.Row="0" x:Name="NoticeBorder" Background="#163828" BorderBrush="{StaticResource AccentEmeraldBrush}" BorderThickness="0,0,0,1" Padding="12,8" Visibility="Collapsed">
-                <Grid>
-                    <TextBlock x:Name="NoticeText" Foreground="{StaticResource AccentEmeraldBrush}" FontSize="12" TextWrapping="Wrap" />
-                    <Button Content="✕" HorizontalAlignment="Right" Background="Transparent" Foreground="{StaticResource AccentEmeraldBrush}" BorderThickness="0" Cursor="Hand" Click="NoticeClose_Click" />
-                </Grid>
-            </Border>
 
             <!-- Scrollable Body -->
-            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="8,6">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="8,6">
                 <StackPanel>
                     <!-- 1. METRICS HEADER CARDS -->
                     <Grid Margin="0,0,0,8">

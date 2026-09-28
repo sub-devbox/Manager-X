@@ -238,8 +238,11 @@ async def update_time_entry(
         entry.project_id = task.project_id
 
     for key, value in update_data.items():
-        if key != "task_id":
-            setattr(entry, key, value)
+        if key == "task_id":
+            continue
+        if value is None and key in ("is_billable", "duration_seconds"):
+            continue
+        setattr(entry, key, value)
 
     # Recalculate duration or stop time according to rule
     if "end_time" in update_data and entry.end_time and entry.start_time:

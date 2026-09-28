@@ -157,6 +157,15 @@ async def test_time_entries_lifecycle_and_task_tracking(client: AsyncClient):
     assert updated_data["duration_seconds"] == 9000
     assert updated_data["billable_amount"] == 375.0  # 2.5 hrs * $150
 
+    # 7b. Update with is_billable=None should ignore null and preserve existing value
+    patch_null_res = await client.patch(
+        f"/api/v1/time-entries/{entry_id}",
+        json={"is_billable": None, "duration_seconds": 7200},
+    )
+    assert patch_null_res.status_code == 200
+    assert patch_null_res.json()["is_billable"] is True
+    assert patch_null_res.json()["duration_seconds"] == 7200
+
     # 8. Referential integrity: Cannot delete task while time entries exist
     del_task_res = await client.delete(f"/api/v1/tasks/{task_id}")
     assert del_task_res.status_code == 400

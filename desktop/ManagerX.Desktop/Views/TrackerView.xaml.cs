@@ -437,7 +437,7 @@ public partial class TrackerView : UserControl
 
     private async void StopSaveButton_Click(object sender, RoutedEventArgs e)
     {
-        var seconds = App.TimerService.ElapsedSeconds;
+        var seconds = Math.Max(0, App.TimerService.ElapsedSeconds);
         var taskId = App.TimerService.TaskId;
         var projectId = App.TimerService.ProjectId;
         var startUtc = App.TimerService.StartTimeUtc ?? DateTime.UtcNow.AddSeconds(-seconds);
@@ -466,6 +466,7 @@ public partial class TrackerView : UserControl
         StopSaveButton.IsEnabled = false;
         try
         {
+            var durationSeconds = Math.Max(1, seconds);
             var payload = new TimeEntryCreateRequest
             {
                 TaskId = taskId,
@@ -473,7 +474,7 @@ public partial class TrackerView : UserControl
                 Description = string.IsNullOrEmpty(description) ? "Logged via Manager X Desktop" : description,
                 StartTime = startUtc.ToString("o"),
                 EndTime = DateTime.UtcNow.ToString("o"),
-                DurationSeconds = seconds,
+                DurationSeconds = durationSeconds,
                 IsBillable = true,
             };
 
@@ -481,7 +482,7 @@ public partial class TrackerView : UserControl
             App.TimerService.Reset();
             DescriptionInput.Text = "";
 
-            ShowNotice($"Logged {FormatSeconds(seconds)} successfully!");
+            ShowNotice($"Logged {FormatSeconds(durationSeconds)} successfully!");
             await ReloadEntriesAsync();
         }
         catch (Exception ex)
@@ -549,7 +550,7 @@ public partial class TrackerView : UserControl
     {
         if (_editingEntry == null) return;
 
-        var text = EditDurationHoursInput.Text.Trim();
+        var text = EditDurationHoursInput.Text.Trim().Replace(',', '.');
         if (!double.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out var hours) || hours <= 0)
         {
             ShowNotice("Please enter a valid positive duration in hours (e.g. 1.5).", isError: true);
@@ -558,11 +559,12 @@ public partial class TrackerView : UserControl
 
         try
         {
-            var durationSeconds = (int)Math.Round(hours * 3600.0);
+            var durationSeconds = Math.Max(1, (int)Math.Round(hours * 3600.0));
             var payload = new TimeEntryUpdateRequest
             {
                 DurationSeconds = durationSeconds,
                 Description = EditDescriptionInput.Text.Trim(),
+                IsBillable = _editingEntry.IsBillable,
             };
 
             await App.ApiClient.PatchAsync<TimeEntryUpdateRequest, TimeEntryDto>($"/time-entries/{_editingEntry.Id}", payload);
@@ -659,7 +661,7 @@ public partial class TrackerView : UserControl
             return;
         }
 
-        var hoursText = ManualDurationHoursInput.Text.Trim();
+        var hoursText = ManualDurationHoursInput.Text.Trim().Replace(',', '.');
         if (!double.TryParse(hoursText, NumberStyles.Float, CultureInfo.InvariantCulture, out var hours) || hours <= 0)
         {
             ShowNotice("Please enter a valid positive duration in hours (e.g. 1.5).", isError: true);
@@ -677,8 +679,8 @@ public partial class TrackerView : UserControl
             }
         }
 
+        var durationSeconds = Math.Max(1, (int)Math.Round(hours * 3600.0));
         var startDateTime = entryDate.Date.Add(DateTime.Now.TimeOfDay);
-        var durationSeconds = (int)Math.Round(hours * 3600.0);
         var endDateTime = startDateTime.AddSeconds(durationSeconds);
         var desc = ManualDescriptionInput.Text.Trim();
 

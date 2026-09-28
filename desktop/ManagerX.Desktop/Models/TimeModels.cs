@@ -133,11 +133,14 @@ public class TimeEntryCreateRequest
 public class TimeEntryUpdateRequest
 {
     [JsonPropertyName("description")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Description { get; set; }
 
     [JsonPropertyName("duration_seconds")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? DurationSeconds { get; set; }
 
     [JsonPropertyName("is_billable")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool? IsBillable { get; set; }
 }

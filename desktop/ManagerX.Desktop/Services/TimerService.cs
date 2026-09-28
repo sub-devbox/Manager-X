@@ -10,7 +10,7 @@ public class TimerService
     private TimeSpan _accumulatedTime = TimeSpan.Zero;
 
     public bool IsRunning { get; private set; }
-    public int ElapsedSeconds => (int)(_accumulatedTime + (_startedAtUtc.HasValue ? DateTime.UtcNow - _startedAtUtc.Value : TimeSpan.Zero)).TotalSeconds;
+    public int ElapsedSeconds => Math.Max(0, (int)(_accumulatedTime + (_startedAtUtc.HasValue ? DateTime.UtcNow - _startedAtUtc.Value : TimeSpan.Zero)).TotalSeconds);
 
     public string? TaskId { get; private set; }
     public string? ProjectId { get; private set; }

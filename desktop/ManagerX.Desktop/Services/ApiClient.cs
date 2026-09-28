@@ -120,6 +120,33 @@ public class ApiClient
                 {
                     return detail.GetString() ?? "Unknown API Error";
                 }
+                if (detail.ValueKind == JsonValueKind.Array)
+                {
+                    var msgs = new List<string>();
+                    foreach (var item in detail.EnumerateArray())
+                    {
+                        if (item.TryGetProperty("msg", out var msgEl))
+                        {
+                            var field = "";
+                            if (item.TryGetProperty("loc", out var locEl) && locEl.ValueKind == JsonValueKind.Array)
+                            {
+                                var locs = locEl.EnumerateArray()
+                                    .Select(l => l.ToString())
+                                    .Where(l => l != "body")
+                                    .ToList();
+                                if (locs.Count > 0)
+                                {
+                                    field = $"{string.Join(".", locs)}: ";
+                                }
+                            }
+                            msgs.Add($"{field}{msgEl.GetString()}");
+                        }
+                    }
+                    if (msgs.Count > 0)
+                    {
+                        return string.Join("; ", msgs);
+                    }
+                }
                 return detail.ToString();
             }
         }
