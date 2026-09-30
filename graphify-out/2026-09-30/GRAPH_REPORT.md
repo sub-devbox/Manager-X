@@ -1,23 +1,23 @@
-# Graph Report - Manager-X  (2026-09-30)
+# Graph Report - Manager-X  (2026-09-28)
 
 ## Corpus Check
-- 133 files · ~98,664 words
+- 132 files · ~97,024 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1109 nodes · 2219 edges · 70 communities (60 shown, 10 thin omitted)
+- 1105 nodes · 2207 edges · 73 communities (63 shown, 10 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 26 edges (avg confidence: 0.63)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `8a601e4e`
+- Built from commit: `bb2a560e`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - devDependencies
 - auth.py
-- pytest
+- Currency
 - settings.py
 - compilerOptions
 - Ponytail
@@ -53,17 +53,17 @@
 - ShutdownPreventionService
 - layout.tsx
 - InvoiceModal.tsx
-- Currency
+- gateways.py
 - UserControl
 - UserControl
 - User
 - TextBox
-- projects/page.tsx
-- InvoiceTable.tsx
+- project.ts
+- TimeEntryTable.tsx
 - AuthModels.cs
 - ManagerX.Services
 - MainWindow
-- tasks/page.tsx
+- projects/page.tsx
 - App
 - ApiClient
 - TimerService
@@ -72,15 +72,18 @@
 - ManagerX.Desktop.csproj
 - UserControl
 - TrackerView
-- projects.py
+- tasks.py
 - .ApiStatusBadge_MouseLeftButtonDown
 - .SubmitNewProject_Click
 - RoutedEventArgs
-- GatewayModal.tsx
-- client_schemas.py
+- api-client.ts
+- projects.py
 - Base
+- invoice_schemas.py
+- build_invoice_pdf
 - AuthService
-- conftest.py
+- get_db
+- Settings
 - TimeModels.cs
 
 ## God Nodes (most connected - your core abstractions)
@@ -92,7 +95,7 @@
 6. `UserControl` - 27 edges
 7. `Base` - 23 edges
 8. `Currency` - 21 edges
-9. `api` - 20 edges
+9. `api` - 19 edges
 10. `BackendSetupView` - 18 edges
 
 ## Surprising Connections (you probably didn't know these)
@@ -110,7 +113,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (70 total, 10 thin omitted)
+## Communities (73 total, 10 thin omitted)
 
 ### Community 0 - "devDependencies"
 Cohesion: 0.06
@@ -120,13 +123,13 @@ Nodes (32): eslint, eslint-config-next, dependencies, lucide-react, next, react,
 Cohesion: 0.07
 Nodes (53): check_auth_status(), get_client_ip(), get_current_user(), get_me(), get_optional_user(), login(), logout(), AsyncSession (+45 more)
 
-### Community 2 - "pytest"
-Cohesion: 0.11
-Nodes (17): AsyncClient, asyncio, test_full_security_and_auth_lifecycle(), AsyncClient, asyncio, test_payment_gateways_lifecycle(), AsyncClient, asyncio (+9 more)
+### Community 2 - "Currency"
+Cohesion: 0.09
+Nodes (31): Currency, client(), prepare_database(), AsyncClient, asyncio, test_full_security_and_auth_lifecycle(), AsyncClient, asyncio (+23 more)
 
 ### Community 3 - "settings.py"
-Cohesion: 0.08
-Nodes (46): add_country(), create_backup_snapshot(), create_currency(), delete_country(), delete_currency(), download_database(), ensure_default_currencies(), _format_size() (+38 more)
+Cohesion: 0.10
+Nodes (42): add_country(), create_backup_snapshot(), create_currency(), delete_country(), delete_currency(), download_database(), ensure_default_currencies(), _format_size() (+34 more)
 
 ### Community 4 - "compilerOptions"
 Cohesion: 0.07
@@ -137,8 +140,8 @@ Cohesion: 0.22
 Nodes (8): Boundaries, Intensity, Output, Persistence, Ponytail, Rules, The ladder, When NOT to be lazy
 
 ### Community 6 - "time_entries.py"
-Cohesion: 0.09
-Nodes (31): create_time_entry(), delete_time_entry(), _format_time_entry_response(), get_time_entry(), list_time_entries(), AsyncSession, delete, get (+23 more)
+Cohesion: 0.16
+Nodes (21): create_time_entry(), delete_time_entry(), _format_time_entry_response(), get_time_entry(), list_time_entries(), AsyncSession, delete, get (+13 more)
 
 ### Community 7 - "FastAPI ASGI Backend"
 Cohesion: 0.29
@@ -153,8 +156,8 @@ Cohesion: 0.15
 Nodes (18): ApiStatusDot, ApiStatusText, FullModeContainer, LoadingOverlay, LoadingStatusText, MainContent, MiniDigitsText, MiniProjectTitle (+10 more)
 
 ### Community 10 - "AppShell.tsx"
-Cohesion: 0.07
-Nodes (25): CurrencySetting, OverviewPage(), AppShell(), AppShellProps, Header(), HeaderProps, Sidebar(), SidebarProps (+17 more)
+Cohesion: 0.10
+Nodes (15): OverviewPage(), AppShell(), AppShellProps, Sidebar(), SidebarProps, BackupInfo, CompanyProfile, Currency (+7 more)
 
 ### Community 11 - "Ponytail"
 Cohesion: 0.22
@@ -213,8 +216,8 @@ Cohesion: 0.50
 Nodes (3): Deploy on Vercel, Getting Started, Learn More
 
 ### Community 34 - "clients.py"
-Cohesion: 0.22
-Nodes (18): build_client_response(), create_client(), delete_client(), get_client(), get_client_aggregates(), list_clients(), list_clients_summary(), AsyncSession (+10 more)
+Cohesion: 0.17
+Nodes (24): build_client_response(), create_client(), delete_client(), get_client(), get_client_aggregates(), list_clients(), list_clients_summary(), AsyncSession (+16 more)
 
 ### Community 35 - "Features"
 Cohesion: 0.07
@@ -229,12 +232,12 @@ Cohesion: 0.29
 Nodes (6): frontend_src_app_globals, metadata, QueryProvider(), AuthProvider(), getQueryClient(), makeQueryClient()
 
 ### Community 38 - "InvoiceModal.tsx"
-Cohesion: 0.17
-Nodes (15): ClientOption, SearchableClientSelect(), SearchableClientSelectProps, InvoiceModal(), InvoiceModalProps, ClientData, ClientInvoiceSummary, CompanyProfileData (+7 more)
+Cohesion: 0.15
+Nodes (17): InvoiceModal(), InvoiceModalProps, DEFAULT_INVOICE_WIDTHS, InvoiceTableProps, MIN_INVOICE_WIDTHS, SortDirection, SortField, ClientData (+9 more)
 
-### Community 39 - "Currency"
-Cohesion: 0.33
-Nodes (10): Currency, AsyncClient, asyncio, test_client_incoming_currency_and_equivalent_inr_auto_calc(), test_client_lifecycle_and_address_validation(), AsyncClient, asyncio, test_invoice_lifecycle_and_numbering() (+2 more)
+### Community 39 - "gateways.py"
+Cohesion: 0.10
+Nodes (30): build_gateway_response(), create_gateway(), delete_gateway(), get_gateway(), list_gateways(), AsyncSession, delete, get (+22 more)
 
 ### Community 40 - "UserControl"
 Cohesion: 0.09
@@ -245,20 +248,20 @@ Cohesion: 0.12
 Nodes (19): ChangeServerButton, EmailInput, ErrorBorder, ErrorText, LoginButton, PasswordInput, RememberMeCheck, ServerUrlInput (+11 more)
 
 ### Community 42 - "User"
-Cohesion: 0.07
-Nodes (62): build_gateway_response(), create_gateway(), delete_gateway(), get_gateway(), list_gateways(), AsyncSession, delete, get (+54 more)
+Cohesion: 0.24
+Nodes (23): calculate_next_invoice_number(), create_invoice(), delete_invoice(), download_invoice_pdf(), extract_company_initials(), get_company_profile_dict(), get_invoice(), get_next_invoice_number() (+15 more)
 
 ### Community 43 - "TextBox"
 Cohesion: 0.17
 Nodes (8): DescriptionInput, EditDescriptionInput, EditDurationHoursInput, NewProjectNameInput, NewTaskEstHoursInput, NewTaskHeaderButton, NewTaskTitleInput, TextBox
 
-### Community 44 - "projects/page.tsx"
+### Community 44 - "project.ts"
 Cohesion: 0.12
-Nodes (28): PeriodFilter, TimeTrackerPage(), ProjectOption, SearchableProjectSelect(), SearchableProjectSelectProps, GlobalTimerBar(), TimerState, WidgetPosition (+20 more)
+Nodes (26): PeriodFilter, TimeTrackerPage(), ProjectOption, SearchableProjectSelect(), SearchableProjectSelectProps, ClientOption, ProjectModal(), ProjectModalProps (+18 more)
 
-### Community 45 - "InvoiceTable.tsx"
+### Community 45 - "TimeEntryTable.tsx"
 Cohesion: 0.12
-Nodes (20): DEFAULT_INVOICE_WIDTHS, InvoiceTable(), InvoiceTableProps, MIN_INVOICE_WIDTHS, SortDirection, SortField, DEFAULT_PROJECT_WIDTHS, MIN_PROJECT_WIDTHS (+12 more)
+Nodes (19): InvoiceTable(), DEFAULT_PROJECT_WIDTHS, MIN_PROJECT_WIDTHS, ProjectTable(), ProjectTableProps, SortDirection, SortField, DEFAULT_TASK_WIDTHS (+11 more)
 
 ### Community 46 - "AuthModels.cs"
 Cohesion: 0.47
@@ -272,9 +275,9 @@ Nodes (4): ManagerX.Models, ManagerX.Views, ManagerX, ManagerX.Services
 Cohesion: 0.15
 Nodes (9): bool, DispatcherTimer, int, IntPtr, string, MainWindow, double, MouseEventArgs (+1 more)
 
-### Community 49 - "tasks/page.tsx"
-Cohesion: 0.14
-Nodes (22): ProjectSchedulerPage(), ProjectsPage(), PeriodFilter, TasksPage(), TaskModal(), ManualTimeModal(), ManualTimeModalProps, minutesToTime() (+14 more)
+### Community 49 - "projects/page.tsx"
+Cohesion: 0.17
+Nodes (20): ProjectSchedulerPage(), ProjectsPage(), PeriodFilter, TasksPage(), ClientOption, SearchableClientSelect(), SearchableClientSelectProps, TaskModal() (+12 more)
 
 ### Community 50 - "App"
 Cohesion: 0.22
@@ -304,9 +307,9 @@ Nodes (44): CancellationToken, CancellationTokenSource, current, HttpClient, Bac
 Cohesion: 0.17
 Nodes (6): TimeEntryDto, TaskCombo, DispatcherTimer, TrackerView, List, SelectionChangedEventArgs
 
-### Community 58 - "projects.py"
-Cohesion: 0.09
-Nodes (46): create_project(), delete_project(), _format_project_response(), get_project(), list_projects(), list_projects_summary(), AsyncSession, delete (+38 more)
+### Community 58 - "tasks.py"
+Cohesion: 0.15
+Nodes (27): create_task(), delete_task(), _format_task_response(), get_task(), list_tasks(), AsyncSession, delete, get (+19 more)
 
 ### Community 59 - ".ApiStatusBadge_MouseLeftButtonDown"
 Cohesion: 0.28
@@ -320,28 +323,40 @@ Nodes (5): NewProjectClientCombo, ProjectCombo, SubmitNewProjectButton, KeyEvent
 Cohesion: 0.13
 Nodes (7): ResetButton, StartPauseButton, StopSaveButton, SubmitNewTaskButton, ViewTodayActivityButton, RoutedEventArgs, Button
 
-### Community 62 - "GatewayModal.tsx"
-Cohesion: 0.29
-Nodes (7): COMMON_CURRENCIES, CurrencyOption, GatewayModal(), GatewayModalProps, GatewayCreatePayload, GatewayData, GatewayUpdatePayload
+### Community 62 - "api-client.ts"
+Cohesion: 0.11
+Nodes (17): CurrencySetting, Header(), HeaderProps, ClientData, ClientModal(), ClientModalProps, CurrencyOption, COMMON_CURRENCIES (+9 more)
 
-### Community 63 - "client_schemas.py"
-Cohesion: 0.48
-Nodes (6): ClientBase, ClientCreate, ClientResponse, ClientSummary, CurrencyNested, BaseModel
+### Community 63 - "projects.py"
+Cohesion: 0.21
+Nodes (19): create_project(), delete_project(), _format_project_response(), get_project(), list_projects(), list_projects_summary(), AsyncSession, delete (+11 more)
 
 ### Community 64 - "Base"
-Cohesion: 0.22
-Nodes (12): generate_cuid(), Generate a collision-resistant unique identifier (CUID). Structure: prefix (1)…, to_base36(), Base, set_sqlite_pragma(), Invoice, datetime, DeclarativeBase (+4 more)
+Cohesion: 0.25
+Nodes (11): generate_cuid(), Generate a collision-resistant unique identifier (CUID). Structure: prefix (1)…, to_base36(), Base, Invoice, SystemSetting, datetime, DeclarativeBase (+3 more)
+
+### Community 66 - "invoice_schemas.py"
+Cohesion: 0.28
+Nodes (12): ClientSummary, InvoiceBase, InvoiceCreate, InvoiceItemBase, InvoiceItemCreate, InvoiceItemResponse, InvoiceResponse, InvoiceUpdate (+4 more)
+
+### Community 67 - "build_invoice_pdf"
+Cohesion: 0.24
+Nodes (6): build_invoice_pdf(), format_money(), PushToBottom, Any, Dynamically absorbs unused vertical space on the current page, pushing target…, Flowable
 
 ### Community 68 - "AuthService"
 Cohesion: 0.24
 Nodes (5): DateTime, SavedCredentials, AuthService, string, StorageService
 
-### Community 69 - "conftest.py"
-Cohesion: 0.25
-Nodes (7): get_db(), AsyncSession, client(), prepare_database(), fixture, pytest_asyncio, sqlalchemy_ext_asyncio
+### Community 69 - "get_db"
+Cohesion: 0.29
+Nodes (6): get_db(), AsyncSession, set_sqlite_pragma(), listens_for, sqlalchemy_ext_asyncio, sqlite3
+
+### Community 71 - "Settings"
+Cohesion: 0.50
+Nodes (3): field_validator, Settings, BaseSettings
 
 ## Knowledge Gaps
-- **227 isolated node(s):** `Border`, `ScrollViewer`, `ContentControl`, `net8.0-windows`, `Microsoft.NET.Sdk` (+222 more)
+- **225 isolated node(s):** `Border`, `ScrollViewer`, `ContentControl`, `net8.0-windows`, `Microsoft.NET.Sdk` (+220 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **10 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -350,15 +365,15 @@ _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `MainWindow` connect `MainWindow` to `.InitializeTrayIcon`, `ShutdownPreventionService`, `.ShowBackendSetupView`, `Window`, `UserControl`, `ManagerX.Services`, `RoutedEventArgs`, `UserControl`, `TrackerView`, `.ApiStatusBadge_MouseLeftButtonDown`?**
   _High betweenness centrality (0.050) - this node is a cross-community bridge._
-- **Why does `User` connect `User` to `Base`, `auth.py`, `clients.py`, `settings.py`, `pytest`, `time_entries.py`, `projects.py`?**
+- **Why does `User` connect `User` to `Base`, `auth.py`, `clients.py`, `settings.py`, `Currency`, `time_entries.py`, `gateways.py`, `tasks.py`, `projects.py`?**
   _High betweenness centrality (0.045) - this node is a cross-community bridge._
 - **Why does `TrackerView` connect `TrackerView` to `UserControl`, `UserControl`, `TextBox`, `ManagerX.Services`, `MainWindow`, `.SubmitNewProject_Click`, `RoutedEventArgs`?**
   _High betweenness centrality (0.041) - this node is a cross-community bridge._
 - **What connects `Border`, `ScrollViewer`, `ContentControl` to the rest of the system?**
-  _227 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _225 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `devDependencies` be split into smaller, more focused modules?**
   _Cohesion score 0.06060606060606061 - nodes in this community are weakly interconnected._
 - **Should `auth.py` be split into smaller, more focused modules?**
   _Cohesion score 0.07364114552893045 - nodes in this community are weakly interconnected._
-- **Should `pytest` be split into smaller, more focused modules?**
-  _Cohesion score 0.10822510822510822 - nodes in this community are weakly interconnected._
+- **Should `Currency` be split into smaller, more focused modules?**
+  _Cohesion score 0.08974358974358974 - nodes in this community are weakly interconnected._

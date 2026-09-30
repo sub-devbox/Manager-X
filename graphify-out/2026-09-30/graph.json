@@ -439,8 +439,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways",
-      "community": 42,
-      "community_name": "User",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "gateways.py"
     },
     {
@@ -450,8 +450,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_build_gateway_response",
-      "community": 42,
-      "community_name": "User",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "build_gateway_response()"
     },
     {
@@ -461,8 +461,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_py_asyncsession",
-      "community": 42,
-      "community_name": "User",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "asyncsession"
     },
     {
@@ -472,8 +472,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_py_get",
-      "community": 42,
-      "community_name": "User",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "get"
     },
     {
@@ -483,8 +483,8 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_list_gateways",
-      "community": 42,
-      "community_name": "User",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "list_gateways()"
     },
     {
@@ -494,8 +494,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_py_post",
-      "community": 42,
-      "community_name": "User",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "post"
     },
     {
@@ -505,8 +505,8 @@
       "source_location": "L83",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_create_gateway",
-      "community": 42,
-      "community_name": "User",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "create_gateway()"
     },
     {
@@ -516,8 +516,8 @@
       "source_location": "L114",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_get_gateway",
-      "community": 42,
-      "community_name": "User",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "get_gateway()"
     },
     {
@@ -527,8 +527,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_py_put",
-      "community": 42,
-      "community_name": "User",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "put"
     },
     {
@@ -538,8 +538,8 @@
       "source_location": "L131",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_update_gateway",
-      "community": 42,
-      "community_name": "User",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "update_gateway()"
     },
     {
@@ -549,8 +549,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_py_patch",
-      "community": 42,
-      "community_name": "User",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "patch"
     },
     {
@@ -560,8 +560,8 @@
       "source_location": "L191",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_toggle_gateway_status",
-      "community": 42,
-      "community_name": "User",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "toggle_gateway_status()"
     },
     {
@@ -571,8 +571,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_py_delete",
-      "community": 42,
-      "community_name": "User",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "delete"
     },
     {
@@ -582,8 +582,8 @@
       "source_location": "L212",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_delete_gateway",
-      "community": 42,
-      "community_name": "User",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "delete_gateway()"
     },
     {
@@ -593,8 +593,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_gateways_rationale_21",
-      "community": 42,
-      "community_name": "User",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "helper to auto-calculate incoming amounts, equivalent inr, and realized average..."
     },
     {
@@ -846,7 +846,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects",
-      "community": 58,
+      "community": 63,
       "community_name": "projects.py",
       "norm_label": "projects.py"
     },
@@ -857,7 +857,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_format_project_response",
-      "community": 58,
+      "community": 63,
       "community_name": "projects.py",
       "norm_label": "_format_project_response()"
     },
@@ -868,7 +868,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_py_get",
-      "community": 58,
+      "community": 63,
       "community_name": "projects.py",
       "norm_label": "get"
     },
@@ -879,7 +879,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_list_projects",
-      "community": 58,
+      "community": 63,
       "community_name": "projects.py",
       "norm_label": "list_projects()"
     },
@@ -890,7 +890,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_py_asyncsession",
-      "community": 58,
+      "community": 63,
       "community_name": "projects.py",
       "norm_label": "asyncsession"
     },
@@ -901,7 +901,7 @@
       "source_location": "L96",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_list_projects_summary",
-      "community": 58,
+      "community": 63,
       "community_name": "projects.py",
       "norm_label": "list_projects_summary()"
     },
@@ -912,7 +912,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_py_post",
-      "community": 58,
+      "community": 63,
       "community_name": "projects.py",
       "norm_label": "post"
     },
@@ -923,7 +923,7 @@
       "source_location": "L118",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_create_project",
-      "community": 58,
+      "community": 63,
       "community_name": "projects.py",
       "norm_label": "create_project()"
     },
@@ -934,7 +934,7 @@
       "source_location": "L144",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_get_project",
-      "community": 58,
+      "community": 63,
       "community_name": "projects.py",
       "norm_label": "get_project()"
     },
@@ -945,7 +945,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_py_put",
-      "community": 58,
+      "community": 63,
       "community_name": "projects.py",
       "norm_label": "put"
     },
@@ -956,7 +956,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_py_patch",
-      "community": 58,
+      "community": 63,
       "community_name": "projects.py",
       "norm_label": "patch"
     },
@@ -967,7 +967,7 @@
       "source_location": "L166",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_update_project",
-      "community": 58,
+      "community": 63,
       "community_name": "projects.py",
       "norm_label": "update_project()"
     },
@@ -978,7 +978,7 @@
       "source_location": "L197",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_update_project_status",
-      "community": 58,
+      "community": 63,
       "community_name": "projects.py",
       "norm_label": "update_project_status()"
     },
@@ -989,7 +989,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_py_delete",
-      "community": 58,
+      "community": 63,
       "community_name": "projects.py",
       "norm_label": "delete"
     },
@@ -1000,7 +1000,7 @@
       "source_location": "L217",
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_projects_delete_project",
-      "community": 58,
+      "community": 63,
       "community_name": "projects.py",
       "norm_label": "delete_project()"
     },
@@ -1320,7 +1320,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "tasks.py"
     },
     {
@@ -1331,7 +1331,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_format_task_response",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "_format_task_response()"
     },
     {
@@ -1342,7 +1342,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_sync_project_status",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "_sync_project_status()"
     },
     {
@@ -1353,7 +1353,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_py_asyncsession",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "asyncsession"
     },
     {
@@ -1364,7 +1364,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_py_get",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "get"
     },
     {
@@ -1375,7 +1375,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_list_tasks",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "list_tasks()"
     },
     {
@@ -1386,7 +1386,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_py_post",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "post"
     },
     {
@@ -1397,7 +1397,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_create_task",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "create_task()"
     },
     {
@@ -1408,7 +1408,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_get_task",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "get_task()"
     },
     {
@@ -1419,7 +1419,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_py_put",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "put"
     },
     {
@@ -1430,7 +1430,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_py_patch",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "patch"
     },
     {
@@ -1441,7 +1441,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_update_task",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "update_task()"
     },
     {
@@ -1452,7 +1452,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_update_task_status",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "update_task_status()"
     },
     {
@@ -1463,7 +1463,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_py_delete",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "delete"
     },
     {
@@ -1474,7 +1474,7 @@
       "_origin": "ast",
       "id": "backend_app_api_v1_endpoints_tasks_delete_task",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "delete_task()"
     },
     {
@@ -1627,8 +1627,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_api_v1_router",
-      "community": 6,
-      "community_name": "time_entries.py",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "router.py"
     },
     {
@@ -1649,8 +1649,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "backend_app_core_config_settings",
-      "community": 3,
-      "community_name": "settings.py",
+      "community": 71,
+      "community_name": "Settings",
       "norm_label": "settings"
     },
     {
@@ -1660,8 +1660,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "basesettings",
-      "community": 3,
-      "community_name": "settings.py",
+      "community": 71,
+      "community_name": "Settings",
       "norm_label": "basesettings"
     },
     {
@@ -1671,8 +1671,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_core_config_py_field_validator",
-      "community": 3,
-      "community_name": "settings.py",
+      "community": 71,
+      "community_name": "Settings",
       "norm_label": "field_validator"
     },
     {
@@ -1682,8 +1682,8 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "backend_app_core_config_settings_assemble_cors_origins",
-      "community": 3,
-      "community_name": "settings.py",
+      "community": 71,
+      "community_name": "Settings",
       "norm_label": ".assemble_cors_origins()"
     },
     {
@@ -1737,8 +1737,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_core_database",
-      "community": 64,
-      "community_name": "Base",
+      "community": 69,
+      "community_name": "get_db",
       "norm_label": "database.py"
     },
     {
@@ -1748,8 +1748,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "listens_for",
-      "community": 64,
-      "community_name": "Base",
+      "community": 69,
+      "community_name": "get_db",
       "norm_label": "listens_for"
     },
     {
@@ -1759,8 +1759,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "backend_app_core_database_set_sqlite_pragma",
-      "community": 64,
-      "community_name": "Base",
+      "community": 69,
+      "community_name": "get_db",
       "norm_label": "set_sqlite_pragma()"
     },
     {
@@ -1793,7 +1793,7 @@
       "_origin": "ast",
       "id": "backend_app_core_database_get_db",
       "community": 69,
-      "community_name": "conftest.py",
+      "community_name": "get_db",
       "norm_label": "get_db()"
     },
     {
@@ -1804,7 +1804,7 @@
       "_origin": "ast",
       "id": "backend_app_core_database_py_asyncsession",
       "community": 69,
-      "community_name": "conftest.py",
+      "community_name": "get_db",
       "norm_label": "asyncsession"
     },
     {
@@ -1990,8 +1990,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_main",
-      "community": 6,
-      "community_name": "time_entries.py",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "main.py"
     },
     {
@@ -2001,8 +2001,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "backend_app_main_securityheadersmiddleware",
-      "community": 6,
-      "community_name": "time_entries.py",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "securityheadersmiddleware"
     },
     {
@@ -2012,8 +2012,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "basehttpmiddleware",
-      "community": 6,
-      "community_name": "time_entries.py",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "basehttpmiddleware"
     },
     {
@@ -2023,8 +2023,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "backend_app_main_securityheadersmiddleware_dispatch",
-      "community": 6,
-      "community_name": "time_entries.py",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": ".dispatch()"
     },
     {
@@ -2034,8 +2034,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_main_py_request",
-      "community": 6,
-      "community_name": "time_entries.py",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "request"
     },
     {
@@ -2045,8 +2045,8 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "backend_app_main_lifespan",
-      "community": 6,
-      "community_name": "time_entries.py",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "lifespan()"
     },
     {
@@ -2056,8 +2056,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "fastapi",
-      "community": 6,
-      "community_name": "time_entries.py",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "fastapi"
     },
     {
@@ -2067,8 +2067,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_main_py_get",
-      "community": 6,
-      "community_name": "time_entries.py",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "get"
     },
     {
@@ -2078,8 +2078,8 @@
       "source_location": "L89",
       "_origin": "ast",
       "id": "backend_app_main_health_check",
-      "community": 6,
-      "community_name": "time_entries.py",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "health_check()"
     },
     {
@@ -2122,8 +2122,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "backend_app_models_gateway_model_paymentgateway",
-      "community": 42,
-      "community_name": "User",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "paymentgateway"
     },
     {
@@ -2177,7 +2177,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "backend_app_models_project_models_project",
-      "community": 58,
+      "community": 63,
       "community_name": "projects.py",
       "norm_label": "project"
     },
@@ -2189,7 +2189,7 @@
       "_origin": "ast",
       "id": "backend_app_models_project_models_task",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "task"
     },
     {
@@ -2221,8 +2221,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "backend_app_models_settings_models_systemsetting",
-      "community": 3,
-      "community_name": "settings.py",
+      "community": 64,
+      "community_name": "Base",
       "norm_label": "systemsetting"
     },
     {
@@ -2232,7 +2232,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "backend_app_models_settings_models_currency",
-      "community": 39,
+      "community": 2,
       "community_name": "Currency",
       "norm_label": "currency"
     },
@@ -2408,8 +2408,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas",
-      "community": 63,
-      "community_name": "client_schemas.py",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "client_schemas.py"
     },
     {
@@ -2419,8 +2419,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_currencynested",
-      "community": 63,
-      "community_name": "client_schemas.py",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "currencynested"
     },
     {
@@ -2430,8 +2430,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_py_basemodel",
-      "community": 63,
-      "community_name": "client_schemas.py",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "basemodel"
     },
     {
@@ -2441,8 +2441,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_clientbase",
-      "community": 63,
-      "community_name": "client_schemas.py",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "clientbase"
     },
     {
@@ -2452,8 +2452,8 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_clientcreate",
-      "community": 63,
-      "community_name": "client_schemas.py",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "clientcreate"
     },
     {
@@ -2474,8 +2474,8 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_clientresponse",
-      "community": 63,
-      "community_name": "client_schemas.py",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "clientresponse"
     },
     {
@@ -2485,8 +2485,8 @@
       "source_location": "L62",
       "_origin": "ast",
       "id": "backend_app_schemas_client_schemas_clientsummary",
-      "community": 63,
-      "community_name": "client_schemas.py",
+      "community": 34,
+      "community_name": "clients.py",
       "norm_label": "clientsummary"
     },
     {
@@ -2496,8 +2496,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_schemas_gateway_schemas",
-      "community": 42,
-      "community_name": "User",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "gateway_schemas.py"
     },
     {
@@ -2507,8 +2507,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "backend_app_schemas_gateway_schemas_gatewaybase",
-      "community": 42,
-      "community_name": "User",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "gatewaybase"
     },
     {
@@ -2518,8 +2518,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_schemas_gateway_schemas_py_basemodel",
-      "community": 42,
-      "community_name": "User",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "basemodel"
     },
     {
@@ -2529,8 +2529,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "backend_app_schemas_gateway_schemas_gatewaycreate",
-      "community": 42,
-      "community_name": "User",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "gatewaycreate"
     },
     {
@@ -2540,8 +2540,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "backend_app_schemas_gateway_schemas_gatewayupdate",
-      "community": 42,
-      "community_name": "User",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "gatewayupdate"
     },
     {
@@ -2551,8 +2551,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "backend_app_schemas_gateway_schemas_gatewayresponse",
-      "community": 42,
-      "community_name": "User",
+      "community": 39,
+      "community_name": "gateways.py",
       "norm_label": "gatewayresponse"
     },
     {
@@ -2562,8 +2562,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas",
-      "community": 42,
-      "community_name": "User",
+      "community": 66,
+      "community_name": "invoice_schemas.py",
       "norm_label": "invoice_schemas.py"
     },
     {
@@ -2573,8 +2573,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoiceitembase",
-      "community": 42,
-      "community_name": "User",
+      "community": 66,
+      "community_name": "invoice_schemas.py",
       "norm_label": "invoiceitembase"
     },
     {
@@ -2584,8 +2584,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_py_basemodel",
-      "community": 42,
-      "community_name": "User",
+      "community": 66,
+      "community_name": "invoice_schemas.py",
       "norm_label": "basemodel"
     },
     {
@@ -2595,8 +2595,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoiceitemcreate",
-      "community": 42,
-      "community_name": "User",
+      "community": 66,
+      "community_name": "invoice_schemas.py",
       "norm_label": "invoiceitemcreate"
     },
     {
@@ -2606,8 +2606,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoiceitemresponse",
-      "community": 42,
-      "community_name": "User",
+      "community": 66,
+      "community_name": "invoice_schemas.py",
       "norm_label": "invoiceitemresponse"
     },
     {
@@ -2617,8 +2617,8 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_clientsummary",
-      "community": 42,
-      "community_name": "User",
+      "community": 66,
+      "community_name": "invoice_schemas.py",
       "norm_label": "clientsummary"
     },
     {
@@ -2628,8 +2628,8 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoicebase",
-      "community": 42,
-      "community_name": "User",
+      "community": 66,
+      "community_name": "invoice_schemas.py",
       "norm_label": "invoicebase"
     },
     {
@@ -2639,8 +2639,8 @@
       "source_location": "L58",
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoicecreate",
-      "community": 42,
-      "community_name": "User",
+      "community": 66,
+      "community_name": "invoice_schemas.py",
       "norm_label": "invoicecreate"
     },
     {
@@ -2650,8 +2650,8 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoiceupdate",
-      "community": 42,
-      "community_name": "User",
+      "community": 66,
+      "community_name": "invoice_schemas.py",
       "norm_label": "invoiceupdate"
     },
     {
@@ -2661,8 +2661,8 @@
       "source_location": "L87",
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_recordpaymentrequest",
-      "community": 42,
-      "community_name": "User",
+      "community": 66,
+      "community_name": "invoice_schemas.py",
       "norm_label": "recordpaymentrequest"
     },
     {
@@ -2672,8 +2672,8 @@
       "source_location": "L92",
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_reconcilerequest",
-      "community": 42,
-      "community_name": "User",
+      "community": 66,
+      "community_name": "invoice_schemas.py",
       "norm_label": "reconcilerequest"
     },
     {
@@ -2683,8 +2683,8 @@
       "source_location": "L96",
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_invoiceresponse",
-      "community": 42,
-      "community_name": "User",
+      "community": 66,
+      "community_name": "invoice_schemas.py",
       "norm_label": "invoiceresponse"
     },
     {
@@ -2694,8 +2694,8 @@
       "source_location": "L108",
       "_origin": "ast",
       "id": "backend_app_schemas_invoice_schemas_unbilledtaskout",
-      "community": 42,
-      "community_name": "User",
+      "community": 66,
+      "community_name": "invoice_schemas.py",
       "norm_label": "unbilledtaskout"
     },
     {
@@ -2706,7 +2706,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "project_schemas.py"
     },
     {
@@ -2717,7 +2717,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_checklistitem",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "checklistitem"
     },
     {
@@ -2728,7 +2728,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_py_basemodel",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "basemodel"
     },
     {
@@ -2739,7 +2739,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_taskbase",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "taskbase"
     },
     {
@@ -2750,7 +2750,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_py_field_validator",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "field_validator"
     },
     {
@@ -2761,7 +2761,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_taskbase_ensure_checklist",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": ".ensure_checklist()"
     },
     {
@@ -2772,7 +2772,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_taskcreate",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "taskcreate"
     },
     {
@@ -2783,7 +2783,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_taskupdate",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "taskupdate"
     },
     {
@@ -2794,7 +2794,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_taskstatusupdate",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "taskstatusupdate"
     },
     {
@@ -2805,7 +2805,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_taskresponse",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "taskresponse"
     },
     {
@@ -2816,7 +2816,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_tasksummary",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "tasksummary"
     },
     {
@@ -2827,7 +2827,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_clientnested",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "clientnested"
     },
     {
@@ -2838,7 +2838,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_projectbase",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "projectbase"
     },
     {
@@ -2848,7 +2848,7 @@
       "source_location": "L95",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_projectcreate",
-      "community": 58,
+      "community": 63,
       "community_name": "projects.py",
       "norm_label": "projectcreate"
     },
@@ -2859,7 +2859,7 @@
       "source_location": "L98",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_projectupdate",
-      "community": 58,
+      "community": 63,
       "community_name": "projects.py",
       "norm_label": "projectupdate"
     },
@@ -2870,7 +2870,7 @@
       "source_location": "L109",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_projectstatusupdate",
-      "community": 58,
+      "community": 63,
       "community_name": "projects.py",
       "norm_label": "projectstatusupdate"
     },
@@ -2882,7 +2882,7 @@
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_projectresponse",
       "community": 58,
-      "community_name": "projects.py",
+      "community_name": "tasks.py",
       "norm_label": "projectresponse"
     },
     {
@@ -2892,7 +2892,7 @@
       "source_location": "L125",
       "_origin": "ast",
       "id": "backend_app_schemas_project_schemas_projectsummary",
-      "community": 58,
+      "community": 63,
       "community_name": "projects.py",
       "norm_label": "projectsummary"
     },
@@ -3134,8 +3134,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf",
-      "community": 42,
-      "community_name": "User",
+      "community": 67,
+      "community_name": "build_invoice_pdf",
       "norm_label": "invoice_pdf.py"
     },
     {
@@ -3145,8 +3145,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_pushtobottom",
-      "community": 42,
-      "community_name": "User",
+      "community": 67,
+      "community_name": "build_invoice_pdf",
       "norm_label": "pushtobottom"
     },
     {
@@ -3156,8 +3156,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "flowable",
-      "community": 42,
-      "community_name": "User",
+      "community": 67,
+      "community_name": "build_invoice_pdf",
       "norm_label": "flowable"
     },
     {
@@ -3167,8 +3167,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_pushtobottom_init",
-      "community": 42,
-      "community_name": "User",
+      "community": 67,
+      "community_name": "build_invoice_pdf",
       "norm_label": ".__init__()"
     },
     {
@@ -3178,8 +3178,8 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_pushtobottom_wrap",
-      "community": 42,
-      "community_name": "User",
+      "community": 67,
+      "community_name": "build_invoice_pdf",
       "norm_label": ".wrap()"
     },
     {
@@ -3189,8 +3189,8 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_pushtobottom_draw",
-      "community": 42,
-      "community_name": "User",
+      "community": 67,
+      "community_name": "build_invoice_pdf",
       "norm_label": ".draw()"
     },
     {
@@ -3200,8 +3200,8 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_format_money",
-      "community": 42,
-      "community_name": "User",
+      "community": 67,
+      "community_name": "build_invoice_pdf",
       "norm_label": "format_money()"
     },
     {
@@ -3211,8 +3211,8 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_build_invoice_pdf",
-      "community": 42,
-      "community_name": "User",
+      "community": 67,
+      "community_name": "build_invoice_pdf",
       "norm_label": "build_invoice_pdf()"
     },
     {
@@ -3222,8 +3222,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_py_any",
-      "community": 42,
-      "community_name": "User",
+      "community": 67,
+      "community_name": "build_invoice_pdf",
       "norm_label": "any"
     },
     {
@@ -3233,8 +3233,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "backend_app_services_invoice_pdf_rationale_20",
-      "community": 42,
-      "community_name": "User",
+      "community": 67,
+      "community_name": "build_invoice_pdf",
       "norm_label": "dynamically absorbs unused vertical space on the current page, pushing target..."
     },
     {
@@ -3244,8 +3244,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_tests_conftest",
-      "community": 69,
-      "community_name": "conftest.py",
+      "community": 2,
+      "community_name": "Currency",
       "norm_label": "conftest.py"
     },
     {
@@ -3255,8 +3255,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "backend_tests_conftest_override_get_db",
-      "community": 69,
-      "community_name": "conftest.py",
+      "community": 2,
+      "community_name": "Currency",
       "norm_label": "override_get_db()"
     },
     {
@@ -3266,8 +3266,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "fixture",
-      "community": 69,
-      "community_name": "conftest.py",
+      "community": 2,
+      "community_name": "Currency",
       "norm_label": "fixture"
     },
     {
@@ -3277,8 +3277,8 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "backend_tests_conftest_prepare_database",
-      "community": 69,
-      "community_name": "conftest.py",
+      "community": 2,
+      "community_name": "Currency",
       "norm_label": "prepare_database()"
     },
     {
@@ -3288,8 +3288,8 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "backend_tests_conftest_client",
-      "community": 69,
-      "community_name": "conftest.py",
+      "community": 2,
+      "community_name": "Currency",
       "norm_label": "client()"
     },
     {
@@ -3300,7 +3300,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_auth_api",
       "community": 2,
-      "community_name": "pytest",
+      "community_name": "Currency",
       "norm_label": "test_auth_api.py"
     },
     {
@@ -3311,7 +3311,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_auth_api_py_asyncio",
       "community": 2,
-      "community_name": "pytest",
+      "community_name": "Currency",
       "norm_label": "asyncio"
     },
     {
@@ -3322,7 +3322,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_auth_api_test_full_security_and_auth_lifecycle",
       "community": 2,
-      "community_name": "pytest",
+      "community_name": "Currency",
       "norm_label": "test_full_security_and_auth_lifecycle()"
     },
     {
@@ -3333,7 +3333,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_auth_api_py_asyncclient",
       "community": 2,
-      "community_name": "pytest",
+      "community_name": "Currency",
       "norm_label": "asyncclient"
     },
     {
@@ -3387,7 +3387,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_tests_test_clients_api",
-      "community": 39,
+      "community": 2,
       "community_name": "Currency",
       "norm_label": "test_clients_api.py"
     },
@@ -3398,7 +3398,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_tests_test_clients_api_py_asyncio",
-      "community": 39,
+      "community": 2,
       "community_name": "Currency",
       "norm_label": "asyncio"
     },
@@ -3409,7 +3409,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "backend_tests_test_clients_api_test_client_lifecycle_and_address_validation",
-      "community": 39,
+      "community": 2,
       "community_name": "Currency",
       "norm_label": "test_client_lifecycle_and_address_validation()"
     },
@@ -3420,7 +3420,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_tests_test_clients_api_py_asyncclient",
-      "community": 39,
+      "community": 2,
       "community_name": "Currency",
       "norm_label": "asyncclient"
     },
@@ -3431,7 +3431,7 @@
       "source_location": "L147",
       "_origin": "ast",
       "id": "backend_tests_test_clients_api_test_client_incoming_currency_and_equivalent_inr_auto_calc",
-      "community": 39,
+      "community": 2,
       "community_name": "Currency",
       "norm_label": "test_client_incoming_currency_and_equivalent_inr_auto_calc()"
     },
@@ -3443,7 +3443,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_gateways_api",
       "community": 2,
-      "community_name": "pytest",
+      "community_name": "Currency",
       "norm_label": "test_gateways_api.py"
     },
     {
@@ -3454,7 +3454,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_gateways_api_py_asyncio",
       "community": 2,
-      "community_name": "pytest",
+      "community_name": "Currency",
       "norm_label": "asyncio"
     },
     {
@@ -3465,7 +3465,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_gateways_api_test_payment_gateways_lifecycle",
       "community": 2,
-      "community_name": "pytest",
+      "community_name": "Currency",
       "norm_label": "test_payment_gateways_lifecycle()"
     },
     {
@@ -3476,7 +3476,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_gateways_api_py_asyncclient",
       "community": 2,
-      "community_name": "pytest",
+      "community_name": "Currency",
       "norm_label": "asyncclient"
     },
     {
@@ -3486,7 +3486,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_tests_test_invoices_api",
-      "community": 39,
+      "community": 2,
       "community_name": "Currency",
       "norm_label": "test_invoices_api.py"
     },
@@ -3497,7 +3497,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_tests_test_invoices_api_py_asyncio",
-      "community": 39,
+      "community": 2,
       "community_name": "Currency",
       "norm_label": "asyncio"
     },
@@ -3508,7 +3508,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "backend_tests_test_invoices_api_test_invoice_lifecycle_and_numbering",
-      "community": 39,
+      "community": 2,
       "community_name": "Currency",
       "norm_label": "test_invoice_lifecycle_and_numbering()"
     },
@@ -3519,7 +3519,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_tests_test_invoices_api_py_asyncclient",
-      "community": 39,
+      "community": 2,
       "community_name": "Currency",
       "norm_label": "asyncclient"
     },
@@ -3530,7 +3530,7 @@
       "source_location": "L149",
       "_origin": "ast",
       "id": "backend_tests_test_invoices_api_test_unbilled_tasks_aggregation_and_sync",
-      "community": 39,
+      "community": 2,
       "community_name": "Currency",
       "norm_label": "test_unbilled_tasks_aggregation_and_sync()"
     },
@@ -3541,7 +3541,7 @@
       "source_location": "L358",
       "_origin": "ast",
       "id": "backend_tests_test_invoices_api_test_invoice_payment_and_reconciliation",
-      "community": 39,
+      "community": 2,
       "community_name": "Currency",
       "norm_label": "test_invoice_payment_and_reconciliation()"
     },
@@ -3553,7 +3553,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_projects_and_tasks_api",
       "community": 2,
-      "community_name": "pytest",
+      "community_name": "Currency",
       "norm_label": "test_projects_and_tasks_api.py"
     },
     {
@@ -3564,7 +3564,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_projects_and_tasks_api_py_asyncio",
       "community": 2,
-      "community_name": "pytest",
+      "community_name": "Currency",
       "norm_label": "asyncio"
     },
     {
@@ -3575,7 +3575,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_projects_and_tasks_api_test_projects_and_tasks_lifecycle",
       "community": 2,
-      "community_name": "pytest",
+      "community_name": "Currency",
       "norm_label": "test_projects_and_tasks_lifecycle()"
     },
     {
@@ -3586,7 +3586,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_projects_and_tasks_api_py_asyncclient",
       "community": 2,
-      "community_name": "pytest",
+      "community_name": "Currency",
       "norm_label": "asyncclient"
     },
     {
@@ -3597,7 +3597,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_settings_api",
       "community": 2,
-      "community_name": "pytest",
+      "community_name": "Currency",
       "norm_label": "test_settings_api.py"
     },
     {
@@ -3608,7 +3608,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_settings_api_py_asyncio",
       "community": 2,
-      "community_name": "pytest",
+      "community_name": "Currency",
       "norm_label": "asyncio"
     },
     {
@@ -3619,7 +3619,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_settings_api_test_settings_lifecycle",
       "community": 2,
-      "community_name": "pytest",
+      "community_name": "Currency",
       "norm_label": "test_settings_lifecycle()"
     },
     {
@@ -3630,7 +3630,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_settings_api_py_asyncclient",
       "community": 2,
-      "community_name": "pytest",
+      "community_name": "Currency",
       "norm_label": "asyncclient"
     },
     {
@@ -3641,7 +3641,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_time_entries_api",
       "community": 2,
-      "community_name": "pytest",
+      "community_name": "Currency",
       "norm_label": "test_time_entries_api.py"
     },
     {
@@ -3652,7 +3652,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_time_entries_api_py_asyncio",
       "community": 2,
-      "community_name": "pytest",
+      "community_name": "Currency",
       "norm_label": "asyncio"
     },
     {
@@ -3663,7 +3663,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_time_entries_api_test_time_entries_lifecycle_and_task_tracking",
       "community": 2,
-      "community_name": "pytest",
+      "community_name": "Currency",
       "norm_label": "test_time_entries_lifecycle_and_task_tracking()"
     },
     {
@@ -3674,7 +3674,7 @@
       "_origin": "ast",
       "id": "backend_tests_test_time_entries_api_py_asyncclient",
       "community": 2,
-      "community_name": "pytest",
+      "community_name": "Currency",
       "norm_label": "asyncclient"
     },
     {
@@ -9165,8 +9165,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_clients_page",
-      "community": 10,
-      "community_name": "AppShell.tsx",
+      "community": 62,
+      "community_name": "api-client.ts",
       "norm_label": "clients/page.tsx"
     },
     {
@@ -9176,8 +9176,8 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "frontend_src_app_clients_page_currencysetting",
-      "community": 10,
-      "community_name": "AppShell.tsx",
+      "community": 62,
+      "community_name": "api-client.ts",
       "norm_label": "currencysetting"
     },
     {
@@ -9187,8 +9187,8 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "frontend_src_app_clients_page_clientspage",
-      "community": 10,
-      "community_name": "AppShell.tsx",
+      "community": 62,
+      "community_name": "api-client.ts",
       "norm_label": "clientspage()"
     },
     {
@@ -9221,7 +9221,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_gateways_page",
       "community": 62,
-      "community_name": "GatewayModal.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "gateways/page.tsx"
     },
     {
@@ -9232,7 +9232,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_gateways_page_gatewayspage",
       "community": 62,
-      "community_name": "GatewayModal.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "gatewayspage()"
     },
     {
@@ -9342,7 +9342,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_project_scheduler_page",
       "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community_name": "projects/page.tsx",
       "norm_label": "project-scheduler/page.tsx"
     },
     {
@@ -9353,7 +9353,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_project_scheduler_page_projectschedulerpage",
       "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community_name": "projects/page.tsx",
       "norm_label": "projectschedulerpage()"
     },
     {
@@ -9363,7 +9363,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_projects_page",
-      "community": 44,
+      "community": 49,
       "community_name": "projects/page.tsx",
       "norm_label": "projects/page.tsx"
     },
@@ -9375,7 +9375,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_projects_page_projectspage",
       "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community_name": "projects/page.tsx",
       "norm_label": "projectspage()"
     },
     {
@@ -9386,7 +9386,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_tasks_page",
       "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community_name": "projects/page.tsx",
       "norm_label": "tasks/page.tsx"
     },
     {
@@ -9397,7 +9397,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_tasks_page_periodfilter",
       "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community_name": "projects/page.tsx",
       "norm_label": "periodfilter"
     },
     {
@@ -9408,7 +9408,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_tasks_page_taskspage",
       "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community_name": "projects/page.tsx",
       "norm_label": "taskspage()"
     },
     {
@@ -9419,7 +9419,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_time_tracker_page",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "time-tracker/page.tsx"
     },
     {
@@ -9430,7 +9430,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_time_tracker_page_periodfilter",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "periodfilter"
     },
     {
@@ -9441,7 +9441,7 @@
       "_origin": "ast",
       "id": "frontend_src_app_time_tracker_page_timetrackerpage",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "timetrackerpage()"
     },
     {
@@ -9550,8 +9550,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_components_common_searchableclientselect",
-      "community": 38,
-      "community_name": "InvoiceModal.tsx",
+      "community": 49,
+      "community_name": "projects/page.tsx",
       "norm_label": "searchableclientselect.tsx"
     },
     {
@@ -9561,8 +9561,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "frontend_src_components_common_searchableclientselect_clientoption",
-      "community": 38,
-      "community_name": "InvoiceModal.tsx",
+      "community": 49,
+      "community_name": "projects/page.tsx",
       "norm_label": "clientoption"
     },
     {
@@ -9572,8 +9572,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "frontend_src_components_common_searchableclientselect_searchableclientselectprops",
-      "community": 38,
-      "community_name": "InvoiceModal.tsx",
+      "community": 49,
+      "community_name": "projects/page.tsx",
       "norm_label": "searchableclientselectprops"
     },
     {
@@ -9583,8 +9583,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "frontend_src_components_common_searchableclientselect_searchableclientselect",
-      "community": 38,
-      "community_name": "InvoiceModal.tsx",
+      "community": 49,
+      "community_name": "projects/page.tsx",
       "norm_label": "searchableclientselect()"
     },
     {
@@ -9595,7 +9595,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_common_searchableprojectselect",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "searchableprojectselect.tsx"
     },
     {
@@ -9606,7 +9606,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_common_searchableprojectselect_projectoption",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectoption"
     },
     {
@@ -9617,7 +9617,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_common_searchableprojectselect_searchableprojectselectprops",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "searchableprojectselectprops"
     },
     {
@@ -9628,7 +9628,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_common_searchableprojectselect_searchableprojectselect",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "searchableprojectselect()"
     },
     {
@@ -9646,7 +9646,7 @@
       "label": "AppShellProps",
       "file_type": "code",
       "source_file": "frontend/src/components/layout/AppShell.tsx",
-      "source_location": "L13",
+      "source_location": "L12",
       "_origin": "ast",
       "id": "frontend_src_components_layout_appshell_appshellprops",
       "community": 10,
@@ -9657,56 +9657,12 @@
       "label": "AppShell()",
       "file_type": "code",
       "source_file": "frontend/src/components/layout/AppShell.tsx",
-      "source_location": "L18",
+      "source_location": "L17",
       "_origin": "ast",
       "id": "frontend_src_components_layout_appshell_appshell",
       "community": 10,
       "community_name": "AppShell.tsx",
       "norm_label": "appshell()"
-    },
-    {
-      "label": "GlobalTimerBar.tsx",
-      "file_type": "code",
-      "source_file": "frontend/src/components/layout/GlobalTimerBar.tsx",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "frontend_src_components_layout_globaltimerbar",
-      "community": 44,
-      "community_name": "projects/page.tsx",
-      "norm_label": "globaltimerbar.tsx"
-    },
-    {
-      "label": "TimerState",
-      "file_type": "code",
-      "source_file": "frontend/src/components/layout/GlobalTimerBar.tsx",
-      "source_location": "L9",
-      "_origin": "ast",
-      "id": "frontend_src_components_layout_globaltimerbar_timerstate",
-      "community": 44,
-      "community_name": "projects/page.tsx",
-      "norm_label": "timerstate"
-    },
-    {
-      "label": "WidgetPosition",
-      "file_type": "code",
-      "source_file": "frontend/src/components/layout/GlobalTimerBar.tsx",
-      "source_location": "L20",
-      "_origin": "ast",
-      "id": "frontend_src_components_layout_globaltimerbar_widgetposition",
-      "community": 44,
-      "community_name": "projects/page.tsx",
-      "norm_label": "widgetposition"
-    },
-    {
-      "label": "GlobalTimerBar()",
-      "file_type": "code",
-      "source_file": "frontend/src/components/layout/GlobalTimerBar.tsx",
-      "source_location": "L25",
-      "_origin": "ast",
-      "id": "frontend_src_components_layout_globaltimerbar_globaltimerbar",
-      "community": 44,
-      "community_name": "projects/page.tsx",
-      "norm_label": "globaltimerbar()"
     },
     {
       "label": "Header.tsx",
@@ -9715,8 +9671,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_components_layout_header",
-      "community": 10,
-      "community_name": "AppShell.tsx",
+      "community": 62,
+      "community_name": "api-client.ts",
       "norm_label": "header.tsx"
     },
     {
@@ -9726,8 +9682,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "frontend_src_components_layout_header_headerprops",
-      "community": 10,
-      "community_name": "AppShell.tsx",
+      "community": 62,
+      "community_name": "api-client.ts",
       "norm_label": "headerprops"
     },
     {
@@ -9737,8 +9693,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "frontend_src_components_layout_header_header",
-      "community": 10,
-      "community_name": "AppShell.tsx",
+      "community": 62,
+      "community_name": "api-client.ts",
       "norm_label": "header()"
     },
     {
@@ -9781,8 +9737,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_components_modules_clients_clientmodal",
-      "community": 10,
-      "community_name": "AppShell.tsx",
+      "community": 62,
+      "community_name": "api-client.ts",
       "norm_label": "clientmodal.tsx"
     },
     {
@@ -9792,8 +9748,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "frontend_src_components_modules_clients_clientmodal_clientdata",
-      "community": 10,
-      "community_name": "AppShell.tsx",
+      "community": 62,
+      "community_name": "api-client.ts",
       "norm_label": "clientdata"
     },
     {
@@ -9803,8 +9759,8 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "frontend_src_components_modules_clients_clientmodal_currencyoption",
-      "community": 10,
-      "community_name": "AppShell.tsx",
+      "community": 62,
+      "community_name": "api-client.ts",
       "norm_label": "currencyoption"
     },
     {
@@ -9814,8 +9770,8 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "frontend_src_components_modules_clients_clientmodal_clientmodalprops",
-      "community": 10,
-      "community_name": "AppShell.tsx",
+      "community": 62,
+      "community_name": "api-client.ts",
       "norm_label": "clientmodalprops"
     },
     {
@@ -9825,8 +9781,8 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "frontend_src_components_modules_clients_clientmodal_clientmodal",
-      "community": 10,
-      "community_name": "AppShell.tsx",
+      "community": 62,
+      "community_name": "api-client.ts",
       "norm_label": "clientmodal()"
     },
     {
@@ -9837,7 +9793,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_gateways_gatewaymodal",
       "community": 62,
-      "community_name": "GatewayModal.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "gatewaymodal.tsx"
     },
     {
@@ -9848,7 +9804,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_gateways_gatewaymodal_gatewaymodalprops",
       "community": 62,
-      "community_name": "GatewayModal.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "gatewaymodalprops"
     },
     {
@@ -9859,7 +9815,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_gateways_gatewaymodal_currencyoption",
       "community": 62,
-      "community_name": "GatewayModal.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "currencyoption"
     },
     {
@@ -9870,7 +9826,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_gateways_gatewaymodal_common_currencies",
       "community": 62,
-      "community_name": "GatewayModal.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "common_currencies"
     },
     {
@@ -9881,7 +9837,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_gateways_gatewaymodal_gatewaymodal",
       "community": 62,
-      "community_name": "GatewayModal.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "gatewaymodal()"
     },
     {
@@ -9924,8 +9880,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_components_modules_invoices_invoicetable",
-      "community": 45,
-      "community_name": "InvoiceTable.tsx",
+      "community": 38,
+      "community_name": "InvoiceModal.tsx",
       "norm_label": "invoicetable.tsx"
     },
     {
@@ -9935,8 +9891,8 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "frontend_src_components_modules_invoices_invoicetable_invoicetableprops",
-      "community": 45,
-      "community_name": "InvoiceTable.tsx",
+      "community": 38,
+      "community_name": "InvoiceModal.tsx",
       "norm_label": "invoicetableprops"
     },
     {
@@ -9946,8 +9902,8 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "frontend_src_components_modules_invoices_invoicetable_sortfield",
-      "community": 45,
-      "community_name": "InvoiceTable.tsx",
+      "community": 38,
+      "community_name": "InvoiceModal.tsx",
       "norm_label": "sortfield"
     },
     {
@@ -9957,8 +9913,8 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "frontend_src_components_modules_invoices_invoicetable_sortdirection",
-      "community": 45,
-      "community_name": "InvoiceTable.tsx",
+      "community": 38,
+      "community_name": "InvoiceModal.tsx",
       "norm_label": "sortdirection"
     },
     {
@@ -9968,8 +9924,8 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "frontend_src_components_modules_invoices_invoicetable_default_invoice_widths",
-      "community": 45,
-      "community_name": "InvoiceTable.tsx",
+      "community": 38,
+      "community_name": "InvoiceModal.tsx",
       "norm_label": "default_invoice_widths"
     },
     {
@@ -9979,8 +9935,8 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "frontend_src_components_modules_invoices_invoicetable_min_invoice_widths",
-      "community": 45,
-      "community_name": "InvoiceTable.tsx",
+      "community": 38,
+      "community_name": "InvoiceModal.tsx",
       "norm_label": "min_invoice_widths"
     },
     {
@@ -9991,7 +9947,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_invoices_invoicetable_invoicetable",
       "community": 45,
-      "community_name": "InvoiceTable.tsx",
+      "community_name": "TimeEntryTable.tsx",
       "norm_label": "invoicetable()"
     },
     {
@@ -10002,7 +9958,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectmodal",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectmodal.tsx"
     },
     {
@@ -10013,7 +9969,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectmodal_clientoption",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "clientoption"
     },
     {
@@ -10024,7 +9980,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectmodal_projectmodalprops",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectmodalprops"
     },
     {
@@ -10035,7 +9991,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectmodal_projectmodal",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectmodal()"
     },
     {
@@ -10046,7 +10002,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectschedulercalendar",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectschedulercalendar.tsx"
     },
     {
@@ -10057,7 +10013,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectschedulercalendar_projectschedulercalendarprops",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectschedulercalendarprops"
     },
     {
@@ -10068,7 +10024,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectschedulercalendar_month_names",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "month_names"
     },
     {
@@ -10079,7 +10035,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectschedulercalendar_weekday_names",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "weekday_names"
     },
     {
@@ -10090,7 +10046,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projectschedulercalendar_projectschedulercalendar",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectschedulercalendar()"
     },
     {
@@ -10101,7 +10057,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable",
       "community": 45,
-      "community_name": "InvoiceTable.tsx",
+      "community_name": "TimeEntryTable.tsx",
       "norm_label": "projecttable.tsx"
     },
     {
@@ -10112,7 +10068,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable_projecttableprops",
       "community": 45,
-      "community_name": "InvoiceTable.tsx",
+      "community_name": "TimeEntryTable.tsx",
       "norm_label": "projecttableprops"
     },
     {
@@ -10123,7 +10079,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable_sortfield",
       "community": 45,
-      "community_name": "InvoiceTable.tsx",
+      "community_name": "TimeEntryTable.tsx",
       "norm_label": "sortfield"
     },
     {
@@ -10134,7 +10090,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable_sortdirection",
       "community": 45,
-      "community_name": "InvoiceTable.tsx",
+      "community_name": "TimeEntryTable.tsx",
       "norm_label": "sortdirection"
     },
     {
@@ -10145,7 +10101,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable_default_project_widths",
       "community": 45,
-      "community_name": "InvoiceTable.tsx",
+      "community_name": "TimeEntryTable.tsx",
       "norm_label": "default_project_widths"
     },
     {
@@ -10156,7 +10112,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable_min_project_widths",
       "community": 45,
-      "community_name": "InvoiceTable.tsx",
+      "community_name": "TimeEntryTable.tsx",
       "norm_label": "min_project_widths"
     },
     {
@@ -10167,7 +10123,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttable_projecttable",
       "community": 45,
-      "community_name": "InvoiceTable.tsx",
+      "community_name": "TimeEntryTable.tsx",
       "norm_label": "projecttable()"
     },
     {
@@ -10178,7 +10134,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttasksmodal",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projecttasksmodal.tsx"
     },
     {
@@ -10189,7 +10145,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttasksmodal_projecttasksmodalprops",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projecttasksmodalprops"
     },
     {
@@ -10200,7 +10156,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_projecttasksmodal_projecttasksmodal",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projecttasksmodal()"
     },
     {
@@ -10211,7 +10167,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_taskmodal",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "taskmodal.tsx"
     },
     {
@@ -10222,7 +10178,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_taskmodal_taskmodalprops",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "taskmodalprops"
     },
     {
@@ -10233,7 +10189,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_taskmodal_taskmodal",
       "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community_name": "projects/page.tsx",
       "norm_label": "taskmodal()"
     },
     {
@@ -10244,7 +10200,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable",
       "community": 45,
-      "community_name": "InvoiceTable.tsx",
+      "community_name": "TimeEntryTable.tsx",
       "norm_label": "tasktable.tsx"
     },
     {
@@ -10254,8 +10210,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_tasktableprops",
-      "community": 45,
-      "community_name": "InvoiceTable.tsx",
+      "community": 44,
+      "community_name": "project.ts",
       "norm_label": "tasktableprops"
     },
     {
@@ -10266,7 +10222,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_sortfield",
       "community": 45,
-      "community_name": "InvoiceTable.tsx",
+      "community_name": "TimeEntryTable.tsx",
       "norm_label": "sortfield"
     },
     {
@@ -10277,7 +10233,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_sortdirection",
       "community": 45,
-      "community_name": "InvoiceTable.tsx",
+      "community_name": "TimeEntryTable.tsx",
       "norm_label": "sortdirection"
     },
     {
@@ -10288,7 +10244,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_default_task_widths",
       "community": 45,
-      "community_name": "InvoiceTable.tsx",
+      "community_name": "TimeEntryTable.tsx",
       "norm_label": "default_task_widths"
     },
     {
@@ -10299,7 +10255,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_min_task_widths",
       "community": 45,
-      "community_name": "InvoiceTable.tsx",
+      "community_name": "TimeEntryTable.tsx",
       "norm_label": "min_task_widths"
     },
     {
@@ -10310,7 +10266,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_projects_tasktable_tasktable",
       "community": 45,
-      "community_name": "InvoiceTable.tsx",
+      "community_name": "TimeEntryTable.tsx",
       "norm_label": "tasktable()"
     },
     {
@@ -10321,7 +10277,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal",
       "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community_name": "projects/page.tsx",
       "norm_label": "manualtimemodal.tsx"
     },
     {
@@ -10332,7 +10288,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_manualtimemodalprops",
       "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community_name": "projects/page.tsx",
       "norm_label": "manualtimemodalprops"
     },
     {
@@ -10343,7 +10299,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_tolocaldatestr",
       "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community_name": "projects/page.tsx",
       "norm_label": "tolocaldatestr()"
     },
     {
@@ -10354,7 +10310,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_tolocaltimestr",
       "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community_name": "projects/page.tsx",
       "norm_label": "tolocaltimestr()"
     },
     {
@@ -10365,7 +10321,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_timetominutes",
       "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community_name": "projects/page.tsx",
       "norm_label": "timetominutes()"
     },
     {
@@ -10376,7 +10332,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_minutestotime",
       "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community_name": "projects/page.tsx",
       "norm_label": "minutestotime()"
     },
     {
@@ -10387,7 +10343,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_manualtimemodal_manualtimemodal",
       "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community_name": "projects/page.tsx",
       "norm_label": "manualtimemodal()"
     },
     {
@@ -10398,7 +10354,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_starttimermodal",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "starttimermodal.tsx"
     },
     {
@@ -10409,7 +10365,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_starttimermodal_starttimermodalprops",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "starttimermodalprops"
     },
     {
@@ -10420,7 +10376,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_starttimermodal_starttimermodal",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "starttimermodal()"
     },
     {
@@ -10430,8 +10386,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable",
-      "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community": 45,
+      "community_name": "TimeEntryTable.tsx",
       "norm_label": "timeentrytable.tsx"
     },
     {
@@ -10442,7 +10398,7 @@
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_timeentrytableprops",
       "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community_name": "projects/page.tsx",
       "norm_label": "timeentrytableprops"
     },
     {
@@ -10452,8 +10408,8 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_sortfield",
-      "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community": 45,
+      "community_name": "TimeEntryTable.tsx",
       "norm_label": "sortfield"
     },
     {
@@ -10463,8 +10419,8 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_sortdirection",
-      "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community": 45,
+      "community_name": "TimeEntryTable.tsx",
       "norm_label": "sortdirection"
     },
     {
@@ -10474,8 +10430,8 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_default_time_widths",
-      "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community": 45,
+      "community_name": "TimeEntryTable.tsx",
       "norm_label": "default_time_widths"
     },
     {
@@ -10485,8 +10441,8 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_min_time_widths",
-      "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community": 45,
+      "community_name": "TimeEntryTable.tsx",
       "norm_label": "min_time_widths"
     },
     {
@@ -10496,8 +10452,8 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "frontend_src_components_modules_time_timeentrytable_timeentrytable",
-      "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community": 45,
+      "community_name": "TimeEntryTable.tsx",
       "norm_label": "timeentrytable()"
     },
     {
@@ -10596,7 +10552,7 @@
       "_origin": "ast",
       "id": "frontend_src_hooks_useresizablecolumns",
       "community": 45,
-      "community_name": "InvoiceTable.tsx",
+      "community_name": "TimeEntryTable.tsx",
       "norm_label": "useresizablecolumns.tsx"
     },
     {
@@ -10607,7 +10563,7 @@
       "_origin": "ast",
       "id": "frontend_src_hooks_useresizablecolumns_useresizablecolumns",
       "community": 45,
-      "community_name": "InvoiceTable.tsx",
+      "community_name": "TimeEntryTable.tsx",
       "norm_label": "useresizablecolumns()"
     },
     {
@@ -10618,7 +10574,7 @@
       "_origin": "ast",
       "id": "frontend_src_hooks_useresizablecolumns_resizehandle",
       "community": 45,
-      "community_name": "InvoiceTable.tsx",
+      "community_name": "TimeEntryTable.tsx",
       "norm_label": "resizehandle()"
     },
     {
@@ -10628,8 +10584,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_lib_api_client",
-      "community": 10,
-      "community_name": "AppShell.tsx",
+      "community": 62,
+      "community_name": "api-client.ts",
       "norm_label": "api-client.ts"
     },
     {
@@ -10639,8 +10595,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_lib_api_client_apierror",
-      "community": 10,
-      "community_name": "AppShell.tsx",
+      "community": 62,
+      "community_name": "api-client.ts",
       "norm_label": "apierror"
     },
     {
@@ -10650,8 +10606,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "frontend_src_lib_api_client_apierror_constructor",
-      "community": 10,
-      "community_name": "AppShell.tsx",
+      "community": 62,
+      "community_name": "api-client.ts",
       "norm_label": ".constructor()"
     },
     {
@@ -10661,8 +10617,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "frontend_src_lib_api_client_requestoptions",
-      "community": 10,
-      "community_name": "AppShell.tsx",
+      "community": 62,
+      "community_name": "api-client.ts",
       "norm_label": "requestoptions"
     },
     {
@@ -10672,8 +10628,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "frontend_src_lib_api_client_request",
-      "community": 10,
-      "community_name": "AppShell.tsx",
+      "community": 62,
+      "community_name": "api-client.ts",
       "norm_label": "request()"
     },
     {
@@ -10683,8 +10639,8 @@
       "source_location": "L75",
       "_origin": "ast",
       "id": "frontend_src_lib_api_client_api",
-      "community": 10,
-      "community_name": "AppShell.tsx",
+      "community": 62,
+      "community_name": "api-client.ts",
       "norm_label": "api"
     },
     {
@@ -10695,7 +10651,7 @@
       "_origin": "ast",
       "id": "frontend_src_lib_date",
       "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community_name": "projects/page.tsx",
       "norm_label": "date.ts"
     },
     {
@@ -10706,7 +10662,7 @@
       "_origin": "ast",
       "id": "frontend_src_lib_date_parseutcdate",
       "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community_name": "projects/page.tsx",
       "norm_label": "parseutcdate()"
     },
     {
@@ -10717,7 +10673,7 @@
       "_origin": "ast",
       "id": "frontend_src_lib_date_formatlocaldatestr",
       "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community_name": "projects/page.tsx",
       "norm_label": "formatlocaldatestr()"
     },
     {
@@ -10783,7 +10739,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_gateway",
       "community": 62,
-      "community_name": "GatewayModal.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "gateway.ts"
     },
     {
@@ -10794,7 +10750,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_gateway_gatewaydata",
       "community": 62,
-      "community_name": "GatewayModal.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "gatewaydata"
     },
     {
@@ -10805,7 +10761,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_gateway_gatewaycreatepayload",
       "community": 62,
-      "community_name": "GatewayModal.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "gatewaycreatepayload"
     },
     {
@@ -10816,7 +10772,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_gateway_gatewayupdatepayload",
       "community": 62,
-      "community_name": "GatewayModal.tsx",
+      "community_name": "api-client.ts",
       "norm_label": "gatewayupdatepayload"
     },
     {
@@ -10937,7 +10893,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "project.ts"
     },
     {
@@ -10948,7 +10904,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_taskstatus",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "taskstatus"
     },
     {
@@ -10959,7 +10915,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_taskpriority",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "taskpriority"
     },
     {
@@ -10970,7 +10926,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_checklistitem",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "checklistitem"
     },
     {
@@ -10981,7 +10937,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_taskdata",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "taskdata"
     },
     {
@@ -10992,7 +10948,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_projectbillingtype",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectbillingtype"
     },
     {
@@ -11003,7 +10959,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_projectstatus",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectstatus"
     },
     {
@@ -11014,7 +10970,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_projectclientinfo",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectclientinfo"
     },
     {
@@ -11025,7 +10981,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_project_projectdata",
       "community": 44,
-      "community_name": "projects/page.tsx",
+      "community_name": "project.ts",
       "norm_label": "projectdata"
     },
     {
@@ -11036,7 +10992,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_time",
       "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community_name": "projects/page.tsx",
       "norm_label": "time.ts"
     },
     {
@@ -11047,7 +11003,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_time_timeentrydata",
       "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community_name": "projects/page.tsx",
       "norm_label": "timeentrydata"
     },
     {
@@ -11058,7 +11014,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_time_timeentrycreatepayload",
       "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community_name": "projects/page.tsx",
       "norm_label": "timeentrycreatepayload"
     },
     {
@@ -11069,7 +11025,7 @@
       "_origin": "ast",
       "id": "frontend_src_types_time_timeentryupdatepayload",
       "community": 49,
-      "community_name": "tasks/page.tsx",
+      "community_name": "projects/page.tsx",
       "norm_label": "timeentryupdatepayload"
     },
     {
@@ -12848,7 +12804,7 @@
     {
       "label": "pytest",
       "community": 2,
-      "community_name": "pytest",
+      "community_name": "Currency",
       "external": true,
       "file_type": "concept",
       "norm_label": "pytest",
@@ -12896,7 +12852,7 @@
     {
       "label": "httpx",
       "community": 2,
-      "community_name": "pytest",
+      "community_name": "Currency",
       "external": true,
       "file_type": "concept",
       "norm_label": "httpx",
@@ -12907,8 +12863,8 @@
     },
     {
       "label": "pytest_asyncio",
-      "community": 69,
-      "community_name": "conftest.py",
+      "community": 2,
+      "community_name": "Currency",
       "external": true,
       "file_type": "concept",
       "norm_label": "pytest_asyncio",
@@ -12932,7 +12888,7 @@
     {
       "label": "sqlalchemy_ext_asyncio",
       "community": 69,
-      "community_name": "conftest.py",
+      "community_name": "get_db",
       "external": true,
       "file_type": "concept",
       "norm_label": "sqlalchemy_ext_asyncio",
@@ -12955,8 +12911,8 @@
     },
     {
       "label": "sqlite3",
-      "community": 3,
-      "community_name": "settings.py",
+      "community": 69,
+      "community_name": "get_db",
       "external": true,
       "file_type": "concept",
       "norm_label": "sqlite3",
@@ -12967,8 +12923,8 @@
     },
     {
       "label": "typing",
-      "community": 42,
-      "community_name": "User",
+      "community": 3,
+      "community_name": "settings.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "typing",
@@ -13003,8 +12959,8 @@
     },
     {
       "label": "contextlib",
-      "community": 6,
-      "community_name": "time_entries.py",
+      "community": 39,
+      "community_name": "gateways.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "contextlib",
@@ -13015,8 +12971,8 @@
     },
     {
       "label": "fastapi_middleware_cors",
-      "community": 6,
-      "community_name": "time_entries.py",
+      "community": 39,
+      "community_name": "gateways.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "fastapi_middleware_cors",
@@ -13027,8 +12983,8 @@
     },
     {
       "label": "starlette_middleware_base",
-      "community": 6,
-      "community_name": "time_entries.py",
+      "community": 39,
+      "community_name": "gateways.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "starlette_middleware_base",
@@ -34865,7 +34821,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/layout/AppShell.tsx",
-      "source_location": "L9",
+      "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_layout_appshell",
@@ -34943,7 +34899,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/layout/AppShell.tsx",
-      "source_location": "L9",
+      "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_layout_appshell",
@@ -35080,7 +35036,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/layout/AppShell.tsx",
-      "source_location": "L18",
+      "source_location": "L17",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_layout_appshell",
@@ -35091,35 +35047,11 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/layout/AppShell.tsx",
-      "source_location": "L13",
+      "source_location": "L12",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_layout_appshell",
       "target": "frontend_src_components_layout_appshell_appshellprops",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/components/layout/AppShell.tsx",
-      "source_location": "L8",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "frontend_src_components_layout_appshell",
-      "target": "frontend_src_components_layout_globaltimerbar",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/components/layout/AppShell.tsx",
-      "source_location": "L8",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "frontend_src_components_layout_appshell",
-      "target": "frontend_src_components_layout_globaltimerbar_globaltimerbar",
       "confidence_score": 1.0
     },
     {
@@ -35199,7 +35131,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/layout/AppShell.tsx",
-      "source_location": "L11",
+      "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_layout_appshell",
@@ -35211,7 +35143,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/layout/AppShell.tsx",
-      "source_location": "L11",
+      "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_layout_appshell",
@@ -35224,128 +35156,11 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/layout/AppShell.tsx",
-      "source_location": "L30",
+      "source_location": "L29",
       "weight": 1.0,
       "_origin": "ast",
       "source": "frontend_src_components_layout_appshell_appshell",
       "target": "frontend_src_context_authcontext_useauth"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/components/layout/GlobalTimerBar.tsx",
-      "source_location": "L25",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "frontend_src_components_layout_globaltimerbar",
-      "target": "frontend_src_components_layout_globaltimerbar_globaltimerbar",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/components/layout/GlobalTimerBar.tsx",
-      "source_location": "L9",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "frontend_src_components_layout_globaltimerbar",
-      "target": "frontend_src_components_layout_globaltimerbar_timerstate",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/components/layout/GlobalTimerBar.tsx",
-      "source_location": "L20",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "frontend_src_components_layout_globaltimerbar",
-      "target": "frontend_src_components_layout_globaltimerbar_widgetposition",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/components/layout/GlobalTimerBar.tsx",
-      "source_location": "L6",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "frontend_src_components_layout_globaltimerbar",
-      "target": "frontend_src_components_modules_time_starttimermodal",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/components/layout/GlobalTimerBar.tsx",
-      "source_location": "L6",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "frontend_src_components_layout_globaltimerbar",
-      "target": "frontend_src_components_modules_time_starttimermodal_starttimermodal",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/components/layout/GlobalTimerBar.tsx",
-      "source_location": "L7",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "frontend_src_components_layout_globaltimerbar",
-      "target": "frontend_src_lib_api_client",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/components/layout/GlobalTimerBar.tsx",
-      "source_location": "L7",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "frontend_src_components_layout_globaltimerbar",
-      "target": "frontend_src_lib_api_client_api",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/components/layout/GlobalTimerBar.tsx",
-      "source_location": "L5",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "frontend_src_components_layout_globaltimerbar",
-      "target": "frontend_src_types_project",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/components/layout/GlobalTimerBar.tsx",
-      "source_location": "L5",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "frontend_src_components_layout_globaltimerbar",
-      "target": "frontend_src_types_project_projectdata",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/components/layout/GlobalTimerBar.tsx",
-      "source_location": "L5",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "frontend_src_components_layout_globaltimerbar",
-      "target": "frontend_src_types_project_taskdata",
-      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -39422,5 +39237,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "8a601e4e7ef17edf969ebcf7bec1f647460855d3"
+  "built_at_commit": "bb2a560e549509f367b79e9b2d889b3daade3c61"
 }

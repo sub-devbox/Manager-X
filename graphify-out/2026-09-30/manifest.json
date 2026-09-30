@@ -175,8 +175,8 @@
     "semantic_hash": ""
   },
   "frontend/src/components/layout/AppShell.tsx": {
-    "mtime": 1790759719.4739249,
-    "ast_hash": "896cbb503310b7d9f3867c3a371676c5",
+    "mtime": 1790573562.7491727,
+    "ast_hash": "b90958556aa7c1413d2bee4f6b1c7129",
     "semantic_hash": ""
   },
   "frontend/src/components/layout/Header.tsx": {
@@ -667,11 +667,6 @@
   "frontend/src/lib/date.ts": {
     "mtime": 1790594064.0457604,
     "ast_hash": "ba7439bd3929d67f5733a9536c6ec049",
-    "semantic_hash": ""
-  },
-  "frontend/src/components/layout/GlobalTimerBar.tsx": {
-    "mtime": 1790759679.4377866,
-    "ast_hash": "495da0285267c22570d1e8ff59e4c997",
     "semantic_hash": ""
   }
 }
