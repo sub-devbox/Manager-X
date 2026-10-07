@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Play, Pause, Square, Clock, ChevronDown, ChevronUp, GripVertical } from "lucide-react";
+import { Play, Square, Clock, ChevronDown, ChevronUp, GripVertical } from "lucide-react";
 import { ProjectData, TaskData } from "@/types/project";
 import StartTimerModal from "@/components/modules/time/StartTimerModal";
 import { api } from "@/lib/api-client";
@@ -27,7 +27,23 @@ export default function GlobalTimerBar() {
     if (typeof window !== "undefined") {
       try {
         const saved = localStorage.getItem("mx_active_timer");
-        if (saved) return JSON.parse(saved);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (parsed.isRunning && parsed.startTime) {
+            const startMs = new Date(parsed.startTime).getTime();
+            if (!isNaN(startMs)) {
+              parsed.seconds = Math.max(0, Math.floor((Date.now() - startMs) / 1000));
+              return parsed;
+            }
+          }
+          if (!parsed.isRunning) {
+            return {
+              ...parsed,
+              seconds: 0,
+            };
+          }
+          return parsed;
+        }
       } catch {}
     }
     return {
@@ -127,14 +143,39 @@ export default function GlobalTimerBar() {
     window.dispatchEvent(new CustomEvent("mx_timer_state_change", { detail: timerState }));
   }, [timerState]);
 
-  // Client-side ticking when running
+  // Client-side ticking: calculate elapsed seconds against wall-clock startTime to prevent drift or background tab throttling
   useEffect(() => {
-    if (!timerState.isRunning) return;
-    const interval = setInterval(() => {
-      setTimerState((prev) => ({ ...prev, seconds: prev.seconds + 1 }));
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [timerState.isRunning]);
+    if (!timerState.isRunning || !timerState.startTime) return;
+
+    const updateElapsed = () => {
+      const startMs = new Date(timerState.startTime!).getTime();
+      if (!isNaN(startMs)) {
+        const elapsed = Math.max(0, Math.floor((Date.now() - startMs) / 1000));
+        setTimerState((prev) => {
+          if (!prev.isRunning || prev.seconds === elapsed) return prev;
+          return { ...prev, seconds: elapsed };
+        });
+      }
+    };
+
+    updateElapsed();
+    const interval = setInterval(updateElapsed, 1000);
+
+    const handleVisibility = () => {
+      if (document.visibilityState === "visible") {
+        updateElapsed();
+      }
+    };
+
+    window.addEventListener("focus", updateElapsed);
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("focus", updateElapsed);
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
+  }, [timerState.isRunning, timerState.startTime]);
 
   // Listen for task start timer events from TaskTable or TimeTracker
   useEffect(() => {
@@ -148,21 +189,25 @@ export default function GlobalTimerBar() {
       if (customEvent.detail) {
         // Auto-save existing timer if it was running and had seconds >= 1
         const current = timerStateRef.current;
-        if (current.isRunning && current.taskId && current.seconds >= 1) {
-          try {
-            const startTime = current.startTime || new Date(Date.now() - current.seconds * 1000).toISOString();
-            await api.post("/time-entries", {
-              task_id: current.taskId,
-              project_id: current.projectId || undefined,
-              description: current.description || `Logged via stopwatch for ${current.taskTitle}`,
-              start_time: startTime,
-              end_time: new Date().toISOString(),
-              duration_seconds: current.seconds,
-              is_billable: true,
-            });
-            window.dispatchEvent(new CustomEvent("mx_timer_saved"));
-          } catch (err) {
-            console.error("Auto-saving prior timer session failed:", err);
+        if (current.isRunning && current.taskId) {
+          const startMs = current.startTime ? new Date(current.startTime).getTime() : Date.now() - current.seconds * 1000;
+          const duration = Math.max(0, Math.floor((Date.now() - startMs) / 1000));
+          if (duration >= 1) {
+            try {
+              const startTime = current.startTime || new Date(startMs).toISOString();
+              await api.post("/time-entries", {
+                task_id: current.taskId,
+                project_id: current.projectId || undefined,
+                description: current.description || `Logged via stopwatch for ${current.taskTitle}`,
+                start_time: startTime,
+                end_time: new Date().toISOString(),
+                duration_seconds: duration,
+                is_billable: true,
+              });
+              window.dispatchEvent(new CustomEvent("mx_timer_saved"));
+            } catch (err) {
+              console.error("Auto-saving prior timer session failed:", err);
+            }
           }
         }
 
@@ -188,7 +233,14 @@ export default function GlobalTimerBar() {
     const handleStorage = (e: StorageEvent) => {
       if (e.key === "mx_active_timer" && e.newValue) {
         try {
-          setTimerState(JSON.parse(e.newValue));
+          const parsed = JSON.parse(e.newValue);
+          if (parsed.isRunning && parsed.startTime) {
+            const startMs = new Date(parsed.startTime).getTime();
+            if (!isNaN(startMs)) {
+              parsed.seconds = Math.max(0, Math.floor((Date.now() - startMs) / 1000));
+            }
+          }
+          setTimerState(parsed);
         } catch {}
       }
     };
@@ -240,49 +292,33 @@ export default function GlobalTimerBar() {
     setIsModalOpen(false);
   };
 
-  const handlePlayClick = () => {
-    if (timerState.isRunning) {
-      // Pause running timer
-      setTimerState((prev) => ({
-        ...prev,
-        isRunning: false,
-      }));
-    } else {
-      // If task already selected and has seconds, resume; otherwise open selection modal
-      if (timerState.taskId && timerState.seconds > 0) {
-        setTimerState((prev) => ({
-          ...prev,
-          isRunning: true,
-          startTime: prev.startTime || new Date().toISOString(),
-        }));
-      } else {
-        openStartModal();
-      }
-    }
-  };
-
   const stopTimer = async () => {
     const current = timerStateRef.current;
-    if (current.taskId && current.seconds >= 1) {
-      setIsSaving(true);
-      try {
-        const startTime = current.startTime || new Date(Date.now() - current.seconds * 1000).toISOString();
-        await api.post("/time-entries", {
-          task_id: current.taskId,
-          project_id: current.projectId || undefined,
-          description: current.description || `Logged via stopwatch for ${current.taskTitle}`,
-          start_time: startTime,
-          end_time: new Date().toISOString(),
-          duration_seconds: current.seconds,
-          is_billable: true,
-        });
+    if (current.taskId) {
+      const startMs = current.startTime ? new Date(current.startTime).getTime() : Date.now() - current.seconds * 1000;
+      const duration = Math.max(0, Math.floor((Date.now() - startMs) / 1000));
+      if (duration >= 1) {
+        setIsSaving(true);
+        try {
+          const startTime = current.startTime || new Date(startMs).toISOString();
+          const endTime = new Date().toISOString();
+          await api.post("/time-entries", {
+            task_id: current.taskId,
+            project_id: current.projectId || undefined,
+            description: current.description || `Logged via stopwatch for ${current.taskTitle}`,
+            start_time: startTime,
+            end_time: endTime,
+            duration_seconds: duration,
+            is_billable: true,
+          });
 
-        // Notify other components (e.g. TimeTrackerPage) to re-fetch
-        window.dispatchEvent(new CustomEvent("mx_timer_saved"));
-      } catch (err) {
-        console.error("Failed to automatically save time entry:", err);
-      } finally {
-        setIsSaving(false);
+          // Notify other components (e.g. TimeTrackerPage) to re-fetch
+          window.dispatchEvent(new CustomEvent("mx_timer_saved"));
+        } catch (err) {
+          console.error("Failed to automatically save time entry:", err);
+        } finally {
+          setIsSaving(false);
+        }
       }
     }
 
@@ -464,25 +500,19 @@ export default function GlobalTimerBar() {
         </div>
 
         <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-          <button
-            onClick={handlePlayClick}
-            className="finance-button-secondary"
-            style={{
-              padding: "5px 8px",
-              color: timerState.isRunning ? "var(--accent-amber)" : "var(--accent-emerald)",
-            }}
-            title={
-              timerState.isRunning
-                ? "Pause timer"
-                : timerState.taskId && timerState.seconds > 0
-                ? "Resume timer"
-                : "Start timer"
-            }
-          >
-            {timerState.isRunning ? <Pause size={13} /> : <Play size={13} />}
-          </button>
-
-          {timerState.seconds > 0 && (
+          {!timerState.isRunning ? (
+            <button
+              onClick={openStartModal}
+              className="finance-button-secondary"
+              style={{
+                padding: "5px 8px",
+                color: "var(--accent-emerald)",
+              }}
+              title="Start timer"
+            >
+              <Play size={13} />
+            </button>
+          ) : (
             <button
               onClick={stopTimer}
               disabled={isSaving}
@@ -493,7 +523,7 @@ export default function GlobalTimerBar() {
                 opacity: isSaving ? 0.6 : 1,
                 cursor: isSaving ? "wait" : "pointer",
               }}
-              title={timerState.taskId ? "Stop & Save time entry to task" : "Stop & Reset timer"}
+              title={timerState.taskId ? "Stop & Save time entry to task" : "Stop timer"}
             >
               <Square size={13} />
             </button>
