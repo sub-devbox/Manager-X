@@ -176,6 +176,37 @@ PROJECT_NAME="Manager X"
 
 ---
 
+### 🐳 Running with Docker (Containerized Setup)
+
+Manager-X is fully Docker-ready with a multi-stage production Next.js frontend, an optimized FastAPI backend with health checks, and persistent SQLite database mapping.
+
+#### One-Click Launch (Docker Compose)
+
+Make sure [Docker Desktop](https://www.docker.com/products/docker-desktop/) is running, then run:
+
+```bash
+docker compose up -d --build
+```
+
+Or on Windows, double-click **`docker-start.bat`** (or use option `4` in **`manager.bat`**).
+
+#### Services:
+- **Frontend Dashboard**: [http://localhost:3000](http://localhost:3000)
+- **Backend API & Docs**: [http://localhost:8000/docs](http://localhost:8000/docs)
+- **Health Check**: [http://localhost:8000/health](http://localhost:8000/health)
+
+#### Persistent Storage:
+- Your SQLite database and automatic backups are mounted from `./data` directly to `/app/data` inside the container.
+- Existing data in `data/manager_x.db` and `data/backups/` persists across container restarts, teardowns, and rebuilds.
+
+#### Stopping Containers:
+```bash
+docker compose down
+```
+Or double-click **`docker-stop.bat`** (or option `5` in **`manager.bat`**).
+
+---
+
 ### 4. Windows Desktop App (Time Tracker)
 
 Manager-X includes a standalone Windows 64-bit desktop client for native time tracking with floating mini-widget mode, system tray integration, and offline backend auto-launching.
