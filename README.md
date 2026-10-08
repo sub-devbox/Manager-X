@@ -87,6 +87,9 @@ Manager-X/
 │   │   ├── Services/          # BackendLauncher, ShutdownPrevention, ApiClient, Storage
 │   │   └── Models/            # Desktop DTOs & DPAPI credentials models
 │   └── publish/               # Standalone 64-bit single-file ManagerX.exe (ignored)
+├── docker-compose.yml         # Containerized production stack with health checks
+├── DEPLOYMENT_LINUX.md        # Guide for deploying with Docker on Linux servers
+├── DATABASE_RELATIONS.md      # Database schema, ER diagrams & foreign key cascade map
 ├── start.bat                  # One-click start for backend + frontend services
 ├── stop.bat                   # Cleanly terminate running processes
 ├── manager.bat                # Interactive console control menu

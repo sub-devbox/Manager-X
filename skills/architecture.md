@@ -126,6 +126,7 @@ Manager-X/
 ├── docker-start.bat                  # One-click Windows Docker launcher
 ├── docker-stop.bat                   # One-click Windows Docker stopper
 ├── DEPLOYMENT_LINUX.md               # Complete local Linux server deployment guide
+├── DATABASE_RELATIONS.md             # Database schema, ER diagrams & foreign key cascade map
 ├── start.bat                         # Local dev launcher (Windows)
 ├── stop.bat                          # Local dev stopper (Windows)
 ├── manager.bat                       # Interactive Windows control menu
