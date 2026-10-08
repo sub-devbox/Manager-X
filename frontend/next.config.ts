@@ -31,12 +31,11 @@ for (const envPath of candidateEnvPaths) {
   }
 }
 
-const backendPort = process.env.BACKEND_PORT || "8000";
-const backendUrl = process.env.BACKEND_URL || `http://127.0.0.1:${backendPort}`;
+const backendUrl = process.env.BACKEND_URL || "http://backend:8000";
 
 const nextConfig: NextConfig = {
   output: "standalone",
-  allowedDevOrigins: ["localhost", "127.0.0.1", "192.168.31.56"],
+  allowedDevOrigins: ["localhost", "127.0.0.1", "192.168.0.200"],
   async rewrites() {
     return [
       {
