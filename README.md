@@ -205,6 +205,9 @@ docker compose down
 ```
 Or double-click **`docker-stop.bat`** (or option `5` in **`manager.bat`**).
 
+#### Local Linux Server Deployment:
+For a detailed step-by-step guide to deploying on an Ubuntu, Debian, or Raspberry Pi home server with custom ports, firewall rules, and Nginx reverse proxy configuration, see [DEPLOYMENT_LINUX.md](DEPLOYMENT_LINUX.md).
+
 ---
 
 ### 4. Windows Desktop App (Time Tracker)
