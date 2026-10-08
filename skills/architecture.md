@@ -9,140 +9,132 @@
 
 ## 1. System Architecture Overview
 
-Manager X adopts a decoupled, local-first architecture combining a high-performance Python ASGI backend (FastAPI) and an interactive, clean, client-side rendering frontend (Next.js).
+Manager X adopts a decoupled, local-first architecture combining a high-performance Python ASGI backend (FastAPI), an interactive, clean Next.js frontend, a standalone Windows WPF desktop client, and production-ready Docker Compose orchestration.
 
 ```mermaid
 graph TD
-    subgraph Frontend ["Frontend (Next.js App Router - Port 3000)"]
-        UI[Design Tokenized UI & Screens]
-        TQ[TanStack React Query Cache]
-        WS_Client[WebSocket Client: Live Stopwatch]
-        Forms[Zod Validated Forms]
+    subgraph Clients ["Client Layer"]
+        Browser["Web Browser (Next.js - Port 3000)"]
+        Desktop["Windows Desktop App (.NET 8 WPF - DPAPI)"]
     end
 
-    subgraph Backend ["Backend (FastAPI - Port 8000)"]
-        Router[FastAPI API Routers]
-        WS_Hub[WebSocket Hub: Active Timers]
-        Services[Domain Services & Calculators]
-        DepEngine[Depreciation Engine (SLM / WDV)]
-        ITREngine[ITR & Tax Computation Engine]
-        ConfigEngine[Zero-Hardcoding Settings Resolver]
-        ORM[SQLAlchemy 2.0 Async ORM]
+    subgraph DockerBridge ["Docker Bridge Network / Localhost"]
+        subgraph FrontendContainer ["Frontend Container (Next.js Standalone)"]
+            NextServer["Next.js Server (Port 3000)"]
+            UI["Design Tokenized UI & App Router"]
+            ProxyRewrite["API Proxy Rewrite (/api/* -> backend:8000)"]
+        end
+
+        subgraph BackendContainer ["Backend Container (FastAPI Python 3.11)"]
+            Router["FastAPI API Routers (/api/v1)"]
+            Security["Argon2id + JWT Auth + Rate Limiter"]
+            PDFGen["ReportLab PDF Generator (Invoices)"]
+            Services["Domain Services (Gateways, Clients, Tasks)"]
+            ORM["SQLAlchemy 2.0 Async (aiosqlite)"]
+        end
     end
 
-    subgraph Persistence ["Persistence Layer (Local Filesystem)"]
-        SQLite[(SQLite Database: manager_x.db with WAL)]
-        Backups[(Automated Daily DB Snapshots)]
-        Storage[(Invoices & Attachments: /storage)]
+    subgraph Persistence ["Persistence Layer (Host Filesystem: ./data)"]
+        SQLite[("SQLite DB: manager_x.db (WAL Mode)")]
+        Backups[("Automated Backups: ./data/backups/")]
     end
 
-    UI --> TQ
-    UI --> WS_Client
-    Forms --> TQ
-    TQ -->|HTTP REST /api/v1| Router
-    WS_Client <-->|ws://localhost:8000/ws| WS_Hub
+    Browser --> UI
+    UI --> NextServer
+    NextServer --> ProxyRewrite
+    ProxyRewrite -->|http://backend:8000| Router
+    Desktop -->|http://localhost:8000| Router
+    Router --> Security
     Router --> Services
-    Services --> DepEngine
-    Services --> ITREngine
-    Services --> ConfigEngine
+    Router --> PDFGen
     Services --> ORM
     ORM --> SQLite
     SQLite -.-> Backups
-    Services --> Storage
 ```
 
 ---
 
 ## 2. Directory Layout
 
-The workspace is organized as a clean monorepo with distinct separation between backend, frontend, documentation, and local data persistence.
+The workspace is organized as a clean monorepo with distinct separation between backend, frontend, desktop client, deployment artifacts, and local data persistence.
 
 ```
 Manager-X/
 ├── backend/
 │   ├── app/
-│   │   ├── api/
-│   │   │   ├── v1/
-│   │   │   │   ├── endpoints/
-│   │   │   │   │   ├── projects.py
-│   │   │   │   │   ├── tasks.py
-│   │   │   │   │   ├── time_tracker.py
-│   │   │   │   │   ├── invoices.py
-│   │   │   │   │   ├── finance.py
-│   │   │   │   │   ├── assets.py
-│   │   │   │   │   ├── itr.py
-│   │   │   │   │   ├── wealth.py
-│   │   │   │   │   └── settings.py
-│   │   │   │   └── router.py
-│   │   │   └── websockets/
-│   │   │       └── timer_ws.py
+│   │   ├── api/v1/
+│   │   │   ├── endpoints/
+│   │   │   │   ├── auth.py
+│   │   │   │   ├── clients.py
+│   │   │   │   ├── projects.py
+│   │   │   │   ├── tasks.py
+│   │   │   │   ├── time_entries.py
+│   │   │   │   ├── invoices.py
+│   │   │   │   ├── gateways.py
+│   │   │   │   └── settings.py
+│   │   │   └── router.py
 │   │   ├── core/
-│   │   │   ├── config.py             # Environment & path settings
-│   │   │   ├── database.py           # Async SQLite engine & sessionmaker
-│   │   │   └── security.py
+│   │   │   ├── config.py             # Configurable DATA_DIR, SECRET_KEY, CORS
+│   │   │   ├── cuid.py               # Standard CUID ID generator
+│   │   │   ├── database.py           # Async SQLite engine & WAL pragma
+│   │   │   └── security.py           # Argon2id + JWT + brute-force limiter
 │   │   ├── models/                   # SQLAlchemy declarative models
-│   │   │   ├── base.py
-│   │   │   ├── config_models.py      # Currencies, tax schemes, slabs
-│   │   │   ├── project_models.py
-│   │   │   ├── time_models.py
-│   │   │   ├── invoice_models.py
-│   │   │   ├── finance_models.py
-│   │   │   ├── asset_models.py
-│   │   │   ├── itr_models.py
-│   │   │   └── wealth_models.py
+│   │   │   ├── user_models.py
+│   │   │   ├── client_model.py
+│   │   │   ├── project_models.py     # Projects & Tasks (with checklists)
+│   │   │   ├── invoice_model.py      # Invoices & Line items
+│   │   │   ├── gateway_model.py      # Payment Gateways
+│   │   │   └── settings_models.py
 │   │   ├── schemas/                  # Pydantic v2 validation models
-│   │   │   ├── project_schemas.py
-│   │   │   ├── invoice_schemas.py
-│   │   │   ├── finance_schemas.py
-│   │   │   ├── itr_schemas.py
-│   │   │   └── wealth_schemas.py
-│   │   ├── services/                 # Domain business logic
-│   │   │   ├── invoice_generator.py  # PDF/HTML compilation
-│   │   │   ├── depreciation_calc.py  # SLM & WDV math
-│   │   │   ├── tax_calculator.py     # Old vs New Regime & 44ADA
-│   │   │   └── net_worth_aggregator.py
-│   │   └── main.py                   # ASGI application entrypoint
-│   ├── alembic/                      # Database migrations
-│   ├── requirements.txt
-│   └── .env.example
+│   │   ├── services/
+│   │   │   └── invoice_pdf.py        # ReportLab vector-sharp PDF engine
+│   │   └── main.py                   # FastAPI app with health checks & CORS
+│   ├── tests/                        # Comprehensive pytest async test suite
+│   ├── Dockerfile                    # Production lean Python 3.11 image
+│   ├── .dockerignore
+│   └── requirements.txt              # FastAPI, SQLAlchemy[asyncio], greenlet, etc.
 ├── frontend/
 │   ├── src/
 │   │   ├── app/                      # Next.js App Router pages
-│   │   │   ├── layout.tsx
 │   │   │   ├── page.tsx              # Executive Overview Dashboard
-│   │   │   ├── projects/
-│   │   │   ├── time-tracker/
-│   │   │   ├── invoices/
-│   │   │   ├── finance/
-│   │   │   ├── assets/
-│   │   │   ├── itr-helper/
-│   │   │   ├── wealth/
-│   │   │   └── settings/
-│   │   ├── components/               # Modular reusable UI widgets
-│   │   │   ├── ui/                   # Buttons, Modals, Cards, Tables, Inputs
-│   │   │   ├── layout/               # Header, Sidebar, GlobalTimerBar
-│   │   │   ├── charts/               # Recharts wrappers
-│   │   │   └── modules/              # Domain-specific components
+│   │   │   ├── clients/              # Client directory & billing terms
+│   │   │   ├── projects/             # Projects & tasks (tabular nested view)
+│   │   │   ├── time-tracker/         # Wall-clock timer & 12-hour AM/PM entries
+│   │   │   ├── invoices/             # Tabular invoices & PDF rendering
+│   │   │   ├── gateways/             # Payment gateways management
+│   │   │   └── settings/             # System settings modal
+│   │   ├── components/
+│   │   │   ├── layout/               # Header, Sidebar, AppShell, GlobalTimerBar
+│   │   │   └── modules/              # Modal forms & specialized tables
 │   │   ├── lib/
-│   │   │   ├── api-client.ts         # Axios/fetch typed API caller
-│   │   │   ├── query-client.ts       # TanStack Query config
-│   │   │   └── formatters.ts         # Currency & date formatters
-│   │   ├── styles/
-│   │   │   ├── globals.css           # Global tokens, reset, typography
-│   │   │   └── theme.css             # Light & Dark color definitions
-│   │   └── types/                    # Shared TypeScript interfaces
+│   │   │   ├── api-client.ts         # Typed fetch client with cookie auth
+│   │   │   └── query-client.ts
+│   │   └── types/
+│   ├── Dockerfile                    # Multi-stage standalone output runner
+│   ├── .dockerignore
 │   ├── package.json
-│   ├── tsconfig.json
-│   └── next.config.mjs
-├── data/                             # Local SQLite DB and backups (gitignored)
+│   └── next.config.ts                # Standalone output, dynamic backend rewrites
+├── desktop/
+│   └── ManagerX.Desktop/             # Standalone C# .NET 8 WPF Desktop Client
+│       ├── Views/                    # TrackerView, LoginView, BackendSetupView
+│       ├── Services/                 # Win32 ShutdownBlocker, DPAPI, Launcher
+│       └── ManagerX.Desktop.csproj
+├── data/                             # Host-mounted SQLite DB (gitignored)
 │   ├── manager_x.db
 │   └── backups/
-├── storage/                          # Generated PDFs and receipts
-├── skills/
-│   ├── product.md
-│   ├── prd.md
-│   ├── architecture.md
-│   └── memory.md
+├── docker-compose.yml                # Production orchestration with health checks
+├── docker-start.bat                  # One-click Windows Docker launcher
+├── docker-stop.bat                   # One-click Windows Docker stopper
+├── DEPLOYMENT_LINUX.md               # Complete local Linux server deployment guide
+├── start.bat                         # Local dev launcher (Windows)
+├── stop.bat                          # Local dev stopper (Windows)
+├── manager.bat                       # Interactive Windows control menu
+├── .env.example                      # Dynamic port & environment configuration
+└── skills/
+    ├── product.md
+    ├── prd.md
+    ├── architecture.md
+    └── memory.md
 ```
 
 ---
@@ -253,6 +245,7 @@ CREATE TABLE tasks (
     status TEXT NOT NULL,           -- 'backlog', 'in_progress', 'review', 'done'
     priority TEXT NOT NULL,         -- 'low', 'medium', 'high', 'urgent'
     estimated_hours REAL DEFAULT 0.0,
+    checklist JSON DEFAULT '[]',    -- Interactive sub-task checklist items
     due_date DATE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -272,6 +265,17 @@ CREATE TABLE time_entries (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE payment_gateways (
+    id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,             -- e.g. 'Razorpay', 'Stripe', 'Bank Wire'
+    gateway_type TEXT NOT NULL,     -- 'stripe', 'razorpay', 'paypal', 'bank_transfer', 'custom'
+    account_identifier TEXT,        -- Account ID, VPA, IBAN
+    instructions TEXT,              -- Formatted wire instructions injected into PDFs
+    currency_code TEXT REFERENCES currencies(code),
+    is_active BOOLEAN DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE invoices (
     id TEXT PRIMARY KEY,
     invoice_number TEXT UNIQUE NOT NULL, -- e.g. INV-2026-001
@@ -286,6 +290,11 @@ CREATE TABLE invoices (
     discount_amount REAL DEFAULT 0.0,
     total_amount REAL NOT NULL,
     paid_amount REAL DEFAULT 0.0,
+    received_amount_inr REAL,            -- Exact foreign exchange realization in INR
+    payment_date VARCHAR(20),            -- Execution date of recorded payment
+    is_reconciled BOOLEAN DEFAULT 0,
+    bank_transaction_id VARCHAR(64),
+    payment_gateway_id TEXT REFERENCES payment_gateways(id) ON DELETE SET NULL,
     notes TEXT,
     pdf_path TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP

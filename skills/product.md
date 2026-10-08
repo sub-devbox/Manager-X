@@ -62,14 +62,16 @@ It synthesizes seven traditionally fragmented domains into a single, cohesive, p
 - Custom priorities, tags, statuses, and custom metadata fields.
 
 ### Pillar 2: Time Tracking
-- Real-time stopwatch and manual timesheet entry.
+- Real-time stopwatch (wall-clock timestamp comparison) and manual timesheet entry.
 - Direct linking: Client -> Project -> Milestone -> Task.
 - Billable vs. non-billable designation with configurable default hourly rates per client/project.
+- Native Windows 64-bit companion desktop app with floating mini-widget (80% opacity), DPAPI security, and OS shutdown blocker.
 
-### Pillar 3: Invoice Generation
+### Pillar 3: Invoice Generation & Payment Gateways
 - One-click invoice generation from unbilled time entries and milestone deliverables.
-- Configurable invoice layouts, headers, client GSTIN/tax IDs, terms, payment instructions, and QR codes (UPI/Bank Details).
-- Multi-currency support with dynamic FX conversion rates.
+- Payment gateway directory (Razorpay, Stripe, PayPal, Wire Transfer) with auto-embedded invoice payment instructions.
+- High-performance server-side ReportLab PDF generation with agency branding and official paid stamps.
+- Multi-currency support with dynamic FX conversion, received INR payment tracking, and undo payment rollback.
 - Status workflow: `Draft` -> `Issued` -> `Partially Paid` -> `Paid` -> `Overdue` -> `Void`.
 
 ### Pillar 4: Finance Management
@@ -103,3 +105,4 @@ It synthesizes seven traditionally fragmented domains into a single, cohesive, p
    - Everything is user-editable via the Settings interface.
 3. **Local-First & Fast**: Zero lag, SQLite running in WAL (Write-Ahead Logging) mode, sub-50ms API response times.
 4. **Export & Portability**: 1-click full JSON/SQLite backup, CSV exports for all ledgers, PDF invoice generation.
+5. **Multi-Platform & Docker-Ready**: Deployable via Docker Compose on local Linux servers, homelabs, or local machines with host-volume SQLite persistence and dynamic port mapping, alongside native standalone Windows desktop operation.

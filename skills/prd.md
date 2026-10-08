@@ -42,34 +42,36 @@ Manager X provides an integrated operational and financial operating system for 
   - **Board Views**: Kanban Board, Grouped Table View, Milestone Timeline.
 
 ### 3.2 Module 2: Time Tracker (TT)
-*Purpose: Accurate billable and non-billable time capture tied to project deliverables.*
+*Purpose: Accurate billable and non-billable time capture tied to project deliverables across web and native desktop.*
 
 - **Functional Requirements:**
-  - **Live Timer**: One-click start/stop stopwatch bar accessible globally across the UI.
-  - **Manual Entry**: Backfill missing hours with start/end time or duration.
-  - **Project & Task Binding**: Each log must bind to a Project and optionally a specific Task.
+  - **Live Timer**: Wall-clock derived stopwatch (`startTime` comparison) to guarantee precision without drift or tab-suspension errors. Global sticky widget in web UI and floating mini-widget in desktop client.
+  - **Manual Entry**: Backfill missing logs via `ManualTimeModal` using decimal hours or duration with UTC timestamp awareness.
+  - **Time Formatting**: 12-hour AM/PM presentation across all tables with active task name and client badge.
+  - **Project & Task Binding**: Each log binds to a Project and optionally a specific Task.
   - **Billable Status**: Automatically inherit project/client billable rates with manual override capability per entry.
   - **Invoiced Flag**: Time entries are marked `unbilled` or `billed` (with linked `invoice_id`). Billed entries are locked against accidental modification or deletion.
-  - **Analytics**: Weekly/Monthly heatmaps, client hours distribution, and billable utilization percentage.
+  - **Native Companion Client**: Windows 64-bit WPF application with 80% opacity floating widget, DPAPI credential encryption, and Win32 `ShutdownBlockReasonCreate` shutdown protection.
 
-### 3.3 Module 3: Invoice Generator (IG)
-*Purpose: Convert time entries and milestone deliverables into professional, customizable invoices.*
+### 3.3 Module 3: Invoice Generator (IG) & Payment Gateways
+*Purpose: Convert unbilled hours and deliverables into professional invoices, generate pixel-perfect PDFs, and manage multi-currency payment reconciliation.*
 
 - **Functional Requirements:**
   - **Invoice Creation Wizard**:
-    - Select Client $\rightarrow$ Auto-populate pending unbilled time entries and unbilled milestones.
-    - Add custom line items (services, products, reimbursements).
-  - **Dynamic Tax Engine**:
-    - Configurable tax rules (e.g., GST 18%, IGST, CGST+SGST, VAT, or 0% Export with LUT).
-    - Multi-tax calculation support per line item or overall invoice.
-  - **Multi-Currency & Exchange Rates**:
-    - Invoice in client currency (USD, EUR, GBP, AUD, etc.) while recording base currency value (e.g., INR) via configurable exchange rate.
+    - Select Client $\rightarrow$ Auto-populate pending unbilled time entries and tasks.
+    - Add custom itemized line items, HSN/SAC codes, and discounts (fixed or percentage).
+    - Round-off adjustments and multi-currency billing (USD, EUR, GBP, AUD, CAD, INR).
+  - **Payment Gateways Directory**:
+    - Dedicated management interface (`/gateways`) supporting Stripe, Razorpay, PayPal, Bank Wire transfers, and custom accounts.
+    - Pre-formatted wire instructions automatically embedded in invoice details and generated PDFs.
+  - **Vector-Sharp PDF Engine**:
+    - High-performance, server-side PDF generation powered by **ReportLab** (`invoice_pdf.py`).
+    - Embeds agency branding, itemized table, payment gateway instructions, and official paid stamp when settled.
+  - **Payment Tracking & Undo Rollback**:
+    - Record foreign exchange realization (`received_amount_inr`), payment date, and transaction IDs.
+    - One-click **Undo Paid** rollback to revert status from Paid to Issued and restore pending balance.
   - **Invoice Status Machine**:
     - `Draft` $\rightarrow$ `Issued` $\rightarrow$ `Partially Paid` $\rightarrow$ `Paid` $\rightarrow$ `Overdue` $\rightarrow$ `Void`.
-  - **Output Generation**:
-    - Pixel-perfect HTML-to-PDF generation (embedded bank transfer details, UPI QR code, notes, and digital signature block).
-  - **Payment Tracking**:
-    - Record partial or full payments directly linked to the Finance Manager ledger.
 
 ### 3.4 Module 4: Finance Manager (FM)
 *Purpose: Comprehensive personal & professional cashflow management and ledger.*
